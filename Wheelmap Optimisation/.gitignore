@@ -1,0 +1,13 @@
+# all zip files
+# contains the changesets
+*.zip
+
+# all class files
+*.class
+
+# the jars
+lib/
+
+# docs you will find in the wiki
+doc/
+*.html
