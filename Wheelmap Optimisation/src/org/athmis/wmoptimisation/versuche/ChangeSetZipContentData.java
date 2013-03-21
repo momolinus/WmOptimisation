@@ -32,24 +32,19 @@ public class ChangeSetZipContentData {
 		return changes.size() + changeSets.size();
 	}
 
-	public String getAreasForR() {
+	public String getAreasAsCSV(String header) {
 		StringBuilder result;
-		int counter = 0;
-
 		result = new StringBuilder();
 
-		result.append("areas <- c(");
+		result.append(header);
+		result.append("\n");
+
 		Iterator<ChangeSet> chs = changeSets.values().iterator();
 		while (chs.hasNext()) {
-			result.append(chs.next().getArea());
+			result.append(String.format("%.12f", chs.next().getArea()));
 			if (chs.hasNext())
-				result.append(",");
-			counter++;
-			if (counter % 5 == 0)
 				result.append("\n");
 		}
-
-		result.append(")");
 
 		return result.toString();
 	}

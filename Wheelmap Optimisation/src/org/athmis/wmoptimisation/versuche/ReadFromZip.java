@@ -3,6 +3,8 @@
  */
 package org.athmis.wmoptimisation.versuche;
 
+import java.io.BufferedWriter;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Paths;
@@ -34,11 +36,17 @@ public class ReadFromZip {
 		BasicConfigurator.configure();
 		ChangeSetZipContentData changes;
 		String zipFileName;
-		zipFileName = "changesets.zip";
+		BufferedWriter output;
+
+		zipFileName = "changesets_wheelchair-6-2011-6-2012.zip";
 
 		try {
 			changes = readOsmChangeContent(zipFileName);
-			System.out.println(changes.getAreasForR());
+
+			output = new BufferedWriter(new FileWriter("wm_area_6-2011-6-2012.csv"));
+			output.write(changes.getAreasAsCSV("area"));
+			output.close();
+
 			LOGGER.info(changes.size() + " OsmChange objects extracted");
 		} catch (IOException e) {
 			LOGGER.error("error reading zip file '" + zipFileName + "'", e);
