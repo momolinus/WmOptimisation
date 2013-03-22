@@ -163,16 +163,16 @@ public class FetchChangeSets {
 		BasicConfigurator.configure();
 
 		try {
-			user = "roald-linus";
+			user = "olr";
 			develop = false;
 
 			changeSets = fetchChanges(user, new GregorianCalendar(2012, 11, 31),
-					new GregorianCalendar(2010, 0, 1));
+					new GregorianCalendar(2011, 0, 1));
 
 			LOGGER.info(changeSets.size() + " changesets fetched for " + user + " in "
 					+ (develop ? "DEVELOP" : "live") + " mode");
 
-			StoreChangeSets.storeWithContent(changeSets, "rl-2010-2012.zip", develop);
+			StoreChangeSets.storeWithContent(changeSets, "olr-2010-2012.zip", develop);
 
 		} catch (Exception e) {
 			e.printStackTrace();
