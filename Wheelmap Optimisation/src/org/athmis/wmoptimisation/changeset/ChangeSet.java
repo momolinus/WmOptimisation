@@ -44,6 +44,7 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import org.simpleframework.xml.Attribute;
 import org.simpleframework.xml.ElementList;
@@ -153,10 +154,45 @@ public class ChangeSet implements Comparable<ChangeSet> {
 	}
 
 	public Calendar getClosed() throws ParseException {
+		Calendar result = closedAt();
+		return result;
+	}
+
+	private Calendar closedAt() throws ParseException {
 		Calendar result = GregorianCalendar.getInstance();
 		Date closed = OSM_DATE_TO_JAVA.parse(closedAt);
 		result.setTime(closed);
 		return result;
+	}
+
+	private Calendar createdAt() throws ParseException {
+		Calendar result = GregorianCalendar.getInstance();
+		Date created = OSM_DATE_TO_JAVA.parse(createdAt);
+		result.setTime(created);
+		return result;
+	}
+
+	/**
+	 * Returns the open hours, decimal place is hours fraction, e.g. 0.5 means
+	 * 30 min.
+	 * 
+	 * @return the open hours of the changeset, maximum should be 24 h
+	 * @throws ParseException
+	 *             in case of syntax error in closed time or created time
+	 */
+	public double getOpenTimeInHours() throws ParseException {
+		double openTime;
+		long openTimeInMillis;
+
+		openTimeInMillis = closedAt().getTimeInMillis() - createdAt().getTimeInMillis();
+		openTime = TimeUnit.MILLISECONDS.toHours(openTimeInMillis);
+
+		// the tail less then 1 hour divided through 1 hour in ms (cast is o.k.,
+		// because openTime has no decimal place here)
+		openTime += ((openTimeInMillis - TimeUnit.HOURS.toMillis((long) openTime)))
+				/ (double) TimeUnit.HOURS.toMillis(1);
+
+		return openTime;
 	}
 
 	public String getClosedAt() {

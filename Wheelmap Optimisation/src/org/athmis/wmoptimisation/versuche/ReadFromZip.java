@@ -8,6 +8,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Paths;
+import java.text.ParseException;
 import java.util.Collections;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
@@ -38,17 +39,19 @@ public class ReadFromZip {
 		String zipFileName;
 		BufferedWriter output;
 
-		zipFileName = "changesets_wheelchair-6-2011-6-2012.zip";
+		zipFileName = "roald-linus-2012.zip";
 
 		try {
 			changes = readOsmChangeContent(zipFileName);
 
-			output = new BufferedWriter(new FileWriter("wm_area_6-2011-6-2012.csv"));
-			output.write(changes.getAreasAsCSV("area"));
+			output = new BufferedWriter(new FileWriter("rl_2012.csv"));
+			output.write(changes.asTable());
 			output.close();
 
 			LOGGER.info(changes.size() + " OsmChange objects extracted");
 		} catch (IOException e) {
+			LOGGER.error("error reading zip file '" + zipFileName + "'", e);
+		} catch (ParseException e) {
 			LOGGER.error("error reading zip file '" + zipFileName + "'", e);
 		}
 	}

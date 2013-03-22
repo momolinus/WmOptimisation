@@ -163,16 +163,16 @@ public class FetchChangeSets {
 		BasicConfigurator.configure();
 
 		try {
-			user = WHEELMAP_VISITOR;
+			user = "roald-linus";
 			develop = false;
 
-			changeSets = fetchChanges(user, new GregorianCalendar(2010, 12, 31),
+			changeSets = fetchChanges(user, new GregorianCalendar(2012, 11, 31),
 					new GregorianCalendar(2010, 0, 1));
 
 			LOGGER.info(changeSets.size() + " changesets fetched for " + user + " in "
 					+ (develop ? "DEVELOP" : "live") + " mode");
 
-			StoreChangeSets.storeWithContent(changeSets, "wheelmap_visitor-2010.zip", develop);
+			StoreChangeSets.storeWithContent(changeSets, "rl-2010-2012.zip", develop);
 
 		} catch (Exception e) {
 			e.printStackTrace();
