@@ -7,8 +7,10 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import org.athmis.wmoptimisation.changeset.Change;
 import org.athmis.wmoptimisation.changeset.ChangeSet;
 import org.athmis.wmoptimisation.changeset.OsmChange;
+import org.athmis.wmoptimisation.osmserver.OsmServer;
 
 public class ChangeSetZipContentData {
 	private List<OsmChange> changes;
@@ -29,8 +31,13 @@ public class ChangeSetZipContentData {
 		changes.add(changeContent);
 	}
 
-	public int size() {
-		return changes.size() + changeSets.size();
+	/**
+	 * Returns the number of changesets
+	 * 
+	 * @return number of changesets
+	 */
+	public int changeSetsSize() {
+		return changeSets.size();
 	}
 
 	public String getAreasAsCSV(String header) {
@@ -83,5 +90,17 @@ public class ChangeSetZipContentData {
 		}
 
 		return table.toString();
+	}
+
+	public List<Change> getAllChanges() {
+		List<Change> allChanges;
+		
+		allChanges = new ArrayList<>();
+		
+		for(OsmChange osmChange : changes){
+			allChanges.addAll(osmChange.getChanges());
+		}
+		
+		return allChanges;
 	}
 }

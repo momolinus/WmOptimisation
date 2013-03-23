@@ -48,7 +48,7 @@ public class ReadFromZip {
 			output.write(changes.asTable());
 			output.close();
 
-			LOGGER.info(changes.size() + " OsmChange objects extracted");
+			LOGGER.info(changes.changeSetsSize() + " OsmChange objects extracted");
 		} catch (IOException e) {
 			LOGGER.error("error reading zip file '" + zipFileName + "'", e);
 		} catch (ParseException e) {
