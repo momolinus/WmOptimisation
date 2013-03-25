@@ -50,6 +50,7 @@ public class SimpleChangeSetGenerator extends ChangeSetGenerator {
 				}
 			}
 		} catch (ParseException e) {
+			// XXX prüfen, wie die toString Implementierungen sind
 			throw new RuntimeException("can't read change: '" + change.toString() + "'", e);
 		}
 
