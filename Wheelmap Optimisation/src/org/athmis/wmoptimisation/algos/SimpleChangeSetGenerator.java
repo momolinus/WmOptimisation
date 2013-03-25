@@ -32,6 +32,7 @@ public class SimpleChangeSetGenerator extends ChangeSetGenerator {
 	protected void add(Change change, OsmServer osmServer, ChangeSetZipContentData optimizedDataSet) {
 		Calendar changeTime;
 		ChangeSet changeSet;
+
 		// TODO Eingabe-Parameter auf null prüfen
 
 		try {
