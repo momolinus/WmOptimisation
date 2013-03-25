@@ -1,8 +1,6 @@
 package org.athmis.wmoptimisation.changeset;
 
-import java.text.ParseException;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Collections;
 import java.util.List;
 
@@ -11,10 +9,10 @@ import org.simpleframework.xml.ElementList;
 import org.simpleframework.xml.Root;
 
 @Root(name = "node", strict = false)
-public class Node implements Change {
+public class Node {
 
-	public static Change getBerlin() {
-		Change result = new Node(121212, 52.515905, 13.378588, "2010-1-1T12:00:00Z", 1, true);
+	public static Node getBerlin() {
+		Node result = new Node(121212, 52.515905, 13.378588, "2010-1-1T12:00:00Z", 1, true);
 
 		return result;
 	}
@@ -63,22 +61,18 @@ public class Node implements Change {
 		this.user = "default constructor";
 	}
 
-	@Override
 	public long getChangeset() {
 		return changeset;
 	}
 
-	@Override
 	public long getId() {
 		return id;
 	}
 
-	@Override
 	public double getLat() {
 		return lat;
 	}
 
-	@Override
 	public double getLon() {
 		return lon;
 	}
@@ -92,12 +86,10 @@ public class Node implements Change {
 		return Collections.unmodifiableList(tags);
 	}
 
-	@Override
 	public String getTimestamp() {
 		return timestamp;
 	}
 
-	@Override
 	public String getUser() {
 		return user;
 	}
@@ -108,10 +100,5 @@ public class Node implements Change {
 
 	public boolean isVisible() {
 		return visible;
-	}
-
-	@Override
-	public Calendar getCreatedAt() throws ParseException {
-		return ChangeSetToolkit.osmToCal(timestamp);
 	}
 }

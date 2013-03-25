@@ -11,7 +11,7 @@ public class NodeAndApiTest {
 
 	@Test
 	public void testLong() {
-		Change node;
+		Node node;
 		Serializer serializer;
 		StringWriter stringWriter;
 

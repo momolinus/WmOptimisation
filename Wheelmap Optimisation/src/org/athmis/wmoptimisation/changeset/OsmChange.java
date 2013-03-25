@@ -1,7 +1,6 @@
 package org.athmis.wmoptimisation.changeset;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
@@ -20,6 +19,13 @@ import org.simpleframework.xml.Root;
 @Root(name = "osmChange", strict = false)
 public class OsmChange {
 
+	// "required=false" is important for empty changes or missing creations
+	@ElementList(entry = "create", inline = true, required = false)
+	private List<NodeContainer> created = new ArrayList<NodeContainer>();
+
+	@Attribute
+	private String generator;
+
 	/**
 	 * <strong>important note:</strong> this id is <strong>not</strong> returned
 	 * by OSM API, planned for using in database, but development of database
@@ -27,17 +33,13 @@ public class OsmChange {
 	 */
 	@Attribute(required = false)
 	private long id;
-	@Attribute
-	private double version;
-	@Attribute
-	private String generator;
 
-	// "required=false" is important for empty changes or missing creations
-	@ElementList(entry = "create", inline = true, required = false)
-	private List<NodeContainer> created = new ArrayList<NodeContainer>();
 	// "required=false" is important for empty changes or missing modifications
 	@ElementList(entry = "modify", inline = true, required = false)
 	private List<NodeContainer> modified = new ArrayList<NodeContainer>();
+
+	@Attribute
+	private double version;
 
 	public String getGenerator() {
 		return generator;
@@ -74,29 +76,5 @@ public class OsmChange {
 
 	public double getVersion() {
 		return version;
-	}
-
-	public Collection<Change> getChanges() {
-		Collection<Change> allChanges;
-
-		allChanges = new ArrayList<>();
-
-		for (NodeContainer container : created) {
-			if (container.getNode() != null)
-				allChanges.add(container.getNode());
-
-			if (container.getWay() != null)
-				allChanges.add(container.getWay());
-		}
-
-		for (NodeContainer container : modified) {
-			if (container.getNode() != null)
-				allChanges.add(container.getNode());
-
-			if (container.getWay() != null)
-				allChanges.add(container.getWay());
-		}
-
-		return allChanges;
 	}
 }

@@ -26,22 +26,22 @@ public class FetchChangeSetsTest {
 		changeSets = new HashMap<>();
 
 		cSet2009 = new ChangeSet();
-		cSet2009.createdAt = ChangeSetToolkit.OSM_DATE_TO_JAVA.format(new GregorianCalendar(2009, 0, 1)
+		cSet2009.createdAt = ChangeSet.OSM_DATE_TO_JAVA.format(new GregorianCalendar(2009, 0, 1)
 				.getTime());
 		cSet2009.id = 0;
 
 		cSet2010 = new ChangeSet();
-		cSet2010.createdAt = ChangeSetToolkit.OSM_DATE_TO_JAVA.format(new GregorianCalendar(2010, 0, 1)
+		cSet2010.createdAt = ChangeSet.OSM_DATE_TO_JAVA.format(new GregorianCalendar(2010, 0, 1)
 				.getTime());
 		cSet2010.id = 1;
 
 		cSet2011 = new ChangeSet();
-		cSet2011.createdAt = ChangeSetToolkit.OSM_DATE_TO_JAVA.format(new GregorianCalendar(2011, 0, 1)
+		cSet2011.createdAt = ChangeSet.OSM_DATE_TO_JAVA.format(new GregorianCalendar(2011, 0, 1)
 				.getTime());
 		cSet2011.id = 2;
 
 		cSet2012 = new ChangeSet();
-		cSet2012.createdAt = ChangeSetToolkit.OSM_DATE_TO_JAVA.format(new GregorianCalendar(2012, 0, 1)
+		cSet2012.createdAt = ChangeSet.OSM_DATE_TO_JAVA.format(new GregorianCalendar(2012, 0, 1)
 				.getTime());
 		cSet2012.id = 3;
 

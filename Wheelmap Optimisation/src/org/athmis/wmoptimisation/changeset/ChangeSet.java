@@ -35,7 +35,9 @@ Programm erhalten haben. Wenn nicht, siehe <http://www.gnu.org/licenses/>.
  */
 package org.athmis.wmoptimisation.changeset;
 
+import java.text.DateFormat;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
@@ -47,6 +49,7 @@ import java.util.concurrent.TimeUnit;
 import org.simpleframework.xml.Attribute;
 import org.simpleframework.xml.ElementList;
 import org.simpleframework.xml.Root;
+import org.simpleframework.xml.Transient;
 import org.simpleframework.xml.core.Commit;
 
 /**
@@ -70,6 +73,13 @@ import org.simpleframework.xml.core.Commit;
  */
 @Root(name = "changeset", strict = false)
 public class ChangeSet implements Comparable<ChangeSet> {
+
+	/**
+	 * format conversation of osm date format: "yyyy-MM-dd'T'HH:mm:ss'Z'"
+	 */
+	@Transient
+	public final static DateFormat OSM_DATE_TO_JAVA = new SimpleDateFormat(
+			"yyyy-MM-dd'T'HH:mm:ss'Z'");
 
 	@Attribute(required = false)
 	private double area;
@@ -120,23 +130,9 @@ public class ChangeSet implements Comparable<ChangeSet> {
 	}
 
 	/**
-	 * default constructor needed for simple framework
-	 */
-	public ChangeSet() {
-
-	}
-
-	public ChangeSet(String createdAt, long id, boolean open) {
-		super();
-		this.createdAt = createdAt;
-		this.id = id;
-		this.open = open;
-	}
-
-	/**
 	 * @throws IllegalArgumentException
 	 *             if one created date has wrong format
-	 * @see ChangeSetToolkit#OSM_DATE_TO_JAVA
+	 * @see ChangeSet#OSM_DATE_TO_JAVA
 	 */
 	@Override
 	public int compareTo(ChangeSet arg0) {
@@ -144,8 +140,8 @@ public class ChangeSet implements Comparable<ChangeSet> {
 		Date otherCreated;
 
 		try {
-			otherCreated = ChangeSetToolkit.OSM_DATE_TO_JAVA.parse(arg0.createdAt);
-			meCreated = ChangeSetToolkit.OSM_DATE_TO_JAVA.parse(createdAt);
+			otherCreated = OSM_DATE_TO_JAVA.parse(arg0.createdAt);
+			meCreated = OSM_DATE_TO_JAVA.parse(createdAt);
 		} catch (ParseException e) {
 			throw new IllegalArgumentException("created date has wrong format", e);
 		}
@@ -154,10 +150,6 @@ public class ChangeSet implements Comparable<ChangeSet> {
 	}
 
 	public double getArea() {
-
-		// note: no matter calculate the area always
-		calculateArea();
-
 		return area;
 	}
 
@@ -168,14 +160,14 @@ public class ChangeSet implements Comparable<ChangeSet> {
 
 	private Calendar closedAt() throws ParseException {
 		Calendar result = GregorianCalendar.getInstance();
-		Date closed = ChangeSetToolkit.OSM_DATE_TO_JAVA.parse(closedAt);
+		Date closed = OSM_DATE_TO_JAVA.parse(closedAt);
 		result.setTime(closed);
 		return result;
 	}
 
 	private Calendar createdAt() throws ParseException {
 		Calendar result = GregorianCalendar.getInstance();
-		Date created = ChangeSetToolkit.OSM_DATE_TO_JAVA.parse(createdAt);
+		Date created = OSM_DATE_TO_JAVA.parse(createdAt);
 		result.setTime(created);
 		return result;
 	}

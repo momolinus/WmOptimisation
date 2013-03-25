@@ -1,8 +1,6 @@
 package org.athmis.wmoptimisation.changeset;
 
-import java.text.ParseException;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
 
 import org.simpleframework.xml.Attribute;
@@ -10,7 +8,7 @@ import org.simpleframework.xml.ElementList;
 import org.simpleframework.xml.Root;
 
 @Root(name = "way", strict = false)
-public class Way implements Change {
+public class Way {
 
 	@Attribute
 	private long changeset;
@@ -40,12 +38,10 @@ public class Way implements Change {
 	@Attribute
 	private int version;
 
-	@Override
 	public long getChangeset() {
 		return changeset;
 	}
 
-	@Override
 	public long getId() {
 		return id;
 	}
@@ -58,7 +54,6 @@ public class Way implements Change {
 		return tags;
 	}
 
-	@Override
 	public String getTimestamp() {
 		return timestamp;
 	}
@@ -67,27 +62,11 @@ public class Way implements Change {
 		return uid;
 	}
 
-	@Override
 	public String getUser() {
 		return user;
 	}
 
 	public int getVersion() {
 		return version;
-	}
-
-	@Override
-	public double getLon() {
-		return 0;
-	}
-
-	@Override
-	public double getLat() {
-		return 0;
-	}
-
-	@Override
-	public Calendar getCreatedAt() throws ParseException {
-		return ChangeSetToolkit.osmToCal(timestamp);
 	}
 }
