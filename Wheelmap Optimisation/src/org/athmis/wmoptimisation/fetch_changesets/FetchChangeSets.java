@@ -3,8 +3,6 @@
  */
 package org.athmis.wmoptimisation.fetch_changesets;
 
-import static org.athmis.wmoptimisation.changeset.ChangeSet.OSM_DATE_TO_JAVA;
-
 import java.io.IOException;
 import java.net.URL;
 import java.text.ParseException;
@@ -19,6 +17,7 @@ import java.util.Map;
 import org.apache.log4j.BasicConfigurator;
 import org.apache.log4j.Logger;
 import org.athmis.wmoptimisation.changeset.ChangeSet;
+import org.athmis.wmoptimisation.changeset.ChangeSetToolkit;
 import org.athmis.wmoptimisation.changeset.OsmApiChangeSetsResult;
 import org.simpleframework.xml.Serializer;
 import org.simpleframework.xml.core.Persister;
@@ -141,7 +140,7 @@ public class FetchChangeSets {
 		Collections.sort(changeSetsList);
 		oldestSet = changeSetsList.get(0);
 		oldest = new GregorianCalendar();
-		oldest.setTime(OSM_DATE_TO_JAVA.parse(oldestSet.getCreatedAt()));
+		oldest.setTime(ChangeSetToolkit.OSM_DATE_TO_JAVA.parse(oldestSet.getCreatedAt()));
 
 		LOGGER.info(changeSetsList.size() + " changesets fetched, oldest one created at "
 				+ oldestSet.getCreatedAt());
@@ -204,7 +203,7 @@ public class FetchChangeSets {
 		OsmApiChangeSetsResult apiResult;
 
 		apiCall = String.format(getApiCallForClosedAfterGivenTime(develop), user,
-				OSM_DATE_TO_JAVA.format(createdDate.getTime()));
+				ChangeSetToolkit.OSM_DATE_TO_JAVA.format(createdDate.getTime()));
 
 		url = new URL(apiCall);
 
@@ -249,8 +248,8 @@ public class FetchChangeSets {
 
 		assert closed.before(created) : "closed date must be before created date, otherwise you don't have a time window";
 
-		createdT2 = OSM_DATE_TO_JAVA.format(created.getTime());
-		closedT1 = OSM_DATE_TO_JAVA.format(closed.getTime());
+		createdT2 = ChangeSetToolkit.OSM_DATE_TO_JAVA.format(created.getTime());
+		closedT1 = ChangeSetToolkit.OSM_DATE_TO_JAVA.format(closed.getTime());
 
 		apiCall = String.format(getApiCallForPeriod(develop), user, closedT1, createdT2);
 
