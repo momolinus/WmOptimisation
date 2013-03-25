@@ -94,13 +94,26 @@ public class ChangeSetZipContentData {
 
 	public List<Change> getAllChanges() {
 		List<Change> allChanges;
-		
+
 		allChanges = new ArrayList<>();
-		
-		for(OsmChange osmChange : changes){
+
+		for (OsmChange osmChange : changes) {
 			allChanges.addAll(osmChange.getChanges());
 		}
-		
+
 		return allChanges;
+	}
+
+	/**
+	 * Adds the given change to given changeset. Stores both objects. It Could
+	 * be, that given changeset is still stored, then it will not be stored
+	 * again as copy or so.
+	 * 
+	 * @param change
+	 *            stores this change
+	 * @param changeSet
+	 *            used for storing the change, stored also to this object
+	 */
+	public void addChangeForChangeSet(Change change, ChangeSet changeSet) {
 	}
 }
