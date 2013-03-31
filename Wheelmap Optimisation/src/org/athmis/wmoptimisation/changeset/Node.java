@@ -15,7 +15,6 @@ public class Node implements Change {
 
 	public static Change getBerlin() {
 		Change result = new Node(121212, 52.515905, 13.378588, "2010-1-1T12:00:00Z", 1, true);
-
 		return result;
 	}
 
@@ -113,5 +112,18 @@ public class Node implements Change {
 	@Override
 	public Calendar getCreatedAt() throws ParseException {
 		return ChangeSetToolkit.osmToCal(timestamp);
+	}
+
+	@Override
+	public int compareTo(Object other) {
+		Calendar meTimeStamp, otherTimeStamp;
+		try {
+			meTimeStamp = ChangeSetToolkit.osmToCal(timestamp);
+			otherTimeStamp = ChangeSetToolkit.osmToCal(((Node) other).timestamp);
+
+			return meTimeStamp.compareTo(otherTimeStamp);
+		} catch (ParseException pe) {
+			throw new RuntimeException("timestamp of this node is wrong initialized", pe);
+		}
 	}
 }

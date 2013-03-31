@@ -26,4 +26,10 @@ public class ChangeSetToolkit {
 		result.setTime(OSM_DATE_TO_JAVA.parse(dateString));
 		return result;
 	}
+
+	public static String calToOsm(Calendar date) {
+		String result;
+		result = OSM_DATE_TO_JAVA.format(date.getTime());
+		return result;
+	}
 }

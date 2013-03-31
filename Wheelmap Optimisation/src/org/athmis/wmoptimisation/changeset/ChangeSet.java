@@ -242,4 +242,20 @@ public class ChangeSet implements Comparable<ChangeSet> {
 	public boolean isOpen() {
 		return open;
 	}
+
+	public Calendar getCreated() throws ParseException {
+		Calendar result = createdAt();
+		return result;
+	}
+
+	/**
+	 * Closes the changeSet object at given time.
+	 * 
+	 * @param closingTime
+	 *            will became the closing time
+	 */
+	public void close(Calendar closingTime) {
+		open = false;
+		closedAt = ChangeSetToolkit.calToOsm(closingTime);
+	}
 }

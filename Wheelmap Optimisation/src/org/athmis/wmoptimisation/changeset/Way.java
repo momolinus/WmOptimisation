@@ -90,4 +90,17 @@ public class Way implements Change {
 	public Calendar getCreatedAt() throws ParseException {
 		return ChangeSetToolkit.osmToCal(timestamp);
 	}
+
+	@Override
+	public int compareTo(Object other) {
+		Calendar meTimeStamp, otherTimeStamp;
+		try {
+			meTimeStamp = ChangeSetToolkit.osmToCal(timestamp);
+			otherTimeStamp = ChangeSetToolkit.osmToCal(((Way) other).timestamp);
+
+			return meTimeStamp.compareTo(otherTimeStamp);
+		} catch (ParseException pe) {
+			throw new RuntimeException("timestamp of this way is wrong initialized", pe);
+		}
+	}
 }

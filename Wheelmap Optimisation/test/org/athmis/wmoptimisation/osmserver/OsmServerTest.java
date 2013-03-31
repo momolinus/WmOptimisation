@@ -2,6 +2,10 @@ package org.athmis.wmoptimisation.osmserver;
 
 import static org.junit.Assert.*;
 
+import java.text.ParseException;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
+
 import org.junit.Before;
 import org.junit.Test;
 
@@ -16,18 +20,34 @@ import org.junit.Test;
  */
 public class OsmServerTest {
 
+	private OsmServer osmServer;
+
 	@Before
 	public void setUp() throws Exception {
+		osmServer = new OsmServer();
 	}
 
+	/**
+	 * Test if server is closing a unused changeset after one hour ("time out").
+	 * 
+	 * @throws ParseException
+	 */
 	@Test
-	public void testCreateChangeSet() {
-		fail("Not yet implemented");
-	}
+	public void testOneHourClosingChangeSet() throws ParseException {
+		Calendar calendar;
+		Long changesetId;
 
-	@Test
-	public void testIsOpenFor() {
-		fail("Not yet implemented");
+		calendar = GregorianCalendar.getInstance();
+		calendar.set(2012, 4, 4, 10, 10);
+		changesetId = osmServer.createChangeSet(calendar);
+		assertNotNull("changeset creation failed", changesetId);
+
+		calendar.add(Calendar.MINUTE, 59);
+		assertTrue("changeset must be open", osmServer.isChangeSetOpen(changesetId, calendar));
+
+		// now 60 minutes later and no changes added
+		calendar.add(Calendar.MINUTE, 1);
+		assertFalse("changeset must be closed", osmServer.isChangeSetOpen(changesetId, calendar));
 	}
 
 }

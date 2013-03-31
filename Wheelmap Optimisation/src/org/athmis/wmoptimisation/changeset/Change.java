@@ -3,7 +3,7 @@ package org.athmis.wmoptimisation.changeset;
 import java.text.ParseException;
 import java.util.Calendar;
 
-public interface Change {
+public interface Change extends Comparable<Object> {
 	public abstract String getUser();
 
 	public abstract String getTimestamp();

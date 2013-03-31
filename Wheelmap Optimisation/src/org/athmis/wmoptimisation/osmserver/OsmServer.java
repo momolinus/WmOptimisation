@@ -1,9 +1,23 @@
 package org.athmis.wmoptimisation.osmserver;
 
-import java.awt.geom.Rectangle2D;
-import java.util.Calendar;
+import static org.athmis.wmoptimisation.changeset.ChangeSetToolkit.calToOsm;
+import static org.athmis.wmoptimisation.changeset.ChangeSetToolkit.osmToCal;
 
+import java.awt.geom.Rectangle2D;
+import java.text.ParseException;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.concurrent.TimeUnit;
+
+import org.athmis.wmoptimisation.changeset.Change;
 import org.athmis.wmoptimisation.changeset.ChangeSet;
+
+import com.google.common.collect.ArrayListMultimap;
+import com.google.common.collect.Multimap;
 
 /**
  * A OsmServer object simulates an <a
@@ -16,7 +30,14 @@ import org.athmis.wmoptimisation.changeset.ChangeSet;
  */
 public class OsmServer {
 
+	private Map<Long, ChangeSet> changeSets;
+	private Multimap<Long, Change> changes;
+	private long index;
+
 	public OsmServer() {
+		index = System.currentTimeMillis();
+		changeSets = new HashMap<>();
+		changes = ArrayListMultimap.create();
 	}
 
 	/**
@@ -29,7 +50,7 @@ public class OsmServer {
 	 * @return <code>true</code> if changeset was open, <code>false</code> if
 	 *         changeset still was closed.
 	 */
-	public boolean closeChangeSet(Integer id, Calendar closeTime) {
+	public boolean closeChangeSet(Long id, Calendar closeTime) {
 		return false;
 	}
 
@@ -41,8 +62,18 @@ public class OsmServer {
 	 *            must run in any thread
 	 * @return the unique (during one run) id of the changeset
 	 */
-	public Integer createChangeSet(Calendar creationTime) {
-		return null;
+	public Long createChangeSet(Calendar creationTime) {
+		ChangeSet changeSet;
+		Object result;
+
+		index++;
+		changeSet = new ChangeSet(calToOsm(creationTime), index, true);
+		result = changeSets.put(index, changeSet);
+
+		// POSTCONDITION
+		assert result == null : "can't add new changeset to list";
+
+		return Long.valueOf(index);
 	}
 
 	// XXX für eine ungültige id könnte man eine andere Exception nehmen
@@ -60,7 +91,7 @@ public class OsmServer {
 	 * @throws IllegalArgumentException
 	 *             in case of illegal bounding box or illegal id
 	 */
-	public boolean expandBoundingBox(Integer id, Rectangle2D boundingBox, Calendar now) {
+	public boolean expandBoundingBox(Long id, Rectangle2D boundingBox, Calendar now) {
 		return false;
 	}
 
@@ -72,10 +103,48 @@ public class OsmServer {
 	 * @param the
 	 *            actual time
 	 * @return <code>true</code> if the changeset ist open
+	 * @throws ParseException
 	 */
-	public boolean isChangeSetOpen(Integer id, Calendar now) {
-		return false;
+	public boolean isChangeSetOpen(Long id, Calendar now) throws ParseException {
+		if (!changeSets.containsKey(id)) {
+			throw new IllegalArgumentException("unknown changeset with 'id = " + String.valueOf(id)
+					+ "'");
+		}
+		checkForClosingChangesets(now);
 
+		return changeSets.get(id).isOpen();
+	}
+
+	private void checkForClosingChangesets(Calendar now) throws ParseException {
+		for (ChangeSet changeSet : changeSets.values()) {
+
+			if (changeSet.isOpen()) {
+
+				List<Change> changesForChangeSet;
+				long diff;
+
+				changesForChangeSet = new ArrayList<>(changes.get(changeSet.getId()));
+
+				if (changesForChangeSet.size() > 0) {
+					Calendar youngestChangeTime;
+					Change youngestChange;
+
+					Collections.sort(changesForChangeSet);
+					youngestChange = changesForChangeSet.get(changesForChangeSet.size() - 1);
+
+					youngestChangeTime = osmToCal(youngestChange.getTimestamp());
+					diff = now.getTimeInMillis() - youngestChangeTime.getTimeInMillis();
+
+				} else {
+					diff = now.getTimeInMillis() - changeSet.getCreated().getTimeInMillis();
+				}
+
+				if (TimeUnit.MILLISECONDS.toMinutes(diff) >= 60) {
+					now.add(Calendar.MINUTE, -1);
+					changeSet.close(now);
+				}
+			}
+		}
 	}
 
 	// TODO für welche Parameter ist die IllegalArgumentException sinnvoll?
@@ -83,11 +152,11 @@ public class OsmServer {
 	 * Returns the changeset with given id.
 	 * 
 	 * @param id
-	 *            the if of the changeset weich should be returned
+	 *            the if of the changeset which should be returned
 	 * @return the changeset with given id
 	 * @throws IllegalArgumentException
 	 */
-	public ChangeSet getChangeSet(Integer id) {
+	public ChangeSet getChangeSet(Long id) {
 		return null;
 	}
 }

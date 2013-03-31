@@ -22,7 +22,7 @@ import org.athmis.wmoptimisation.versuche.ChangeSetZipContentData;
  */
 public class SimpleChangeSetGenerator extends ChangeSetGenerator {
 
-	private Integer changeSetInUse;
+	private Long changeSetInUse;
 
 	/**
 	 * @throws IllegalArgumentException
@@ -59,5 +59,6 @@ public class SimpleChangeSetGenerator extends ChangeSetGenerator {
 
 		changeSet = osmServer.getChangeSet(changeSetInUse);
 		optimizedDataSet.addChangeForChangeSet(change, changeSet);
+
 	}
 }
