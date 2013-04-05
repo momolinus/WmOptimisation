@@ -8,6 +8,7 @@ import org.athmis.wmoptimisation.osmserver.OsmServer;
 import org.athmis.wmoptimisation.versuche.ChangeSetZipContentData;
 
 /**
+ * @author Marcus, Oliver
  * ChangeSetGenerator implementations are used for test of a changeset
  * generation algorithm. Architecture is <a
  * href="http://en.wikipedia.org/wiki/Template_method_pattern">Template method
