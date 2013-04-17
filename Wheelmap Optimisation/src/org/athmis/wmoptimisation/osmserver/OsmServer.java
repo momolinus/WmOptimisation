@@ -30,8 +30,18 @@ import com.google.common.collect.Multimap;
  */
 public class OsmServer {
 
+	/**
+	 * map with changesets, the key is the ID of the changeset stored as value
+	 */
 	private Map<Long, ChangeSet> changeSets;
+	/**
+	 * a multimap which contains all changes (as values) for a changeset (with
+	 * its ID as key of the multimap)
+	 */
 	private Multimap<Long, Change> changes;
+	/**
+	 * used for building an ID for changesets
+	 */
 	private long index;
 
 	public OsmServer() {
@@ -40,6 +50,7 @@ public class OsmServer {
 		changes = ArrayListMultimap.create();
 	}
 
+	// XXX ist die Exception hier überhaupt passend???
 	/**
 	 * Closes the changeset for given id.
 	 * 
@@ -49,9 +60,20 @@ public class OsmServer {
 	 *            the closing time
 	 * @return <code>true</code> if changeset was open, <code>false</code> if
 	 *         changeset still was closed.
+	 * 
+	 * @throws ParseException
 	 */
-	public boolean closeChangeSet(Long id, Calendar closeTime) {
-		return false;
+	public boolean closeChangeSet(Long id, Calendar closeTime) throws ParseException {
+		boolean wasOpenOnClosingTime;
+
+		checkForClosingChangesets(closeTime);
+		wasOpenOnClosingTime = changeSets.get(id).isOpen();
+
+		if (wasOpenOnClosingTime) {
+			changeSets.get(id).close(closeTime);
+		}
+
+		return wasOpenOnClosingTime;
 	}
 
 	/**
@@ -110,6 +132,7 @@ public class OsmServer {
 			throw new IllegalArgumentException("unknown changeset with 'id = " + String.valueOf(id)
 					+ "'");
 		}
+
 		checkForClosingChangesets(now);
 
 		return changeSets.get(id).isOpen();

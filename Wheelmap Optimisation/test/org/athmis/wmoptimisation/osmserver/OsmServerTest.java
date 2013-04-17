@@ -50,4 +50,32 @@ public class OsmServerTest {
 		assertFalse("changeset must be closed", osmServer.isChangeSetOpen(changesetId, calendar));
 	}
 
+	@Test
+	public void testClosingAnOpenChangeset() throws ParseException {
+		Calendar calendar;
+		Long changesetId;
+
+		calendar = GregorianCalendar.getInstance();
+		calendar.set(2012, 4, 4, 10, 10);
+		changesetId = osmServer.createChangeSet(calendar);
+		assertNotNull("changeset creation failed", changesetId);
+
+		calendar.add(Calendar.MINUTE, 59);
+		assertTrue("changeset was closed", osmServer.closeChangeSet(changesetId, calendar));
+	}
+
+	@Test
+	public void testClosingAnClosingChangeset() throws ParseException {
+		Calendar calendar;
+		Long changesetId;
+
+		calendar = GregorianCalendar.getInstance();
+		calendar.set(2012, 4, 4, 10, 10);
+		changesetId = osmServer.createChangeSet(calendar);
+		assertNotNull("changeset creation failed", changesetId);
+
+		calendar.add(Calendar.MINUTE, 60);
+		assertFalse("changeset still was open, but must be closed",
+				osmServer.closeChangeSet(changesetId, calendar));
+	}
 }
