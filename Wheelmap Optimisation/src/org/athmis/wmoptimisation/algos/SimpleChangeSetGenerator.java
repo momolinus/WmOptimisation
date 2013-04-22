@@ -59,6 +59,5 @@ public class SimpleChangeSetGenerator extends ChangeSetGenerator {
 
 		changeSet = osmServer.getChangeSet(changeSetInUse);
 		optimizedDataSet.addChangeForChangeSet(change, changeSet);
-
 	}
 }

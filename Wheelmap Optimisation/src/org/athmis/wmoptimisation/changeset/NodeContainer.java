@@ -36,4 +36,18 @@ public class NodeContainer {
 	public Way getWay() {
 		return way;
 	}
+
+	public void addChange(Change change) {
+
+		if (change instanceof Way) {
+			this.way = (Way) change;
+		} else if (change instanceof Node) {
+			this.node = (Node) change;
+		} else {
+			throw new IllegalArgumentException("can't add change '" + change.toString()
+					+ "' to this NodeContainer");
+		}
+
+		this.id = change.getId();
+	}
 }

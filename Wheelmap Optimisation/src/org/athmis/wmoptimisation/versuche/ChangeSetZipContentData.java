@@ -106,10 +106,28 @@ public class ChangeSetZipContentData {
 	 * again as copy or so.
 	 * 
 	 * @param change
-	 *            stores this change
+	 *            stores this new change
 	 * @param changeSet
 	 *            used for storing the change, stored also to this object
 	 */
 	public void addChangeForChangeSet(Change change, ChangeSet changeSet) {
+		long changesetId;
+		ChangeSet destChange;
+
+		changesetId = changeSet.getId();
+		if (changeSets.containsKey(Long.valueOf(changesetId))) {
+			destChange = changeSets.get(Long.valueOf(changesetId));
+		} else {
+			destChange = changeSet;
+			changeSets.put(Long.valueOf(destChange.getId()), destChange);
+		}
+
+		change.setChangeset(destChange.getId());
+
+		if (changes.size() == 0) {
+			changes.add(new OsmChange());
+		}
+
+		changes.get(changes.size() - 1).addChange(change);
 	}
 }

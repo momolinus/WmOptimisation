@@ -180,6 +180,6 @@ public class OsmServer {
 	 * @throws IllegalArgumentException
 	 */
 	public ChangeSet getChangeSet(Long id) {
-		return null;
+		return changeSets.get(id);
 	}
 }

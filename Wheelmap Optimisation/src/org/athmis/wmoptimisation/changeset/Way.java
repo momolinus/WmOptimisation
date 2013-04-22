@@ -103,4 +103,9 @@ public class Way implements Change {
 			throw new RuntimeException("timestamp of this way is wrong initialized", pe);
 		}
 	}
+
+	@Override
+	public void setChangeset(long changeSetId) {
+		this.changeset = changeSetId;
+	}
 }

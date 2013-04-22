@@ -63,7 +63,6 @@ public class ReadFromZip {
 
 		serializer = new Persister();
 		result = new ChangeSetZipContentData();
-		;
 
 		// note: ZipFile implements AutoCloseable
 		try (ZipFile changeSetsZip = new ZipFile(Paths.get(zipFileName).toFile(), ZipFile.OPEN_READ)) {

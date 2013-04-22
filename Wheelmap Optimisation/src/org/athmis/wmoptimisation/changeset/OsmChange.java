@@ -99,4 +99,14 @@ public class OsmChange {
 
 		return allChanges;
 	}
+
+	public void addChange(Change change) {
+		NodeContainer container;
+
+		container = new NodeContainer();
+		container.addChange(change);
+		
+		//FIXME muss noch richtig gemacht werden
+		modified.add(container);
+	}
 }

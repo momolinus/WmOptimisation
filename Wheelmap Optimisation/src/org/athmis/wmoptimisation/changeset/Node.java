@@ -126,4 +126,9 @@ public class Node implements Change {
 			throw new RuntimeException("timestamp of this node is wrong initialized", pe);
 		}
 	}
+
+	@Override
+	public void setChangeset(long changeSetId) {
+		this.changeset = changeSetId;
+	}
 }
