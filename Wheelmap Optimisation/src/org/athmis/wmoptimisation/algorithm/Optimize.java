@@ -31,25 +31,33 @@ Siehe die GNU General Public License für weitere Details.
 Sie sollten eine Kopie der GNU General Public License zusammen mit diesem
 Programm erhalten haben. Wenn nicht, siehe <http://www.gnu.org/licenses/>.
  */
-package org.athmis.wmoptimisation.changeset;
+package org.athmis.wmoptimisation.algorithm;
 
-import java.text.ParseException;
-import java.util.Calendar;
+import java.io.IOException;
 
-public interface Change extends Comparable<Object> {
-	public abstract String getUser();
+import org.apache.log4j.BasicConfigurator;
 
-	public abstract String getTimestamp();
+public class Optimize {
 
-	public abstract double getLon();
+	/**
+	 * @param args
+	 */
+	public static void main(String[] args) {
+		// configure Log4j
+		BasicConfigurator.configure();
+		
+		try {
+			ChangeSetGenerator generator;
+			ChangeSetZipContentData changesFromZip, optimizedChangeSet;
 
-	public abstract double getLat();
+			generator = new SimpleChangeSetGenerator();
+			changesFromZip = ChangeSetZipContentData.readOsmChangeContent("roald-linus-2010.zip");
+			optimizedChangeSet = generator.createOptimizedChangeSets(changesFromZip);
 
-	public abstract long getId();
-
-	public abstract long getChangeset();
-
-	public abstract void setChangeset(long changeSetId);
-
-	public abstract Calendar getCreatedAt() throws ParseException;
+			System.out.println(optimizedChangeSet.getAreasAsCSV("flaechen"));
+			System.out.println("... finished");
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
 }

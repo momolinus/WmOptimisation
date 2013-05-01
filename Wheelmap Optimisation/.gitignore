@@ -13,3 +13,4 @@ doc/
 
 # the areas
 *.csv
+/javadoc.xml

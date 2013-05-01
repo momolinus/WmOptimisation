@@ -1,5 +1,35 @@
-/**
- * created at 17.07.2012
+/*
+Copyright Marcus Bleil, Oliver Rudzik, Christoph Bünte 2012
+
+This file is part of Wheelmap Optimization.
+
+Wheelmap Optimization is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+Wheelmap Optimization is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with Athmis. If not, see <http://www.gnu.org/licenses/>.
+
+Diese Datei ist Teil von Wheelmap Optimization.
+
+Wheelmap Optimization ist Freie Software: Sie können es unter den Bedingungen
+der GNU General Public License, wie von der Free Software Foundation,
+Version 3 der Lizenz oder (nach Ihrer Option) jeder späteren
+veröffentlichten Version, weiterverbreiten und/oder modifizieren.
+
+Wheelmap Optimization wird in der Hoffnung, dass es nützlich sein wird, aber
+OHNE JEDE GEWÄHELEISTUNG, bereitgestellt; sogar ohne die implizite
+Gewährleistung der MARKTFÄHIGKEIT oder EIGNUNG FÜR EINEN BESTIMMTEN ZWECK.
+Siehe die GNU General Public License für weitere Details.
+
+Sie sollten eine Kopie der GNU General Public License zusammen mit diesem
+Programm erhalten haben. Wenn nicht, siehe <http://www.gnu.org/licenses/>.
  */
 package org.athmis.wmoptimisation.fetch_changesets;
 
@@ -23,8 +53,12 @@ import org.simpleframework.xml.Serializer;
 import org.simpleframework.xml.core.Persister;
 
 /**
- * A FetchChanges object fetches changesets for given date and osm user. Uses <a
- * href="http://wiki.openstreetmap.org/wiki/API_v0.6">OSM API v0.6</a>.
+ * The FetchChanges class (toolkit class) provides methods for fetching
+ * changesets for given date and osm user. Uses <a
+ * href="http://wiki.openstreetmap.org/wiki/API_v0.6">OSM API v0.6</a>, more
+ * detailed <a href=
+ * "http://wiki.openstreetmap.org/wiki/API_v0.6#Query:_GET_.2Fapi.2F0.6.2Fchangesets"
+ * >Query: GET /api/0.6/changesets</a>.
  */
 public class FetchChangeSets {
 
@@ -33,32 +67,50 @@ public class FetchChangeSets {
 	 */
 	public static final String WHEELMAP_VISITOR = "wheelmap_visitor";
 
-	/** The Constant API_RESPONSE_SERIALIZER. */
+	/**
+	 * the serializer used for serializing the OSM API response (which is in
+	 * XML) to the classes of this project
+	 */
 	private static final Serializer API_RESPONSE_SERIALIZER = new Persister();
 
-	/** The develop. */
+	/**
+	 * set to true, for using the test OSM API, set to false using the live-API
+	 */
 	private static boolean develop = true;
 
-	/** The Constant GET_CHANGE_SETS_CLOSED_AFTER. */
+	/**
+	 * the call for changeset, which closed after given time (live-API)
+	 */
 	private static final String GET_CHANGE_SETS_CLOSED_AFTER = "http://api.openstreetmap.org/"
 			+ "api/0.6/changesets?display_name=%s&time=%s&closed=true";
 
-	/** The Constant GET_CHANGE_SETS_CLOSED_AFTER_DEV. */
+	/**
+	 * the call for changeset, which closed after given time (test-API)
+	 */
 	private static final String GET_CHANGE_SETS_CLOSED_AFTER_DEV = "http://api06.dev.openstreetmap.org/"
 			+ "api/0.6/changesets?display_name=%s&time=%s&closed=true";
 
-	/** The Constant GET_CHANGE_SETS_FOR_TIME_PERIOD. */
+	/**
+	 * the call for changeset, which closed and created after given time
+	 * (live-API)
+	 */
 	private static final String GET_CHANGE_SETS_FOR_TIME_PERIOD = "http://api.openstreetmap.org/"
 			+ "api/0.6/changesets?display_name=%s&time=%s,%s&closed=true";
-
-	/** The Constant GET_CHANGE_SETS_FOR_TIME_TIME_PERIOD_DEV. */
+	/**
+	 * the call for changeset, which closed and created after given time
+	 * (live-API)
+	 */
 	private static final String GET_CHANGE_SETS_FOR_TIME_TIME_PERIOD_DEV = "http://api06.dev.openstreetmap.org/"
 			+ "api/0.6/changesets?display_name=%s&time=%s,%s&closed=true";
 
-	/** The Constant LOGGER. */
+	/**
+	 * a logger for test and develop purpose
+	 */
 	private static final Logger LOGGER = Logger.getLogger(FetchChangeSets.class);
 
-	/** The Constant TWO_DAYS_IN_HOURS. */
+	/**
+	 * constant for two days in hours
+	 */
 	private static final int TWO_DAYS_IN_HOURS = 48;
 
 	/**
@@ -149,10 +201,12 @@ public class FetchChangeSets {
 	}
 
 	/**
-	 * The main method.
+	 * an example for using methods of this class, storing is commented out,
+	 * more about storing you finde here:
+	 * {@linkplain StoreChangeSets#storeWithContentToFolder(Map, String, boolean)}
 	 * 
 	 * @param args
-	 *            the arguments
+	 *            not used
 	 */
 	public static void main(String[] args) {
 		Map<Long, ChangeSet> changeSets;
@@ -162,16 +216,30 @@ public class FetchChangeSets {
 		BasicConfigurator.configure();
 
 		try {
-			user = "olr";
+			// it's me :-), replace by your OSM account
+			user = "roald-linus";
+
+			// use the live-OSM-API, since May 2013 my live user works no more
+			// on the test API
 			develop = false;
 
-			changeSets = fetchChanges(user, new GregorianCalendar(2012, 11, 31),
+			// fetch the changesets in a given time period
+			// pay attention to the confusing month indexing set by the Java
+			// Calendar API
+			changeSets = fetchChanges(user, new GregorianCalendar(2011, 11, 31),
 					new GregorianCalendar(2011, 0, 1));
 
+			// print out some parameters of the fetch result
 			LOGGER.info(changeSets.size() + " changesets fetched for " + user + " in "
 					+ (develop ? "DEVELOP" : "live") + " mode");
 
-			StoreChangeSets.storeWithContent(changeSets, "olr-2010-2012.zip", develop);
+			// omit the storing, if you want to to store the result remove
+			// comments, but first take a look at JavaDoc of
+			// StoreChangeSets.storeWithContent(..) !!!
+
+			// StoreChangeSets.storeWithContent(changeSets,
+			// "changesets-2011.zip",
+			// develop);
 
 		} catch (Exception e) {
 			e.printStackTrace();

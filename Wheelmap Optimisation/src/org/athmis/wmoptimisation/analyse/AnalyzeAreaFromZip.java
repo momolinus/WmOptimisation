@@ -31,25 +31,49 @@ Siehe die GNU General Public License für weitere Details.
 Sie sollten eine Kopie der GNU General Public License zusammen mit diesem
 Programm erhalten haben. Wenn nicht, siehe <http://www.gnu.org/licenses/>.
  */
-package org.athmis.wmoptimisation.changeset;
+package org.athmis.wmoptimisation.analyse;
 
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.text.ParseException;
-import java.util.Calendar;
 
-public interface Change extends Comparable<Object> {
-	public abstract String getUser();
+import org.apache.log4j.BasicConfigurator;
+import org.apache.log4j.Logger;
+import org.athmis.wmoptimisation.algorithm.ChangeSetZipContentData;
 
-	public abstract String getTimestamp();
+/**
+ * @author Marcus
+ * 
+ */
+public class AnalyzeAreaFromZip {
 
-	public abstract double getLon();
+	static Logger LOGGER = Logger.getLogger(AnalyzeAreaFromZip.class);
 
-	public abstract double getLat();
+	/**
+	 * @param args
+	 */
+	public static void main(String[] args) {
+		// configure Log4j
+		BasicConfigurator.configure();
+		ChangeSetZipContentData changes;
+		String zipFileName;
+		BufferedWriter output;
 
-	public abstract long getId();
+		zipFileName = "wheelmap_visitor-2010-2012.zip";
 
-	public abstract long getChangeset();
+		try {
+			changes = ChangeSetZipContentData.readOsmChangeContent(zipFileName);
 
-	public abstract void setChangeset(long changeSetId);
+			output = new BufferedWriter(new FileWriter("wheelmap_visitor-2010-2012.csv"));
+			output.write(changes.asTable());
+			output.close();
 
-	public abstract Calendar getCreatedAt() throws ParseException;
+			LOGGER.info(changes.size() + " OsmChange objects extracted");
+		} catch (IOException e) {
+			LOGGER.error("error reading zip file '" + zipFileName + "'", e);
+		} catch (ParseException e) {
+			LOGGER.error("error reading zip file '" + zipFileName + "'", e);
+		}
+	}
 }

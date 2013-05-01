@@ -2,6 +2,12 @@ WmOptimisation
 ==============
 Projekt, um Generierung von Changesets zu optimieren
 
+Changelog:
+
+2013-5-1:
+updated from simple-xml-2.6.4.jar to simple-xml-2.7.jar
+
+
 Dependencies:
 
 fetch log4j-1.2.17.jar from

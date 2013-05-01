@@ -1,15 +1,18 @@
 setwd("C:/Users/Marcus/git/WmOptimisation/Wheelmap Optimisation")
 
-# read wheelmap_visitor's areas in 2010
-w2010 <- read.table(file = "wh_area_2010.csv", header=T, dec=",")
-rl2011 <- read.table(file = "rl_area_2011.csv", header=T, dec=",")
+#
+roald <- read.table(file = "rl-2010-2012.csv", header=T, dec=",", sep=";")
+wheel <- read.table(file = "wheelmap_visitor-2010-2012.csv", header=T, dec=",", sep=";")
 
-str(w2010)
-names(w2010)
-w2010.area <- w2010$area[w2010$area > 0]
-hist(w2010.area)
+str(roald)
+names(roald)
+roald.area <- roald$area[roald$area > 0]
+hist(roald.area)
+summary(roald.area)
 
-str(rl2011)
-names(rl2011)
-rl2011.area <- rl2011$area[rl2011$area > 0]
-boxplot(rl2011.area)
+
+str(wheel)
+names(wheel)
+wheel.area <- wheel$area[wheel$area > 0]
+boxplot(wheel.area)
+summary(wheel.area)
