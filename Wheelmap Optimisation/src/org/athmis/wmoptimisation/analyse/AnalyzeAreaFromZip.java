@@ -40,7 +40,7 @@ import java.text.ParseException;
 
 import org.apache.log4j.BasicConfigurator;
 import org.apache.log4j.Logger;
-import org.athmis.wmoptimisation.algorithm.ChangeSetZipContentData;
+import org.athmis.wmoptimisation.changeset.ChangeSetZipContentData;
 
 /**
  * @author Marcus
@@ -48,7 +48,7 @@ import org.athmis.wmoptimisation.algorithm.ChangeSetZipContentData;
  */
 public class AnalyzeAreaFromZip {
 
-	static Logger LOGGER = Logger.getLogger(AnalyzeAreaFromZip.class);
+	private final static Logger LOGGER = Logger.getLogger(AnalyzeAreaFromZip.class);
 
 	/**
 	 * @param args

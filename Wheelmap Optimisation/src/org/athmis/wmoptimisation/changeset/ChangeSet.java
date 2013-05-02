@@ -87,16 +87,16 @@ public class ChangeSet implements Comparable<ChangeSet> {
 	protected long id;
 
 	@Attribute(name = "max_lat", required = false)
-	private double maxLatitude;
+	private double maxLatitude = Double.MIN_VALUE;
 
 	@Attribute(name = "max_lon", required = false)
-	private double maxLongitude;
+	private double maxLongitude = Double.MIN_VALUE;
 
 	@Attribute(name = "min_lat", required = false)
-	private double minLatitude;
+	private double minLatitude = Double.MAX_VALUE;
 
 	@Attribute(name = "min_lon", required = false)
-	private double minLongitude;
+	private double minLongitude = Double.MAX_VALUE;
 
 	@Attribute(name = "open", required = false)
 	private boolean open;
@@ -255,5 +255,19 @@ public class ChangeSet implements Comparable<ChangeSet> {
 	public void close(Calendar closingTime) {
 		open = false;
 		closedAt = ChangeSetToolkit.calToOsm(closingTime);
+	}
+
+	public void updateArea(Change change) {
+		double lat, lon;
+
+		lat = change.getLat();
+		lon = change.getLon();
+
+		maxLatitude = Math.max(maxLatitude, lat);
+		minLatitude = Math.min(minLatitude, lat);
+
+		maxLongitude = Math.max(maxLongitude, lon);
+		minLongitude = Math.min(minLongitude, lon);
+
 	}
 }

@@ -9,7 +9,7 @@ names(roald)
 roald.area <- roald$area[roald$area > 0]
 hist(roald.area)
 summary(roald.area)
-
+str(roald.area)
 
 str(wheel)
 names(wheel)

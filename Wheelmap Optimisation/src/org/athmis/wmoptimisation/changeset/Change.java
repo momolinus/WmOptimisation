@@ -36,6 +36,13 @@ package org.athmis.wmoptimisation.changeset;
 import java.text.ParseException;
 import java.util.Calendar;
 
+/**
+ * Interface for changes.
+ * 
+ * @author Marcus Bleil<br>
+ *         http://www.marcusbleil.de
+ * 
+ */
 public interface Change extends Comparable<Object> {
 	public abstract String getUser();
 

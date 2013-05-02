@@ -37,6 +37,7 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 import org.athmis.wmoptimisation.changeset.Change;
+import org.athmis.wmoptimisation.changeset.ChangeSetZipContentData;
 import org.athmis.wmoptimisation.osmserver.OsmServer;
 
 /**

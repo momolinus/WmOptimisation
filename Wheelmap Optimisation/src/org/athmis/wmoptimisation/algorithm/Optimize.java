@@ -36,6 +36,7 @@ package org.athmis.wmoptimisation.algorithm;
 import java.io.IOException;
 
 import org.apache.log4j.BasicConfigurator;
+import org.athmis.wmoptimisation.changeset.ChangeSetZipContentData;
 
 public class Optimize {
 
@@ -45,13 +46,13 @@ public class Optimize {
 	public static void main(String[] args) {
 		// configure Log4j
 		BasicConfigurator.configure();
-		
+
 		try {
 			ChangeSetGenerator generator;
 			ChangeSetZipContentData changesFromZip, optimizedChangeSet;
 
 			generator = new SimpleChangeSetGenerator();
-			changesFromZip = ChangeSetZipContentData.readOsmChangeContent("roald-linus-2010.zip");
+			changesFromZip = ChangeSetZipContentData.readOsmChangeContent("olr-2010-2012.zip");
 			optimizedChangeSet = generator.createOptimizedChangeSets(changesFromZip);
 
 			System.out.println(optimizedChangeSet.getAreasAsCSV("flaechen"));

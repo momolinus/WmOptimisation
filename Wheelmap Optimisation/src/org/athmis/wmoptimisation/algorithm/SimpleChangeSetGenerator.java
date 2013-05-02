@@ -38,6 +38,7 @@ import java.util.Calendar;
 
 import org.athmis.wmoptimisation.changeset.Change;
 import org.athmis.wmoptimisation.changeset.ChangeSet;
+import org.athmis.wmoptimisation.changeset.ChangeSetZipContentData;
 import org.athmis.wmoptimisation.osmserver.OsmServer;
 
 /**
@@ -74,9 +75,7 @@ public class SimpleChangeSetGenerator extends ChangeSetGenerator {
 
 			// first run
 			if (changeSetInUse == null) {
-
 				changeSetInUse = osmServer.createChangeSet(changeTime);
-
 			} else {
 
 				if (!osmServer.isChangeSetOpen(changeSetInUse, changeTime)) {
