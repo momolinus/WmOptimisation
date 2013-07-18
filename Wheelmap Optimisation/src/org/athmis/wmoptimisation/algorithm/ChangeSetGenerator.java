@@ -80,6 +80,8 @@ public abstract class ChangeSetGenerator {
 			add(change, osmServer, optimizedDataSet);
 		}
 
+		optimizedDataSet.closeAllChangeSets();
+		
 		return optimizedDataSet;
 	}
 

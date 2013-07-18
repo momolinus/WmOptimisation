@@ -34,12 +34,14 @@ Programm erhalten haben. Wenn nicht, siehe <http://www.gnu.org/licenses/>.
 package org.athmis.wmoptimisation.algorithm;
 
 import java.io.IOException;
-import java.text.ParseException;
 
 import org.apache.log4j.BasicConfigurator;
+import org.apache.log4j.Logger;
 import org.athmis.wmoptimisation.changeset.ChangeSetZipContentData;
 
 public class Optimize {
+
+	private final static Logger LOGGER = Logger.getLogger(Optimize.class);
 
 	public static void run(String[] args) throws IOException {
 
@@ -50,17 +52,11 @@ public class Optimize {
 
 		changesFromZip = ChangeSetZipContentData.readOsmChangeContent("olr-2010-2012.zip");
 
+		LOGGER.info("try to optimize changes: " + changesFromZip.toString());
 		optimizedChangeSet = generator.createOptimizedChangeSets(changesFromZip);
+		LOGGER.info("optimized changes: " + optimizedChangeSet.toString());
 
-		System.out.println(optimizedChangeSet.getAreasAsCSV("flaechen"));
-		try {
-			System.out.println(optimizedChangeSet.asTable());
-		} catch (ParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		System.out.println("... finished");
-
+		LOGGER.info("finished");
 	}
 
 	public static void main(String[] args) {

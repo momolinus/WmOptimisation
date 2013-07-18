@@ -38,6 +38,7 @@ import java.io.InputStream;
 import java.nio.file.Paths;
 import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -203,7 +204,7 @@ public class ChangeSetZipContentData {
 	 *             in case of syntax error in date or time string of OSM raw
 	 *             data
 	 */
-	public String asTable() throws ParseException {
+	public String asTable() {
 		StringBuilder table;
 		table = new StringBuilder();
 
@@ -218,9 +219,21 @@ public class ChangeSetZipContentData {
 			table.append(";");
 			table.append(chSet.getUser());
 			table.append(";");
-			table.append(String.format("%tF", chSet.getClosed()));
+
+			if (chSet.isOpen()) {
+				Calendar future = Calendar.getInstance();
+				future.set(Calendar.YEAR, 2099);
+				table.append(String.format("%tF", future));
+			} else
+				table.append(String.format("%tF", chSet.getClosed()));
+
 			table.append(";");
-			table.append(String.format("%.12f", chSet.getOpenTimeInHours()));
+
+			if (chSet.isOpen()) {
+				table.append(String.format("%.12f", 100.0));
+			} else
+				table.append(String.format("%.12f", chSet.getOpenTimeInHours()));
+
 			table.append(";");
 			table.append(String.format("%.12f", chSet.getArea()));
 
@@ -269,5 +282,18 @@ public class ChangeSetZipContentData {
 
 	public int size() {
 		return changes.size() + changeSets.size();
+	}
+
+	@Override
+	public String toString() {
+		double meanArea = ChangeSetToolkit.meanArea(changeSets.values());
+
+		return "contains " + changeSets.entrySet().size() + " changesets with mean area = "
+				+ Double.toString(meanArea) + " and " + changes.size() + " changes";
+	}
+
+	public void closeAllChangeSets() {
+		// TODO Auto-generated method stub
+		
 	}
 }

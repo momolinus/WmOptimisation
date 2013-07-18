@@ -160,22 +160,45 @@ public class ChangeSet implements Comparable<ChangeSet> {
 		return area;
 	}
 
-	public Calendar getClosed() throws ParseException {
+	public Calendar getClosed() {
 		Calendar result = closedAt();
 		return result;
 	}
 
-	private Calendar closedAt() throws ParseException {
+	private Calendar closedAt() {
 		Calendar result = GregorianCalendar.getInstance();
-		Date closed = ChangeSetToolkit.OSM_DATE_TO_JAVA.parse(closedAt);
-		result.setTime(closed);
+
+		Date closed;
+		try {
+			if (closedAt == null)
+				throw new IllegalStateException("closedAt is null, id = " + String.valueOf(id)
+						+ ", user = " + String.valueOf(user));
+
+			closed = ChangeSetToolkit.OSM_DATE_TO_JAVA.parse(closedAt);
+			result.setTime(closed);
+		} catch (ParseException e) {
+			throw new IllegalStateException("error with parsing closed date "
+					+ String.valueOf(closedAt) + ", message: " + e.getLocalizedMessage(), e);
+		}
+
 		return result;
 	}
 
-	private Calendar createdAt() throws ParseException {
+	private Calendar createdAt() {
 		Calendar result = GregorianCalendar.getInstance();
-		Date created = ChangeSetToolkit.OSM_DATE_TO_JAVA.parse(createdAt);
-		result.setTime(created);
+		Date created;
+		try {
+			if (createdAt == null)
+				throw new IllegalStateException("createdAt is null, id = " + String.valueOf(id)
+						+ ", user = " + String.valueOf(user));
+
+			created = ChangeSetToolkit.OSM_DATE_TO_JAVA.parse(createdAt);
+			result.setTime(created);
+		} catch (ParseException e) {
+			throw new IllegalStateException("error with parsing closed date "
+					+ String.valueOf(closedAt) + ", message: " + e.getLocalizedMessage(), e);
+		}
+
 		return result;
 	}
 
@@ -184,10 +207,8 @@ public class ChangeSet implements Comparable<ChangeSet> {
 	 * 30 min.
 	 * 
 	 * @return the open hours of the changeset, maximum should be 24 h
-	 * @throws ParseException
-	 *             in case of syntax error in closed time or created time
 	 */
-	public double getOpenTimeInHours() throws ParseException {
+	public double getOpenTimeInHours() {
 		double openTime;
 		long openTimeInMillis;
 

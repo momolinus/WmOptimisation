@@ -37,16 +37,17 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Collection;
 import java.util.GregorianCalendar;
 
-import org.simpleframework.xml.Transient;
-
+/**
+ * Helper class to work with change sets.
+ */
 public class ChangeSetToolkit {
 
 	/**
 	 * format conversation of osm date format: "yyyy-MM-dd'T'HH:mm:ss'Z'"
 	 */
-	@Transient
 	public final static DateFormat OSM_DATE_TO_JAVA = new SimpleDateFormat(
 			"yyyy-MM-dd'T'HH:mm:ss'Z'");
 
@@ -64,5 +65,21 @@ public class ChangeSetToolkit {
 		String result;
 		result = OSM_DATE_TO_JAVA.format(date.getTime());
 		return result;
+	}
+
+	public static double meanArea(Collection<ChangeSet> changeSets) {
+		double result = 0;
+
+		if (changeSets == null)
+			throw new IllegalArgumentException("null as changeSets is nnot permitted");
+
+		if (changeSets.size() == 0)
+			return Double.NaN;
+
+		for (ChangeSet changeSet : changeSets) {
+			result += changeSet.getArea();
+		}
+
+		return result / changeSets.size();
 	}
 }

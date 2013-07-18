@@ -36,7 +36,6 @@ package org.athmis.wmoptimisation.analyse;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.text.ParseException;
 
 import org.apache.log4j.BasicConfigurator;
 import org.apache.log4j.Logger;
@@ -71,8 +70,6 @@ public class AnalyzeAreaFromZip {
 
 			LOGGER.info(changes.size() + " OsmChange objects extracted");
 		} catch (IOException e) {
-			LOGGER.error("error reading zip file '" + zipFileName + "'", e);
-		} catch (ParseException e) {
 			LOGGER.error("error reading zip file '" + zipFileName + "'", e);
 		}
 	}
