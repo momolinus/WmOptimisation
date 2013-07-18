@@ -49,14 +49,10 @@ import org.athmis.wmoptimisation.osmserver.OsmServer;
  * note: architecture is <a
  * href="http://en.wikipedia.org/wiki/Template_method_pattern">Template method
  * pattern</a>
- * 
- * @author Marcus Bleil<br>
- *         http://www.marcusbleil.de
- * 
  */
 public class SimpleChangeSetGenerator extends ChangeSetGenerator {
 
-	private Long changeSetInUse;
+	private Long idChangeSetInUse;
 
 	/**
 	 * @throws IllegalArgumentException
@@ -67,19 +63,22 @@ public class SimpleChangeSetGenerator extends ChangeSetGenerator {
 		Calendar changeTime;
 		ChangeSet changeSet;
 
-		// TODO Eingabe-Parameter auf null prüfen
+		if (change == null)
+			throw new IllegalArgumentException("null as Change is not permitted");
+		if (osmServer == null)
+			throw new IllegalArgumentException("null as OsmServer is not permitted");
 
 		try {
 
 			changeTime = change.getCreatedAt();
 
 			// first run
-			if (changeSetInUse == null) {
-				changeSetInUse = osmServer.createChangeSet(changeTime);
+			if (idChangeSetInUse == null) {
+				idChangeSetInUse = osmServer.createChangeSet(changeTime);
 			} else {
 
-				if (!osmServer.isChangeSetOpen(changeSetInUse, changeTime)) {
-					changeSetInUse = osmServer.createChangeSet(changeTime);
+				if (!osmServer.isChangeSetOpen(idChangeSetInUse, changeTime)) {
+					idChangeSetInUse = osmServer.createChangeSet(changeTime);
 				}
 			}
 		} catch (ParseException e) {
@@ -87,9 +86,11 @@ public class SimpleChangeSetGenerator extends ChangeSetGenerator {
 			throw new RuntimeException("can't read change: '" + change.toString() + "'", e);
 		}
 
-		assert changeSetInUse != null;
+		if (idChangeSetInUse == null)
+			throw new IllegalStateException("no change set created by osm server of type "
+					+ osmServer.getClass().getSimpleName());
 
-		changeSet = osmServer.getChangeSet(changeSetInUse);
+		changeSet = osmServer.getChangeSet(idChangeSetInUse);
 		optimizedDataSet.addChangeForChangeSet(change, changeSet);
 	}
 }

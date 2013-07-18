@@ -48,8 +48,9 @@ import org.simpleframework.xml.Root;
 import org.simpleframework.xml.core.Commit;
 
 /**
- * A ChangeSet object contains an OSM-Changeset, which is a container for single
- * changes on nodes or ways.
+ * A ChangeSet object is an OSM-Changeset, which is a container for changes on
+ * {@linkplain Node}s or {@linkplain Way}s. The nodes or ways has a reference to
+ * their changeset id as an attribute.
  * <p>
  * From <a
  * href="http://wiki.openstreetmap.org/wiki/API_v0.6#Changesets_2">OSM-Wiki</a>:
@@ -64,7 +65,7 @@ import org.simpleframework.xml.core.Commit;
  * </ul>
  * </blockquote>
  * 
- * @author Marcus
+ * 
  */
 @Root(name = "changeset", strict = false)
 public class ChangeSet implements Comparable<ChangeSet> {

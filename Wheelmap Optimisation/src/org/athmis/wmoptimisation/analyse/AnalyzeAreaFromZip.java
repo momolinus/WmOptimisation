@@ -43,7 +43,7 @@ import org.apache.log4j.Logger;
 import org.athmis.wmoptimisation.changeset.ChangeSetZipContentData;
 
 /**
- * @author Marcus
+ * 
  * 
  */
 public class AnalyzeAreaFromZip {

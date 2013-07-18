@@ -43,9 +43,18 @@ import org.simpleframework.xml.Attribute;
 import org.simpleframework.xml.ElementList;
 import org.simpleframework.xml.Root;
 
+/**
+ * A Node object stores a position and tags. It is the basic object in OSM
+ * database. Also it has reference to a {@linkplain ChangeSet} id.
+ */
 @Root(name = "node", strict = false)
 public class Node implements Change {
 
+	/**
+	 * Returns the center of Berlin, just for test purpose.
+	 * 
+	 * @return center of Berlin as a node
+	 */
 	public static Change getBerlin() {
 		Change result = new Node(121212, 52.515905, 13.378588, "2010-1-1T12:00:00Z", 1, true);
 		return result;
@@ -90,8 +99,6 @@ public class Node implements Change {
 		this.timestamp = timestamp;
 		this.version = version;
 		this.visible = visible;
-		// FIXME was ist das ???
-		this.visible = true;
 		this.user = "default constructor";
 	}
 

@@ -38,14 +38,15 @@ import org.simpleframework.xml.Element;
 import org.simpleframework.xml.Root;
 
 /**
- * A NodeContainer object stores one Node object. It has no representation in
- * OsmAPI, it is necessary for Simple-XML serialization framework.
+ * A NodeContainer object stores one {@linkplain Node} and one {@linkplain Way}
+ * object. It has no representation in OsmAPI, it is necessary for Simple-XML
+ * serialization framework.
  * 
- * @author Marcus
+ * 
  * 
  */
-// very important, because common users like me work on relations, but
-// whelmap_visitor should not do so
+// note: strict = false is very important, because common users work on
+// relations, but wheelmap_visitor should not do so
 @Root(strict = false)
 public class NodeContainer {
 

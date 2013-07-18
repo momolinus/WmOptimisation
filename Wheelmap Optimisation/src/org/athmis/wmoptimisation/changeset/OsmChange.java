@@ -44,11 +44,8 @@ import org.simpleframework.xml.Root;
 
 /**
  * An OsmChange object acts for the root element of OsmAPI response on changed
- * nodes. It contains two {@linkplain NodeContainer} collections, one for
- * changed {@linkplain Node}s and one for new created {@linkplain Node}s.
- * 
- * @author Marcus
- * 
+ * nodes and ways. It contains two {@linkplain NodeContainer} lists: one for
+ * changed OSM-objects and one for new created OSM-objects.
  */
 @Root(name = "osmChange", strict = false)
 public class OsmChange {

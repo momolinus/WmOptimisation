@@ -55,8 +55,8 @@ import org.simpleframework.xml.core.Persister;
  * A ChangeSetZipContentData contains changesets (as {@linkplain ChangeSet}
  * objects in a map) and their changes ({@linkplain OsmChange}).
  * 
- * @author Marcus Bleil<br>
- *         http://www.marcusbleil.de
+ * 
+ * 
  * 
  */
 public class ChangeSetZipContentData {
@@ -143,6 +143,10 @@ public class ChangeSetZipContentData {
 
 	private Map<Long, ChangeSet> changeSets;
 
+	/**
+	 * Constructs an empty ChangeSetZipContentData object. It has an empty map
+	 * for {@linkplain ChangeSet} and an empty list for {@linkplain OsmChange}.
+	 */
 	public ChangeSetZipContentData() {
 		changeSets = new HashMap<>();
 		changes = new ArrayList<>();
@@ -237,7 +241,6 @@ public class ChangeSetZipContentData {
 		}
 
 		return allChanges;
-
 	}
 
 	/**

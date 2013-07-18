@@ -39,7 +39,7 @@ import java.io.FileFilter;
 /**
  * Filter fetches all files which contain "_content" in the file name.
  *
- * @author Marcus Bleil, http://www.ing-bleil.de, 31.12.2012
+ *  Bleil, http://www.ing-bleil.de, 31.12.2012
  *
  */
 public final class ChangeSetContentFileFilter implements FileFilter {

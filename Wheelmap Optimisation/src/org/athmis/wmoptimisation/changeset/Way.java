@@ -42,14 +42,21 @@ import org.simpleframework.xml.Attribute;
 import org.simpleframework.xml.ElementList;
 import org.simpleframework.xml.Root;
 
+/**
+ * A Way object contains (among others) a list with references ({@linkplain Nd})
+ * to {@linkplain Node}s. Also it contains a list of{@linkplain Tag}s and a
+ * reference to its {@linkplain ChangeSet}s id.
+ * 
+ */
 @Root(name = "way", strict = false)
 public class Way implements Change {
 
 	@Attribute
 	private long changeset;
 
-	// you could have one node more times in the database, because it could be
-	// modified by different changesets
+	// note (if you store this object to a local database): you could have one
+	// way more times in the database, because it could be modified by different
+	// changesets
 	@Attribute
 	private long id;
 

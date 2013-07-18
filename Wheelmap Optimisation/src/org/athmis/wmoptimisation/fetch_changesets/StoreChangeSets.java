@@ -51,8 +51,8 @@ import org.simpleframework.xml.core.Persister;
 
 /**
  * 
- * @author Marcus Bleil<br>
- *         http://www.marcusbleil.de
+ *  
+ *         
  * 
  */
 public class StoreChangeSets {

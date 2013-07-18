@@ -58,7 +58,7 @@ import com.google.common.collect.Multimap;
  * methods has a parameter for calling time. This prevents, that any clock must
  * be running in any thread; in other words 'the time ist simulated', too.
  * 
- * @author Marcus
+ * 
  * 
  */
 public class OsmServer {

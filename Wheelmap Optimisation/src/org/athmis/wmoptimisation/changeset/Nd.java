@@ -36,6 +36,10 @@ package org.athmis.wmoptimisation.changeset;
 import org.simpleframework.xml.Attribute;
 import org.simpleframework.xml.Root;
 
+/**
+ * A Nd object contains the reference id to a {@link Node} object.
+ * 
+ */
 @Root(name = "nd")
 public class Nd {
 

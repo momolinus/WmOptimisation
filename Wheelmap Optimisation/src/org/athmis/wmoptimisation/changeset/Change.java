@@ -37,13 +37,15 @@ import java.text.ParseException;
 import java.util.Calendar;
 
 /**
- * Interface for changes.
+ * Interface for changes, could actually be {@linkplain Node}s or
+ * {@linkplain Way}s.
  * 
- * @author Marcus Bleil<br>
- *         http://www.marcusbleil.de
+ *  
+ *         
  * 
  */
 public interface Change extends Comparable<Object> {
+
 	public abstract String getUser();
 
 	public abstract String getTimestamp();

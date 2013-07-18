@@ -34,31 +34,49 @@ Programm erhalten haben. Wenn nicht, siehe <http://www.gnu.org/licenses/>.
 package org.athmis.wmoptimisation.algorithm;
 
 import java.io.IOException;
+import java.text.ParseException;
 
 import org.apache.log4j.BasicConfigurator;
 import org.athmis.wmoptimisation.changeset.ChangeSetZipContentData;
 
 public class Optimize {
 
-	/**
-	 * @param args
-	 */
+	public static void run(String[] args) throws IOException {
+
+		ChangeSetGenerator generator;
+		ChangeSetZipContentData changesFromZip, optimizedChangeSet;
+
+		generator = new SimpleChangeSetGenerator();
+
+		changesFromZip = ChangeSetZipContentData.readOsmChangeContent("olr-2010-2012.zip");
+
+		optimizedChangeSet = generator.createOptimizedChangeSets(changesFromZip);
+
+		System.out.println(optimizedChangeSet.getAreasAsCSV("flaechen"));
+		try {
+			System.out.println(optimizedChangeSet.asTable());
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		System.out.println("... finished");
+
+	}
+
 	public static void main(String[] args) {
 		// configure Log4j
 		BasicConfigurator.configure();
 
 		try {
-			ChangeSetGenerator generator;
-			ChangeSetZipContentData changesFromZip, optimizedChangeSet;
+			Optimize.run(args);
 
-			generator = new SimpleChangeSetGenerator();
-			changesFromZip = ChangeSetZipContentData.readOsmChangeContent("olr-2010-2012.zip");
-			optimizedChangeSet = generator.createOptimizedChangeSets(changesFromZip);
+			System.exit(1);
 
-			System.out.println(optimizedChangeSet.getAreasAsCSV("flaechen"));
-			System.out.println("... finished");
 		} catch (IOException e) {
+
 			e.printStackTrace();
+
+			System.exit(1);
 		}
 	}
 }

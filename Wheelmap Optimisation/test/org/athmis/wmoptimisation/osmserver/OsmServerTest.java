@@ -48,7 +48,7 @@ import org.junit.Test;
  * href="http://wiki.openstreetmap.org/wiki/API_v0.6">OSM API v0.6</a>), but
  * could be limited by the need of the optimization project.
  * 
- * @author Marcus
+ * 
  * 
  */
 public class OsmServerTest {
