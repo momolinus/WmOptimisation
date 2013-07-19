@@ -151,12 +151,13 @@ public class OsmServer {
 	}
 
 	/**
-	 * Returns the changeset open state.
+	 * Checks for closing task at given time and returns the changeset open
+	 * state.
 	 * 
 	 * @param id
 	 *            the id of changeset
 	 * @param the
-	 *            actual time
+	 *            actual time used for checking for closing time
 	 * @return <code>true</code> if the changeset ist open
 	 * @throws ParseException
 	 */
@@ -181,6 +182,7 @@ public class OsmServer {
 
 				changesForChangeSet = new ArrayList<>(changes.get(changeSet.getId()));
 
+				// change set contains changes
 				if (changesForChangeSet.size() > 0) {
 					Calendar youngestChangeTime;
 					Change youngestChange;
@@ -191,10 +193,14 @@ public class OsmServer {
 					youngestChangeTime = osmToCal(youngestChange.getTimestamp());
 					diff = now.getTimeInMillis() - youngestChangeTime.getTimeInMillis();
 
-				} else {
+				}
+
+				// change set is empty
+				else {
 					diff = now.getTimeInMillis() - changeSet.getCreated().getTimeInMillis();
 				}
 
+				// change set was'nt used since 60 minutes, so close now
 				if (TimeUnit.MILLISECONDS.toMinutes(diff) >= 60) {
 					now.add(Calendar.MINUTE, -1);
 					changeSet.close(now);

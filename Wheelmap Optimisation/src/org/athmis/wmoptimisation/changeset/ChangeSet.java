@@ -292,4 +292,18 @@ public class ChangeSet implements Comparable<ChangeSet> {
 		minLongitude = Math.min(minLongitude, lon);
 
 	}
+
+	// FIXME nur eine schnelle Lösung
+	public void closeNow() {
+		Calendar openTime;
+
+		try {
+			openTime = ChangeSetToolkit.osmToCal(createdAt);
+			openTime.add(Calendar.HOUR, 23);
+			openTime.add(Calendar.MINUTE, 59);
+		} catch (ParseException e) {
+			throw new IllegalArgumentException("can't convert creation time: " + createdAt, e);
+		}
+
+	}
 }

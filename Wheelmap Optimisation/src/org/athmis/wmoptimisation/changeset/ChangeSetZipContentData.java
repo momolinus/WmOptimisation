@@ -293,7 +293,14 @@ public class ChangeSetZipContentData {
 	}
 
 	public void closeAllChangeSets() {
-		// TODO Auto-generated method stub
+
+
+		for (ChangeSet changeSet : changeSets.values()){
+			if (changeSet.isOpen()){
+				changeSet.closeNow();
+			}
+		}
+		
 		
 	}
 }
