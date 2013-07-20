@@ -64,17 +64,21 @@ import com.google.common.collect.Multimap;
  * 
  */
 public class OsmServer {
-	@SuppressWarnings("unused")
+
 	private final static Logger LOGGER = Logger.getLogger(OsmServer.class);
+
 	/**
-	 * map with changesets, the key is the ID of the changeset stored as value
+	 * map with changesets, the key is the ID of the changeset (which itself is
+	 * stored as value)
 	 */
 	private Map<Long, ChangeSet> changeSets;
+
 	/**
 	 * a multimap which contains all changes (as values) for a changeset (with
 	 * its ID as key of the multimap)
 	 */
 	private Multimap<Long, Change> changes;
+
 	/**
 	 * used for building an ID for changesets
 	 */
@@ -160,7 +164,7 @@ public class OsmServer {
 	 * @param id
 	 *            the id of changeset
 	 * @param the
-	 *            actual time used for checking for closing time
+	 *            actual time used for checking and for closing time
 	 * @return <code>true</code> if the changeset ist open
 	 * @throws ParseException
 	 */
@@ -181,14 +185,16 @@ public class OsmServer {
 
 		for (ChangeSet changeSet : changeSets.values()) {
 
+			// only open change sets needs to be closed
 			if (changeSet.isOpen()) {
 
+				boolean closingNeeded = false;
 				List<Change> changesForChangeSet;
-				long diff;
+				long diff, age;
 
 				changesForChangeSet = new ArrayList<>(changes.get(changeSet.getId()));
 
-				// change set contains changes
+				// there are any changes in given change set
 				if (changesForChangeSet.size() > 0) {
 					Calendar youngestChangeTime;
 					Change youngestChange;
@@ -205,10 +211,18 @@ public class OsmServer {
 					diff = nowCopy.getTimeInMillis() - changeSet.getCreated().getTimeInMillis();
 				}
 
-				boolean closingNeeded;
+				LOGGER.trace("diff = " + TimeUnit.MILLISECONDS.toMinutes(diff));
 
+				// 60 min not in used
 				closingNeeded = TimeUnit.MILLISECONDS.toMinutes(diff) >= 60;
-				closingNeeded = closingNeeded || (TimeUnit.MILLISECONDS.toHours(diff) >= 24);
+
+				// older than 24 hours
+				age = nowCopy.getTimeInMillis() - changeSet.getCreated().getTimeInMillis();
+				LOGGER.trace("diff = " + TimeUnit.MILLISECONDS.toMinutes(age));
+				closingNeeded = closingNeeded || (TimeUnit.MILLISECONDS.toHours(age) >= 24);
+
+				// more than 50 000
+				closingNeeded = closingNeeded || changesForChangeSet.size() >= 50000;
 
 				if (closingNeeded) {
 					nowCopy.add(Calendar.MINUTE, -1);
@@ -238,6 +252,8 @@ public class OsmServer {
 	 * 
 	 * @param changesetId
 	 * @param node
+	 *            a deep copy will be taken after changeset id was set with
+	 *            given changesetId
 	 * @throws ParseException
 	 * @throws IllegalArgumentException
 	 *             if tried to store change to an closed change set
@@ -254,6 +270,6 @@ public class OsmServer {
 		}
 
 		node.setChangeset(changesetId);
-		changes.put(changesetId, node);
+		changes.put(changesetId, new Node(node));
 	}
 }

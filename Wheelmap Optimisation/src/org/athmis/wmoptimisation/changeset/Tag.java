@@ -50,6 +50,15 @@ public class Tag {
 	@Attribute(name = "v")
 	private String value;
 
+	public Tag() {
+	}
+
+	public Tag(Tag t) {
+		this.id = t.id;
+		this.key = t.key;
+		this.value = t.value;
+	}
+
 	public long getId() {
 		return id;
 	}

@@ -111,6 +111,26 @@ public class Node implements Change {
 		this.user = "default constructor";
 	}
 
+	/**
+	 * makes a deep copy
+	 * 
+	 * @param this will be a deep copy of given node
+	 */
+	public Node(Node node) {
+		this.id = node.id;
+		this.lat = node.lat;
+		this.lon = node.lon;
+		this.timestamp = node.timestamp;
+		this.version = node.version;
+		this.visible = node.visible;
+		this.user = node.user;
+		this.changeset = node.changeset;
+
+		for (Tag t : node.tags) {
+			tags.add(new Tag(t));
+		}
+	}
+
 	@Override
 	public long getChangeset() {
 		return changeset;

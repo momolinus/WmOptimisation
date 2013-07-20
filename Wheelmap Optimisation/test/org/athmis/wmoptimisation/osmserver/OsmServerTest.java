@@ -35,15 +35,22 @@ package org.athmis.wmoptimisation.osmserver;
 
 import static org.junit.Assert.*;
 
+import java.text.DateFormat;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.concurrent.TimeUnit;
 
+import org.apache.log4j.BasicConfigurator;
+import org.apache.log4j.Level;
+import org.apache.log4j.Logger;
 import org.athmis.wmoptimisation.changeset.ChangeSetToolkit;
 import org.athmis.wmoptimisation.changeset.Node;
 import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
+import org.junit.internal.runners.statements.Fail;
 
 /**
  * Tests for OsmServer class, used for Test Driven Development (TDD). The
@@ -57,6 +64,14 @@ import org.junit.Test;
 public class OsmServerTest {
 
 	private OsmServer osmServer;
+
+	private static final DateFormat formatter = new SimpleDateFormat();
+
+	@BeforeClass
+	public static void setUpTest() {
+		BasicConfigurator.configure();
+		Logger.getRootLogger().setLevel(Level.TRACE);
+	}
 
 	@Before
 	public void setUp() throws Exception {
@@ -122,7 +137,7 @@ public class OsmServerTest {
 
 		calendar = GregorianCalendar.getInstance();
 		calendar.set(2012, 4, 4, 0, 1);
-		startTime = (Calendar) calendar.clone();
+		startTime = (GregorianCalendar) calendar.clone();
 
 		changesetId = osmServer.createChangeSet(calendar);
 		assertNotNull("changeset creation failed", changesetId);
@@ -131,7 +146,8 @@ public class OsmServerTest {
 		int lat = 52, lon = 13;
 
 		long diff = 0;
-		for (int i = 0; i < 100; i++) {
+		int counterAgainstInfiniteLoop = 0;
+		while (true) {
 			boolean changeSetIsOpen;
 
 			calendar.add(Calendar.MINUTE, 30);
@@ -143,14 +159,28 @@ public class OsmServerTest {
 			assertTrue("diff != 0", diff != 0);
 
 			if (TimeUnit.MILLISECONDS.toHours(diff) >= 24) {
-				assertFalse("changeset must be closed (i = " + i + ")", changeSetIsOpen);
+				assertFalse(
+						"changeset must be closed , start: "
+								+ formatter.format(startTime.getTime()) + ", now: "
+								+ formatter.format(calendar.getTime()), changeSetIsOpen);
 				break;
 			} else {
-				assertTrue("changeset must be open (i = " + i + ")", changeSetIsOpen);
+				assertTrue(
+						"changeset must be open  , start: " + formatter.format(startTime.getTime())
+								+ ", now: " + formatter.format(calendar.getTime()), changeSetIsOpen);
 
 				String timeStamp = ChangeSetToolkit.calToOsm(calendar);
 				Node node = new Node(id++, lat++, lon++, timeStamp);
 				osmServer.storeChange(changesetId, node);
+			}
+
+			counterAgainstInfiniteLoop++;
+
+			if (counterAgainstInfiniteLoop > 1000) {
+				fail("after iterations " + counterAgainstInfiniteLoop
+						+ " changeset still not closed, start: "
+						+ formatter.format(startTime.getTime()) + ", now: "
+						+ formatter.format(calendar.getTime()));
 			}
 		}
 

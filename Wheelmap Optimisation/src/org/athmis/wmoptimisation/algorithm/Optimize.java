@@ -34,6 +34,7 @@ Programm erhalten haben. Wenn nicht, siehe <http://www.gnu.org/licenses/>.
 package org.athmis.wmoptimisation.algorithm;
 
 import java.io.IOException;
+import java.text.ParseException;
 
 import org.apache.log4j.BasicConfigurator;
 import org.apache.log4j.Logger;
@@ -43,25 +44,27 @@ public class Optimize {
 
 	private final static Logger LOGGER = Logger.getLogger(Optimize.class);
 
-	public static void run(String[] args) throws IOException {
+	public static void run(String[] args) throws IOException, ParseException {
 
 		ChangeSetGenerator generator;
 		ChangeSetZipContentData changesFromZip, optimizedChangeSet;
 
 		generator = new SimpleChangeSetGenerator();
 
-		// changesFromZip =
-		// ChangeSetZipContentData.readOsmChangeContent("olr-2010-2012.zip");
+		changesFromZip = ChangeSetZipContentData.readOsmChangeContent("olr-2010-2012.zip");
 
 		// changesFromZip =
 		// ChangeSetZipContentData.readOsmChangeContent("testdaten2.zip");
-		changesFromZip = ChangeSetZipContentData.readOsmChangeContent("wheelchair_3x_samples.zip");
+		// changesFromZip =
+		// ChangeSetZipContentData.readOsmChangeContent("wheelchair_3x_samples.zip");
 		// changesFromZip =
 		// ChangeSetZipContentData.readOsmChangeContent("einfach3x.zip");
 
 		LOGGER.info("try to optimize changes: " + changesFromZip.toString());
 
 		optimizedChangeSet = generator.createOptimizedChangeSets(changesFromZip);
+
+		LOGGER.info("optimized changes: " + optimizedChangeSet.verbose());
 
 		LOGGER.info("optimized changes: " + optimizedChangeSet.toString());
 
@@ -77,7 +80,7 @@ public class Optimize {
 
 			System.exit(1);
 
-		} catch (IOException e) {
+		} catch (IOException | ParseException e) {
 
 			e.printStackTrace();
 

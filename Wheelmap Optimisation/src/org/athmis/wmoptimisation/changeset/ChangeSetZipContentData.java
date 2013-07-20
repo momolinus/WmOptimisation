@@ -36,7 +36,9 @@ package org.athmis.wmoptimisation.changeset;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Paths;
+import java.text.DateFormat;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
@@ -44,6 +46,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 
@@ -63,6 +66,7 @@ import org.simpleframework.xml.core.Persister;
 public class ChangeSetZipContentData {
 
 	private final static Logger LOGGER = Logger.getLogger(ChangeSetZipContentData.class);
+	private static final DateFormat formatter = new SimpleDateFormat();
 
 	/**
 	 * Reads a zip file with changesets files and changeset content files
@@ -288,28 +292,46 @@ public class ChangeSetZipContentData {
 	public String toString() {
 		double meanArea;
 		int changesNum;
-		
+
 		meanArea = ChangeSetToolkit.meanArea(changeSets.values());
 
 		changesNum = 0;
-		for (OsmChange changesContent : changes){
+		for (OsmChange changesContent : changes) {
 			changesNum += changesContent.getNumberCreated();
 			changesNum += changesContent.getNumberModified();
 		}
-		
+
 		return "contains " + changeSets.entrySet().size() + " changesets with mean area = "
 				+ Double.toString(meanArea) + " and " + changesNum + " changes";
 	}
 
 	public void closeAllChangeSets() {
 
-
-		for (ChangeSet changeSet : changeSets.values()){
-			if (changeSet.isOpen()){
+		for (ChangeSet changeSet : changeSets.values()) {
+			if (changeSet.isOpen()) {
 				changeSet.closeNow();
 			}
 		}
-		
-		
+
+	}
+
+	public String verbose() throws ParseException {
+		StringBuilder result = new StringBuilder();
+
+		for (OsmChange c : changes) {
+			for (Change ch : c.getChanges()) {
+				result.append(ch.getChangeset() + "\t"
+						+ formatter.format(ch.getCreatedAt().getTime()));
+				result.append("\n");
+			}
+		}
+
+		for (Entry<Long, ChangeSet> changeset : changeSets.entrySet()) {
+			result.append(changeset.getKey().toString() + "\t"
+					+ formatter.format(changeset.getValue().getCreated().getTime()));
+			result.append("\n");
+		}
+
+		return result.toString();
 	}
 }
