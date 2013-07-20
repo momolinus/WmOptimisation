@@ -92,13 +92,22 @@ public class Node implements Change {
 	}
 
 	public Node(long id, double lat, double lon, String timestamp, int version, boolean visible) {
-		super();
 		this.id = id;
 		this.lat = lat;
 		this.lon = lon;
 		this.timestamp = timestamp;
 		this.version = version;
 		this.visible = visible;
+		this.user = "default constructor";
+	}
+
+	public Node(long id, double lat, double lon, String timestamp) {
+		this.id = id;
+		this.lat = lat;
+		this.lon = lon;
+		this.timestamp = timestamp;
+		this.version = 1;
+		this.visible = true;
 		this.user = "default constructor";
 	}
 
@@ -170,5 +179,13 @@ public class Node implements Change {
 	@Override
 	public void setChangeset(long changeSetId) {
 		this.changeset = changeSetId;
+	}
+
+	/**
+	 * @return all ways <code>false</code>
+	 */
+	@Override
+	public boolean isWay() {
+		return false;
 	}
 }

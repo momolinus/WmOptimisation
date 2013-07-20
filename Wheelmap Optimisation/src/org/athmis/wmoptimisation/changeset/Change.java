@@ -61,4 +61,6 @@ public interface Change extends Comparable<Object> {
 	public abstract void setChangeset(long changeSetId);
 
 	public abstract Calendar getCreatedAt() throws ParseException;
+
+	public abstract boolean isWay();
 }

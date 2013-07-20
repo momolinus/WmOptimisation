@@ -148,4 +148,12 @@ public class Way implements Change {
 	public void setChangeset(long changeSetId) {
 		this.changeset = changeSetId;
 	}
+
+	/**
+	 * @return all ways <code>true</code>
+	 */
+	@Override
+	public boolean isWay() {
+		return true;
+	}
 }

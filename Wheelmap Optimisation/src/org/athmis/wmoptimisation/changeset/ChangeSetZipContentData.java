@@ -286,10 +286,19 @@ public class ChangeSetZipContentData {
 
 	@Override
 	public String toString() {
-		double meanArea = ChangeSetToolkit.meanArea(changeSets.values());
+		double meanArea;
+		int changesNum;
+		
+		meanArea = ChangeSetToolkit.meanArea(changeSets.values());
 
+		changesNum = 0;
+		for (OsmChange changesContent : changes){
+			changesNum += changesContent.getNumberCreated();
+			changesNum += changesContent.getNumberModified();
+		}
+		
 		return "contains " + changeSets.entrySet().size() + " changesets with mean area = "
-				+ Double.toString(meanArea) + " and " + changes.size() + " changes";
+				+ Double.toString(meanArea) + " and " + changesNum + " changes";
 	}
 
 	public void closeAllChangeSets() {

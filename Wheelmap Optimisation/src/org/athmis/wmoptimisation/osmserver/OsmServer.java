@@ -46,8 +46,10 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
+import org.apache.log4j.Logger;
 import org.athmis.wmoptimisation.changeset.Change;
 import org.athmis.wmoptimisation.changeset.ChangeSet;
+import org.athmis.wmoptimisation.changeset.Node;
 
 import com.google.common.collect.ArrayListMultimap;
 import com.google.common.collect.Multimap;
@@ -62,7 +64,8 @@ import com.google.common.collect.Multimap;
  * 
  */
 public class OsmServer {
-
+	@SuppressWarnings("unused")
+	private final static Logger LOGGER = Logger.getLogger(OsmServer.class);
 	/**
 	 * map with changesets, the key is the ID of the changeset stored as value
 	 */
@@ -172,7 +175,10 @@ public class OsmServer {
 		return changeSets.get(id).isOpen();
 	}
 
-	private void checkForClosingChangesets(Calendar now) throws ParseException {
+	private void checkForClosingChangesets(final Calendar now) throws ParseException {
+
+		Calendar nowCopy = (Calendar) now.clone();
+
 		for (ChangeSet changeSet : changeSets.values()) {
 
 			if (changeSet.isOpen()) {
@@ -191,18 +197,21 @@ public class OsmServer {
 					youngestChange = changesForChangeSet.get(changesForChangeSet.size() - 1);
 
 					youngestChangeTime = osmToCal(youngestChange.getTimestamp());
-					diff = now.getTimeInMillis() - youngestChangeTime.getTimeInMillis();
-
+					diff = nowCopy.getTimeInMillis() - youngestChangeTime.getTimeInMillis();
 				}
 
 				// change set is empty
 				else {
-					diff = now.getTimeInMillis() - changeSet.getCreated().getTimeInMillis();
+					diff = nowCopy.getTimeInMillis() - changeSet.getCreated().getTimeInMillis();
 				}
 
-				// change set was'nt used since 60 minutes, so close now
-				if (TimeUnit.MILLISECONDS.toMinutes(diff) >= 60) {
-					now.add(Calendar.MINUTE, -1);
+				boolean closingNeeded;
+
+				closingNeeded = TimeUnit.MILLISECONDS.toMinutes(diff) >= 60;
+				closingNeeded = closingNeeded || (TimeUnit.MILLISECONDS.toHours(diff) >= 24);
+
+				if (closingNeeded) {
+					nowCopy.add(Calendar.MINUTE, -1);
 					changeSet.close(now);
 				}
 			}
@@ -220,5 +229,31 @@ public class OsmServer {
 	 */
 	public ChangeSet getChangeSet(Long id) {
 		return changeSets.get(id);
+	}
+
+	/**
+	 * "Stores the changeset", really it sets the changeset id of the change and
+	 * adds change to an internal map. Before call check with
+	 * {@linkplain #isChangeSetOpen(Long, Calendar)} if changeset ist open.
+	 * 
+	 * @param changesetId
+	 * @param node
+	 * @throws ParseException
+	 * @throws IllegalArgumentException
+	 *             if tried to store change to an closed change set
+	 */
+	public void storeChange(Long changesetId, Node node) throws ParseException {
+
+		// XXX prüfen auf node == null
+
+		checkForClosingChangesets(node.getCreatedAt());
+
+		if (!changeSets.get(changesetId).isOpen()) {
+			throw new IllegalArgumentException("can't store change " + node.getId()
+					+ " to closed changeset " + changesetId);
+		}
+
+		node.setChangeset(changesetId);
+		changes.put(changesetId, node);
 	}
 }

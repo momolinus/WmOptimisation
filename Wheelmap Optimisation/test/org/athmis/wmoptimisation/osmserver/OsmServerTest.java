@@ -38,7 +38,10 @@ import static org.junit.Assert.*;
 import java.text.ParseException;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
+import java.util.concurrent.TimeUnit;
 
+import org.athmis.wmoptimisation.changeset.ChangeSetToolkit;
+import org.athmis.wmoptimisation.changeset.Node;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -110,5 +113,51 @@ public class OsmServerTest {
 		calendar.add(Calendar.MINUTE, 60);
 		assertFalse("changeset still was open, but must be closed",
 				osmServer.closeChangeSet(changesetId, calendar));
+	}
+
+	@Test
+	public void testCloseAn24hOpenChangeSet() throws ParseException {
+		Calendar calendar, startTime;
+		Long changesetId;
+
+		calendar = GregorianCalendar.getInstance();
+		calendar.set(2012, 4, 4, 0, 1);
+		startTime = (Calendar) calendar.clone();
+
+		changesetId = osmServer.createChangeSet(calendar);
+		assertNotNull("changeset creation failed", changesetId);
+
+		long id = System.nanoTime();
+		int lat = 52, lon = 13;
+
+		long diff = 0;
+		for (int i = 0; i < 100; i++) {
+			boolean changeSetIsOpen;
+
+			calendar.add(Calendar.MINUTE, 30);
+
+			changeSetIsOpen = osmServer.isChangeSetOpen(changesetId, calendar);
+
+			diff = calendar.getTimeInMillis() - startTime.getTimeInMillis();
+
+			assertTrue("diff != 0", diff != 0);
+
+			if (TimeUnit.MILLISECONDS.toHours(diff) >= 24) {
+				assertFalse("changeset must be closed (i = " + i + ")", changeSetIsOpen);
+				break;
+			} else {
+				assertTrue("changeset must be open (i = " + i + ")", changeSetIsOpen);
+
+				String timeStamp = ChangeSetToolkit.calToOsm(calendar);
+				Node node = new Node(id++, lat++, lon++, timeStamp);
+				osmServer.storeChange(changesetId, node);
+			}
+		}
+
+		assertTrue("time diff must be >= 24 h, but " + TimeUnit.MILLISECONDS.toHours(diff) + " h",
+				TimeUnit.MILLISECONDS.toHours(diff) >= 24);
+		assertFalse("changeset must be closed now",
+				osmServer.isChangeSetOpen(changesetId, calendar));
+
 	}
 }

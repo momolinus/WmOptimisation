@@ -36,6 +36,7 @@ package org.athmis.wmoptimisation.algorithm;
 import java.text.ParseException;
 import java.util.Calendar;
 
+import org.apache.log4j.Logger;
 import org.athmis.wmoptimisation.changeset.Change;
 import org.athmis.wmoptimisation.changeset.ChangeSet;
 import org.athmis.wmoptimisation.changeset.ChangeSetZipContentData;
@@ -51,6 +52,8 @@ import org.athmis.wmoptimisation.osmserver.OsmServer;
  * pattern</a>
  */
 public class SimpleChangeSetGenerator extends ChangeSetGenerator {
+
+	private final static Logger LOGGER = Logger.getLogger(SimpleChangeSetGenerator.class);
 
 	private Long idChangeSetInUse;
 
@@ -76,8 +79,10 @@ public class SimpleChangeSetGenerator extends ChangeSetGenerator {
 			if (idChangeSetInUse == null) {
 				idChangeSetInUse = osmServer.createChangeSet(changeTime);
 			} else {
+				boolean isOpen;
 
-				if (!osmServer.isChangeSetOpen(idChangeSetInUse, changeTime)) {
+				isOpen = osmServer.isChangeSetOpen(idChangeSetInUse, changeTime);
+				if (!isOpen) {
 					idChangeSetInUse = osmServer.createChangeSet(changeTime);
 				}
 			}

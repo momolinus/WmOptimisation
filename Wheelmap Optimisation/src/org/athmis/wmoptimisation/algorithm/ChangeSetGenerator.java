@@ -41,8 +41,7 @@ import org.athmis.wmoptimisation.changeset.ChangeSetZipContentData;
 import org.athmis.wmoptimisation.osmserver.OsmServer;
 
 /**
- * , Oliver
- * ChangeSetGenerator implementations are used for test of a changeset
+ * , Oliver ChangeSetGenerator implementations are used for test of a changeset
  * generation algorithm. Architecture is <a
  * href="http://en.wikipedia.org/wiki/Template_method_pattern">Template method
  * pattern</a>.
@@ -67,7 +66,7 @@ public abstract class ChangeSetGenerator {
 	 */
 	public final ChangeSetZipContentData createOptimizedChangeSets(
 			ChangeSetZipContentData changesFromZip) {
-		
+
 		List<Change> changes;
 		ChangeSetZipContentData optimizedDataSet;
 
@@ -76,12 +75,19 @@ public abstract class ChangeSetGenerator {
 
 		LOGGER.info("use " + changes.size() + " changes for optimization");
 
+		int ways = 0;
 		for (Change change : changes) {
-			add(change, osmServer, optimizedDataSet);
+			if (change.isWay()) {
+				ways++;
+			} else {
+				add(change, osmServer, optimizedDataSet);
+			}
 		}
 
+		LOGGER.info(ways + " ways omitted");
+
 		optimizedDataSet.closeAllChangeSets();
-		
+
 		return optimizedDataSet;
 	}
 
