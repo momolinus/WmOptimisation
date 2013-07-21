@@ -50,14 +50,28 @@ public class ChangeSetToolkit {
 	 */
 	public final static DateFormat OSM_DATE_TO_JAVA = new SimpleDateFormat(
 			"yyyy-MM-dd'T'HH:mm:ss'Z'");
+	public static final DateFormat FORMATTER = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
 
 	private ChangeSetToolkit() {
 
 	}
 
-	public static Calendar osmToCal(String dateString) throws ParseException {
+	/**
+	 * 
+	 * @param dateString
+	 * @return
+	 * 
+	 * @throws IllegalArgumentException
+	 *             in case of error on parsing given date string
+	 */
+	public static Calendar osmToCal(String dateString) {
 		Calendar result = GregorianCalendar.getInstance();
-		result.setTime(OSM_DATE_TO_JAVA.parse(dateString));
+		try {
+			result.setTime(OSM_DATE_TO_JAVA.parse(dateString));
+		} catch (ParseException e) {
+			throw new IllegalArgumentException("can't convert " + String.valueOf(dateString)
+					+ " to Calendar object", e);
+		}
 		return result;
 	}
 

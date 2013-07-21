@@ -33,6 +33,7 @@ Programm erhalten haben. Wenn nicht, siehe <http://www.gnu.org/licenses/>.
  */
 package org.athmis.wmoptimisation.algorithm;
 
+import java.util.Collections;
 import java.util.List;
 
 import org.apache.log4j.Logger;
@@ -69,17 +70,29 @@ public abstract class ChangeSetGenerator {
 
 		List<Change> changes;
 		ChangeSetZipContentData optimizedDataSet;
+		long createdTimeMillis = Long.MIN_VALUE;
 
 		optimizedDataSet = new ChangeSetZipContentData();
 		changes = changesFromZip.getAllChanges();
+		Collections.sort(changes);
 
 		LOGGER.info("use " + changes.size() + " changes for optimization");
 
 		int ways = 0;
 		for (Change change : changes) {
+			// TODO ways sollten mal gehen; Problem: ways bestehen aus Nodes,
+			// die die meisten Infos enthalten
 			if (change.isWay()) {
 				ways++;
 			} else {
+
+				if (change.getCreatedAt().getTimeInMillis() < createdTimeMillis) {
+					throw new IllegalArgumentException("change " + change.verbose()
+							+ " is older than it's predecessor but must be younger");
+				}
+
+				createdTimeMillis = change.getCreatedAt().getTimeInMillis();
+
 				add(change, osmServer, optimizedDataSet);
 			}
 		}

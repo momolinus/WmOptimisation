@@ -47,6 +47,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.concurrent.TimeUnit;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 
@@ -179,24 +180,61 @@ public class ChangeSetZipContentData {
 	 */
 	public void addChangeForChangeSet(Change change, ChangeSet changeSet) {
 		long changesetId;
-		ChangeSet destChange;
+		ChangeSet changeSetForStoring;
 
 		changesetId = changeSet.getId();
 		if (changeSets.containsKey(Long.valueOf(changesetId))) {
-			destChange = changeSets.get(Long.valueOf(changesetId));
+			changeSetForStoring = changeSets.get(Long.valueOf(changesetId));
 		} else {
-			destChange = changeSet;
-			changeSets.put(Long.valueOf(destChange.getId()), destChange);
+			changeSetForStoring = changeSet;
+			changeSets.put(Long.valueOf(changeSetForStoring.getId()), changeSetForStoring);
 		}
 
-		change.setChangeset(destChange.getId());
-		destChange.updateArea(change);
+		validateStoring(change, changeSetForStoring);
+
+		change.setChangeset(changeSetForStoring.getId());
+		changeSetForStoring.updateArea(change);
 
 		if (changes.size() == 0) {
 			changes.add(new OsmChange());
 		}
 
 		changes.get(changes.size() - 1).addChange(change);
+	}
+
+	/**
+	 * Validates the storing.
+	 * 
+	 * @param change
+	 *            should be stored in given change set
+	 * @param changeSetForStoring
+	 *            should store given change
+	 * @throws IllegalArgumentException
+	 *             if changes could not be stored in given change set
+	 */
+	private void validateStoring(Change change, ChangeSet changeSetForStoring) {
+
+		// FIXME missing test for 50 000 changesets
+
+		Calendar changeCreated, changeSetCreated;
+		int ageDiff;
+
+		changeCreated = change.getCreatedAt();
+		changeSetCreated = changeSetForStoring.getCreated();
+
+		ageDiff = changeCreated.compareTo(changeSetCreated);
+
+		if (ageDiff < 0) {
+			throw new IllegalArgumentException("change " + change.verbose()
+					+ " is older than change set " + changeSetForStoring.verbose()
+					+ ", can't store change");
+		}
+
+		if (TimeUnit.MILLISECONDS.toHours(ageDiff) >= 24) {
+			throw new IllegalArgumentException("change " + change.verbose()
+					+ "is >= 24 younger than change set " + changeSetForStoring.verbose()
+					+ ", can't store change");
+		}
 	}
 
 	/**

@@ -51,7 +51,8 @@ public class Optimize {
 
 		generator = new SimpleChangeSetGenerator();
 
-		changesFromZip = ChangeSetZipContentData.readOsmChangeContent("olr-2010-2012.zip");
+		// changesFromZip =
+		// ChangeSetZipContentData.readOsmChangeContent("olr-2010-2012.zip");
 
 		// changesFromZip =
 		// ChangeSetZipContentData.readOsmChangeContent("testdaten2.zip");
@@ -60,11 +61,14 @@ public class Optimize {
 		// changesFromZip =
 		// ChangeSetZipContentData.readOsmChangeContent("einfach3x.zip");
 
+		changesFromZip = ChangeSetZipContentData
+				.readOsmChangeContent("wheelmap_visitor-2010-2012.zip");
+
 		LOGGER.info("try to optimize changes: " + changesFromZip.toString());
 
 		optimizedChangeSet = generator.createOptimizedChangeSets(changesFromZip);
 
-		LOGGER.info("optimized changes: " + optimizedChangeSet.verbose());
+		// LOGGER.info("optimized changes: " + optimizedChangeSet.verbose());
 
 		LOGGER.info("optimized changes: " + optimizedChangeSet.toString());
 

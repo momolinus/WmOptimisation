@@ -168,7 +168,7 @@ public class OsmServer {
 	 * @return <code>true</code> if the changeset ist open
 	 * @throws ParseException
 	 */
-	public boolean isChangeSetOpen(Long id, Calendar now) throws ParseException {
+	public boolean isChangeSetOpen(Long id, Calendar now) {
 		if (!changeSets.containsKey(id)) {
 			throw new IllegalArgumentException("unknown changeset with 'id = " + String.valueOf(id)
 					+ "'");
@@ -179,7 +179,7 @@ public class OsmServer {
 		return changeSets.get(id).isOpen();
 	}
 
-	private void checkForClosingChangesets(final Calendar now) throws ParseException {
+	private void checkForClosingChangesets(final Calendar now) {
 
 		Calendar nowCopy = (Calendar) now.clone();
 
@@ -254,11 +254,10 @@ public class OsmServer {
 	 * @param node
 	 *            a deep copy will be taken after changeset id was set with
 	 *            given changesetId
-	 * @throws ParseException
 	 * @throws IllegalArgumentException
 	 *             if tried to store change to an closed change set
 	 */
-	public void storeChange(Long changesetId, Node node) throws ParseException {
+	public void storeChange(Long changesetId, Node node) {
 
 		// XXX prüfen auf node == null
 

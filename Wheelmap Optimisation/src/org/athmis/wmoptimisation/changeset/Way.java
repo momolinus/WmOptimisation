@@ -33,7 +33,6 @@ Programm erhalten haben. Wenn nicht, siehe <http://www.gnu.org/licenses/>.
  */
 package org.athmis.wmoptimisation.changeset;
 
-import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -127,21 +126,13 @@ public class Way implements Change {
 	}
 
 	@Override
-	public Calendar getCreatedAt() throws ParseException {
+	public Calendar getCreatedAt() {
 		return ChangeSetToolkit.osmToCal(timestamp);
 	}
 
 	@Override
-	public int compareTo(Object other) {
-		Calendar meTimeStamp, otherTimeStamp;
-		try {
-			meTimeStamp = ChangeSetToolkit.osmToCal(timestamp);
-			otherTimeStamp = ChangeSetToolkit.osmToCal(((Way) other).timestamp);
-
-			return meTimeStamp.compareTo(otherTimeStamp);
-		} catch (ParseException pe) {
-			throw new RuntimeException("timestamp of this way is wrong initialized", pe);
-		}
+	public int compareTo(Change other) {
+		return getCreatedAt().compareTo(other.getCreatedAt());
 	}
 
 	@Override
@@ -155,5 +146,10 @@ public class Way implements Change {
 	@Override
 	public boolean isWay() {
 		return true;
+	}
+
+	@Override
+	public String verbose() {
+		return "implementation missing";
 	}
 }

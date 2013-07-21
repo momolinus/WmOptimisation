@@ -33,7 +33,6 @@ Programm erhalten haben. Wenn nicht, siehe <http://www.gnu.org/licenses/>.
  */
 package org.athmis.wmoptimisation.algorithm;
 
-import java.text.ParseException;
 import java.util.Calendar;
 
 import org.apache.log4j.Logger;
@@ -53,6 +52,7 @@ import org.athmis.wmoptimisation.osmserver.OsmServer;
  */
 public class SimpleChangeSetGenerator extends ChangeSetGenerator {
 
+	@SuppressWarnings("unused")
 	private final static Logger LOGGER = Logger.getLogger(SimpleChangeSetGenerator.class);
 
 	private Long idChangeSetInUse;
@@ -71,24 +71,18 @@ public class SimpleChangeSetGenerator extends ChangeSetGenerator {
 		if (osmServer == null)
 			throw new IllegalArgumentException("null as OsmServer is not permitted");
 
-		try {
+		changeTime = change.getCreatedAt();
 
-			changeTime = change.getCreatedAt();
+		// first run
+		if (idChangeSetInUse == null) {
+			idChangeSetInUse = osmServer.createChangeSet(changeTime);
+		} else {
+			boolean isOpen;
 
-			// first run
-			if (idChangeSetInUse == null) {
+			isOpen = osmServer.isChangeSetOpen(idChangeSetInUse, changeTime);
+			if (!isOpen) {
 				idChangeSetInUse = osmServer.createChangeSet(changeTime);
-			} else {
-				boolean isOpen;
-
-				isOpen = osmServer.isChangeSetOpen(idChangeSetInUse, changeTime);
-				if (!isOpen) {
-					idChangeSetInUse = osmServer.createChangeSet(changeTime);
-				}
 			}
-		} catch (ParseException e) {
-			// XXX prüfen, wie die toString Implementierungen sind
-			throw new RuntimeException("can't read change: '" + change.toString() + "'", e);
 		}
 
 		if (idChangeSetInUse == null)

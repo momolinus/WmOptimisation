@@ -33,18 +33,17 @@ Programm erhalten haben. Wenn nicht, siehe <http://www.gnu.org/licenses/>.
  */
 package org.athmis.wmoptimisation.changeset;
 
-import java.text.ParseException;
 import java.util.Calendar;
 
 /**
  * Interface for changes, could actually be {@linkplain Node}s or
  * {@linkplain Way}s.
  * 
- *  
- *         
+ * 
+ * 
  * 
  */
-public interface Change extends Comparable<Object> {
+public interface Change extends Comparable<Change> {
 
 	public abstract String getUser();
 
@@ -60,7 +59,9 @@ public interface Change extends Comparable<Object> {
 
 	public abstract void setChangeset(long changeSetId);
 
-	public abstract Calendar getCreatedAt() throws ParseException;
+	public abstract Calendar getCreatedAt();
 
 	public abstract boolean isWay();
+
+	public abstract String verbose();
 }

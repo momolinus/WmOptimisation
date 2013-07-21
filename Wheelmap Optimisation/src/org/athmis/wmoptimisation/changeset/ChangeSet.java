@@ -263,7 +263,7 @@ public class ChangeSet implements Comparable<ChangeSet> {
 		return open;
 	}
 
-	public Calendar getCreated() throws ParseException {
+	public Calendar getCreated() {
 		Calendar result = createdAt();
 		return result;
 	}
@@ -297,13 +297,17 @@ public class ChangeSet implements Comparable<ChangeSet> {
 	public void closeNow() {
 		Calendar openTime;
 
-		try {
-			openTime = ChangeSetToolkit.osmToCal(createdAt);
-			openTime.add(Calendar.HOUR, 23);
-			openTime.add(Calendar.MINUTE, 59);
-		} catch (ParseException e) {
-			throw new IllegalArgumentException("can't convert creation time: " + createdAt, e);
-		}
+		openTime = ChangeSetToolkit.osmToCal(createdAt);
+		openTime.add(Calendar.HOUR, 23);
+		openTime.add(Calendar.MINUTE, 59);
+	}
 
+	public String verbose() {
+		StringBuilder msg = new StringBuilder();
+
+		msg.append("ChangeSet [id = " + id + ", ");
+		msg.append("created = " + ChangeSetToolkit.FORMATTER.format(getCreated().getTime()) + "]");
+
+		return msg.toString();
 	}
 }

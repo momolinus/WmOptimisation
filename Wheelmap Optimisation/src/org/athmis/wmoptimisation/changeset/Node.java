@@ -33,7 +33,6 @@ Programm erhalten haben. Wenn nicht, siehe <http://www.gnu.org/licenses/>.
  */
 package org.athmis.wmoptimisation.changeset;
 
-import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
@@ -91,6 +90,7 @@ public class Node implements Change {
 	public Node() {
 	}
 
+	// TODO timestamp parsen und prüfen
 	public Node(long id, double lat, double lon, String timestamp, int version, boolean visible) {
 		this.id = id;
 		this.lat = lat;
@@ -101,6 +101,7 @@ public class Node implements Change {
 		this.user = "default constructor";
 	}
 
+	// TODO timestamp parsen und prüfen
 	public Node(long id, double lat, double lon, String timestamp) {
 		this.id = id;
 		this.lat = lat;
@@ -179,21 +180,13 @@ public class Node implements Change {
 	}
 
 	@Override
-	public Calendar getCreatedAt() throws ParseException {
+	public Calendar getCreatedAt() {
 		return ChangeSetToolkit.osmToCal(timestamp);
 	}
 
 	@Override
-	public int compareTo(Object other) {
-		Calendar meTimeStamp, otherTimeStamp;
-		try {
-			meTimeStamp = ChangeSetToolkit.osmToCal(timestamp);
-			otherTimeStamp = ChangeSetToolkit.osmToCal(((Node) other).timestamp);
-
-			return meTimeStamp.compareTo(otherTimeStamp);
-		} catch (ParseException pe) {
-			throw new RuntimeException("timestamp of this node is wrong initialized", pe);
-		}
+	public int compareTo(Change other) {
+		return getCreatedAt().compareTo(other.getCreatedAt());
 	}
 
 	@Override
@@ -207,5 +200,15 @@ public class Node implements Change {
 	@Override
 	public boolean isWay() {
 		return false;
+	}
+
+	@Override
+	public String verbose() {
+		StringBuilder msg = new StringBuilder();
+
+		msg.append("Node [id = " + id + ", ");
+		msg.append("created = " + ChangeSetToolkit.FORMATTER.format(getCreatedAt().getTime()) + "]");
+
+		return msg.toString();
 	}
 }
