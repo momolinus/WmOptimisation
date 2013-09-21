@@ -4,7 +4,14 @@ Projekt, um Generierung von Changesets zu optimieren
 
 Changelog:
 
+2013-9-21:
+
+updated from simple-xml-2.7.jar to simple-xml-2.7.1.jar
+
+updated from guava-14.0.1.jar to guava-15.0.jar
+
 2013-5-1:
+
 updated from simple-xml-2.6.4.jar to simple-xml-2.7.jar
 
 
