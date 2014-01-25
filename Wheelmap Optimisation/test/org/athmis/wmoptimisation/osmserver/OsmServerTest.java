@@ -93,6 +93,9 @@ public class OsmServerTest {
 
 		long diff = 0;
 		int counterAgainstInfiniteLoop = 0;
+
+		// loop with request each 30 minutes if changeset is open, no changes
+		// added!
 		while (true) {
 			boolean changeSetIsOpen;
 
@@ -101,12 +104,19 @@ public class OsmServerTest {
 			diff = calendar.getTimeInMillis() - startTime.getTimeInMillis();
 
 			if (TimeUnit.MILLISECONDS.toHours(diff) >= 24) {
+
 				String msg = "changeset must be closed , start: "
 						+ FORMATTER.format(startTime.getTime()) + ", now: "
 						+ FORMATTER.format(calendar.getTime());
+
+				// now server should had closed the changeset
 				assertFalse(msg, changeSetIsOpen);
+
+				// 24 h difference reached, so loop should be beaked
 				break;
-			} else {
+			}
+			// while time difference < 24 hours, changeset must be open
+			else {
 				String msg = "changeset must be open  , start: "
 						+ FORMATTER.format(startTime.getTime()) + ", now: "
 						+ FORMATTER.format(calendar.getTime());
@@ -119,6 +129,7 @@ public class OsmServerTest {
 
 			counterAgainstInfiniteLoop++;
 
+			// just ensure kill an infinite loop
 			if (counterAgainstInfiniteLoop > 1000) {
 				String msg = "after iterations " + counterAgainstInfiniteLoop
 						+ " changeset still not closed, start: "

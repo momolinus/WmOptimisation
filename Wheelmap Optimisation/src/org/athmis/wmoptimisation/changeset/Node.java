@@ -59,6 +59,16 @@ public class Node implements Change {
 		return result;
 	}
 
+	/**
+	 * Returns the center of Berlin, just for test purpose.
+	 * 
+	 * @return center of Berlin as a node
+	 */
+	public static Node getBerlinAsNode() {
+		Node result = new Node(121212, 52.515905, 13.378588, "2010-1-1T12:00:00Z", 1, true);
+		return result;
+	}
+
 	@Attribute
 	private long changeset;
 

@@ -248,18 +248,23 @@ public class OsmServer {
 	/**
 	 * "Stores the changeset", really it sets the changeset id of the change and
 	 * adds change to an internal map. Before call check with
-	 * {@linkplain #isChangeSetOpen(Long, Calendar)} if changeset ist open.
+	 * {@linkplain #isChangeSetOpen(Long, Calendar)} for changeset is open.
 	 * 
 	 * @param changesetId
+	 *            previous generated (and stored by client) changeset is
 	 * @param node
 	 *            a deep copy will be taken after changeset id was set with
-	 *            given changesetId
+	 *            given changesetId, <code>null</code> is not permitted
 	 * @throws IllegalArgumentException
-	 *             if tried to store change to an closed change set
+	 *             if tried to store change to an closed change set or node ==
+	 *             <code>null</code>
 	 */
 	public void storeChange(Long changesetId, Node node) {
 
-		// XXX prüfen auf node == null
+		if (node == null)
+			throw new IllegalArgumentException("null as node is not permitted");
+		if (changesetId == null)
+			throw new IllegalArgumentException("null as changeset id is not permitted");
 
 		checkForClosingChangesets(node.getCreatedAt());
 
