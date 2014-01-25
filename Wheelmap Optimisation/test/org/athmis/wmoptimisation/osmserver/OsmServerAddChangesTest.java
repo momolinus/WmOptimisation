@@ -40,12 +40,12 @@ public class OsmServerAddChangesTest {
 	public void testAddNullAsNode() {
 		Long changesetId;
 		changesetId = osmServer.createChangeSet(startTime);
-		osmServer.storeChange(changesetId, null);
+		osmServer.storeNode(changesetId, null);
 	}
 
 	@Test(expected = IllegalArgumentException.class)
 	public void testAddNullAsChangesetId() {
-		osmServer.storeChange(null, Node.getBerlinAsNode());
+		osmServer.storeNode(null, Node.getBerlinAsNode());
 	}
 
 	@Test(expected = IllegalArgumentException.class)
@@ -58,6 +58,6 @@ public class OsmServerAddChangesTest {
 
 		assertFalse(osmServer.isChangeSetOpen(changesetId, startTime));
 
-		osmServer.storeChange(changesetId, null);
+		osmServer.storeNode(changesetId, null);
 	}
 }

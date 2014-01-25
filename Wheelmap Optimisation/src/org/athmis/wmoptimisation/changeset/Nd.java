@@ -46,6 +46,15 @@ public class Nd {
 	@Attribute
 	private int ref;
 
+	/**
+	 * Constructor for deep copy.
+	 * 
+	 * @param nd
+	 */
+	public Nd(Nd nd) {
+		this.ref = nd.ref;
+	}
+
 	public int getRef() {
 		return ref;
 	}

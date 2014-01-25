@@ -37,7 +37,6 @@ import static org.athmis.wmoptimisation.changeset.ChangeSetToolkit.calToOsm;
 import static org.athmis.wmoptimisation.changeset.ChangeSetToolkit.osmToCal;
 
 import java.awt.geom.Rectangle2D;
-import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
@@ -50,6 +49,7 @@ import org.apache.log4j.Logger;
 import org.athmis.wmoptimisation.changeset.Change;
 import org.athmis.wmoptimisation.changeset.ChangeSet;
 import org.athmis.wmoptimisation.changeset.Node;
+import org.athmis.wmoptimisation.changeset.Way;
 
 import com.google.common.collect.ArrayListMultimap;
 import com.google.common.collect.Multimap;
@@ -59,25 +59,22 @@ import com.google.common.collect.Multimap;
  * href="http://wiki.openstreetmap.org/wiki/API_v0.6">OSM Server</a>. Most
  * methods has a parameter for calling time. This prevents, that any clock must
  * be running in any thread; in other words 'the time ist simulated', too.
- * 
- * 
- * 
  */
 public class OsmServer {
 
 	private final static Logger LOGGER = Logger.getLogger(OsmServer.class);
 
 	/**
-	 * map with changesets, the key is the ID of the changeset (which itself is
-	 * stored as value)
-	 */
-	private Map<Long, ChangeSet> changeSets;
-
-	/**
 	 * a multimap which contains all changes (as values) for a changeset (with
 	 * its ID as key of the multimap)
 	 */
 	private Multimap<Long, Change> changes;
+
+	/**
+	 * map with changesets, the key is the ID of the changeset (which itself is
+	 * stored as value)
+	 */
+	private Map<Long, ChangeSet> changeSets;
 
 	/**
 	 * used for building an ID for changesets
@@ -88,95 +85,6 @@ public class OsmServer {
 		index = System.currentTimeMillis();
 		changeSets = new HashMap<>();
 		changes = ArrayListMultimap.create();
-	}
-
-	// XXX ist die Exception hier überhaupt passend???
-	/**
-	 * Closes the changeset for given id.
-	 * 
-	 * @param id
-	 *            changesets id
-	 * @param closeTime
-	 *            the closing time
-	 * @return <code>true</code> if changeset was open, <code>false</code> if
-	 *         changeset still was closed.
-	 * 
-	 * @throws ParseException
-	 */
-	public boolean closeChangeSet(Long id, Calendar closeTime) throws ParseException {
-		boolean wasOpenOnClosingTime;
-
-		checkForClosingChangesets(closeTime);
-		wasOpenOnClosingTime = changeSets.get(id).isOpen();
-
-		if (wasOpenOnClosingTime) {
-			changeSets.get(id).close(closeTime);
-		}
-
-		return wasOpenOnClosingTime;
-	}
-
-	/**
-	 * Creates a changeset and keeps it's state in memory.
-	 * 
-	 * @param creationTime
-	 *            in the simulation clients set the creation time, so no clock
-	 *            must run in any thread
-	 * @return the unique (during one run) id of the changeset
-	 */
-	public Long createChangeSet(Calendar creationTime) {
-		ChangeSet changeSet;
-		Object result;
-
-		index++;
-		changeSet = new ChangeSet(calToOsm(creationTime), index, true);
-		result = changeSets.put(index, changeSet);
-
-		// POSTCONDITION
-		assert result == null : "can't add new changeset to list";
-
-		return Long.valueOf(index);
-	}
-
-	// XXX für eine ungültige id könnte man eine andere Exception nehmen
-	/**
-	 * Expands the given changesets bounding box.
-	 * 
-	 * @param id
-	 *            changesets id
-	 * @param boundingBox
-	 *            the new bounding box
-	 * @param now
-	 *            the time of this request
-	 * @return <code>true</code> if was successful, false if changeset was
-	 *         closed
-	 * @throws IllegalArgumentException
-	 *             in case of illegal bounding box or illegal id
-	 */
-	public boolean expandBoundingBox(Long id, Rectangle2D boundingBox, Calendar now) {
-		return false;
-	}
-
-	/**
-	 * Checks for closing task at given time and returns the changeset open
-	 * state.
-	 * 
-	 * @param id
-	 *            the id of changeset
-	 * @param the
-	 *            actual time used for checking and for closing time
-	 * @return <code>true</code> if the changeset ist open
-	 * @throws ParseException
-	 */
-	public boolean isChangeSetOpen(Long id, Calendar now) {
-		if (!changeSets.containsKey(id)) {
-			throw new IllegalArgumentException("unknown changeset with 'id = " + String.valueOf(id)
-					+ "'");
-		}
-
-		checkForClosingChangesets(now);
-
-		return changeSets.get(id).isOpen();
 	}
 
 	private void checkForClosingChangesets(final Calendar now) {
@@ -232,22 +140,128 @@ public class OsmServer {
 		}
 	}
 
-	// TODO für welche Parameter ist die IllegalArgumentException sinnvoll?
+	/**
+	 * Closes the changeset for given id.
+	 * 
+	 * @param id
+	 *            changesets id
+	 * @param closeTime
+	 *            the closing time
+	 * @return <code>true</code> if changeset was open, <code>false</code> if
+	 *         changeset still was closed.
+	 * 
+	 */
+	public boolean closeChangeSet(Long id, Calendar closeTime) {
+		boolean wasOpenOnClosingTime;
+
+		checkForClosingChangesets(closeTime);
+		wasOpenOnClosingTime = changeSets.get(id).isOpen();
+
+		if (wasOpenOnClosingTime) {
+			changeSets.get(id).close(closeTime);
+		}
+
+		return wasOpenOnClosingTime;
+	}
+
+	/**
+	 * Creates a changeset and keeps it's state in memory.
+	 * 
+	 * @param creationTime
+	 *            in the simulation clients set the creation time, so no clock
+	 *            must run in any thread, all values are allowed, client is
+	 *            responsible for sensible values
+	 * @return the unique (during one run) id of the changeset
+	 * @throws IllegalStateException
+	 *             if changeset could not be created, possible reason: changeset
+	 *             was previous added by any illegal call
+	 */
+	public Long createChangeSet(Calendar creationTime) {
+		ChangeSet changeSet;
+		Object result;
+
+		index++;
+		changeSet = new ChangeSet(calToOsm(creationTime), index, true);
+		result = changeSets.put(index, changeSet);
+
+		// POSTCONDITION
+		if (result != null)
+			throw new IllegalStateException("can't add new changeset to list at index " + index);
+
+		return Long.valueOf(index);
+	}
+
+	// XXX für eine ungültige id könnte man eine andere Exception nehmen
+	/**
+	 * Expands the given changesets bounding box.
+	 * 
+	 * @param id
+	 *            changesets id
+	 * @param boundingBox
+	 *            the new bounding box
+	 * @param now
+	 *            the time of this request
+	 * @return <code>true</code> if was successful, false if changeset was
+	 *         closed
+	 * @throws IllegalArgumentException
+	 *             in case of illegal bounding box or illegal id
+	 */
+	public boolean expandBoundingBox(Long id, Rectangle2D boundingBox, Calendar now) {
+		return false;
+	}
+
+	// XXX gibt es eine bessere Lösung, als null zurück geben
 	/**
 	 * Returns the changeset with given id.
 	 * 
 	 * @param id
 	 *            the if of the changeset which should be returned
-	 * @return the changeset with given id
-	 * @throws IllegalArgumentException
+	 * @return the changeset with given id, <code>null</code> if no changeset
+	 *         for given id was stored
 	 */
 	public ChangeSet getChangeSet(Long id) {
 		return changeSets.get(id);
 	}
 
 	/**
-	 * "Stores the changeset", really it sets the changeset id of the change and
-	 * adds change to an internal map. Before call check with
+	 * Checks for closing task at given time and returns the changeset open
+	 * state.
+	 * 
+	 * @param id
+	 *            the id of changeset, if id is illegal
+	 *            {@linkplain IllegalArgumentException} will be thrown
+	 * @param the
+	 *            actual time used for checking and for closing time
+	 * @return <code>true</code> if the changeset ist open
+	 * @throws IllegalArgumentException
+	 *             if id is illegal, meaning no changeset exits with given id
+	 */
+	public boolean isChangeSetOpen(Long id, Calendar now) {
+		if (!changeSets.containsKey(id))
+			throw new IllegalArgumentException("unknown changeset with 'id = " + String.valueOf(id)
+					+ "'");
+
+		checkForClosingChangesets(now);
+
+		return changeSets.get(id).isOpen();
+	}
+
+	/**
+	 * Checks if given changeset id is valid, meaning server contains a
+	 * changeset with given id.
+	 * 
+	 * @param id
+	 *            id for a changeset
+	 * @return <code>true</code> if server contains a changeset with that id,
+	 *         <code>false</code> otherwise
+	 */
+	public boolean isChangeSetIdValid(Long id) {
+		return changeSets.containsKey(id);
+	}
+
+	/**
+	 * "Stores the node", really it sets the changeset id of the node and adds
+	 * node to an internal map. Before call check with
 	 * {@linkplain #isChangeSetOpen(Long, Calendar)} for changeset is open.
 	 * 
 	 * @param changesetId
@@ -259,21 +273,65 @@ public class OsmServer {
 	 *             if tried to store change to an closed change set or node ==
 	 *             <code>null</code>
 	 */
-	public void storeChange(Long changesetId, Node node) {
+	public void storeNode(Long changesetId, Node node) {
 
-		if (node == null)
-			throw new IllegalArgumentException("null as node is not permitted");
-		if (changesetId == null)
-			throw new IllegalArgumentException("null as changeset id is not permitted");
+		checkParametersNotNull(changesetId, node);
 
 		checkForClosingChangesets(node.getCreatedAt());
 
-		if (!changeSets.get(changesetId).isOpen()) {
-			throw new IllegalArgumentException("can't store change " + node.getId()
-					+ " to closed changeset " + changesetId);
-		}
+		checkChangesetIsStillOpen(changesetId, node);
 
 		node.setChangeset(changesetId);
 		changes.put(changesetId, new Node(node));
+	}
+
+	/**
+	 * "Stores the node", really it sets the changeset id of the node and adds
+	 * node to an internal map. Before call check with
+	 * {@linkplain #isChangeSetOpen(Long, Calendar)} for changeset is open.
+	 * 
+	 * @param changesetId
+	 *            previous generated (and stored by client) changeset is
+	 * @param node
+	 *            a deep copy will be taken after changeset id was set with
+	 *            given changesetId, <code>null</code> is not permitted
+	 * @throws IllegalArgumentException
+	 *             if tried to store change to an closed change set or node ==
+	 *             <code>null</code>
+	 */
+	public void storeWay(Long changesetId, Way way) {
+
+		checkParametersNotNull(changesetId, way);
+
+		checkForClosingChangesets(way.getCreatedAt());
+
+		checkChangesetIsStillOpen(changesetId, way);
+
+		way.setChangeset(changesetId);
+		changes.put(changesetId, new Way(way));
+	}
+
+	/**
+	 * checks if given changeset id is still open
+	 * 
+	 * @param changesetId
+	 *            will be checked for open
+	 * @param change
+	 *            only used for exceptions message
+	 */
+	private void checkChangesetIsStillOpen(Long changesetId, Change change) {
+		if (!changeSets.get(changesetId).isOpen()) {
+			throw new IllegalArgumentException("can't store change " + change.getId()
+					+ " to closed changeset " + changesetId);
+		}
+	}
+
+	private void checkParametersNotNull(Long changesetId, Change node)
+			throws IllegalArgumentException {
+
+		if (node == null)
+			throw new IllegalArgumentException("null as node/way is not permitted");
+		if (changesetId == null)
+			throw new IllegalArgumentException("null as changeset id is not permitted");
 	}
 }

@@ -33,7 +33,9 @@ Programm erhalten haben. Wenn nicht, siehe <http://www.gnu.org/licenses/>.
  */
 package org.athmis.wmoptimisation.changeset;
 
+import java.awt.geom.Point2D;
 import java.util.Calendar;
+import java.util.List;
 
 /**
  * Interface for changes, could actually be {@linkplain Node}s or
@@ -45,23 +47,19 @@ import java.util.Calendar;
  */
 public interface Change extends Comparable<Change> {
 
-	public abstract String getUser();
+	public String getUser();
 
-	public abstract String getTimestamp();
+	public String getTimestamp();
 
-	public abstract double getLon();
+	public long getId();
 
-	public abstract double getLat();
+	public long getChangeset();
 
-	public abstract long getId();
+	public void setChangeset(long changeSetId);
 
-	public abstract long getChangeset();
+	public Calendar getCreatedAt();
 
-	public abstract void setChangeset(long changeSetId);
+	public boolean isWay();
 
-	public abstract Calendar getCreatedAt();
-
-	public abstract boolean isWay();
-
-	public abstract String verbose();
+	public String verbose();
 }

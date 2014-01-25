@@ -124,7 +124,7 @@ public class OsmServerTest {
 
 				String timeStamp = calToOsm(calendar);
 				Node node = new Node(id++, lat++, lon++, timeStamp);
-				osmServer.storeChange(changesetId, node);
+				osmServer.storeNode(changesetId, node);
 			}
 
 			counterAgainstInfiniteLoop++;
@@ -238,7 +238,7 @@ public class OsmServerTest {
 			boolean changeSetIsOpen;
 			changeSetIsOpen = osmServer.isChangeSetOpen(changesetId, calendar);
 			assertTrue(msg, changeSetIsOpen);
-			osmServer.storeChange(changesetId, node);
+			osmServer.storeNode(changesetId, node);
 		}
 
 		assertFalse("changeset must be closed", osmServer.isChangeSetOpen(changesetId, calendar));

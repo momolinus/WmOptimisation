@@ -33,6 +33,7 @@ Programm erhalten haben. Wenn nicht, siehe <http://www.gnu.org/licenses/>.
  */
 package org.athmis.wmoptimisation.changeset;
 
+import java.awt.geom.Point2D;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -79,18 +80,46 @@ public class Way implements Change {
 	@Attribute
 	private int version;
 
+	/**
+	 * Constructor for a deep copy.
+	 * 
+	 * @param way
+	 */
+	public Way(Way way) {
+		this.changeset = way.changeset;
+		this.id = way.id;
+		this.timestamp = way.timestamp; // Strings are immutable
+		this.uid = way.uid;
+		this.user = way.user;
+		this.version = way.version;
+
+		for (Nd nd : way.nodes) {
+			this.nodes.add(new Nd(nd));
+		}
+
+		for (Tag tag : way.tags) {
+			this.tags.add(new Tag(tag));
+		}
+	}
+
+	@Override
+	public int compareTo(Change other) {
+		return getCreatedAt().compareTo(other.getCreatedAt());
+	}
+
 	@Override
 	public long getChangeset() {
 		return changeset;
 	}
 
 	@Override
-	public long getId() {
-		return id;
+	public Calendar getCreatedAt() {
+		return ChangeSetToolkit.osmToCal(timestamp);
 	}
 
-	public List<Nd> getNodes() {
-		return nodes;
+	@Override
+	public long getId() {
+		return id;
 	}
 
 	public List<Tag> getTags() {
@@ -115,37 +144,17 @@ public class Way implements Change {
 		return version;
 	}
 
-	@Override
-	public double getLon() {
-		return 0;
-	}
-
-	@Override
-	public double getLat() {
-		return 0;
-	}
-
-	@Override
-	public Calendar getCreatedAt() {
-		return ChangeSetToolkit.osmToCal(timestamp);
-	}
-
-	@Override
-	public int compareTo(Change other) {
-		return getCreatedAt().compareTo(other.getCreatedAt());
-	}
-
-	@Override
-	public void setChangeset(long changeSetId) {
-		this.changeset = changeSetId;
-	}
-
 	/**
 	 * @return all ways <code>true</code>
 	 */
 	@Override
 	public boolean isWay() {
 		return true;
+	}
+
+	@Override
+	public void setChangeset(long changeSetId) {
+		this.changeset = changeSetId;
 	}
 
 	@Override

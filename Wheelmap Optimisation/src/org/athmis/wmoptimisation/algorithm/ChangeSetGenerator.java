@@ -79,7 +79,9 @@ public abstract class ChangeSetGenerator {
 		LOGGER.info("use " + changes.size() + " changes for optimization");
 
 		int ways = 0;
+
 		for (Change change : changes) {
+
 			// TODO ways sollten mal gehen; Problem: ways bestehen aus Nodes,
 			// die die meisten Infos enthalten
 			if (change.isWay()) {

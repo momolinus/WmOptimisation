@@ -33,6 +33,7 @@ Programm erhalten haben. Wenn nicht, siehe <http://www.gnu.org/licenses/>.
  */
 package org.athmis.wmoptimisation.changeset;
 
+import java.awt.geom.Point2D;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
@@ -101,17 +102,6 @@ public class Node implements Change {
 	}
 
 	// TODO timestamp parsen und prüfen
-	public Node(long id, double lat, double lon, String timestamp, int version, boolean visible) {
-		this.id = id;
-		this.lat = lat;
-		this.lon = lon;
-		this.timestamp = timestamp;
-		this.version = version;
-		this.visible = visible;
-		this.user = "default constructor";
-	}
-
-	// TODO timestamp parsen und prüfen
 	public Node(long id, double lat, double lon, String timestamp) {
 		this.id = id;
 		this.lat = lat;
@@ -119,6 +109,17 @@ public class Node implements Change {
 		this.timestamp = timestamp;
 		this.version = 1;
 		this.visible = true;
+		this.user = "default constructor";
+	}
+
+	// TODO timestamp parsen und prüfen
+	public Node(long id, double lat, double lon, String timestamp, int version, boolean visible) {
+		this.id = id;
+		this.lat = lat;
+		this.lon = lon;
+		this.timestamp = timestamp;
+		this.version = version;
+		this.visible = visible;
 		this.user = "default constructor";
 	}
 
@@ -143,8 +144,18 @@ public class Node implements Change {
 	}
 
 	@Override
+	public int compareTo(Change other) {
+		return getCreatedAt().compareTo(other.getCreatedAt());
+	}
+
+	@Override
 	public long getChangeset() {
 		return changeset;
+	}
+
+	@Override
+	public Calendar getCreatedAt() {
+		return ChangeSetToolkit.osmToCal(timestamp);
 	}
 
 	@Override
@@ -152,14 +163,23 @@ public class Node implements Change {
 		return id;
 	}
 
-	@Override
 	public double getLat() {
 		return lat;
 	}
 
-	@Override
 	public double getLon() {
 		return lon;
+	}
+
+	/**
+	 * Returns a list with it's points, list has no back references to this.
+	 */
+	public List<Point2D> getPoints() {
+		List<Point2D> result;
+
+		result = new ArrayList<>();
+		result.add(new Point2D.Double(lat, lon));
+		return result;
 	}
 
 	/**
@@ -189,27 +209,17 @@ public class Node implements Change {
 		return visible;
 	}
 
-	@Override
-	public Calendar getCreatedAt() {
-		return ChangeSetToolkit.osmToCal(timestamp);
-	}
-
-	@Override
-	public int compareTo(Change other) {
-		return getCreatedAt().compareTo(other.getCreatedAt());
-	}
-
-	@Override
-	public void setChangeset(long changeSetId) {
-		this.changeset = changeSetId;
-	}
-
 	/**
 	 * @return all ways <code>false</code>
 	 */
 	@Override
 	public boolean isWay() {
 		return false;
+	}
+
+	@Override
+	public void setChangeset(long changeSetId) {
+		this.changeset = changeSetId;
 	}
 
 	@Override

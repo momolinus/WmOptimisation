@@ -76,17 +76,6 @@ public class ChangeSet implements Comparable<ChangeSet> {
 	@Attribute(name = "closed_at", required = false)
 	private String closedAt;
 
-	// leave visibility "protected" for test purpose
-	@Attribute(name = "created_at", required = false)
-	protected String createdAt;
-
-	/**
-	 * corresponding to the id from OSM API call
-	 */
-	// leave visibility "protected" for test purpose
-	@Attribute(name = "id")
-	protected long id;
-
 	@Attribute(name = "max_lat", required = false)
 	private double maxLatitude = Double.MIN_VALUE;
 
@@ -108,15 +97,16 @@ public class ChangeSet implements Comparable<ChangeSet> {
 	@Attribute(name = "user")
 	private String user;
 
-	@Commit
-	protected void calculateArea() {
-		double width, heigth;
+	// leave visibility "protected" for test purpose
+	@Attribute(name = "created_at", required = false)
+	protected String createdAt;
 
-		heigth = Math.abs(maxLatitude - minLatitude);
-		width = Math.abs(maxLongitude - minLongitude);
-
-		area = heigth * width;
-	}
+	/**
+	 * corresponding to the id from OSM API call
+	 */
+	// leave visibility "protected" for test purpose
+	@Attribute(name = "id")
+	protected long id;
 
 	/**
 	 * default constructor needed for simple framework
@@ -130,6 +120,26 @@ public class ChangeSet implements Comparable<ChangeSet> {
 		this.createdAt = createdAt;
 		this.id = id;
 		this.open = open;
+	}
+
+	/**
+	 * Closes the changeSet object at given time.
+	 * 
+	 * @param closingTime
+	 *            will became the closing time
+	 */
+	public void close(Calendar closingTime) {
+		open = false;
+		closedAt = ChangeSetToolkit.calToOsm(closingTime);
+	}
+
+	// FIXME nur eine schnelle Lösung
+	public void closeNow() {
+		Calendar openTime;
+
+		openTime = ChangeSetToolkit.osmToCal(createdAt);
+		openTime.add(Calendar.HOUR, 23);
+		openTime.add(Calendar.MINUTE, 59);
 	}
 
 	/**
@@ -163,6 +173,97 @@ public class ChangeSet implements Comparable<ChangeSet> {
 	public Calendar getClosed() {
 		Calendar result = closedAt();
 		return result;
+	}
+
+	public String getClosedAt() {
+		return closedAt;
+	}
+
+	public Calendar getCreated() {
+		Calendar result = createdAt();
+		return result;
+	}
+
+	public String getCreatedAt() {
+		return createdAt;
+	}
+
+	public long getId() {
+		return id;
+	}
+
+	public double getMaxLatitude() {
+		return maxLatitude;
+	}
+
+	public double getMaxLongitude() {
+		return maxLongitude;
+	}
+
+	public double getMinLatitude() {
+		return minLatitude;
+	}
+
+	public double getMinLongitude() {
+		return minLongitude;
+	}
+
+	/**
+	 * Returns the open hours, decimal place is hours fraction, e.g. 0.5 means
+	 * 30 min.
+	 * 
+	 * @return the open hours of the changeset, maximum should be 24 h
+	 */
+	public double getOpenTimeInHours() {
+		double openTime;
+		long openTimeInMillis;
+
+		openTimeInMillis = closedAt().getTimeInMillis() - createdAt().getTimeInMillis();
+		openTime = TimeUnit.MILLISECONDS.toHours(openTimeInMillis);
+
+		// the tail less then 1 hour divided through 1 hour in ms (cast is o.k.,
+		// because openTime has no decimal place here)
+		openTime += ((openTimeInMillis - TimeUnit.HOURS.toMillis((long) openTime)))
+				/ (double) TimeUnit.HOURS.toMillis(1);
+
+		return openTime;
+	}
+
+	public List<Tag> getTags() {
+		return Collections.unmodifiableList(tags);
+	}
+
+	public String getUser() {
+		return user;
+	}
+
+	public boolean isOpen() {
+		return open;
+	}
+
+	public void updateArea(Change change) {
+		double lat, lon;
+
+		throw new UnsupportedOperationException("still not implemented");
+
+		// //lat = change.getLat();
+		// //lon = change.getLon();
+		//
+		// maxLatitude = Math.max(maxLatitude, lat);
+		// minLatitude = Math.min(minLatitude, lat);
+		//
+		// maxLongitude = Math.max(maxLongitude, lon);
+		// minLongitude = Math.min(minLongitude, lon);
+
+	}
+
+	public String verbose() {
+		StringBuilder msg = new StringBuilder();
+
+		msg.append("ChangeSet [id = " + id + ", ");
+		msg.append("created = " + ChangeSetToolkit.FORMATTER.format(getCreated().getTime()) + "]");
+
+		return msg.toString();
 	}
 
 	private Calendar closedAt() {
@@ -202,112 +303,13 @@ public class ChangeSet implements Comparable<ChangeSet> {
 		return result;
 	}
 
-	/**
-	 * Returns the open hours, decimal place is hours fraction, e.g. 0.5 means
-	 * 30 min.
-	 * 
-	 * @return the open hours of the changeset, maximum should be 24 h
-	 */
-	public double getOpenTimeInHours() {
-		double openTime;
-		long openTimeInMillis;
+	@Commit
+	protected void calculateArea() {
+		double width, heigth;
 
-		openTimeInMillis = closedAt().getTimeInMillis() - createdAt().getTimeInMillis();
-		openTime = TimeUnit.MILLISECONDS.toHours(openTimeInMillis);
+		heigth = Math.abs(maxLatitude - minLatitude);
+		width = Math.abs(maxLongitude - minLongitude);
 
-		// the tail less then 1 hour divided through 1 hour in ms (cast is o.k.,
-		// because openTime has no decimal place here)
-		openTime += ((openTimeInMillis - TimeUnit.HOURS.toMillis((long) openTime)))
-				/ (double) TimeUnit.HOURS.toMillis(1);
-
-		return openTime;
-	}
-
-	public String getClosedAt() {
-		return closedAt;
-	}
-
-	public String getCreatedAt() {
-		return createdAt;
-	}
-
-	public long getId() {
-		return id;
-	}
-
-	public double getMaxLatitude() {
-		return maxLatitude;
-	}
-
-	public double getMaxLongitude() {
-		return maxLongitude;
-	}
-
-	public double getMinLatitude() {
-		return minLatitude;
-	}
-
-	public double getMinLongitude() {
-		return minLongitude;
-	}
-
-	public List<Tag> getTags() {
-		return Collections.unmodifiableList(tags);
-	}
-
-	public String getUser() {
-		return user;
-	}
-
-	public boolean isOpen() {
-		return open;
-	}
-
-	public Calendar getCreated() {
-		Calendar result = createdAt();
-		return result;
-	}
-
-	/**
-	 * Closes the changeSet object at given time.
-	 * 
-	 * @param closingTime
-	 *            will became the closing time
-	 */
-	public void close(Calendar closingTime) {
-		open = false;
-		closedAt = ChangeSetToolkit.calToOsm(closingTime);
-	}
-
-	public void updateArea(Change change) {
-		double lat, lon;
-
-		lat = change.getLat();
-		lon = change.getLon();
-
-		maxLatitude = Math.max(maxLatitude, lat);
-		minLatitude = Math.min(minLatitude, lat);
-
-		maxLongitude = Math.max(maxLongitude, lon);
-		minLongitude = Math.min(minLongitude, lon);
-
-	}
-
-	// FIXME nur eine schnelle Lösung
-	public void closeNow() {
-		Calendar openTime;
-
-		openTime = ChangeSetToolkit.osmToCal(createdAt);
-		openTime.add(Calendar.HOUR, 23);
-		openTime.add(Calendar.MINUTE, 59);
-	}
-
-	public String verbose() {
-		StringBuilder msg = new StringBuilder();
-
-		msg.append("ChangeSet [id = " + id + ", ");
-		msg.append("created = " + ChangeSetToolkit.FORMATTER.format(getCreated().getTime()) + "]");
-
-		return msg.toString();
+		area = heigth * width;
 	}
 }

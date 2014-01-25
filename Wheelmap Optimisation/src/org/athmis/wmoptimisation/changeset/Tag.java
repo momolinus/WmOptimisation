@@ -53,6 +53,12 @@ public class Tag {
 	public Tag() {
 	}
 
+	/**
+	 * Constructor for deep copy.
+	 * 
+	 * @param t
+	 *            this tags state will be copied
+	 */
 	public Tag(Tag t) {
 		this.id = t.id;
 		this.key = t.key;
