@@ -33,7 +33,6 @@ Programm erhalten haben. Wenn nicht, siehe <http://www.gnu.org/licenses/>.
  */
 package org.athmis.wmoptimisation.changeset;
 
-import java.awt.geom.Point2D;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -160,5 +159,23 @@ public class Way implements Change {
 	@Override
 	public String verbose() {
 		return "implementation missing";
+	}
+
+	/**
+	 * @return -1 as default value, further implementation could return more
+	 *         sensible value
+	 */
+	@Override
+	public double getMaxLat() {
+		return -1;
+	}
+
+	/**
+	 * @return -1 as default value, further implementation could return more
+	 *         sensible value
+	 */
+	@Override
+	public double getMaxLon() {
+		return -1;
 	}
 }

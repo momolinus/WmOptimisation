@@ -33,16 +33,11 @@ Programm erhalten haben. Wenn nicht, siehe <http://www.gnu.org/licenses/>.
  */
 package org.athmis.wmoptimisation.changeset;
 
-import java.awt.geom.Point2D;
 import java.util.Calendar;
-import java.util.List;
 
 /**
  * Interface for changes, could actually be {@linkplain Node}s or
  * {@linkplain Way}s.
- * 
- * 
- * 
  * 
  */
 public interface Change extends Comparable<Change> {
@@ -62,4 +57,8 @@ public interface Change extends Comparable<Change> {
 	public boolean isWay();
 
 	public String verbose();
+
+	public double getMaxLat();
+
+	public double getMaxLon();
 }

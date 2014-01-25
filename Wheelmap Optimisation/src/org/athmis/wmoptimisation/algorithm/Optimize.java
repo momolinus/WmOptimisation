@@ -38,7 +38,7 @@ import java.text.ParseException;
 
 import org.apache.log4j.BasicConfigurator;
 import org.apache.log4j.Logger;
-import org.athmis.wmoptimisation.changeset.ChangeSetZipContentData;
+import org.athmis.wmoptimisation.changeset.OsmChangeContent;
 
 public class Optimize {
 
@@ -47,7 +47,7 @@ public class Optimize {
 	public static void run(String[] args) throws IOException, ParseException {
 
 		ChangeSetGenerator generator;
-		ChangeSetZipContentData changesFromZip, optimizedChangeSet;
+		OsmChangeContent changesFromZip, optimizedChangeSet;
 
 		generator = new SimpleChangeSetGenerator();
 
@@ -61,7 +61,7 @@ public class Optimize {
 		// changesFromZip =
 		// ChangeSetZipContentData.readOsmChangeContent("einfach3x.zip");
 
-		changesFromZip = ChangeSetZipContentData
+		changesFromZip = OsmChangeContent
 				.readOsmChangeContent("wheelmap_visitor-2010-2012.zip");
 
 		LOGGER.info("try to optimize changes: " + changesFromZip.toString());

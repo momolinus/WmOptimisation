@@ -1,36 +1,23 @@
-/*
-Copyright Marcus Bleil, Oliver Rudzik, Christoph Bünte 2012
-
-This file is part of Wheelmap Optimization.
-
-Wheelmap Optimization is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-
-Wheelmap Optimization is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
-GNU General Public License for more details.
-
-You should have received a copy of the GNU General Public License
-along with Athmis. If not, see <http://www.gnu.org/licenses/>.
-
-Diese Datei ist Teil von Wheelmap Optimization.
-
-Wheelmap Optimization ist Freie Software: Sie können es unter den Bedingungen
-der GNU General Public License, wie von der Free Software Foundation,
-Version 3 der Lizenz oder (nach Ihrer Option) jeder späteren
-veröffentlichten Version, weiterverbreiten und/oder modifizieren.
-
-Wheelmap Optimization wird in der Hoffnung, dass es nützlich sein wird, aber
-OHNE JEDE GEWÄHELEISTUNG, bereitgestellt; sogar ohne die implizite
-Gewährleistung der MARKTFÄHIGKEIT oder EIGNUNG FÜR EINEN BESTIMMTEN ZWECK.
-Siehe die GNU General Public License für weitere Details.
-
-Sie sollten eine Kopie der GNU General Public License zusammen mit diesem
-Programm erhalten haben. Wenn nicht, siehe <http://www.gnu.org/licenses/>.
- */
+/* Copyright Marcus Bleil, Oliver Rudzik, Christoph Bünte 2012 This file is part
+ * of Wheelmap Optimization. Wheelmap Optimization is free software: you can
+ * redistribute it and/or modify it under the terms of the GNU General Public
+ * License as published by the Free Software Foundation, either version 3 of the
+ * License, or (at your option) any later version. Wheelmap Optimization is
+ * distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
+ * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
+ * PARTICULAR PURPOSE. See the GNU General Public License for more details. You
+ * should have received a copy of the GNU General Public License along with
+ * Athmis. If not, see <http://www.gnu.org/licenses/>. Diese Datei ist Teil von
+ * Wheelmap Optimization. Wheelmap Optimization ist Freie Software: Sie können
+ * es unter den Bedingungen der GNU General Public License, wie von der Free
+ * Software Foundation, Version 3 der Lizenz oder (nach Ihrer Option) jeder
+ * späteren veröffentlichten Version, weiterverbreiten und/oder modifizieren.
+ * Wheelmap Optimization wird in der Hoffnung, dass es nützlich sein wird, aber
+ * OHNE JEDE GEWÄHELEISTUNG, bereitgestellt; sogar ohne die implizite
+ * Gewährleistung der MARKTFÄHIGKEIT oder EIGNUNG FÜR EINEN BESTIMMTEN ZWECK.
+ * Siehe die GNU General Public License für weitere Details. Sie sollten eine
+ * Kopie der GNU General Public License zusammen mit diesem Programm erhalten
+ * haben. Wenn nicht, siehe <http://www.gnu.org/licenses/>. */
 package org.athmis.wmoptimisation.changeset;
 
 import java.text.ParseException;
@@ -64,8 +51,6 @@ import org.simpleframework.xml.core.Commit;
  * (i.e. idle timeout)</li>
  * </ul>
  * </blockquote>
- * 
- * 
  */
 @Root(name = "changeset", strict = false)
 public class ChangeSet implements Comparable<ChangeSet> {
@@ -116,7 +101,6 @@ public class ChangeSet implements Comparable<ChangeSet> {
 	}
 
 	public ChangeSet(String createdAt, long id, boolean open) {
-		super();
 		this.createdAt = createdAt;
 		this.id = id;
 		this.open = open;
@@ -155,7 +139,8 @@ public class ChangeSet implements Comparable<ChangeSet> {
 		try {
 			otherCreated = ChangeSetToolkit.OSM_DATE_TO_JAVA.parse(arg0.createdAt);
 			meCreated = ChangeSetToolkit.OSM_DATE_TO_JAVA.parse(createdAt);
-		} catch (ParseException e) {
+		}
+		catch (ParseException e) {
 			throw new IllegalArgumentException("created date has wrong format", e);
 		}
 
@@ -223,7 +208,8 @@ public class ChangeSet implements Comparable<ChangeSet> {
 
 		// the tail less then 1 hour divided through 1 hour in ms (cast is o.k.,
 		// because openTime has no decimal place here)
-		openTime += ((openTimeInMillis - TimeUnit.HOURS.toMillis((long) openTime)))
+		openTime +=
+			((openTimeInMillis - TimeUnit.HOURS.toMillis((long) openTime)))
 				/ (double) TimeUnit.HOURS.toMillis(1);
 
 		return openTime;
@@ -244,16 +230,14 @@ public class ChangeSet implements Comparable<ChangeSet> {
 	public void updateArea(Change change) {
 		double lat, lon;
 
-		throw new UnsupportedOperationException("still not implemented");
+		lat = change.getMaxLat();
+		lon = change.getMaxLon();
 
-		// //lat = change.getLat();
-		// //lon = change.getLon();
-		//
-		// maxLatitude = Math.max(maxLatitude, lat);
-		// minLatitude = Math.min(minLatitude, lat);
-		//
-		// maxLongitude = Math.max(maxLongitude, lon);
-		// minLongitude = Math.min(minLongitude, lon);
+		maxLatitude = Math.max(maxLatitude, lat);
+		minLatitude = Math.min(minLatitude, lat);
+
+		maxLongitude = Math.max(maxLongitude, lon);
+		minLongitude = Math.min(minLongitude, lon);
 
 	}
 
@@ -273,13 +257,14 @@ public class ChangeSet implements Comparable<ChangeSet> {
 		try {
 			if (closedAt == null)
 				throw new IllegalStateException("closedAt is null, id = " + String.valueOf(id)
-						+ ", user = " + String.valueOf(user));
+					+ ", user = " + String.valueOf(user));
 
 			closed = ChangeSetToolkit.OSM_DATE_TO_JAVA.parse(closedAt);
 			result.setTime(closed);
-		} catch (ParseException e) {
+		}
+		catch (ParseException e) {
 			throw new IllegalStateException("error with parsing closed date "
-					+ String.valueOf(closedAt) + ", message: " + e.getLocalizedMessage(), e);
+				+ String.valueOf(closedAt) + ", message: " + e.getLocalizedMessage(), e);
 		}
 
 		return result;
@@ -291,13 +276,14 @@ public class ChangeSet implements Comparable<ChangeSet> {
 		try {
 			if (createdAt == null)
 				throw new IllegalStateException("createdAt is null, id = " + String.valueOf(id)
-						+ ", user = " + String.valueOf(user));
+					+ ", user = " + String.valueOf(user));
 
 			created = ChangeSetToolkit.OSM_DATE_TO_JAVA.parse(createdAt);
 			result.setTime(created);
-		} catch (ParseException e) {
+		}
+		catch (ParseException e) {
 			throw new IllegalStateException("error with parsing closed date "
-					+ String.valueOf(closedAt) + ", message: " + e.getLocalizedMessage(), e);
+				+ String.valueOf(closedAt) + ", message: " + e.getLocalizedMessage(), e);
 		}
 
 		return result;

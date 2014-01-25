@@ -1,40 +1,28 @@
-/*
-Copyright Marcus Bleil, Oliver Rudzik, Christoph Bünte 2012
-
-This file is part of Wheelmap Optimization.
-
-Wheelmap Optimization is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-
-Wheelmap Optimization is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
-GNU General Public License for more details.
-
-You should have received a copy of the GNU General Public License
-along with Athmis. If not, see <http://www.gnu.org/licenses/>.
-
-Diese Datei ist Teil von Wheelmap Optimization.
-
-Wheelmap Optimization ist Freie Software: Sie können es unter den Bedingungen
-der GNU General Public License, wie von der Free Software Foundation,
-Version 3 der Lizenz oder (nach Ihrer Option) jeder späteren
-veröffentlichten Version, weiterverbreiten und/oder modifizieren.
-
-Wheelmap Optimization wird in der Hoffnung, dass es nützlich sein wird, aber
-OHNE JEDE GEWÄHELEISTUNG, bereitgestellt; sogar ohne die implizite
-Gewährleistung der MARKTFÄHIGKEIT oder EIGNUNG FÜR EINEN BESTIMMTEN ZWECK.
-Siehe die GNU General Public License für weitere Details.
-
-Sie sollten eine Kopie der GNU General Public License zusammen mit diesem
-Programm erhalten haben. Wenn nicht, siehe <http://www.gnu.org/licenses/>.
- */
+/* Copyright Marcus Bleil, Oliver Rudzik, Christoph Bünte 2012 This file is part
+ * of Wheelmap Optimization. Wheelmap Optimization is free software: you can
+ * redistribute it and/or modify it under the terms of the GNU General Public
+ * License as published by the Free Software Foundation, either version 3 of the
+ * License, or (at your option) any later version. Wheelmap Optimization is
+ * distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
+ * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
+ * PARTICULAR PURPOSE. See the GNU General Public License for more details. You
+ * should have received a copy of the GNU General Public License along with
+ * Athmis. If not, see <http://www.gnu.org/licenses/>. Diese Datei ist Teil von
+ * Wheelmap Optimization. Wheelmap Optimization ist Freie Software: Sie können
+ * es unter den Bedingungen der GNU General Public License, wie von der Free
+ * Software Foundation, Version 3 der Lizenz oder (nach Ihrer Option) jeder
+ * späteren veröffentlichten Version, weiterverbreiten und/oder modifizieren.
+ * Wheelmap Optimization wird in der Hoffnung, dass es nützlich sein wird, aber
+ * OHNE JEDE GEWÄHELEISTUNG, bereitgestellt; sogar ohne die implizite
+ * Gewährleistung der MARKTFÄHIGKEIT oder EIGNUNG FÜR EINEN BESTIMMTEN ZWECK.
+ * Siehe die GNU General Public License für weitere Details. Sie sollten eine
+ * Kopie der GNU General Public License zusammen mit diesem Programm erhalten
+ * haben. Wenn nicht, siehe <http://www.gnu.org/licenses/>. */
 package org.athmis.wmoptimisation.changeset;
 
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Collections;
 import java.util.List;
@@ -98,8 +86,7 @@ public class Node implements Change {
 	@Attribute
 	private boolean visible;
 
-	public Node() {
-	}
+	public Node() {}
 
 	// TODO timestamp parsen und prüfen
 	public Node(long id, double lat, double lon, String timestamp) {
@@ -163,14 +150,6 @@ public class Node implements Change {
 		return id;
 	}
 
-	public double getLat() {
-		return lat;
-	}
-
-	public double getLon() {
-		return lon;
-	}
-
 	/**
 	 * Returns a list with it's points, list has no back references to this.
 	 */
@@ -230,5 +209,23 @@ public class Node implements Change {
 		msg.append("created = " + ChangeSetToolkit.FORMATTER.format(getCreatedAt().getTime()) + "]");
 
 		return msg.toString();
+	}
+
+	@Override
+	public double getMaxLat() {
+		return lat;
+	}
+
+	@Override
+	public double getMaxLon() {
+		return lon;
+	}
+
+	public static List<Node> getNodes(double distance) {
+		Node result = new Node(121212, 52.515905, 13.378588, "2010-1-1T12:00:00Z", 1, true);
+		Node result2 =
+			new Node(121212, 52.515905 - distance, 13.378588 - distance, "2010-1-1T12:00:00Z", 1,
+					true);
+		return new ArrayList<>(Arrays.asList(result, result2));
 	}
 }

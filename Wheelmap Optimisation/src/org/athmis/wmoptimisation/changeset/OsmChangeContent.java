@@ -1,36 +1,23 @@
-/*
-Copyright Marcus Bleil, Oliver Rudzik, Christoph Bünte 2012
-
-This file is part of Wheelmap Optimization.
-
-Wheelmap Optimization is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-
-Wheelmap Optimization is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
-GNU General Public License for more details.
-
-You should have received a copy of the GNU General Public License
-along with Athmis. If not, see <http://www.gnu.org/licenses/>.
-
-Diese Datei ist Teil von Wheelmap Optimization.
-
-Wheelmap Optimization ist Freie Software: Sie können es unter den Bedingungen
-der GNU General Public License, wie von der Free Software Foundation,
-Version 3 der Lizenz oder (nach Ihrer Option) jeder späteren
-veröffentlichten Version, weiterverbreiten und/oder modifizieren.
-
-Wheelmap Optimization wird in der Hoffnung, dass es nützlich sein wird, aber
-OHNE JEDE GEWÄHELEISTUNG, bereitgestellt; sogar ohne die implizite
-Gewährleistung der MARKTFÄHIGKEIT oder EIGNUNG FÜR EINEN BESTIMMTEN ZWECK.
-Siehe die GNU General Public License für weitere Details.
-
-Sie sollten eine Kopie der GNU General Public License zusammen mit diesem
-Programm erhalten haben. Wenn nicht, siehe <http://www.gnu.org/licenses/>.
- */
+/* Copyright Marcus Bleil, Oliver Rudzik, Christoph Bünte 2012 This file is part
+ * of Wheelmap Optimization. Wheelmap Optimization is free software: you can
+ * redistribute it and/or modify it under the terms of the GNU General Public
+ * License as published by the Free Software Foundation, either version 3 of the
+ * License, or (at your option) any later version. Wheelmap Optimization is
+ * distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
+ * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
+ * PARTICULAR PURPOSE. See the GNU General Public License for more details. You
+ * should have received a copy of the GNU General Public License along with
+ * Athmis. If not, see <http://www.gnu.org/licenses/>. Diese Datei ist Teil von
+ * Wheelmap Optimization. Wheelmap Optimization ist Freie Software: Sie können
+ * es unter den Bedingungen der GNU General Public License, wie von der Free
+ * Software Foundation, Version 3 der Lizenz oder (nach Ihrer Option) jeder
+ * späteren veröffentlichten Version, weiterverbreiten und/oder modifizieren.
+ * Wheelmap Optimization wird in der Hoffnung, dass es nützlich sein wird, aber
+ * OHNE JEDE GEWÄHELEISTUNG, bereitgestellt; sogar ohne die implizite
+ * Gewährleistung der MARKTFÄHIGKEIT oder EIGNUNG FÜR EINEN BESTIMMTEN ZWECK.
+ * Siehe die GNU General Public License für weitere Details. Sie sollten eine
+ * Kopie der GNU General Public License zusammen mit diesem Programm erhalten
+ * haben. Wenn nicht, siehe <http://www.gnu.org/licenses/>. */
 package org.athmis.wmoptimisation.changeset;
 
 import java.io.IOException;
@@ -59,15 +46,11 @@ import org.simpleframework.xml.core.Persister;
 /**
  * A ChangeSetZipContentData contains changesets (as {@linkplain ChangeSet}
  * objects in a map) and their changes ({@linkplain OsmChange}).
- * 
- * 
- * 
- * 
  */
-public class ChangeSetZipContentData {
+public class OsmChangeContent {
 
-	private final static Logger LOGGER = Logger.getLogger(ChangeSetZipContentData.class);
 	private static final DateFormat formatter = new SimpleDateFormat();
+	private final static Logger LOGGER = Logger.getLogger(OsmChangeContent.class);
 
 	/**
 	 * Reads a zip file with changesets files and changeset content files
@@ -77,16 +60,16 @@ public class ChangeSetZipContentData {
 	 * @throws IOException
 	 *             on error reading file, like parse errors
 	 */
-	public static ChangeSetZipContentData readOsmChangeContent(String zipFileName)
-			throws IOException {
+	public static OsmChangeContent readOsmChangeContent(String zipFileName) throws IOException {
 		Serializer serializer;
-		ChangeSetZipContentData result;
+		OsmChangeContent result;
 
 		serializer = new Persister();
-		result = new ChangeSetZipContentData();
+		result = new OsmChangeContent();
 
 		// note: ZipFile implements AutoCloseable
-		try (ZipFile changeSetsZip = new ZipFile(Paths.get(zipFileName).toFile(), ZipFile.OPEN_READ)) {
+		try (ZipFile changeSetsZip =
+			new ZipFile(Paths.get(zipFileName).toFile(), ZipFile.OPEN_READ)) {
 			int changesCounter = 0, changeSetsCounter = 0;
 			for (ZipEntry zipEntry : Collections.list(changeSetsZip.entries())) {
 
@@ -105,9 +88,10 @@ public class ChangeSetZipContentData {
 						if (changesCounter % 80 == 0)
 							System.out.println();
 
-					} catch (Exception e) {
+					}
+					catch (Exception e) {
 						throw new IOException("can't read OsmChange file '" + zipEntry.getName()
-								+ "' from zip-file '" + zipFileName + "', reason: ", e);
+							+ "' from zip-file '" + zipFileName + "', reason: ", e);
 					}
 				}
 				// should be a changeset file
@@ -120,7 +104,7 @@ public class ChangeSetZipContentData {
 						changeSet = serializer.read(ChangeSet.class, changeSetStream);
 						if (result.add(changeSet) != null) {
 							LOGGER.info("changeSet 'id=" + changeSet.getId()
-									+ "' was stored before");
+								+ "' was stored before");
 						}
 
 						System.out.print(".");
@@ -128,17 +112,19 @@ public class ChangeSetZipContentData {
 						if (changeSetsCounter % 80 == 0)
 							System.out.println();
 
-					} catch (Exception e) {
+					}
+					catch (Exception e) {
 						throw new IOException("can't read changeset file '" + zipEntry.getName()
-								+ "' from zip-file '" + zipFileName + "', reason: ", e);
+							+ "' from zip-file '" + zipFileName + "', reason: ", e);
 					}
 
 				}
 			}
 
-		} catch (IOException e) {
+		}
+		catch (IOException e) {
 			throw new IOException("can't read OsmChange file '" + zipFileName + "' from zip-file '"
-					+ zipFileName + "', reason: ", e);
+				+ zipFileName + "', reason: ", e);
 
 		}
 		System.out.println();
@@ -153,17 +139,31 @@ public class ChangeSetZipContentData {
 	 * Constructs an empty ChangeSetZipContentData object. It has an empty map
 	 * for {@linkplain ChangeSet} and an empty list for {@linkplain OsmChange}.
 	 */
-	public ChangeSetZipContentData() {
+	public OsmChangeContent() {
 		changeSets = new HashMap<>();
 		changes = new ArrayList<>();
 	}
 
+	/**
+	 * Stores given changeset in internal map with changesets id as key and the
+	 * changeset object as value.
+	 * 
+	 * @param changeSet
+	 * @return <code>null</code> if no value for changeset id was stored, or
+	 *         previous stored changeset, which usually seem to be an error
+	 */
 	public ChangeSet add(ChangeSet changeSet) {
 		return changeSets.put(Long.valueOf(changeSet.getId()), changeSet);
 	}
 
 	// XXX wenn OsmChange mal equals() unterstützt kann geprüft werden, ob das
 	// object schon gespeichert war
+	/**
+	 * Adds given OsmChange object.
+	 * 
+	 * @param changeContent
+	 *            will be stored to internal list
+	 */
 	public void add(OsmChange changeContent) {
 		changes.add(changeContent);
 	}
@@ -179,62 +179,20 @@ public class ChangeSetZipContentData {
 	 *            used for storing the change, stored also to this object
 	 */
 	public void addChangeForChangeSet(Change change, ChangeSet changeSet) {
-		long changesetId;
 		ChangeSet changeSetForStoring;
 
-		changesetId = changeSet.getId();
-		if (changeSets.containsKey(Long.valueOf(changesetId))) {
-			changeSetForStoring = changeSets.get(Long.valueOf(changesetId));
-		} else {
-			changeSetForStoring = changeSet;
-			changeSets.put(Long.valueOf(changeSetForStoring.getId()), changeSetForStoring);
-		}
+		changeSetForStoring = fetchOrStoreAndFetchChangeset(changeSet);
 
-		validateStoring(change, changeSetForStoring);
+		validateIsStoringPossible(change, changeSetForStoring);
 
-		change.setChangeset(changeSetForStoring.getId());
-		changeSetForStoring.updateArea(change);
+		setChangeAsStored(change, changeSetForStoring);
 
 		if (changes.size() == 0) {
 			changes.add(new OsmChange());
 		}
 
+		// add change to last OsmChange
 		changes.get(changes.size() - 1).addChange(change);
-	}
-
-	/**
-	 * Validates the storing.
-	 * 
-	 * @param change
-	 *            should be stored in given change set
-	 * @param changeSetForStoring
-	 *            should store given change
-	 * @throws IllegalArgumentException
-	 *             if changes could not be stored in given change set
-	 */
-	private void validateStoring(Change change, ChangeSet changeSetForStoring) {
-
-		// FIXME missing test for 50 000 changesets
-
-		Calendar changeCreated, changeSetCreated;
-		int ageDiff;
-
-		changeCreated = change.getCreatedAt();
-		changeSetCreated = changeSetForStoring.getCreated();
-
-		ageDiff = changeCreated.compareTo(changeSetCreated);
-
-		if (ageDiff < 0) {
-			throw new IllegalArgumentException("change " + change.verbose()
-					+ " is older than change set " + changeSetForStoring.verbose()
-					+ ", can't store change");
-		}
-
-		if (TimeUnit.MILLISECONDS.toHours(ageDiff) >= 24) {
-			throw new IllegalArgumentException("change " + change.verbose()
-					+ "is >= 24 younger than change set " + changeSetForStoring.verbose()
-					+ ", can't store change");
-		}
 	}
 
 	/**
@@ -266,14 +224,16 @@ public class ChangeSetZipContentData {
 				Calendar future = Calendar.getInstance();
 				future.set(Calendar.YEAR, 2099);
 				table.append(String.format("%tF", future));
-			} else
+			}
+			else
 				table.append(String.format("%tF", chSet.getClosed()));
 
 			table.append(";");
 
 			if (chSet.isOpen()) {
 				table.append(String.format("%.12f", 100.0));
-			} else
+			}
+			else
 				table.append(String.format("%.12f", chSet.getOpenTimeInHours()));
 
 			table.append(";");
@@ -284,6 +244,16 @@ public class ChangeSetZipContentData {
 		}
 
 		return table.toString();
+	}
+
+	public void closeAllChangeSets() {
+
+		for (ChangeSet changeSet : changeSets.values()) {
+			if (changeSet.isOpen()) {
+				changeSet.closeNow();
+			}
+		}
+
 	}
 
 	public List<Change> getAllChanges() {
@@ -322,6 +292,17 @@ public class ChangeSetZipContentData {
 		return result.toString();
 	}
 
+	public List<Double> getAreas() {
+		List<Double> areas;
+
+		areas = new ArrayList<>();
+		for (ChangeSet changeSet : changeSets.values()) {
+			areas.add(Double.valueOf(changeSet.getArea()));
+		}
+
+		return areas;
+	}
+
 	public int size() {
 		return changes.size() + changeSets.size();
 	}
@@ -340,17 +321,7 @@ public class ChangeSetZipContentData {
 		}
 
 		return "contains " + changeSets.entrySet().size() + " changesets with mean area = "
-				+ Double.toString(meanArea) + " and " + changesNum + " changes";
-	}
-
-	public void closeAllChangeSets() {
-
-		for (ChangeSet changeSet : changeSets.values()) {
-			if (changeSet.isOpen()) {
-				changeSet.closeNow();
-			}
-		}
-
+			+ Double.toString(meanArea) + " and " + changesNum + " changes";
 	}
 
 	public String verbose() throws ParseException {
@@ -359,17 +330,90 @@ public class ChangeSetZipContentData {
 		for (OsmChange c : changes) {
 			for (Change ch : c.getChanges()) {
 				result.append(ch.getChangeset() + "\t"
-						+ formatter.format(ch.getCreatedAt().getTime()));
+					+ formatter.format(ch.getCreatedAt().getTime()));
 				result.append("\n");
 			}
 		}
 
 		for (Entry<Long, ChangeSet> changeset : changeSets.entrySet()) {
 			result.append(changeset.getKey().toString() + "\t"
-					+ formatter.format(changeset.getValue().getCreated().getTime()));
+				+ formatter.format(changeset.getValue().getCreated().getTime()));
 			result.append("\n");
 		}
 
 		return result.toString();
+	}
+
+	/**
+	 * Looks for given changeset (by its is), if found will be returned, else it
+	 * will be stored and returned. Changesets id will used for searching.
+	 * 
+	 * @param changeSet
+	 *            will be searched or will be stored as new one
+	 * @return the stored changeset (compared on id) or the given changeset,
+	 *         which will be stored as a new one
+	 */
+	private ChangeSet fetchOrStoreAndFetchChangeset(ChangeSet changeSet) {
+		ChangeSet changeSetForStoring;
+		long changesetId;
+
+		changesetId = changeSet.getId();
+		if (changeSets.containsKey(Long.valueOf(changesetId))) {
+			changeSetForStoring = changeSets.get(Long.valueOf(changesetId));
+		}
+		else {
+			changeSetForStoring = changeSet;
+			changeSets.put(Long.valueOf(changeSetForStoring.getId()), changeSetForStoring);
+		}
+		return changeSetForStoring;
+	}
+
+	/**
+	 * Sets the changeset id of given change, meaning change is stored to
+	 * changeset.
+	 * 
+	 * @param change
+	 *            will be "stored" to given changeset
+	 * @param changeSetForStoring
+	 *            "stores" given change
+	 */
+	private void setChangeAsStored(Change change, ChangeSet changeSetForStoring) {
+		change.setChangeset(changeSetForStoring.getId());
+		changeSetForStoring.updateArea(change);
+	}
+
+	/**
+	 * Validates the storing.
+	 * 
+	 * @param change
+	 *            should be stored in given change set
+	 * @param changeSetForStoring
+	 *            should store given change
+	 * @throws IllegalArgumentException
+	 *             if changes could not be stored in given change set
+	 */
+	private void validateIsStoringPossible(Change change, ChangeSet changeSetForStoring) {
+
+		Calendar changeCreated, changeSetCreated;
+		int ageDiff;
+
+		changeCreated = change.getCreatedAt();
+		changeSetCreated = changeSetForStoring.getCreated();
+
+		ageDiff = changeCreated.compareTo(changeSetCreated);
+
+		if (ageDiff < 0) {
+			throw new IllegalArgumentException("change " + change.verbose()
+				+ " is older than change set " + changeSetForStoring.verbose()
+				+ ", can't store change");
+		}
+
+		if (TimeUnit.MILLISECONDS.toHours(ageDiff) >= 24) {
+			throw new IllegalArgumentException("change " + change.verbose()
+				+ "is >= 24 younger than change set " + changeSetForStoring.verbose()
+				+ ", can't store change");
+		}
+
+		// FIXME missing test for 50 000 changesets
 	}
 }

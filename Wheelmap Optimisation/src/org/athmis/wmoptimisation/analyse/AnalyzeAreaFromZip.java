@@ -39,7 +39,7 @@ import java.io.IOException;
 
 import org.apache.log4j.BasicConfigurator;
 import org.apache.log4j.Logger;
-import org.athmis.wmoptimisation.changeset.ChangeSetZipContentData;
+import org.athmis.wmoptimisation.changeset.OsmChangeContent;
 
 /**
  * 
@@ -55,14 +55,14 @@ public class AnalyzeAreaFromZip {
 	public static void main(String[] args) {
 		// configure Log4j
 		BasicConfigurator.configure();
-		ChangeSetZipContentData changes;
+		OsmChangeContent changes;
 		String zipFileName;
 		BufferedWriter output;
 
 		zipFileName = "wheelmap_visitor-2010-2012.zip";
 
 		try {
-			changes = ChangeSetZipContentData.readOsmChangeContent(zipFileName);
+			changes = OsmChangeContent.readOsmChangeContent(zipFileName);
 
 			output = new BufferedWriter(new FileWriter("wheelmap_visitor-2010-2012.csv"));
 			output.write(changes.asTable());
