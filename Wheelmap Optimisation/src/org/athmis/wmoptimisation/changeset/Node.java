@@ -43,8 +43,8 @@ public class Node implements Change {
 	 * 
 	 * @return center of Berlin as a node
 	 */
-	public static Change getBerlin() {
-		Change result = new Node(121212, 52.515905, 13.378588, "2010-1-1T12:00:00Z", 1, true);
+	public static Node getBerlin() {
+		Node result = new Node(121212, 52.515905, 13.378588, "2010-1-1T12:00:00Z", 1, true);
 		return result;
 	}
 

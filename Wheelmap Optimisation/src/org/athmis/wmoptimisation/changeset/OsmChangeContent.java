@@ -136,8 +136,8 @@ public class OsmChangeContent {
 	private Map<Long, ChangeSet> changeSets;
 
 	/**
-	 * Constructs an empty ChangeSetZipContentData object. It has an empty map
-	 * for {@linkplain ChangeSet} and an empty list for {@linkplain OsmChange}.
+	 * Constructs an empty OsmChangeContent object. It has an empty map for
+	 * {@linkplain ChangeSet} and an empty list for {@linkplain OsmChange}.
 	 */
 	public OsmChangeContent() {
 		changeSets = new HashMap<>();
@@ -292,15 +292,15 @@ public class OsmChangeContent {
 		return result.toString();
 	}
 
-	public List<Double> getAreas() {
-		List<Double> areas;
+	public List<Double> getBoundingBoxesSquareDegree() {
+		List<Double> boundingBoxes;
 
-		areas = new ArrayList<>();
+		boundingBoxes = new ArrayList<>();
 		for (ChangeSet changeSet : changeSets.values()) {
-			areas.add(Double.valueOf(changeSet.getBoundingBoxSquareDegree()));
+			boundingBoxes.add(Double.valueOf(changeSet.getBoundingBoxSquareDegree()));
 		}
 
-		return areas;
+		return boundingBoxes;
 	}
 
 	public int size() {

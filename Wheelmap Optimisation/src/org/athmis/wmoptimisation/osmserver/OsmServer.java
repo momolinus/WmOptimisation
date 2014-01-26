@@ -1,36 +1,23 @@
-/*
-Copyright Marcus Bleil, Oliver Rudzik, Christoph Bünte 2012
-
-This file is part of Wheelmap Optimization.
-
-Wheelmap Optimization is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-
-Wheelmap Optimization is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
-GNU General Public License for more details.
-
-You should have received a copy of the GNU General Public License
-along with Athmis. If not, see <http://www.gnu.org/licenses/>.
-
-Diese Datei ist Teil von Wheelmap Optimization.
-
-Wheelmap Optimization ist Freie Software: Sie können es unter den Bedingungen
-der GNU General Public License, wie von der Free Software Foundation,
-Version 3 der Lizenz oder (nach Ihrer Option) jeder späteren
-veröffentlichten Version, weiterverbreiten und/oder modifizieren.
-
-Wheelmap Optimization wird in der Hoffnung, dass es nützlich sein wird, aber
-OHNE JEDE GEWÄHELEISTUNG, bereitgestellt; sogar ohne die implizite
-Gewährleistung der MARKTFÄHIGKEIT oder EIGNUNG FÜR EINEN BESTIMMTEN ZWECK.
-Siehe die GNU General Public License für weitere Details.
-
-Sie sollten eine Kopie der GNU General Public License zusammen mit diesem
-Programm erhalten haben. Wenn nicht, siehe <http://www.gnu.org/licenses/>.
- */
+/*Copyright Marcus Bleil, Oliver Rudzik, Christoph Bünte 2012 This file is part
+ * of Wheelmap Optimization. Wheelmap Optimization is free software: you can
+ * redistribute it and/or modify it under the terms of the GNU General Public
+ * License as published by the Free Software Foundation, either version 3 of the
+ * License, or (at your option) any later version. Wheelmap Optimization is
+ * distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
+ * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
+ * PARTICULAR PURPOSE. See the GNU General Public License for more details. You
+ * should have received a copy of the GNU General Public License along with
+ * Athmis. If not, see <http://www.gnu.org/licenses/>. Diese Datei ist Teil von
+ * Wheelmap Optimization. Wheelmap Optimization ist Freie Software: Sie können
+ * es unter den Bedingungen der GNU General Public License, wie von der Free
+ * Software Foundation, Version 3 der Lizenz oder (nach Ihrer Option) jeder
+ * späteren veröffentlichten Version, weiterverbreiten und/oder modifizieren.
+ * Wheelmap Optimization wird in der Hoffnung, dass es nützlich sein wird, aber
+ * OHNE JEDE GEWÄHELEISTUNG, bereitgestellt; sogar ohne die implizite
+ * Gewährleistung der MARKTFÄHIGKEIT oder EIGNUNG FÜR EINEN BESTIMMTEN ZWECK.
+ * Siehe die GNU General Public License für weitere Details. Sie sollten eine
+ * Kopie der GNU General Public License zusammen mit diesem Programm erhalten
+ * haben. Wenn nicht, siehe <http://www.gnu.org/licenses/>. */
 package org.athmis.wmoptimisation.osmserver;
 
 import static org.athmis.wmoptimisation.changeset.ChangeSetToolkit.calToOsm;
@@ -81,6 +68,10 @@ public class OsmServer {
 	 */
 	private long index;
 
+	/**
+	 * Constructs an OsmServer object. As start index for changes and changesets
+	 * {@linkplain System#currentTimeMillis()} is used.
+	 */
 	public OsmServer() {
 		index = System.currentTimeMillis();
 		changeSets = new HashMap<>();
@@ -149,7 +140,6 @@ public class OsmServer {
 	 *            the closing time
 	 * @return <code>true</code> if changeset was open, <code>false</code> if
 	 *         changeset still was closed.
-	 * 
 	 */
 	public boolean closeChangeSet(Long id, Calendar closeTime) {
 		boolean wasOpenOnClosingTime;
@@ -239,7 +229,7 @@ public class OsmServer {
 	public boolean isChangeSetOpen(Long id, Calendar now) {
 		if (!changeSets.containsKey(id))
 			throw new IllegalArgumentException("unknown changeset with 'id = " + String.valueOf(id)
-					+ "'");
+				+ "'");
 
 		checkForClosingChangesets(now);
 
@@ -322,12 +312,12 @@ public class OsmServer {
 	private void checkChangesetIsStillOpen(Long changesetId, Change change) {
 		if (!changeSets.get(changesetId).isOpen()) {
 			throw new IllegalArgumentException("can't store change " + change.getId()
-					+ " to closed changeset " + changesetId);
+				+ " to closed changeset " + changesetId);
 		}
 	}
 
 	private void checkParametersNotNull(Long changesetId, Change node)
-			throws IllegalArgumentException {
+		throws IllegalArgumentException {
 
 		if (node == null)
 			throw new IllegalArgumentException("null as node/way is not permitted");

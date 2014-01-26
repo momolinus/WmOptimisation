@@ -15,6 +15,7 @@ import org.junit.Test;
 public class ChangeSetTest {
 
 	public static final double STRONG_DELTA = 0.00000001;
+	
 	private final static DateFormat formatter = new SimpleDateFormat("yyyy.MM.dd - HH:mm:ss");
 	private Calendar currentTime;
 

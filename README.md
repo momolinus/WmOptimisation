@@ -4,6 +4,10 @@ Projekt, um Generierung von Changesets zu optimieren
 
 Changelog:
 
+2013-1-29:
+
+added dependency: http://code.google.com/p/mockito/ Version 1.9.5
+
 2013-9-21:
 
 updated from simple-xml-2.7.jar to simple-xml-2.7.1.jar
