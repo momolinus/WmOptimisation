@@ -117,10 +117,13 @@ public class ChangeSet implements Comparable<ChangeSet> {
 		closedAt = ChangeSetToolkit.calToOsm(closingTime);
 	}
 
-	// FIXME nur eine schnelle Lösung
+	/**
+	 * Closes a changeset, by setting close time = create time + 23:59
+	 */
 	public void closeNow() {
 		Calendar openTime;
 
+		open = false;
 		openTime = ChangeSetToolkit.osmToCal(createdAt);
 		openTime.add(Calendar.HOUR, 23);
 		openTime.add(Calendar.MINUTE, 59);
@@ -147,7 +150,14 @@ public class ChangeSet implements Comparable<ChangeSet> {
 		return meCreated.compareTo(otherCreated);
 	}
 
-	public double getArea() {
+	/**
+	 * Returns the bounding box of the changeset in °*° (in words:
+	 * "square degree").
+	 * 
+	 * @return the bounding box of the changeset, {@link Double#isInfinite()} if
+	 *         changeset has no {@linkplain Change}s
+	 */
+	public double getBoundingBoxSquareDegree() {
 
 		// note: no matter calculate the area always
 		calculateArea();
@@ -238,7 +248,6 @@ public class ChangeSet implements Comparable<ChangeSet> {
 
 		maxLongitude = Math.max(maxLongitude, lon);
 		minLongitude = Math.min(minLongitude, lon);
-
 	}
 
 	public String verbose() {

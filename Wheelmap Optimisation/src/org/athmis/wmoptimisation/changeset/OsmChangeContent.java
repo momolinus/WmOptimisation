@@ -237,7 +237,7 @@ public class OsmChangeContent {
 				table.append(String.format("%.12f", chSet.getOpenTimeInHours()));
 
 			table.append(";");
-			table.append(String.format("%.12f", chSet.getArea()));
+			table.append(String.format("%.12f", chSet.getBoundingBoxSquareDegree()));
 
 			if (chs.hasNext())
 				table.append("\n");
@@ -284,7 +284,7 @@ public class OsmChangeContent {
 
 		Iterator<ChangeSet> chs = changeSets.values().iterator();
 		while (chs.hasNext()) {
-			result.append(String.format("%.12f", chs.next().getArea()));
+			result.append(String.format("%.12f", chs.next().getBoundingBoxSquareDegree()));
 			if (chs.hasNext())
 				result.append("\n");
 		}
@@ -297,7 +297,7 @@ public class OsmChangeContent {
 
 		areas = new ArrayList<>();
 		for (ChangeSet changeSet : changeSets.values()) {
-			areas.add(Double.valueOf(changeSet.getArea()));
+			areas.add(Double.valueOf(changeSet.getBoundingBoxSquareDegree()));
 		}
 
 		return areas;

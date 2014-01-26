@@ -221,10 +221,17 @@ public class Node implements Change {
 		return lon;
 	}
 
+	/**
+	 * Returns two nodes, with a little difference in time and index.
+	 * 
+	 * @param distance
+	 *            will be distance from second node
+	 * @return two nodes
+	 */
 	public static List<Node> getNodes(double distance) {
 		Node result = new Node(121212, 52.515905, 13.378588, "2010-1-1T12:00:00Z", 1, true);
 		Node result2 =
-			new Node(121212, 52.515905 - distance, 13.378588 - distance, "2010-1-1T12:00:00Z", 1,
+			new Node(121213, 52.515905 - distance, 13.378588 - distance, "2010-1-1T12:05:00Z", 1,
 					true);
 		return new ArrayList<>(Arrays.asList(result, result2));
 	}

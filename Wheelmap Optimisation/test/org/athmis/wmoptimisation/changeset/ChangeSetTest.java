@@ -1,6 +1,11 @@
 package org.athmis.wmoptimisation.changeset;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.List;
 
@@ -9,8 +14,11 @@ import org.junit.Test;
 
 public class ChangeSetTest {
 
-	private ChangeSet curTimeOpenChangeSet;
+	public static final double STRONG_DELTA = 0.00000001;
+	private final static DateFormat formatter = new SimpleDateFormat("yyyy.MM.dd - HH:mm:ss");
 	private Calendar currentTime;
+
+	private ChangeSet curTimeOpenChangeSet;
 
 	@Before
 	public void setUp() throws Exception {
@@ -27,15 +35,15 @@ public class ChangeSetTest {
 	public void testGetArea() {
 		double area;
 
-		area = curTimeOpenChangeSet.getArea();
+		area = curTimeOpenChangeSet.getBoundingBoxSquareDegree();
 		assertTrue(Double.isInfinite(area));
 
 		Change change;
 		change = Node.getBerlinAsNode();
 		curTimeOpenChangeSet.updateArea(change);
 
-		area = curTimeOpenChangeSet.getArea();
-		assertEquals(0.0, area, 0.0001);
+		area = curTimeOpenChangeSet.getBoundingBoxSquareDegree();
+		assertEquals(0.0, area, STRONG_DELTA);
 	}
 
 	@Test
@@ -43,13 +51,12 @@ public class ChangeSetTest {
 		double area;
 		List<Node> twoNodes;
 
-		// FIXME die Zeit der Nodes kann nicht stimmen
 		twoNodes = Node.getNodes(0.1);
 		curTimeOpenChangeSet.updateArea(twoNodes.get(0));
 		curTimeOpenChangeSet.updateArea(twoNodes.get(1));
 
-		area = curTimeOpenChangeSet.getArea();
-		assertEquals(0.1 * 0.1, area, 0.00000001);
+		area = curTimeOpenChangeSet.getBoundingBoxSquareDegree();
+		assertEquals(0.1 * 0.1, area, STRONG_DELTA);
 	}
 
 	@Test
@@ -60,8 +67,13 @@ public class ChangeSetTest {
 		curTimeOpenChangeSet.close(currentTime);
 		assertFalse(curTimeOpenChangeSet.isOpen());
 
-		assertEquals(currentTime.getTimeInMillis(), curTimeOpenChangeSet.getClosed()
-				.getTimeInMillis());
+		String currentTimeAsString, closedTimeAsString;
+
+		currentTimeAsString = formatter.format(currentTime.getTime());
+		closedTimeAsString = formatter.format(curTimeOpenChangeSet.getClosed().getTime());
+
+		assertEquals("currentTime = " + currentTimeAsString + ", closedTime = "
+			+ currentTimeAsString, currentTimeAsString, closedTimeAsString);
 	}
 
 	@Test
@@ -84,7 +96,31 @@ public class ChangeSetTest {
 
 	@Test
 	public void testUpdateArea() {
-		fail("Not yet implemented");
+		List<Node> twoNodes;
+
+		twoNodes = Node.getNodes(0.1);
+
+		twoNodes.get(0).setChangeset(curTimeOpenChangeSet.getId());
+		curTimeOpenChangeSet.updateArea(twoNodes.get(0));
+
+		assertEquals(	"bounding box ", 0.0, curTimeOpenChangeSet.getBoundingBoxSquareDegree(),
+						STRONG_DELTA);
+
+		twoNodes.get(1).setChangeset(curTimeOpenChangeSet.getId());
+		curTimeOpenChangeSet.updateArea(twoNodes.get(1));
+		assertEquals(	"bounding box", 0.1 * 0.1,
+						curTimeOpenChangeSet.getBoundingBoxSquareDegree(),
+						STRONG_DELTA);
+
+	}
+
+	@Test
+	public void testCloseNow() {
+
+		curTimeOpenChangeSet.closeNow();
+
+		assertFalse("closed", curTimeOpenChangeSet.isOpen());
+
 	}
 
 }
