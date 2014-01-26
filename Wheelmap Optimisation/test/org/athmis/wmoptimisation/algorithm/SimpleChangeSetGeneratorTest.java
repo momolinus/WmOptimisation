@@ -2,8 +2,8 @@ package org.athmis.wmoptimisation.algorithm;
 
 import static org.junit.Assert.assertEquals;
 
-import java.util.Calendar;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import org.athmis.wmoptimisation.changeset.Change;
 import org.athmis.wmoptimisation.changeset.ChangeSetTest;
@@ -12,7 +12,6 @@ import org.athmis.wmoptimisation.changeset.OsmChangeContent;
 import org.athmis.wmoptimisation.osmserver.OsmServer;
 import org.junit.Before;
 import org.junit.Test;
-import org.mockito.Mockito;
 
 /**
  * This test is an integration test for {@linkplain OsmServer},
@@ -49,21 +48,42 @@ public class SimpleChangeSetGeneratorTest {
 	public void testAddTwoNode() {
 		Node berlin = null;
 		berlin = Node.getBerlin();
-		Calendar secondTime;
 
 		changeGenerator.add(berlin, osmServer, content);
-
 		List<Double> bboxes = content.getBoundingBoxesSquareDegree();
-
 		assertEquals("number of bbox", 1, bboxes.size());
 		assertEquals(	"bbox", 0.0, content.getBoundingBoxesSquareDegree().get(0),
 						ChangeSetTest.STRONG_DELTA);
 
-		Node berlinSpy = Mockito.spy(berlin);
-		secondTime = (Calendar) berlin.getCreatedAt().clone();
-		secondTime.add(Calendar.MINUTE, 5);
+		changeGenerator.add(Node.getDifferentNode(berlin, 5, 0.2, 0.1), osmServer, content);
+		bboxes = content.getBoundingBoxesSquareDegree();
+		assertEquals("number of bbox", 1, bboxes.size());
+		assertEquals(	"bbox", 0.2 * 0.1, content.getBoundingBoxesSquareDegree().get(0),
+						ChangeSetTest.STRONG_DELTA);
 
-		Mockito.when(berlinSpy.getCreatedAt()).thenReturn(secondTime);
-		// Mockito.when(berlinSpy.get
+	}
+
+	@Test
+	public void testAddNodeDifferentDays() {
+		Node berlin = null;
+		berlin = Node.getBerlin();
+
+		changeGenerator.add(berlin, osmServer, content);
+		List<Double> bboxes = content.getBoundingBoxesSquareDegree();
+		assertEquals("number of bbox", 1, bboxes.size());
+		assertEquals(	"bbox", 0.0, content.getBoundingBoxesSquareDegree().get(0),
+						ChangeSetTest.STRONG_DELTA);
+
+		Node nextDayNode =
+			Node.getDifferentNode(berlin, (int) TimeUnit.HOURS.toMinutes(25), 0.2, 0.1);
+		changeGenerator.add(nextDayNode, osmServer, content);
+		bboxes = content.getBoundingBoxesSquareDegree();
+
+		assertEquals("number of bbox", 2, bboxes.size());
+		assertEquals(	"bbox (0)", 0, content.getBoundingBoxesSquareDegree().get(0),
+						ChangeSetTest.STRONG_DELTA);
+		assertEquals(	"bbox (1)", 0, content.getBoundingBoxesSquareDegree().get(1),
+						ChangeSetTest.STRONG_DELTA);
+
 	}
 }

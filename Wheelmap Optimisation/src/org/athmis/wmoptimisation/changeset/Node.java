@@ -235,4 +235,26 @@ public class Node implements Change {
 					true);
 		return new ArrayList<>(Arrays.asList(result, result2));
 	}
+
+	// TODO kommentieren
+	/**
+	 * @param node
+	 * @param minutes
+	 * @param lat
+	 * @param lon
+	 * @return
+	 */
+	public static Node getDifferentNode(Node node, int minutes, double lat, double lon) {
+		Node result = new Node(node);
+		Calendar createTime;
+
+		result.lat += lat;
+		result.lon += lon;
+
+		createTime = ChangeSetToolkit.osmToCal(result.timestamp);
+		createTime.add(Calendar.MINUTE, minutes);
+		result.timestamp = ChangeSetToolkit.calToOsm(createTime);
+		result.id = System.nanoTime();
+		return result;
+	}
 }
