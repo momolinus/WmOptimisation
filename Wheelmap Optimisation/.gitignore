@@ -11,6 +11,9 @@ lib/
 # docs you will find in the wiki
 doc/
 
+# the build files
+bin/
+
 # the areas
 *.csv
 /javadoc.xml
