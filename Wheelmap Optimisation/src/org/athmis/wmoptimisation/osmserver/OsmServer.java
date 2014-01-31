@@ -1,4 +1,4 @@
-/*Copyright Marcus Bleil, Oliver Rudzik, Christoph Bünte 2012 This file is part
+/* Copyright Marcus Bleil, Oliver Rudzik, Christoph Bünte 2012 This file is part
  * of Wheelmap Optimization. Wheelmap Optimization is free software: you can
  * redistribute it and/or modify it under the terms of the GNU General Public
  * License as published by the Free Software Foundation, either version 3 of the
@@ -33,9 +33,11 @@ import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 import org.apache.log4j.Logger;
+import org.athmis.wmoptimisation.algorithm.ChangeSetGenerator;
 import org.athmis.wmoptimisation.changeset.Change;
 import org.athmis.wmoptimisation.changeset.ChangeSet;
 import org.athmis.wmoptimisation.changeset.Node;
+import org.athmis.wmoptimisation.changeset.OsmChangeContent;
 import org.athmis.wmoptimisation.changeset.Way;
 
 import com.google.common.collect.ArrayListMultimap;
@@ -46,6 +48,24 @@ import com.google.common.collect.Multimap;
  * href="http://wiki.openstreetmap.org/wiki/API_v0.6">OSM Server</a>. Most
  * methods has a parameter for calling time. This prevents, that any clock must
  * be running in any thread; in other words 'the time ist simulated', too.
+ * <p>
+ * The main task of this class is to ensure the changeset closing behavior of an
+ * real osm server. When a client uses
+ * {@linkplain #isChangeSetOpen(Long, Calendar)} there are three cases when an
+ * OsmServer object returns false:
+ * <ul>
+ * <li>the given changeset has more than 50000 single edits</li>
+ * <li>the given changeset was unused for more than 1 hour</li>
+ * <li>the given changeset was open for more then 24 hours</li>
+ * </ul>
+ * <p>
+ * For simulation and/or generating a changeset generation strategy use an
+ * OsmServer object and a {@link ChangeSetGenerator} implementation and a amount
+ * of changes (edits) which stored in a {@link OsmChangeContent}.
+ * 
+ * @see <a
+ *      href="http://wiki.openstreetmap.org/wiki/API_v0.6#Changesets_2">OSM-Wiki:
+ *      API_v0.6 Changesets</a>
  */
 public class OsmServer {
 

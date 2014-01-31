@@ -1,36 +1,23 @@
-/*
-Copyright Marcus Bleil, Oliver Rudzik, Christoph Bünte 2012
-
-This file is part of Wheelmap Optimization.
-
-Wheelmap Optimization is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-
-Wheelmap Optimization is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
-GNU General Public License for more details.
-
-You should have received a copy of the GNU General Public License
-along with Athmis. If not, see <http://www.gnu.org/licenses/>.
-
-Diese Datei ist Teil von Wheelmap Optimization.
-
-Wheelmap Optimization ist Freie Software: Sie können es unter den Bedingungen
-der GNU General Public License, wie von der Free Software Foundation,
-Version 3 der Lizenz oder (nach Ihrer Option) jeder späteren
-veröffentlichten Version, weiterverbreiten und/oder modifizieren.
-
-Wheelmap Optimization wird in der Hoffnung, dass es nützlich sein wird, aber
-OHNE JEDE GEWÄHELEISTUNG, bereitgestellt; sogar ohne die implizite
-Gewährleistung der MARKTFÄHIGKEIT oder EIGNUNG FÜR EINEN BESTIMMTEN ZWECK.
-Siehe die GNU General Public License für weitere Details.
-
-Sie sollten eine Kopie der GNU General Public License zusammen mit diesem
-Programm erhalten haben. Wenn nicht, siehe <http://www.gnu.org/licenses/>.
- */
+/* Copyright Marcus Bleil, Oliver Rudzik, Christoph Bünte 2012 This file is part
+ * of Wheelmap Optimization. Wheelmap Optimization is free software: you can
+ * redistribute it and/or modify it under the terms of the GNU General Public
+ * License as published by the Free Software Foundation, either version 3 of the
+ * License, or (at your option) any later version. Wheelmap Optimization is
+ * distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
+ * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
+ * PARTICULAR PURPOSE. See the GNU General Public License for more details. You
+ * should have received a copy of the GNU General Public License along with
+ * Athmis. If not, see <http://www.gnu.org/licenses/>. Diese Datei ist Teil von
+ * Wheelmap Optimization. Wheelmap Optimization ist Freie Software: Sie können
+ * es unter den Bedingungen der GNU General Public License, wie von der Free
+ * Software Foundation, Version 3 der Lizenz oder (nach Ihrer Option) jeder
+ * späteren veröffentlichten Version, weiterverbreiten und/oder modifizieren.
+ * Wheelmap Optimization wird in der Hoffnung, dass es nützlich sein wird, aber
+ * OHNE JEDE GEWÄHELEISTUNG, bereitgestellt; sogar ohne die implizite
+ * Gewährleistung der MARKTFÄHIGKEIT oder EIGNUNG FÜR EINEN BESTIMMTEN ZWECK.
+ * Siehe die GNU General Public License für weitere Details. Sie sollten eine
+ * Kopie der GNU General Public License zusammen mit diesem Programm erhalten
+ * haben. Wenn nicht, siehe <http://www.gnu.org/licenses/>. */
 package org.athmis.wmoptimisation.algorithm;
 
 import java.io.IOException;
@@ -40,6 +27,15 @@ import org.apache.log4j.BasicConfigurator;
 import org.apache.log4j.Logger;
 import org.athmis.wmoptimisation.changeset.OsmChangeContent;
 
+// TODO hier kommt die Doku für die Optimierung-Strategie rein (und dabei wird
+// sie auch entwickelt)
+
+// TODO prüfen: der Testlauf in der main ergab einen Unterschied zwischen der
+// Fläche der gespeicherten Daten und der Fläche der simulierten Changesets;
+// Vielleicht mit einem ganz kleinen Changeset mal prüfen
+/**
+ * @author Marcus
+ */
 public class Optimize {
 
 	private final static Logger LOGGER = Logger.getLogger(Optimize.class);
@@ -48,11 +44,7 @@ public class Optimize {
 
 		ChangeSetGenerator generator;
 		OsmChangeContent changesFromZip, optimizedChangeSet;
-
 		generator = new SimpleChangeSetGenerator();
-
-		// changesFromZip =
-		// ChangeSetZipContentData.readOsmChangeContent("olr-2010-2012.zip");
 
 		// changesFromZip =
 		// ChangeSetZipContentData.readOsmChangeContent("testdaten2.zip");
@@ -61,15 +53,17 @@ public class Optimize {
 		// changesFromZip =
 		// ChangeSetZipContentData.readOsmChangeContent("einfach3x.zip");
 
-		changesFromZip = OsmChangeContent
-				.readOsmChangeContent("wheelmap_visitor-2010-2012.zip");
+		// changesFromZip =
+		// OsmChangeContent.readOsmChangeContent("wheelmap_visitor-2010-2012.zip");
 
+		changesFromZip = OsmChangeContent.readOsmChangeContent("olr-2010-2012.zip");
 		LOGGER.info("try to optimize changes: " + changesFromZip.toString());
-
 		optimizedChangeSet = generator.createOptimizedChangeSets(changesFromZip);
+		LOGGER.info("optimized changes: " + optimizedChangeSet.toString());
 
-		// LOGGER.info("optimized changes: " + optimizedChangeSet.verbose());
-
+		changesFromZip = OsmChangeContent.readOsmChangeContent("wheelmap_visitor-2010-2012.zip");
+		LOGGER.info("try to optimize changes: " + changesFromZip.toString());
+		optimizedChangeSet = generator.createOptimizedChangeSets(changesFromZip);
 		LOGGER.info("optimized changes: " + optimizedChangeSet.toString());
 
 		LOGGER.info("finished");
@@ -84,7 +78,8 @@ public class Optimize {
 
 			System.exit(1);
 
-		} catch (IOException | ParseException e) {
+		}
+		catch (IOException | ParseException e) {
 
 			e.printStackTrace();
 

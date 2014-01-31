@@ -22,14 +22,38 @@ import org.junit.Test;
 public class SimpleChangeSetGeneratorTest {
 
 	private SimpleChangeSetGenerator changeGenerator;
-	private OsmServer osmServer;
 	private OsmChangeContent content;
+	private OsmServer osmServer;
 
 	@Before
 	public void setUp() throws Exception {
 		changeGenerator = new SimpleChangeSetGenerator();
 		osmServer = new OsmServer();
 		content = new OsmChangeContent();
+	}
+
+	@Test
+	public void testAddNodeDifferentDays() {
+		Node berlin = null;
+		berlin = Node.getBerlin();
+
+		changeGenerator.add(berlin, osmServer, content);
+		List<Double> bboxes = content.getBoundingBoxesSquareDegree();
+		assertEquals("number of bbox", 1, bboxes.size());
+		assertEquals(	"bbox", 0.0, content.getBoundingBoxesSquareDegree().get(0),
+						ChangeSetTest.STRONG_DELTA);
+
+		Node nextDayNode =
+			Node.getDifferentNode(berlin, (int) TimeUnit.HOURS.toMinutes(25), 0.2, 0.1);
+		changeGenerator.add(nextDayNode, osmServer, content);
+		bboxes = content.getBoundingBoxesSquareDegree();
+
+		assertEquals("number of bbox", 2, bboxes.size());
+		assertEquals(	"bbox (0)", 0, content.getBoundingBoxesSquareDegree().get(0),
+						ChangeSetTest.STRONG_DELTA);
+		assertEquals(	"bbox (1)", 0, content.getBoundingBoxesSquareDegree().get(1),
+						ChangeSetTest.STRONG_DELTA);
+
 	}
 
 	@Test
@@ -59,30 +83,6 @@ public class SimpleChangeSetGeneratorTest {
 		bboxes = content.getBoundingBoxesSquareDegree();
 		assertEquals("number of bbox", 1, bboxes.size());
 		assertEquals(	"bbox", 0.2 * 0.1, content.getBoundingBoxesSquareDegree().get(0),
-						ChangeSetTest.STRONG_DELTA);
-
-	}
-
-	@Test
-	public void testAddNodeDifferentDays() {
-		Node berlin = null;
-		berlin = Node.getBerlin();
-
-		changeGenerator.add(berlin, osmServer, content);
-		List<Double> bboxes = content.getBoundingBoxesSquareDegree();
-		assertEquals("number of bbox", 1, bboxes.size());
-		assertEquals(	"bbox", 0.0, content.getBoundingBoxesSquareDegree().get(0),
-						ChangeSetTest.STRONG_DELTA);
-
-		Node nextDayNode =
-			Node.getDifferentNode(berlin, (int) TimeUnit.HOURS.toMinutes(25), 0.2, 0.1);
-		changeGenerator.add(nextDayNode, osmServer, content);
-		bboxes = content.getBoundingBoxesSquareDegree();
-
-		assertEquals("number of bbox", 2, bboxes.size());
-		assertEquals(	"bbox (0)", 0, content.getBoundingBoxesSquareDegree().get(0),
-						ChangeSetTest.STRONG_DELTA);
-		assertEquals(	"bbox (1)", 0, content.getBoundingBoxesSquareDegree().get(1),
 						ChangeSetTest.STRONG_DELTA);
 
 	}

@@ -39,6 +39,12 @@ import org.simpleframework.xml.core.Commit;
  * {@linkplain Node}s or {@linkplain Way}s. The nodes or ways has a reference to
  * their changeset id as an attribute.
  * <p>
+ * This class is used to fetch the changesets from the osm server. Although it
+ * seems that ChangeSet is a data container, itself doe's not store the
+ * changes/edits (like nodes ore ways). But the changes/edits stores the ids of
+ * their changeset. If a data container is needed in programming context use
+ * {@linkplain OsmChangeContent} instead.
+ * <p>
  * From <a
  * href="http://wiki.openstreetmap.org/wiki/API_v0.6#Changesets_2">OSM-Wiki</a>:
  * <blockquote cite="http://wiki.openstreetmap.org/wiki/API_v0.6#Changesets_2">

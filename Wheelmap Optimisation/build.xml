@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<project default="javadoc">
+    <target name="javadoc">
+        <javadoc access="protected" author="true" classpath="C:\Users\Marcus\eclipse-kepler_64\eclipse\plugins\org.junit_4.11.0.v201303080030\junit.jar;C:\Users\Marcus\eclipse-kepler_64\eclipse\plugins\org.hamcrest.core_1.3.0.v201303031735.jar;lib/guava-16.0.jar;lib/simple-xml-2.7.1.jar;lib/log4j-1.2.17.jar;lib/mockito-all-1.9.5.jar" destdir="javadoc" nodeprecated="false" nodeprecatedlist="false" noindex="false" nonavbar="false" notree="false" packagenames="org.athmis.wmoptimisation.osmserver,org.athmis.wmoptimisation.fetch_changesets,org.athmis.wmoptimisation.analyse,org.athmis.wmoptimisation.algorithm,org.athmis.wmoptimisation.api_inspection,org.athmis.wmoptimisation.changeset,org.athmis.wmoptimisation.filefilter" source="1.7" sourcepath="src;test" splitindex="true" use="true" version="true"/>
+    </target>
+</project>

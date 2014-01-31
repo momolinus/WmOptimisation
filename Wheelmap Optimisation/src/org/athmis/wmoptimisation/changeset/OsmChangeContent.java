@@ -44,8 +44,12 @@ import org.simpleframework.xml.Serializer;
 import org.simpleframework.xml.core.Persister;
 
 /**
- * A ChangeSetZipContentData contains changesets (as {@linkplain ChangeSet}
- * objects in a map) and their changes ({@linkplain OsmChange}).
+ * A OsmChangeContent contains changesets (as {@linkplain ChangeSet} objects in
+ * a map) and their changes ({@linkplain OsmChange}).
+ * <p>
+ * The first implementation of this class was only used to be filled with
+ * changes from a given zip file. This zip-file contained changes/edits from
+ * real osm users, which fetched with OSM Api 0.6.
  */
 public class OsmChangeContent {
 
@@ -345,7 +349,7 @@ public class OsmChangeContent {
 	}
 
 	/**
-	 * Looks for given changeset (by its is), if found will be returned, else it
+	 * Looks for given changeset (by its id), if found will be returned, else it
 	 * will be stored and returned. Changesets id will used for searching.
 	 * 
 	 * @param changeSet
