@@ -257,4 +257,12 @@ public class Node implements Change {
 		result.id = System.nanoTime();
 		return result;
 	}
+
+	public static double getBbox(Node node1, Node node2) {
+		double deltaLat, deltaLon;
+
+		deltaLat = Math.abs(node1.lat - node2.lat);
+		deltaLon = Math.abs(node1.lon - node2.lon);
+		return deltaLat * deltaLon;
+	}
 }

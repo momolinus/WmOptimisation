@@ -172,6 +172,8 @@ public class OsmChangeContent {
 		changes.add(changeContent);
 	}
 
+	// TODO ist das dir richtige Stelle, um zu prüfen, ob das Change gespeichert
+	// werden darf?
 	/**
 	 * Adds the given change to given changeset. Stores both objects. It Could
 	 * be, that given changeset is still stored, then it will not be stored
@@ -181,6 +183,11 @@ public class OsmChangeContent {
 	 *            stores this new change
 	 * @param changeSet
 	 *            used for storing the change, stored also to this object
+	 * @throws IllegalArgumentException
+	 *             if change could not be stored to given chnageSet; reasons:
+	 *             both differ in age more than 24 hours, this has 50,000
+	 *             changes, changeset was not used for more than one hour ore
+	 *             changeset is not open
 	 */
 	public void addChangeForChangeSet(Change change, ChangeSet changeSet) {
 		ChangeSet changeSetForStoring;
@@ -296,6 +303,12 @@ public class OsmChangeContent {
 		return result.toString();
 	}
 
+	/**
+	 * Method return a list with the area (in square degree °x°) of the
+	 * changesets stored in this OsmChangeContent object.
+	 * 
+	 * @return a list with the area (in square degree °x°) of the changesets
+	 */
 	public List<Double> getBoundingBoxesSquareDegree() {
 		List<Double> boundingBoxes;
 
@@ -394,7 +407,9 @@ public class OsmChangeContent {
 	 * @param changeSetForStoring
 	 *            should store given change
 	 * @throws IllegalArgumentException
-	 *             if changes could not be stored in given change set
+	 *             if change could not be stored to given chnageSet; reasons:
+	 *             both differ in age more than 24 hours, changeset has 50,000
+	 *             changes or changeset was not used for more than one hour
 	 */
 	private void validateIsStoringPossible(Change change, ChangeSet changeSetForStoring) {
 
@@ -418,6 +433,9 @@ public class OsmChangeContent {
 				+ ", can't store change");
 		}
 
-		// FIXME missing test for 50 000 changesets
+		// if (changeSetForStoring.)
+
+		// FIXME missing test for 50 000 changesets, wenn implementiert, dann
+		// muss der Test aus Infinitest ausgeschlossen werden
 	}
 }

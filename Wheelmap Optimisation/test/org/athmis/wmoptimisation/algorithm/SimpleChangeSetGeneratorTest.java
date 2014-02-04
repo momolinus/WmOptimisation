@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import org.athmis.wmoptimisation.changeset.Change;
+import org.athmis.wmoptimisation.changeset.ChangeSet;
 import org.athmis.wmoptimisation.changeset.ChangeSetTest;
 import org.athmis.wmoptimisation.changeset.Node;
 import org.athmis.wmoptimisation.changeset.OsmChangeContent;
@@ -15,29 +16,35 @@ import org.junit.Test;
 
 /**
  * This test is an integration test for {@linkplain OsmServer},
- * {@linkplain SimpleChangeSetGenerator} and {@linkplain OsmChangeContent}.
+ * {@linkplain SimpleChangeSetGenerator} and {@linkplain OsmChangeContent}. It
+ * tests some change adding constrains.
  * 
  * @author Marcus
  */
 public class SimpleChangeSetGeneratorTest {
 
-	private SimpleChangeSetGenerator changeGenerator;
+	private SimpleChangeSetGenerator simpleChangeSetGenerator;
 	private OsmChangeContent content;
 	private OsmServer osmServer;
 
 	@Before
 	public void setUp() throws Exception {
-		changeGenerator = new SimpleChangeSetGenerator();
+		simpleChangeSetGenerator = new SimpleChangeSetGenerator();
 		osmServer = new OsmServer();
 		content = new OsmChangeContent();
 	}
 
+	/**
+	 * Method tests adding two (different) nodes at two different days. The
+	 * SimpleChangeSetGenerator has to create two {@linkplain ChangeSet}s with
+	 * an area of 0 (because a single node has no area).
+	 */
 	@Test
 	public void testAddNodeDifferentDays() {
 		Node berlin = null;
 		berlin = Node.getBerlin();
 
-		changeGenerator.add(berlin, osmServer, content);
+		simpleChangeSetGenerator.add(berlin, osmServer, content);
 		List<Double> bboxes = content.getBoundingBoxesSquareDegree();
 		assertEquals("number of bbox", 1, bboxes.size());
 		assertEquals(	"bbox", 0.0, content.getBoundingBoxesSquareDegree().get(0),
@@ -45,23 +52,29 @@ public class SimpleChangeSetGeneratorTest {
 
 		Node nextDayNode =
 			Node.getDifferentNode(berlin, (int) TimeUnit.HOURS.toMinutes(25), 0.2, 0.1);
-		changeGenerator.add(nextDayNode, osmServer, content);
+		simpleChangeSetGenerator.add(nextDayNode, osmServer, content);
 		bboxes = content.getBoundingBoxesSquareDegree();
 
 		assertEquals("number of bbox", 2, bboxes.size());
+
 		assertEquals(	"bbox (0)", 0, content.getBoundingBoxesSquareDegree().get(0),
 						ChangeSetTest.STRONG_DELTA);
+
 		assertEquals(	"bbox (1)", 0, content.getBoundingBoxesSquareDegree().get(1),
 						ChangeSetTest.STRONG_DELTA);
-
 	}
 
+	/**
+	 * Methode tests adding only one change (a {@linkplain Node}. The
+	 * {@link SimpleChangeSetGenerator} has to create one {@linkplain ChangeSet}
+	 * .
+	 */
 	@Test
 	public void testAddOneNode() {
 		Change berlin = null;
 		berlin = Node.getBerlin();
 
-		changeGenerator.add(berlin, osmServer, content);
+		simpleChangeSetGenerator.add(berlin, osmServer, content);
 
 		List<Double> bboxes = content.getBoundingBoxesSquareDegree();
 
@@ -73,17 +86,19 @@ public class SimpleChangeSetGeneratorTest {
 		Node berlin = null;
 		berlin = Node.getBerlin();
 
-		changeGenerator.add(berlin, osmServer, content);
+		simpleChangeSetGenerator.add(berlin, osmServer, content);
 		List<Double> bboxes = content.getBoundingBoxesSquareDegree();
 		assertEquals("number of bbox", 1, bboxes.size());
 		assertEquals(	"bbox", 0.0, content.getBoundingBoxesSquareDegree().get(0),
 						ChangeSetTest.STRONG_DELTA);
 
-		changeGenerator.add(Node.getDifferentNode(berlin, 5, 0.2, 0.1), osmServer, content);
+		simpleChangeSetGenerator
+				.add(Node.getDifferentNode(berlin, 5, 0.2, 0.1), osmServer, content);
 		bboxes = content.getBoundingBoxesSquareDegree();
+
 		assertEquals("number of bbox", 1, bboxes.size());
+
 		assertEquals(	"bbox", 0.2 * 0.1, content.getBoundingBoxesSquareDegree().get(0),
 						ChangeSetTest.STRONG_DELTA);
-
 	}
 }

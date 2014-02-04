@@ -233,6 +233,8 @@ public class OsmServer {
 		return changeSets.get(id);
 	}
 
+	// XXX Benennung der Methode überdenken, sie ändert auch den Status des
+	// aktuellen Changesets
 	/**
 	 * Checks for closing task at given time and returns the changeset open
 	 * state.

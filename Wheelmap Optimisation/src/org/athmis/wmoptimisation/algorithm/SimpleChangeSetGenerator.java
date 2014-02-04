@@ -50,7 +50,7 @@ public class SimpleChangeSetGenerator extends ChangeSetGenerator {
 
 	}
 
-	private void checkForValidChangeAndServer(Change change, OsmServer osmServer)
+	private void checkChangeAndServerNotNull(Change change, OsmServer osmServer)
 		throws IllegalArgumentException {
 		if (change == null)
 			throw new IllegalArgumentException("null as Change is not permitted");
@@ -87,7 +87,7 @@ public class SimpleChangeSetGenerator extends ChangeSetGenerator {
 		Calendar changeTime;
 		ChangeSet changeSet;
 
-		checkForValidChangeAndServer(change, osmServer);
+		checkChangeAndServerNotNull(change, osmServer);
 
 		changeTime = change.getCreatedAt();
 

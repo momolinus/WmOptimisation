@@ -61,11 +61,13 @@ public class Optimize {
 		optimizedChangeSet = generator.createOptimizedChangeSets(changesFromZip);
 		LOGGER.info("optimized changes: " + optimizedChangeSet.toString());
 
+		/*
 		changesFromZip = OsmChangeContent.readOsmChangeContent("wheelmap_visitor-2010-2012.zip");
 		LOGGER.info("try to optimize changes: " + changesFromZip.toString());
 		optimizedChangeSet = generator.createOptimizedChangeSets(changesFromZip);
 		LOGGER.info("optimized changes: " + optimizedChangeSet.toString());
-
+		 */
+		
 		LOGGER.info("finished");
 	}
 
