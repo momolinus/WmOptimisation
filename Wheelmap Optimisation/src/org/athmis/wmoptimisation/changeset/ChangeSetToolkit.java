@@ -20,6 +20,7 @@
  * haben. Wenn nicht, siehe <http://www.gnu.org/licenses/>. */
 package org.athmis.wmoptimisation.changeset;
 
+import java.awt.geom.Point2D;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -91,5 +92,20 @@ public class ChangeSetToolkit {
 		}
 
 		return result / changeSets.size();
+	}
+
+	/**
+	 * @param node
+	 * @param area
+	 * @return a new created area with max lat/lon of both given parameters,
+	 *         where x of area is lon and y is lat
+	 */
+	public static Point2D updateArea(Node node, Point2D area) {
+		double lat, lon;
+
+		lon = Math.max(node.getMaxLon(), area.getX());
+		lat = Math.max(node.getMaxLat(), area.getY());
+
+		return new Point2D.Double(lat, lon);
 	}
 }

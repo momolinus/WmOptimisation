@@ -265,4 +265,13 @@ public class Node implements Change {
 		deltaLon = Math.abs(node1.lon - node2.lon);
 		return deltaLat * deltaLon;
 	}
+
+	/**
+	 * Returns a {@linkplain Point2D} with x = lon and y = lat.
+	 * 
+	 * @return a {@linkplain Point2D} with x = lon and y = lat
+	 */
+	public Point2D getArea() {
+		return new Point2D.Double(lon, lat);
+	}
 }
