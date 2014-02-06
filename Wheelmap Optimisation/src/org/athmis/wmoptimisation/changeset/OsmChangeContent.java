@@ -20,7 +20,7 @@
  * haben. Wenn nicht, siehe <http://www.gnu.org/licenses/>. */
 package org.athmis.wmoptimisation.changeset;
 
-import java.awt.geom.Point2D;
+import java.awt.geom.Rectangle2D;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Paths;
@@ -367,45 +367,13 @@ public class OsmChangeContent {
 	// TODO deutlich machen, dass tatsächlich die Flächen der Changesets
 	// berechnet werden
 	/**
-	 * @return
+	 * @return {@link Double#NaN} because implementation of
+	 *         {@link ChangeSetToolkit#updateArea(Node, Rectangle2D)} is missing
 	 */
 	public double getMeanAreaOfChangeSetsForNodes() {
-		double meanArea = 0;
-		Map<Long, Point2D> areas;
 
-		areas = new HashMap<>();
+		return Double.NaN;
 
-		for (OsmChange osmChange : changes) {
-
-			// note: the key is the changeset id where the Node is stored
-			Map<Long, Node> nodes = osmChange.getNodes();
-
-			for (Entry<Long, Node> node : nodes.entrySet()) {
-
-				if (areas.containsKey(node.getKey())) {
-					Point2D oldArea = areas.get(node.getKey());
-					areas.put(node.getKey(), ChangeSetToolkit.updateArea(node.getValue(), oldArea));
-				}
-				else {
-					areas.put(node.getKey(), node.getValue().getArea());
-				}
-			}
-		}
-
-		for (Entry<Long, Point2D> area : areas.entrySet()) {
-			// FIXME hier ist der Fehler: ergibt einen riesigen Wert, weil
-			// einfach das Produkt aus lat und lon gebildet wird, aber es muss
-			// das Produkt aus (latmax - latmin) * (lonmax - lonmin) gebildet
-			// werden
-			meanArea += Math.abs(area.getValue().getX() * area.getValue().getY());
-		}
-
-		if (areas.size() == 0) {
-			return Double.NaN;
-		}
-		else {
-			return meanArea / areas.size();
-		}
 	}
 
 	/**

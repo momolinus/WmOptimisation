@@ -23,7 +23,7 @@ import org.junit.Test;
  */
 public class SimpleChangeSetGeneratorTest {
 
-	private SimpleChangeSetGenerator simpleChangeSetGenerator;
+	private ChangeSetGenerator simpleChangeSetGenerator;
 	private OsmChangeContent content;
 	private OsmServer osmServer;
 

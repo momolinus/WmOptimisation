@@ -38,6 +38,7 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 import org.athmis.wmoptimisation.changeset.Change;
+import org.athmis.wmoptimisation.changeset.ChangeSet;
 import org.athmis.wmoptimisation.changeset.OsmChangeContent;
 import org.athmis.wmoptimisation.changeset.Way;
 import org.athmis.wmoptimisation.osmserver.OsmServer;
@@ -50,6 +51,20 @@ import org.athmis.wmoptimisation.osmserver.OsmServer;
  */
 public abstract class ChangeSetGenerator {
 	private static Logger LOGGER = Logger.getLogger(ChangeSetGenerator.class);
+	protected static void checkChangeSetNotNull(ChangeSet changeSet) {
+		if (changeSet == null)
+			throw new IllegalArgumentException("changeSet could not be found");
+	
+	}
+
+	protected static void checkChangeAndServerNotNull(Change change, OsmServer osmServer)
+		throws IllegalArgumentException {
+			if (change == null)
+				throw new IllegalArgumentException("null as Change is not permitted");
+			if (osmServer == null)
+				throw new IllegalArgumentException("null as OsmServer is not permitted");
+		}
+
 	private OsmServer osmServer;
 
 	public ChangeSetGenerator() {

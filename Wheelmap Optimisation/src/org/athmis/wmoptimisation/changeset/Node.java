@@ -274,4 +274,8 @@ public class Node implements Change {
 	public Point2D getArea() {
 		return new Point2D.Double(lon, lat);
 	}
+
+	public Point2D getLatLon() {
+		return new Point2D.Double(lat, lon);
+	}
 }

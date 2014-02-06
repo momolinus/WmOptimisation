@@ -44,22 +44,9 @@ public class SimpleChangeSetGenerator extends ChangeSetGenerator {
 
 	private Long changeSetInUseId;
 
-	private void checkChangeSet(ChangeSet changeSet) {
-		if (changeSet == null)
-			throw new IllegalArgumentException("changeSet could not be found");
-
-	}
-
-	private void checkChangeAndServerNotNull(Change change, OsmServer osmServer)
-		throws IllegalArgumentException {
-		if (change == null)
-			throw new IllegalArgumentException("null as Change is not permitted");
-		if (osmServer == null)
-			throw new IllegalArgumentException("null as OsmServer is not permitted");
-	}
-
 	private void initChangeSetInUseId(OsmServer osmServer, Calendar changeTime)
 		throws IllegalStateException {
+
 		// first run
 		if (changeSetInUseId == null) {
 			changeSetInUseId = osmServer.createChangeSet(changeTime);
@@ -79,8 +66,7 @@ public class SimpleChangeSetGenerator extends ChangeSetGenerator {
 	}
 
 	/**
-	 * @throws IllegalArgumentException
-	 *             if change's creation date ist not parseable
+	 * 
 	 */
 	@Override
 	protected void add(Change change, OsmServer osmServer, OsmChangeContent optimizedDataSet) {
@@ -94,7 +80,7 @@ public class SimpleChangeSetGenerator extends ChangeSetGenerator {
 		initChangeSetInUseId(osmServer, changeTime);
 
 		changeSet = osmServer.getChangeSet(changeSetInUseId);
-		checkChangeSet(changeSet);
+		checkChangeSetNotNull(changeSet);
 
 		optimizedDataSet.addChangeForChangeSet(change, changeSet);
 	}
