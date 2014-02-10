@@ -65,22 +65,22 @@ public class ChangeSet implements Comparable<ChangeSet> {
 	private double area;
 
 	@Attribute(name = "closed_at", required = false)
-	private String closedAt;
+	protected String closedAt;
 
 	@Attribute(name = "max_lat", required = false)
-	private double maxLatitude = Double.MIN_VALUE;
+	protected double maxLatitude = Double.MIN_VALUE;
 
 	@Attribute(name = "max_lon", required = false)
-	private double maxLongitude = Double.MIN_VALUE;
+	protected double maxLongitude = Double.MIN_VALUE;
 
 	@Attribute(name = "min_lat", required = false)
-	private double minLatitude = Double.MAX_VALUE;
+	protected double minLatitude = Double.MAX_VALUE;
 
 	@Attribute(name = "min_lon", required = false)
-	private double minLongitude = Double.MAX_VALUE;
+	protected double minLongitude = Double.MAX_VALUE;
 
 	@Attribute(name = "open", required = false)
-	private boolean open;
+	protected boolean open;
 
 	@ElementList(inline = true, required = false)
 	private List<Tag> tags = new ArrayList<Tag>();
@@ -113,26 +113,28 @@ public class ChangeSet implements Comparable<ChangeSet> {
 	}
 
 	/**
-	 * Closes the changeSet object at given time.
+	 * Constructor for a deep copy of given changeset.
 	 * 
-	 * @param closingTime
-	 *            will became the closing time
+	 * @param changeSet
+	 *            its state will be used to construct a new ChangeSet object (a
+	 *            deep copy)
 	 */
-	public void close(Calendar closingTime) {
-		open = false;
-		closedAt = ChangeSetToolkit.calToOsm(closingTime);
-	}
+	public ChangeSet(ChangeSet changeSet) {
+		this.area = changeSet.area;
 
-	/**
-	 * Closes a changeset, by setting close time = create time + 23:59
-	 */
-	public void closeNow() {
-		Calendar openTime;
+		for (Tag tag : changeSet.tags) {
+			tags.add(new Tag(tag));
+		}
 
-		open = false;
-		openTime = ChangeSetToolkit.osmToCal(createdAt);
-		openTime.add(Calendar.HOUR, 23);
-		openTime.add(Calendar.MINUTE, 59);
+		this.user = changeSet.user;
+		this.closedAt = changeSet.closedAt;
+		this.createdAt = changeSet.createdAt;
+		this.id = changeSet.id;
+		this.maxLatitude = changeSet.maxLatitude;
+		this.maxLongitude = changeSet.maxLongitude;
+		this.minLatitude = changeSet.minLatitude;
+		this.minLongitude = changeSet.minLongitude;
+		this.open = changeSet.open;
 	}
 
 	/**
@@ -165,7 +167,7 @@ public class ChangeSet implements Comparable<ChangeSet> {
 	 */
 	public double getBoundingBoxSquareDegree() {
 
-		// note: no matter calculate the area always
+		// note: no matter calculate the area always, it's fast enough
 		calculateArea();
 
 		return area;
@@ -243,19 +245,6 @@ public class ChangeSet implements Comparable<ChangeSet> {
 		return open;
 	}
 
-	public void updateArea(Change change) {
-		double lat, lon;
-
-		lat = change.getMaxLat();
-		lon = change.getMaxLon();
-
-		maxLatitude = Math.max(maxLatitude, lat);
-		minLatitude = Math.min(minLatitude, lat);
-
-		maxLongitude = Math.max(maxLongitude, lon);
-		minLongitude = Math.min(minLongitude, lon);
-	}
-
 	public String verbose() {
 		StringBuilder msg = new StringBuilder();
 
@@ -304,6 +293,12 @@ public class ChangeSet implements Comparable<ChangeSet> {
 		return result;
 	}
 
+	/**
+	 * Calculates the area/bounding box from {@linkplain #maxLatitude},
+	 * {@linkplain #minLatitude}, {@linkplain #maxLongitude} and
+	 * {@linkplain ChangeSet#minLongitude}; uses {@linkplain Math#abs(double)}
+	 * when calculates the difference in latitude and longitude.
+	 */
 	@Commit
 	protected void calculateArea() {
 		double width, heigth;

@@ -34,6 +34,7 @@ import java.util.concurrent.TimeUnit;
 
 import org.apache.log4j.Logger;
 import org.athmis.wmoptimisation.algorithm.ChangeSetGenerator;
+import org.athmis.wmoptimisation.changeset.CangeSetUpdateAble;
 import org.athmis.wmoptimisation.changeset.Change;
 import org.athmis.wmoptimisation.changeset.ChangeSet;
 import org.athmis.wmoptimisation.changeset.Node;
@@ -81,7 +82,7 @@ public class OsmServer {
 	 * map with changesets, the key is the ID of the changeset (which itself is
 	 * stored as value)
 	 */
-	private Map<Long, ChangeSet> changeSets;
+	private Map<Long, CangeSetUpdateAble> changeSets;
 
 	/**
 	 * used for building an ID for changesets
@@ -102,7 +103,7 @@ public class OsmServer {
 
 		Calendar nowCopy = (Calendar) now.clone();
 
-		for (ChangeSet changeSet : changeSets.values()) {
+		for (CangeSetUpdateAble changeSet : changeSets.values()) {
 
 			// only open change sets needs to be closed
 			if (changeSet.isOpen()) {
@@ -187,11 +188,11 @@ public class OsmServer {
 	 *             was previous added by any illegal call
 	 */
 	public Long createChangeSet(Calendar creationTime) {
-		ChangeSet changeSet;
+		CangeSetUpdateAble changeSet;
 		Object result;
 
 		index++;
-		changeSet = new ChangeSet(calToOsm(creationTime), index, true);
+		changeSet = new CangeSetUpdateAble(calToOsm(creationTime), index, true);
 		result = changeSets.put(index, changeSet);
 
 		// POSTCONDITION
@@ -229,7 +230,7 @@ public class OsmServer {
 	 * @return the changeset with given id, <code>null</code> if no changeset
 	 *         for given id was stored
 	 */
-	public ChangeSet getChangeSet(Long id) {
+	public CangeSetUpdateAble getChangeSet(Long id) {
 		return changeSets.get(id);
 	}
 

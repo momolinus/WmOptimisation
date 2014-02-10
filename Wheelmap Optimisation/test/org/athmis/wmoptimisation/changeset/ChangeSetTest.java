@@ -15,11 +15,11 @@ import org.junit.Test;
 public class ChangeSetTest {
 
 	public static final double STRONG_DELTA = 0.00000001;
-	
+
 	private final static DateFormat formatter = new SimpleDateFormat("yyyy.MM.dd - HH:mm:ss");
 	private Calendar currentTime;
 
-	private ChangeSet curTimeOpenChangeSet;
+	private CangeSetUpdateAble curTimeOpenChangeSet;
 
 	@Before
 	public void setUp() throws Exception {
@@ -29,7 +29,7 @@ public class ChangeSetTest {
 		currentTime = Calendar.getInstance();
 
 		createdAt = ChangeSetToolkit.calToOsm(currentTime);
-		curTimeOpenChangeSet = new ChangeSet(createdAt, 2, true);
+		curTimeOpenChangeSet = new CangeSetUpdateAble(createdAt, 2, true);
 	}
 
 	@Test
@@ -41,7 +41,7 @@ public class ChangeSetTest {
 
 		Change change;
 		change = Node.getBerlinAsNode();
-		curTimeOpenChangeSet.updateArea(change);
+		curTimeOpenChangeSet.updateBoundingBox(change);
 
 		area = curTimeOpenChangeSet.getBoundingBoxSquareDegree();
 		assertEquals(0.0, area, STRONG_DELTA);
@@ -53,8 +53,8 @@ public class ChangeSetTest {
 		List<Node> twoNodes;
 
 		twoNodes = Node.getNodes(0.1);
-		curTimeOpenChangeSet.updateArea(twoNodes.get(0));
-		curTimeOpenChangeSet.updateArea(twoNodes.get(1));
+		curTimeOpenChangeSet.updateBoundingBox(twoNodes.get(0));
+		curTimeOpenChangeSet.updateBoundingBox(twoNodes.get(1));
 
 		area = curTimeOpenChangeSet.getBoundingBoxSquareDegree();
 		assertEquals(0.1 * 0.1, area, STRONG_DELTA);
@@ -102,13 +102,13 @@ public class ChangeSetTest {
 		twoNodes = Node.getNodes(0.1);
 
 		twoNodes.get(0).setChangeset(curTimeOpenChangeSet.getId());
-		curTimeOpenChangeSet.updateArea(twoNodes.get(0));
+		curTimeOpenChangeSet.updateBoundingBox(twoNodes.get(0));
 
 		assertEquals(	"bounding box ", 0.0, curTimeOpenChangeSet.getBoundingBoxSquareDegree(),
 						STRONG_DELTA);
 
 		twoNodes.get(1).setChangeset(curTimeOpenChangeSet.getId());
-		curTimeOpenChangeSet.updateArea(twoNodes.get(1));
+		curTimeOpenChangeSet.updateBoundingBox(twoNodes.get(1));
 		assertEquals(	"bounding box", 0.1 * 0.1,
 						curTimeOpenChangeSet.getBoundingBoxSquareDegree(),
 						STRONG_DELTA);

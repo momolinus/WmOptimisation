@@ -107,7 +107,8 @@ public class OsmChangeContent {
 					changeSetStream = changeSetsZip.getInputStream(zipEntry);
 					try {
 						changeSet = serializer.read(ChangeSet.class, changeSetStream);
-						if (result.add(changeSet) != null) {
+
+						if (result.add(new CangeSetUpdateAble(changeSet)) != null) {
 							LOGGER.info("changeSet 'id=" + changeSet.getId()
 								+ "' was stored before");
 						}
@@ -138,7 +139,7 @@ public class OsmChangeContent {
 
 	private List<OsmChange> changes;
 
-	private Map<Long, ChangeSet> changeSets;
+	private Map<Long, CangeSetUpdateAble> changeSets;
 
 	/**
 	 * Constructs an empty OsmChangeContent object. It has an empty map for
@@ -157,7 +158,7 @@ public class OsmChangeContent {
 	 * @return <code>null</code> if no value for changeset id was stored, or
 	 *         previous stored changeset, which usually seem to be an error
 	 */
-	public ChangeSet add(ChangeSet changeSet) {
+	public ChangeSet add(CangeSetUpdateAble changeSet) {
 		return changeSets.put(Long.valueOf(changeSet.getId()), changeSet);
 	}
 
@@ -190,8 +191,8 @@ public class OsmChangeContent {
 	 *             changes, changeset was not used for more than one hour ore
 	 *             changeset is not open
 	 */
-	public void addChangeForChangeSet(Change change, ChangeSet changeSet) {
-		ChangeSet changeSetForStoring;
+	public void addChangeForChangeSet(Change change, CangeSetUpdateAble changeSet) {
+		CangeSetUpdateAble changeSetForStoring;
 
 		changeSetForStoring = fetchOrStoreAndFetchChangeset(changeSet);
 
@@ -223,7 +224,7 @@ public class OsmChangeContent {
 		table.append("id;user;closed;opentime;area");
 		table.append("\n");
 
-		Iterator<ChangeSet> chs = changeSets.values().iterator();
+		Iterator<CangeSetUpdateAble> chs = changeSets.values().iterator();
 		while (chs.hasNext()) {
 			ChangeSet chSet = chs.next();
 
@@ -260,7 +261,7 @@ public class OsmChangeContent {
 
 	public void closeAllChangeSets() {
 
-		for (ChangeSet changeSet : changeSets.values()) {
+		for (CangeSetUpdateAble changeSet : changeSets.values()) {
 			if (changeSet.isOpen()) {
 				changeSet.closeNow();
 			}
@@ -294,7 +295,7 @@ public class OsmChangeContent {
 		result.append(header);
 		result.append("\n");
 
-		Iterator<ChangeSet> chs = changeSets.values().iterator();
+		Iterator<CangeSetUpdateAble> chs = changeSets.values().iterator();
 		while (chs.hasNext()) {
 			result.append(String.format("%.12f", chs.next().getBoundingBoxSquareDegree()));
 			if (chs.hasNext())
@@ -325,6 +326,10 @@ public class OsmChangeContent {
 		return changes.size() + changeSets.size();
 	}
 
+	/**
+	 * Returns the number of changesets this contains, the mean area of the
+	 * changesets and the number of changes/edits stored in this changesets.
+	 */
 	@Override
 	public String toString() {
 		double meanArea;
@@ -353,7 +358,7 @@ public class OsmChangeContent {
 			}
 		}
 
-		for (Entry<Long, ChangeSet> changeset : changeSets.entrySet()) {
+		for (Entry<Long, CangeSetUpdateAble> changeset : changeSets.entrySet()) {
 			result.append(changeset.getKey().toString() + "\t"
 				+ formatter.format(changeset.getValue().getCreated().getTime()));
 			result.append("\n");
@@ -385,8 +390,8 @@ public class OsmChangeContent {
 	 * @return the stored changeset (compared on id) or the given changeset,
 	 *         which will be stored as a new one
 	 */
-	private ChangeSet fetchOrStoreAndFetchChangeset(ChangeSet changeSet) {
-		ChangeSet changeSetForStoring;
+	private CangeSetUpdateAble fetchOrStoreAndFetchChangeset(CangeSetUpdateAble changeSet) {
+		CangeSetUpdateAble changeSetForStoring;
 		long changesetId;
 
 		changesetId = changeSet.getId();
@@ -409,9 +414,9 @@ public class OsmChangeContent {
 	 * @param changeSetForStoring
 	 *            "stores" given change
 	 */
-	private void setChangeAsStored(Change change, ChangeSet changeSetForStoring) {
+	private void setChangeAsStored(Change change, CangeSetUpdateAble changeSetForStoring) {
 		change.setChangeset(changeSetForStoring.getId());
-		changeSetForStoring.updateArea(change);
+		changeSetForStoring.updateBoundingBox(change);
 	}
 
 	/**

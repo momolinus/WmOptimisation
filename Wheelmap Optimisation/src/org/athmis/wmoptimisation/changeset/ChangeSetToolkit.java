@@ -78,7 +78,17 @@ public class ChangeSetToolkit {
 		return result;
 	}
 
-	public static double meanArea(Collection<ChangeSet> changeSets) {
+	/**
+	 * Calculates the mean area as the mean of given changesets bounding boxes.
+	 * 
+	 * @param changeSets
+	 *            a list with changesets, where the bounding boxes will be used
+	 * @return mean area as the mean of given changesets bounding boxes or
+	 *         {@link Double#NaN} if changeSets has no elements
+	 * @throws IllegalArgumentException
+	 *             if changeSets is <code>null</code>
+	 */
+	public static double meanArea(Collection<CangeSetUpdateAble> changeSets) {
 		double result = 0;
 
 		if (changeSets == null)

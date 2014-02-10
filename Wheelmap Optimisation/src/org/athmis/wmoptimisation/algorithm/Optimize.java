@@ -46,21 +46,17 @@ public class Optimize {
 		OsmChangeContent changesFromZip, optimizedChangeSet;
 		generator = new SimpleChangeSetGenerator();
 
+		@SuppressWarnings("unused")
 		double meanArea, optimizedMeanArea;
 
 		LOGGER.info("now working on olr-2010-2012.zip");
 		changesFromZip = OsmChangeContent.readOsmChangeContent("olr-2010-2012.zip");
 		LOGGER.info("try to optimize changes: " + changesFromZip.toString());
-		LOGGER.info("mean nodes area size = "
-			+ (meanArea = changesFromZip.getMeanAreaOfChangeSetsForNodes()));
-
 		optimizedChangeSet = generator.createOptimizedChangeSets(changesFromZip);
 		LOGGER.info("optimized changes: " + optimizedChangeSet.toString());
-		LOGGER.info("mean nodes area size now = "
-			+ (optimizedMeanArea = optimizedChangeSet.getMeanAreaOfChangeSetsForNodes()));
-		LOGGER.info("area ompimization error = " + ((meanArea - optimizedMeanArea) / meanArea)
-			* 100 + " %");
 
+		//@formatter:off
+		/*
 		LOGGER.info("now working on wheelmap_visitor-2010-2012.zip");
 		changesFromZip = OsmChangeContent.readOsmChangeContent("wheelmap_visitor-2010-2012.zip");
 		LOGGER.info("try to optimize changes: " + changesFromZip.toString());
@@ -68,10 +64,17 @@ public class Optimize {
 			+ (meanArea = changesFromZip.getMeanAreaOfChangeSetsForNodes()));
 		optimizedChangeSet = generator.createOptimizedChangeSets(changesFromZip);
 		LOGGER.info("optimized changes: " + optimizedChangeSet.toString());
+		*/
+		//@formatter:on
+
+		//@formatter:off
+		/*
 		LOGGER.info("mean nodes area size now = "
 			+ (optimizedMeanArea = optimizedChangeSet.getMeanAreaOfChangeSetsForNodes()));
 		LOGGER.info("area ompimization error = " + ((meanArea - optimizedMeanArea) / meanArea)
 			* 100 + " %");
+		*/
+		//@formatter:on
 
 		LOGGER.info("finished");
 	}
