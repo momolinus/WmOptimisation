@@ -68,10 +68,10 @@ public class ChangeSet implements Comparable<ChangeSet> {
 	protected String closedAt;
 
 	@Attribute(name = "max_lat", required = false)
-	protected double maxLatitude = Double.MIN_VALUE;
+	protected double maxLatitude = -Double.MAX_VALUE;
 
 	@Attribute(name = "max_lon", required = false)
-	protected double maxLongitude = Double.MIN_VALUE;
+	protected double maxLongitude = -Double.MAX_VALUE;
 
 	@Attribute(name = "min_lat", required = false)
 	protected double minLatitude = Double.MAX_VALUE;
@@ -193,22 +193,6 @@ public class ChangeSet implements Comparable<ChangeSet> {
 
 	public long getId() {
 		return id;
-	}
-
-	public double getMaxLatitude() {
-		return maxLatitude;
-	}
-
-	public double getMaxLongitude() {
-		return maxLongitude;
-	}
-
-	public double getMinLatitude() {
-		return minLatitude;
-	}
-
-	public double getMinLongitude() {
-		return minLongitude;
 	}
 
 	/**

@@ -27,28 +27,30 @@ import org.apache.log4j.BasicConfigurator;
 import org.apache.log4j.Logger;
 import org.athmis.wmoptimisation.changeset.OsmChangeContent;
 
-// TODO hier kommt die Doku für die Optimierung-Strategie rein (und dabei wird
-// sie auch entwickelt)
-
-// TODO prüfen: der Testlauf in der main ergab einen Unterschied zwischen der
-// Fläche der gespeicherten Daten und der Fläche der simulierten Changesets;
-// Vielleicht mit einem ganz kleinen Changeset mal prüfen
 /**
  * @author Marcus
  */
-public class Optimize {
+public class Optimize2 {
 
-	private final static Logger LOGGER = Logger.getLogger(Optimize.class);
+	private final static Logger LOGGER = Logger.getLogger(Optimize2.class);
 
 	public static void run(String[] args) throws IOException, ParseException {
 
 		ChangeSetGenerator generator;
+		String fileName;
+		
+		fileName = "wheelmap_visitor-2010-2012.zip";
+		generator = new MinimizeAreaChangeSetGenartor();
+
+		runChangeSetGenerator(generator, fileName);
+	}
+
+	private static void runChangeSetGenerator(ChangeSetGenerator generator, String fileName)
+		throws IOException {
 		OsmChangeContent changesFromZip, optimizedChangeSet;
-
-		generator = new SimpleChangeSetGenerator();
-
-		LOGGER.info("now working on olr-2010-2012.zip");
-		changesFromZip = OsmChangeContent.readOsmChangeContent("olr-2010-2012.zip");
+		
+		LOGGER.info("now working on " + fileName);
+		changesFromZip = OsmChangeContent.readOsmChangeContent(fileName);
 		LOGGER.info("try to optimize changes: " + changesFromZip.toString());
 		LOGGER.info("mean nodes area size = " + changesFromZip.getMeanAreaOfChangeSetsForNodes());
 
@@ -57,35 +59,8 @@ public class Optimize {
 		optimizedChangeSet = generator.createOptimizedChangeSets(changesFromZip);
 		LOGGER.info("optimized changes: " + optimizedChangeSet.toString());
 		LOGGER.info("optimized mean nodes area size = "
-			+ changesFromZip.getMeanAreaOfChangeSetsForNodes());
-		LOGGER.info("finished with olr-2010-2012.zip");
-
-		LOGGER.info("***--------------------------***");
-
-		//@formatter:off
-		
-		LOGGER.info("now working on wheelmap_visitor-2010-2012.zip");
-		changesFromZip = OsmChangeContent.readOsmChangeContent("wheelmap_visitor-2010-2012.zip");
-		LOGGER.info("try to optimize changes: " + changesFromZip.toString());
-		LOGGER.info("mean nodes area size = " + changesFromZip.getMeanAreaOfChangeSetsForNodes());
-
-		LOGGER.info("*** starting optimiztion ***");
-		
-		optimizedChangeSet = generator.createOptimizedChangeSets(changesFromZip);
-		LOGGER.info("optimized changes: " + optimizedChangeSet.toString());
-		LOGGER.info("optimized mean nodes area size = " + changesFromZip.getMeanAreaOfChangeSetsForNodes());
-		LOGGER.info("finished with wheelmap_visitor-2010-2012.zip");
-		
-		//@formatter:on
-
-		//@formatter:off
-		/*
-		LOGGER.info("mean nodes area size now = "
-			+ (optimizedMeanArea = optimizedChangeSet.getMeanAreaOfChangeSetsForNodes()));
-		LOGGER.info("area ompimization error = " + ((meanArea - optimizedMeanArea) / meanArea)
-			* 100 + " %");
-		*/
-		//@formatter:on
+			+ optimizedChangeSet.getMeanAreaOfChangeSetsForNodes());
+		LOGGER.info("finished with " + fileName);
 
 		LOGGER.info("***--------------------------***");
 
@@ -97,7 +72,7 @@ public class Optimize {
 		BasicConfigurator.configure();
 
 		try {
-			Optimize.run(args);
+			Optimize2.run(args);
 
 			System.exit(1);
 

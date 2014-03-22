@@ -17,3 +17,4 @@ bin/
 # the areas
 *.csv
 /javadoc.xml
+/aufgaben.todo

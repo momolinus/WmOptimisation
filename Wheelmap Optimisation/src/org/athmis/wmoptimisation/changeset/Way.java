@@ -157,7 +157,7 @@ public class Way implements Change {
 	 *         sensible value
 	 */
 	@Override
-	public double getMaxLat() {
+	public double getLat() {
 		return -1;
 	}
 
@@ -166,7 +166,7 @@ public class Way implements Change {
 	 *         sensible value
 	 */
 	@Override
-	public double getMaxLon() {
+	public double getLon() {
 		return -1;
 	}
 }

@@ -212,12 +212,12 @@ public class Node implements Change {
 	}
 
 	@Override
-	public double getMaxLat() {
+	public double getLat() {
 		return lat;
 	}
 
 	@Override
-	public double getMaxLon() {
+	public double getLon() {
 		return lon;
 	}
 
@@ -277,5 +277,27 @@ public class Node implements Change {
 
 	public Point2D getLatLon() {
 		return new Point2D.Double(lat, lon);
+	}
+
+	/**
+	 * Returns a node with given lat and lon, id = 1, version = 1 and visible =
+	 * true.
+	 * 
+	 * @param lat
+	 * @param lon
+	 * @return node with given lat and lon
+	 */
+	public static Node getNode(double lat, double lon) {
+		Node result =
+			new Node(1, lat, lon, ChangeSetToolkit.calToOsm(Calendar.getInstance()), 1, true);
+		return result;
+	}
+
+	public static Node getDifferentNode(Node node, double lat, double lon) {
+		Calendar nodeTime = node.getCreatedAt();
+		nodeTime.add(Calendar.MINUTE, 5);
+		Node result = new Node(node.id + 1, lat, lon, ChangeSetToolkit.calToOsm(nodeTime), 1, true);
+
+		return result;
 	}
 }

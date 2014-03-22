@@ -21,6 +21,14 @@ public class ChangeSetTest {
 
 	private CangeSetUpdateAble curTimeOpenChangeSet;
 
+	private Node alaska;
+
+	private Node argentinia_most_S;
+
+	private Node europa;
+
+	private Node australia;
+
 	@Before
 	public void setUp() throws Exception {
 
@@ -30,6 +38,11 @@ public class ChangeSetTest {
 
 		createdAt = ChangeSetToolkit.calToOsm(currentTime);
 		curTimeOpenChangeSet = new CangeSetUpdateAble(createdAt, 2, true);
+
+		alaska = Node.getNode(65, -147);
+		argentinia_most_S = Node.getDifferentNode(alaska, -35, -65);
+		europa = Node.getDifferentNode(alaska, 52, 13);
+		australia = Node.getDifferentNode(alaska, -27, 121);
 	}
 
 	@Test
@@ -116,6 +129,93 @@ public class ChangeSetTest {
 	}
 
 	@Test
+	public void testUpdateArea_NW_SW() {
+
+		alaska.setChangeset(curTimeOpenChangeSet.getId());
+		curTimeOpenChangeSet.updateBoundingBox(alaska);
+		assertEquals(	"bounding box ", 0.0, curTimeOpenChangeSet.getBoundingBoxSquareDegree(),
+						STRONG_DELTA);
+
+		argentinia_most_S.setChangeset(curTimeOpenChangeSet.getId());
+		curTimeOpenChangeSet.updateBoundingBox(argentinia_most_S);
+
+		double lat = alaska.getLat() - argentinia_most_S.getLat();
+		double lon = alaska.getLon() - argentinia_most_S.getLon();
+		double area = Math.abs(lat * lon);
+
+		assertEquals(	"bounding box ", area, curTimeOpenChangeSet.getBoundingBoxSquareDegree(),
+						STRONG_DELTA);
+	}
+
+	@Test
+	public void testUpdateArea_SW_NW() {
+
+		argentinia_most_S.setChangeset(curTimeOpenChangeSet.getId());
+		curTimeOpenChangeSet.updateBoundingBox(argentinia_most_S);
+		assertEquals(	"bounding box ", 0.0, curTimeOpenChangeSet.getBoundingBoxSquareDegree(),
+						STRONG_DELTA);
+
+		alaska.setChangeset(curTimeOpenChangeSet.getId());
+		curTimeOpenChangeSet.updateBoundingBox(alaska);
+		double area =
+			Math.abs((argentinia_most_S.getLat() - alaska.getLat())
+				* (argentinia_most_S.getLon() - alaska.getLon()));
+		assertEquals(	"bounding box ", area, curTimeOpenChangeSet.getBoundingBoxSquareDegree(),
+						STRONG_DELTA);
+	}
+
+	@Test
+	public void testUpdateArea_SW_NW_NE() {
+
+		argentinia_most_S.setChangeset(curTimeOpenChangeSet.getId());
+		curTimeOpenChangeSet.updateBoundingBox(argentinia_most_S);
+		assertEquals(	"bounding box ", 0.0, curTimeOpenChangeSet.getBoundingBoxSquareDegree(),
+						STRONG_DELTA);
+
+		alaska.setChangeset(curTimeOpenChangeSet.getId());
+		curTimeOpenChangeSet.updateBoundingBox(alaska);
+
+		europa.setChangeset(curTimeOpenChangeSet.getId());
+		curTimeOpenChangeSet.updateBoundingBox(europa);
+
+		double lat = alaska.getLat() - argentinia_most_S.getLat();
+		double lon = alaska.getLon() - europa.getLon();
+		double area = Math.abs(lat * lon);
+		Math.abs((argentinia_most_S.getLat() - alaska.getLat())
+			* (argentinia_most_S.getLon() - alaska.getLon()));
+
+		assertEquals(	"bounding box ", area, curTimeOpenChangeSet.getBoundingBoxSquareDegree(),
+						STRONG_DELTA);
+	}
+
+	@Test
+	public void testUpdateArea_SW_NW_NE_SE() {
+
+		argentinia_most_S.setChangeset(curTimeOpenChangeSet.getId());
+		curTimeOpenChangeSet.updateBoundingBox(argentinia_most_S);
+		assertEquals(	"bounding box ", 0.0, curTimeOpenChangeSet.getBoundingBoxSquareDegree(),
+						STRONG_DELTA);
+
+		alaska.setChangeset(curTimeOpenChangeSet.getId());
+		curTimeOpenChangeSet.updateBoundingBox(alaska);
+
+		europa.setChangeset(curTimeOpenChangeSet.getId());
+		curTimeOpenChangeSet.updateBoundingBox(europa);
+
+		australia.setChangeset(curTimeOpenChangeSet.getId());
+		curTimeOpenChangeSet.updateBoundingBox(australia);
+
+		double lat = alaska.getLat() - argentinia_most_S.getLat();
+		double lon = alaska.getLon() - australia.getLon();
+		double area = Math.abs(lat * lon);
+		Math.abs((argentinia_most_S.getLat() - alaska.getLat())
+			* (argentinia_most_S.getLon() - alaska.getLon()));
+
+		assertEquals(	"bounding box ", area, curTimeOpenChangeSet.getBoundingBoxSquareDegree(),
+						STRONG_DELTA);
+	}
+
+	@Test
 	public void testCloseNow() {
 
 		curTimeOpenChangeSet.closeNow();
@@ -123,5 +223,4 @@ public class ChangeSetTest {
 		assertFalse("closed", curTimeOpenChangeSet.isOpen());
 
 	}
-
 }

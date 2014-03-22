@@ -78,6 +78,7 @@ public class ChangeSetToolkit {
 		return result;
 	}
 
+	// TODO klar machen, dass es nur die die areas > 0 nimmt
 	/**
 	 * Calculates the mean area as the mean of given changesets bounding boxes.
 	 * 
@@ -90,6 +91,7 @@ public class ChangeSetToolkit {
 	 */
 	public static double meanArea(Collection<CangeSetUpdateAble> changeSets) {
 		double result = 0;
+		int areas = 0;
 
 		if (changeSets == null)
 			throw new IllegalArgumentException("null as changeSets is nnot permitted");
@@ -98,10 +100,18 @@ public class ChangeSetToolkit {
 			return Double.NaN;
 
 		for (ChangeSet changeSet : changeSets) {
-			result += changeSet.getBoundingBoxSquareDegree();
+			if (changeSet.getBoundingBoxSquareDegree() > 0) {
+				result += changeSet.getBoundingBoxSquareDegree();
+				areas++;
+			}
 		}
 
-		return result / changeSets.size();
+		if (areas > 0) {
+			return result / areas;
+		}
+		else {
+			return 0;
+		}
 	}
 
 	/**

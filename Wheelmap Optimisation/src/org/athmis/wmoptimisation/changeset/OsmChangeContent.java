@@ -20,7 +20,6 @@
  * haben. Wenn nicht, siehe <http://www.gnu.org/licenses/>. */
 package org.athmis.wmoptimisation.changeset;
 
-import java.awt.geom.Rectangle2D;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Paths;
@@ -367,18 +366,22 @@ public class OsmChangeContent {
 		return result.toString();
 	}
 
-	// FIXME Methode muss einen Fehler haben, berechnet bei menschlichem und bei
-	// wheelchair fast die gleiche Fläche
-	// TODO deutlich machen, dass tatsächlich die Flächen der Changesets
-	// berechnet werden
-	/**
-	 * @return {@link Double#NaN} because implementation of
-	 *         {@link ChangeSetToolkit#updateArea(Node, Rectangle2D)} is missing
-	 */
 	public double getMeanAreaOfChangeSetsForNodes() {
+		double areasSum = 0;
+		int noAreas = 0;
+		for (ChangeSet changeSet : changeSets.values()) {
+			if (changeSet.getBoundingBoxSquareDegree() > 0) {
+				noAreas++;
+				areasSum += changeSet.getBoundingBoxSquareDegree();
+			}
+		}
 
-		return Double.NaN;
-
+		if (noAreas == 0) {
+			return Double.NaN;
+		}
+		else {
+			return areasSum / noAreas;
+		}
 	}
 
 	/**

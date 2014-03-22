@@ -53,10 +53,9 @@ public class CangeSetUpdateAble extends ChangeSet {
 	public void updateBoundingBox(Change change) {
 		double lat, lon;
 
-		lat = change.getMaxLat();
-		lon = change.getMaxLon();
+		lat = change.getLat();
+		lon = change.getLon();
 
-		// FIXME hier gibt es 4 Fälle lat < 0 && maxLatitude < 0 usw.
 		maxLatitude = Math.max(maxLatitude, lat);
 		minLatitude = Math.min(minLatitude, lat);
 

@@ -58,7 +58,7 @@ public interface Change extends Comparable<Change> {
 
 	public String verbose();
 
-	public double getMaxLat();
+	public double getLat();
 
-	public double getMaxLon();
+	public double getLon();
 }
