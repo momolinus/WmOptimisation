@@ -30,9 +30,6 @@ import org.athmis.wmoptimisation.changeset.OsmChangeContent;
 // TODO hier kommt die Doku für die Optimierung-Strategie rein (und dabei wird
 // sie auch entwickelt)
 
-// TODO prüfen: der Testlauf in der main ergab einen Unterschied zwischen der
-// Fläche der gespeicherten Daten und der Fläche der simulierten Changesets;
-// Vielleicht mit einem ganz kleinen Changeset mal prüfen
 /**
  * @author Marcus
  */
@@ -43,64 +40,54 @@ public class Optimize {
 	public static void run(String[] args) throws IOException, ParseException {
 
 		ChangeSetGenerator generator;
-		OsmChangeContent changesFromZip, optimizedChangeSet;
-
+		OptimizationResult result;
 		generator = new SimpleChangeSetGenerator();
 
-		LOGGER.info("now working on olr-2010-2012.zip");
-		changesFromZip = OsmChangeContent.readOsmChangeContent("olr-2010-2012.zip");
-		LOGGER.info("try to optimize changes: " + changesFromZip.toString());
-		LOGGER.info("mean nodes area size = " + changesFromZip.getMeanAreaOfChangeSetsForNodes());
+		// result = runChangeSetGenerator(generator, "olr-2010-2012.zip");
+		// System.out.println(result.toString());
+		result = runChangeSetGenerator(generator, "wheelmap_visitor-2010-2012.zip");
+		System.out.println(result.toString());
 
-		LOGGER.info("*** starting optimiztion ***");
+		generator = new MinimizeAreaChangeSetGenartor();
 
-		optimizedChangeSet = generator.createOptimizedChangeSets(changesFromZip);
-		LOGGER.info("optimized changes: " + optimizedChangeSet.toString());
-		LOGGER.info("optimized mean nodes area size = "
-			+ changesFromZip.getMeanAreaOfChangeSetsForNodes());
-		LOGGER.info("finished with olr-2010-2012.zip");
+		// result = runChangeSetGenerator(generator, "olr-2010-2012.zip");
+		// System.out.println(result.toString());
+		result = runChangeSetGenerator(generator, "wheelmap_visitor-2010-2012.zip");
+		System.out.println(result.toString());
 
-		LOGGER.info("***--------------------------***");
-
-		//@formatter:off
-		
-		LOGGER.info("now working on wheelmap_visitor-2010-2012.zip");
-		changesFromZip = OsmChangeContent.readOsmChangeContent("wheelmap_visitor-2010-2012.zip");
-		LOGGER.info("try to optimize changes: " + changesFromZip.toString());
-		LOGGER.info("mean nodes area size = " + changesFromZip.getMeanAreaOfChangeSetsForNodes());
-
-		LOGGER.info("*** starting optimiztion ***");
-		
-		optimizedChangeSet = generator.createOptimizedChangeSets(changesFromZip);
-		LOGGER.info("optimized changes: " + optimizedChangeSet.toString());
-		LOGGER.info("optimized mean nodes area size = " + changesFromZip.getMeanAreaOfChangeSetsForNodes());
-		LOGGER.info("finished with wheelmap_visitor-2010-2012.zip");
-		
-		//@formatter:on
-
-		//@formatter:off
-		/*
-		LOGGER.info("mean nodes area size now = "
-			+ (optimizedMeanArea = optimizedChangeSet.getMeanAreaOfChangeSetsForNodes()));
-		LOGGER.info("area ompimization error = " + ((meanArea - optimizedMeanArea) / meanArea)
-			* 100 + " %");
-		*/
-		//@formatter:on
-
-		LOGGER.info("***--------------------------***");
-
+		LOGGER.info("\n");
 		LOGGER.info("finished");
 	}
 
+	private static OptimizationResult runChangeSetGenerator(ChangeSetGenerator generator,
+		String fileName) throws IOException {
+		OsmChangeContent changesFromZip, optimizedChangeSet;
+
+		OptimizationResult optimizationResult =
+			new OptimizationResult(fileName, generator.getName());
+
+		changesFromZip = OsmChangeContent.readOsmChangeContent(fileName);
+		optimizationResult.setMeanAreaSource(changesFromZip.getMeanAreaOfChangeSetsForNodes());
+		optimizationResult.setNoChangeSetsSource(changesFromZip.getNoChangeSets());
+
+		optimizedChangeSet = generator.createOptimizedChangeSets(changesFromZip);
+		optimizationResult.setMeanAreaOptimized(optimizedChangeSet
+				.getMeanAreaOfChangeSetsForNodes());
+		optimizationResult.setNoChangeSetsOptimized(optimizedChangeSet.getNoChangeSets());
+
+		return optimizationResult;
+	}
+
 	public static void main(String[] args) {
+
 		// configure Log4j
 		BasicConfigurator.configure();
+		// Logger.getRootLogger().setLevel(Level.WARN);
 
 		try {
 			Optimize.run(args);
 
 			System.exit(1);
-
 		}
 		catch (IOException | ParseException e) {
 

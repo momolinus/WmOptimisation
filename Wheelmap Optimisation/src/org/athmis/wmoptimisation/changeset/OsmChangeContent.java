@@ -279,6 +279,11 @@ public class OsmChangeContent {
 
 		return allChanges;
 	}
+	
+	public int getNoChangeSets(){
+		return changeSets.values().size();
+	}
+	
 
 	/**
 	 * Returns the areas of all changesets as a table.
