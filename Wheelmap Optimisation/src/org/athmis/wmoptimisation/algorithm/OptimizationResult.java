@@ -5,9 +5,11 @@ public class OptimizationResult {
 	private String fileName;
 	private String generatorName;
 	private double meanAreaSource;
-	private int noChangeSetsSource;
-	private double meanAreaSourceOptimized;
-	private int noChangeSetsSourceOptimized;
+	private int numberChangeSetsSource;
+	private double meanAreaOptimized;
+	private int numberChangeSetsOptimized;
+	private int numberNodesSource;
+	private int numberNodesOptimized;
 
 	public OptimizationResult(String fileName, String generatorName) {
 		this.fileName = fileName;
@@ -19,15 +21,15 @@ public class OptimizationResult {
 	}
 
 	public void setNoChangeSetsSource(int noChangeSets) {
-		this.noChangeSetsSource = noChangeSets;
+		this.numberChangeSetsSource = noChangeSets;
 	}
 
 	public void setMeanAreaOptimized(double meanArea) {
-		this.meanAreaSourceOptimized = meanArea;
+		this.meanAreaOptimized = meanArea;
 	}
 
 	public void setNoChangeSetsOptimized(int noChangeSets) {
-		this.noChangeSetsSourceOptimized = noChangeSets;
+		this.numberChangeSetsOptimized = noChangeSets;
 	}
 
 	@Override
@@ -35,33 +37,44 @@ public class OptimizationResult {
 		String result;
 
 		result = fileName + " with " + generatorName;
-		result += "\n*** Changes ***";
-		result += "\nno changes = " + noChangeSetsSource;
-		result += "\nno changes opt = " + noChangeSetsSourceOptimized;
-		result += "\nchange = " + noChangeSetsChange();
+		result += "\n*** Nodes ***";
+		result += "\nnumber nodes = " + numberNodesSource;
+		result += "\nnumber nodes opt = " + numberNodesOptimized;
 		result += "\n*** Area ***";
 		result += "\nmean area = " + meanAreaSource;
-		result += "\nmean area opt = " + meanAreaSourceOptimized;
+		result += "\nmean area opt = " + meanAreaOptimized;
 		result += "\nchange = " + meanAreaChange();
+		result += "\n*** ChangeSets ***";
+		result += "\nnumber changesets = " + numberChangeSetsSource;
+		result += "\nnumber changesets opt = " + numberChangeSetsOptimized;
+		result += "\nchange = " + numberChangeSetsChange();
 
 		return result;
 	}
 
-	public String noChangeSetsChange() {
+	public String numberChangeSetsChange() {
 		double result;
 
-		result = Math.abs(noChangeSetsSource - noChangeSetsSourceOptimized) * 100.0;
-		result = result / noChangeSetsSource;
+		result = (numberChangeSetsOptimized - numberChangeSetsSource) * 100.0;
+		result = result / numberChangeSetsSource;
 
-		return String.valueOf(result);
+		return String.valueOf(result) + " %";
 	}
 
 	public String meanAreaChange() {
 		double result;
 
-		result = Math.abs(meanAreaSource - meanAreaSourceOptimized) * 100.0;
-		result = result / meanAreaSourceOptimized;
+		result = (meanAreaOptimized - meanAreaSource) * 100.0;
+		result = result / meanAreaSource;
 
-		return String.valueOf(result);
+		return String.valueOf(result) + " %";
+	}
+
+	public void setNumberNodesSource(int nodes) {
+		this.numberNodesSource = nodes;
+	}
+
+	public void setNumberNodesOptimized(int nodes) {
+		this.numberNodesOptimized = nodes;
 	}
 }

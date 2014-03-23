@@ -87,6 +87,10 @@ public class OsmChange {
 		return created.size();
 	}
 
+	public int getNumber() {
+		return created.size() + modified.size();
+	}
+
 	public int getNumberModified() {
 		return modified.size();
 	}
@@ -101,19 +105,23 @@ public class OsmChange {
 		allChanges = new ArrayList<>();
 
 		for (NodeContainer container : created) {
-			if (container.getNode() != null)
+			if (container.getNode() != null) {
 				allChanges.add(container.getNode());
+			}
 
-			if (container.getWay() != null)
+			if (container.getWay() != null) {
 				allChanges.add(container.getWay());
+			}
 		}
 
 		for (NodeContainer container : modified) {
-			if (container.getNode() != null)
+			if (container.getNode() != null) {
 				allChanges.add(container.getNode());
+			}
 
-			if (container.getWay() != null)
+			if (container.getWay() != null) {
 				allChanges.add(container.getWay());
+			}
 		}
 
 		return allChanges;
@@ -145,13 +153,39 @@ public class OsmChange {
 		return nodes;
 	}
 
+	// TODO kommentieren und prüfen, added nur zur modified liste
 	public void addChange(Change change) {
 		NodeContainer container;
 
 		container = new NodeContainer();
 		container.addChange(change);
 
-		// FIXME muss noch richtig gemacht werden
 		modified.add(container);
+	}
+
+	/**
+	 * Returns the number of {@linkplain Node}s stored in this OsmChange object.
+	 * <p>
+	 * Important note: this number mostly differs to size of the map returned by
+	 * {@link #getNodes()}, because {@link #getNodes()} returns a map with an
+	 * unique key which stores the nodes {@link Node#getId() Id}. But one unique
+	 * id could be store more times in an OsmChnage object.
+	 * 
+	 * @return number of {@linkplain Node} stored in this OsmChange object
+	 */
+	public int getNumberNodes() {
+		int numberNodes = 0;
+		for (NodeContainer container : created) {
+			if (container.getNode() != null) {
+				numberNodes++;
+			}
+		}
+
+		for (NodeContainer container : modified) {
+			if (container.getNode() != null) {
+				numberNodes++;
+			}
+		}
+		return numberNodes;
 	}
 }

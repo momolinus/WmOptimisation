@@ -74,11 +74,14 @@ public class OsmChangeContent {
 		// note: ZipFile implements AutoCloseable
 		try (ZipFile changeSetsZip =
 			new ZipFile(Paths.get(zipFileName).toFile(), ZipFile.OPEN_READ)) {
-			int changesCounter = 0, changeSetsCounter = 0;
+
+			int dataSetCounter = 0;
+
 			for (ZipEntry zipEntry : Collections.list(changeSetsZip.entries())) {
 
 				if (zipEntry.getName()
 						.contains(ChangeSetContentFileFilter.CHANGE_SET_CONTENT_LABEL)) {
+
 					InputStream changeSetContentStream;
 					OsmChange changeSetContent;
 
@@ -88,9 +91,10 @@ public class OsmChangeContent {
 						result.add(changeSetContent);
 
 						System.out.print(".");
-						changesCounter++;
-						if (changesCounter % 80 == 0)
+						dataSetCounter++;
+						if (dataSetCounter % 80 == 0) {
 							System.out.println();
+						}
 
 					}
 					catch (Exception e) {
@@ -113,9 +117,10 @@ public class OsmChangeContent {
 						}
 
 						System.out.print(".");
-						changeSetsCounter++;
-						if (changeSetsCounter % 80 == 0)
+						dataSetCounter++;
+						if (dataSetCounter % 80 == 0) {
 							System.out.println();
+						}
 
 					}
 					catch (Exception e) {
@@ -137,7 +142,6 @@ public class OsmChangeContent {
 	}
 
 	private List<OsmChange> changes;
-
 	private Map<Long, CangeSetUpdateAble> changeSets;
 
 	/**
@@ -279,11 +283,6 @@ public class OsmChangeContent {
 
 		return allChanges;
 	}
-	
-	public int getNoChangeSets(){
-		return changeSets.values().size();
-	}
-	
 
 	/**
 	 * Returns the areas of all changesets as a table.
@@ -324,6 +323,36 @@ public class OsmChangeContent {
 		}
 
 		return boundingBoxes;
+	}
+
+	public double getMeanAreaOfChangeSetsForNodes() {
+		double areasSum = 0;
+		int noAreas = 0;
+		for (ChangeSet changeSet : changeSets.values()) {
+			if (changeSet.getBoundingBoxSquareDegree() > 0) {
+				noAreas++;
+				areasSum += changeSet.getBoundingBoxSquareDegree();
+			}
+		}
+
+		if (noAreas == 0) {
+			return Double.NaN;
+		}
+		else {
+			return areasSum / noAreas;
+		}
+	}
+
+	public int getNoChangeSets() {
+		return changeSets.values().size();
+	}
+
+	public int getNodes() {
+		int nodes = 0;
+		for (OsmChange change : changes) {
+			nodes += change.getNumberNodes();
+		}
+		return nodes;
 	}
 
 	public int size() {
@@ -369,24 +398,6 @@ public class OsmChangeContent {
 		}
 
 		return result.toString();
-	}
-
-	public double getMeanAreaOfChangeSetsForNodes() {
-		double areasSum = 0;
-		int noAreas = 0;
-		for (ChangeSet changeSet : changeSets.values()) {
-			if (changeSet.getBoundingBoxSquareDegree() > 0) {
-				noAreas++;
-				areasSum += changeSet.getBoundingBoxSquareDegree();
-			}
-		}
-
-		if (noAreas == 0) {
-			return Double.NaN;
-		}
-		else {
-			return areasSum / noAreas;
-		}
 	}
 
 	/**
@@ -435,7 +446,7 @@ public class OsmChangeContent {
 	 * @param changeSetForStoring
 	 *            should store given change
 	 * @throws IllegalArgumentException
-	 *             if change could not be stored to given chnageSet; reasons:
+	 *             if change could not be stored to given changeSet; reasons:
 	 *             both differ in age more than 24 hours, changeset has 50,000
 	 *             changes or changeset was not used for more than one hour
 	 */

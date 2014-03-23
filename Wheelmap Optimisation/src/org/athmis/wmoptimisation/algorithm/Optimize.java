@@ -24,6 +24,7 @@ import java.io.IOException;
 import java.text.ParseException;
 
 import org.apache.log4j.BasicConfigurator;
+import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 import org.athmis.wmoptimisation.changeset.OsmChangeContent;
 
@@ -41,21 +42,31 @@ public class Optimize {
 
 		ChangeSetGenerator generator;
 		OptimizationResult result;
-		generator = new SimpleChangeSetGenerator();
 
-		// result = runChangeSetGenerator(generator, "olr-2010-2012.zip");
-		// System.out.println(result.toString());
-		result = runChangeSetGenerator(generator, "wheelmap_visitor-2010-2012.zip");
-		System.out.println(result.toString());
+		boolean develop = false;
+		if (develop) {
+			generator = new SimpleChangeSetGenerator();
 
-		generator = new MinimizeAreaChangeSetGenartor();
+			result = runChangeSetGenerator(generator, "olr-2010-2012.zip");
+			System.out.println(result.toString());
 
-		// result = runChangeSetGenerator(generator, "olr-2010-2012.zip");
-		// System.out.println(result.toString());
-		result = runChangeSetGenerator(generator, "wheelmap_visitor-2010-2012.zip");
-		System.out.println(result.toString());
+			generator = new MinimizeAreaChangeSetGenartor();
 
-		LOGGER.info("\n");
+			result = runChangeSetGenerator(generator, "olr-2010-2012.zip");
+			System.out.println(result.toString());
+		}
+		else {
+			generator = new SimpleChangeSetGenerator();
+
+			result = runChangeSetGenerator(generator, "wheelmap_visitor-2010-2012.zip");
+			System.out.println(result.toString());
+
+			generator = new MinimizeAreaChangeSetGenartor();
+
+			result = runChangeSetGenerator(generator, "wheelmap_visitor-2010-2012.zip");
+			System.out.println(result.toString());
+		}
+
 		LOGGER.info("finished");
 	}
 
@@ -69,11 +80,14 @@ public class Optimize {
 		changesFromZip = OsmChangeContent.readOsmChangeContent(fileName);
 		optimizationResult.setMeanAreaSource(changesFromZip.getMeanAreaOfChangeSetsForNodes());
 		optimizationResult.setNoChangeSetsSource(changesFromZip.getNoChangeSets());
+		optimizationResult.setNumberNodesSource(changesFromZip.getNodes());
 
 		optimizedChangeSet = generator.createOptimizedChangeSets(changesFromZip);
+
 		optimizationResult.setMeanAreaOptimized(optimizedChangeSet
 				.getMeanAreaOfChangeSetsForNodes());
 		optimizationResult.setNoChangeSetsOptimized(optimizedChangeSet.getNoChangeSets());
+		optimizationResult.setNumberNodesOptimized(optimizedChangeSet.getNodes());
 
 		return optimizationResult;
 	}
@@ -82,7 +96,7 @@ public class Optimize {
 
 		// configure Log4j
 		BasicConfigurator.configure();
-		// Logger.getRootLogger().setLevel(Level.WARN);
+		Logger.getRootLogger().setLevel(Level.DEBUG);
 
 		try {
 			Optimize.run(args);
