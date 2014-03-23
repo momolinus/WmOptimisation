@@ -16,13 +16,14 @@ public class ChangeSetTest {
 
 	public static final double STRONG_DELTA = 0.00000001;
 
-	private final static DateFormat formatter = new SimpleDateFormat("yyyy.MM.dd - HH:mm:ss");
+	private final static DateFormat FORMATTER = new SimpleDateFormat("yyyy.MM.dd - HH:mm:ss");
 	private Calendar currentTime;
 
 	private CangeSetUpdateAble curTimeOpenChangeSet;
 
 	private Node alaska;
 
+	@SuppressWarnings("PMD.VariableNamingConventions")
 	private Node argentinia_most_S;
 
 	private Node europa;
@@ -83,8 +84,8 @@ public class ChangeSetTest {
 
 		String currentTimeAsString, closedTimeAsString;
 
-		currentTimeAsString = formatter.format(currentTime.getTime());
-		closedTimeAsString = formatter.format(curTimeOpenChangeSet.getClosed().getTime());
+		currentTimeAsString = FORMATTER.format(currentTime.getTime());
+		closedTimeAsString = FORMATTER.format(curTimeOpenChangeSet.getClosed().getTime());
 
 		assertEquals("currentTime = " + currentTimeAsString + ", closedTime = "
 			+ currentTimeAsString, currentTimeAsString, closedTimeAsString);
@@ -128,6 +129,7 @@ public class ChangeSetTest {
 
 	}
 
+	@SuppressWarnings("PMD.MethodNamingConventions")
 	@Test
 	public void testUpdateArea_NW_SW() {
 
@@ -147,6 +149,7 @@ public class ChangeSetTest {
 						STRONG_DELTA);
 	}
 
+	@SuppressWarnings("PMD.MethodNamingConventions")
 	@Test
 	public void testUpdateArea_SW_NW() {
 
@@ -164,6 +167,7 @@ public class ChangeSetTest {
 						STRONG_DELTA);
 	}
 
+	@SuppressWarnings("PMD.MethodNamingConventions")
 	@Test
 	public void testUpdateArea_SW_NW_NE() {
 
@@ -188,6 +192,8 @@ public class ChangeSetTest {
 						STRONG_DELTA);
 	}
 
+	
+	@SuppressWarnings("PMD.MethodNamingConventions")
 	@Test
 	public void testUpdateArea_SW_NW_NE_SE() {
 

@@ -53,9 +53,11 @@ import org.simpleframework.xml.core.Persister;
  */
 public class OsmChangeContent {
 
-	private static final DateFormat formatter = new SimpleDateFormat();
+	private static final DateFormat FORMATTER = new SimpleDateFormat();
 	private final static Logger LOGGER = Logger.getLogger(OsmChangeContent.class);
+	private final static Serializer SERIALIZER = new Persister();
 
+	// XXX mal in einen Thread/SwingWorker
 	/**
 	 * Reads a zip file with changesets files and changeset content files
 	 * 
@@ -65,80 +67,79 @@ public class OsmChangeContent {
 	 *             on error reading file, like parse errors
 	 */
 	public static OsmChangeContent readOsmChangeContent(String zipFileName) throws IOException {
-		Serializer serializer;
-		OsmChangeContent result;
 
-		serializer = new Persister();
+		OsmChangeContent result;
 		result = new OsmChangeContent();
 
 		// note: ZipFile implements AutoCloseable
 		try (ZipFile changeSetsZip =
 			new ZipFile(Paths.get(zipFileName).toFile(), ZipFile.OPEN_READ)) {
 
-			int dataSetCounter = 0;
-
-			for (ZipEntry zipEntry : Collections.list(changeSetsZip.entries())) {
-
-				if (zipEntry.getName()
-						.contains(ChangeSetContentFileFilter.CHANGE_SET_CONTENT_LABEL)) {
-
-					InputStream changeSetContentStream;
-					OsmChange changeSetContent;
-
-					changeSetContentStream = changeSetsZip.getInputStream(zipEntry);
-					try {
-						changeSetContent = serializer.read(OsmChange.class, changeSetContentStream);
-						result.add(changeSetContent);
-
-						System.out.print(".");
-						dataSetCounter++;
-						if (dataSetCounter % 80 == 0) {
-							System.out.println();
-						}
-
-					}
-					catch (Exception e) {
-						throw new IOException("can't read OsmChange file '" + zipEntry.getName()
-							+ "' from zip-file '" + zipFileName + "', reason: ", e);
-					}
-				}
-				// should be a changeset file
-				else {
-					InputStream changeSetStream;
-					ChangeSet changeSet;
-
-					changeSetStream = changeSetsZip.getInputStream(zipEntry);
-					try {
-						changeSet = serializer.read(ChangeSet.class, changeSetStream);
-
-						if (result.add(new CangeSetUpdateAble(changeSet)) != null) {
-							LOGGER.info("changeSet 'id=" + changeSet.getId()
-								+ "' was stored before");
-						}
-
-						System.out.print(".");
-						dataSetCounter++;
-						if (dataSetCounter % 80 == 0) {
-							System.out.println();
-						}
-
-					}
-					catch (Exception e) {
-						throw new IOException("can't read changeset file '" + zipEntry.getName()
-							+ "' from zip-file '" + zipFileName + "', reason: ", e);
-					}
-
-				}
-			}
+			readZipFile(zipFileName, result, changeSetsZip);
 
 		}
 		catch (IOException e) {
 			throw new IOException("can't read OsmChange file '" + zipFileName + "' from zip-file '"
 				+ zipFileName + "', reason: ", e);
+		}
+
+		return result;
+	}
+
+	private static void readChangeSetsFromZipFile(String zipFileName, OsmChangeContent result,
+		ZipFile changeSetsZip, ZipEntry zipEntry) throws IOException {
+
+		InputStream changeSetStream;
+		ChangeSet changeSet;
+
+		changeSetStream = changeSetsZip.getInputStream(zipEntry);
+		try {
+			changeSet = SERIALIZER.read(ChangeSet.class, changeSetStream);
+
+			if (result.add(new CangeSetUpdateAble(changeSet)) != null) {
+				LOGGER.info("changeSet 'id=" + changeSet.getId() + "' was stored before");
+			}
+		}
+		catch (Exception e) {
+			throw new IOException("can't read changeset file '" + zipEntry.getName()
+				+ "' from zip-file '" + zipFileName + "', reason: ", e);
+		}
+	}
+
+	private static void readChangesFromZipFile(String zipFileName, OsmChangeContent result,
+		ZipFile changeSetsZip, ZipEntry zipEntry) throws IOException {
+
+		InputStream changeSetContentStream;
+		OsmChange changeSetContent;
+
+		changeSetContentStream = changeSetsZip.getInputStream(zipEntry);
+		try {
+			changeSetContent = SERIALIZER.read(OsmChange.class, changeSetContentStream);
+			result.add(changeSetContent);
 
 		}
-		System.out.println();
-		return result;
+		catch (Exception e) {
+			throw new IOException("can't read OsmChange file '" + zipEntry.getName()
+				+ "' from zip-file '" + zipFileName + "', reason: ", e);
+		}
+	}
+
+	private static void readZipFile(String zipFileName, OsmChangeContent result,
+		ZipFile changeSetsZip) throws IOException {
+
+		for (ZipEntry zipEntry : Collections.list(changeSetsZip.entries())) {
+
+			if (zipEntry.getName().contains(ChangeSetContentFileFilter.CHANGE_SET_CONTENT_LABEL)) {
+
+				readChangesFromZipFile(zipFileName, result, changeSetsZip, zipEntry);
+
+			}
+			else {
+
+				readChangeSetsFromZipFile(zipFileName, result, changeSetsZip, zipEntry);
+
+			}
+		}
 	}
 
 	private List<OsmChange> changes;
@@ -241,22 +242,25 @@ public class OsmChangeContent {
 				future.set(Calendar.YEAR, 2099);
 				table.append(String.format("%tF", future));
 			}
-			else
+			else {
 				table.append(String.format("%tF", chSet.getClosed()));
+			}
 
 			table.append(";");
 
 			if (chSet.isOpen()) {
 				table.append(String.format("%.12f", 100.0));
 			}
-			else
+			else {
 				table.append(String.format("%.12f", chSet.getOpenTimeInHours()));
+			}
 
 			table.append(";");
 			table.append(String.format("%.12f", chSet.getBoundingBoxSquareDegree()));
 
-			if (chs.hasNext())
+			if (chs.hasNext()) {
 				table.append("\n");
+			}
 		}
 
 		return table.toString();
@@ -269,7 +273,6 @@ public class OsmChangeContent {
 				changeSet.closeNow();
 			}
 		}
-
 	}
 
 	public List<Change> getAllChanges() {
@@ -301,8 +304,9 @@ public class OsmChangeContent {
 		Iterator<CangeSetUpdateAble> chs = changeSets.values().iterator();
 		while (chs.hasNext()) {
 			result.append(String.format("%.12f", chs.next().getBoundingBoxSquareDegree()));
-			if (chs.hasNext())
+			if (chs.hasNext()) {
 				result.append("\n");
+			}
 		}
 
 		return result.toString();
@@ -386,14 +390,14 @@ public class OsmChangeContent {
 		for (OsmChange c : changes) {
 			for (Change ch : c.getChanges()) {
 				result.append(ch.getChangeset() + "\t"
-					+ formatter.format(ch.getCreatedAt().getTime()));
+					+ FORMATTER.format(ch.getCreatedAt().getTime()));
 				result.append("\n");
 			}
 		}
 
 		for (Entry<Long, CangeSetUpdateAble> changeset : changeSets.entrySet()) {
 			result.append(changeset.getKey().toString() + "\t"
-				+ formatter.format(changeset.getValue().getCreated().getTime()));
+				+ FORMATTER.format(changeset.getValue().getCreated().getTime()));
 			result.append("\n");
 		}
 

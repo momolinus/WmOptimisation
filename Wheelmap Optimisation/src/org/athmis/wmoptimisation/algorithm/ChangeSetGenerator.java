@@ -38,7 +38,7 @@ import org.athmis.wmoptimisation.osmserver.OsmServer;
  */
 public abstract class ChangeSetGenerator {
 
-	private static Logger LOGGER = Logger.getLogger(ChangeSetGenerator.class);
+	private static final Logger LOGGER = Logger.getLogger(ChangeSetGenerator.class);
 
 	protected static void checkChangeSetNotNull(ChangeSet changeSet) {
 		if (changeSet == null)

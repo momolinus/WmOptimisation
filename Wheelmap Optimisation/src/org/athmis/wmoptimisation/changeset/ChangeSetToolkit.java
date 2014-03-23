@@ -31,7 +31,7 @@ import java.util.GregorianCalendar;
 /**
  * Helper class to work with change sets.
  */
-public class ChangeSetToolkit {
+public final class ChangeSetToolkit {
 
 	/**
 	 * format conversation of osm date format: "yyyy-MM-dd'T'HH:mm:ss'Z'"
@@ -44,6 +44,7 @@ public class ChangeSetToolkit {
 
 	}
 
+	// TODO nach FindBug ist das nicht threadsafe, prüfen
 	/**
 	 * @param dateString
 	 * @return

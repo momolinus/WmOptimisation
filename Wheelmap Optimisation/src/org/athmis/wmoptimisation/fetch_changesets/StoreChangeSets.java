@@ -55,7 +55,7 @@ import org.simpleframework.xml.core.Persister;
  *         
  * 
  */
-public class StoreChangeSets {
+public final class StoreChangeSets {
 
 	/**
 	 * the call for downloading changes for a given changeset id, see <a href=
