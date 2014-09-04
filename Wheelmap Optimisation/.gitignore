@@ -18,3 +18,7 @@ bin/
 *.csv
 /javadoc.xml
 /aufgaben.todo
+
+# gradle files
+.gradle/
+gradle-app.setting
