@@ -1,27 +1,22 @@
-/*Copyright Marcus Bleil, Oliver Rudzik, Christoph Bünte 2012 This file is part
- * of Wheelmap Optimization. Wheelmap Optimization is free software: you can
- * redistribute it and/or modify it under the terms of the GNU General Public
- * License as published by the Free Software Foundation, either version 3 of the
- * License, or (at your option) any later version. Wheelmap Optimization is
- * distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
- * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
- * PARTICULAR PURPOSE. See the GNU General Public License for more details. You
- * should have received a copy of the GNU General Public License along with
- * Athmis. If not, see <http://www.gnu.org/licenses/>. Diese Datei ist Teil von
- * Wheelmap Optimization. Wheelmap Optimization ist Freie Software: Sie können
- * es unter den Bedingungen der GNU General Public License, wie von der Free
- * Software Foundation, Version 3 der Lizenz oder (nach Ihrer Option) jeder
- * späteren veröffentlichten Version, weiterverbreiten und/oder modifizieren.
- * Wheelmap Optimization wird in der Hoffnung, dass es nützlich sein wird, aber
- * OHNE JEDE GEWÄHELEISTUNG, bereitgestellt; sogar ohne die implizite
- * Gewährleistung der MARKTFÄHIGKEIT oder EIGNUNG FÜR EINEN BESTIMMTEN ZWECK.
- * Siehe die GNU General Public License für weitere Details. Sie sollten eine
- * Kopie der GNU General Public License zusammen mit diesem Programm erhalten
- * haben. Wenn nicht, siehe <http://www.gnu.org/licenses/>. */
+/* Copyright Marcus Bleil, Oliver Rudzik, Christoph Bünte 2012 This file is part of Wheelmap
+ * Optimization. Wheelmap Optimization is free software: you can redistribute it and/or modify it
+ * under the terms of the GNU General Public License as published by the Free Software Foundation,
+ * either version 3 of the License, or (at your option) any later version. Wheelmap Optimization is
+ * distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the
+ * implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General
+ * Public License for more details. You should have received a copy of the GNU General Public
+ * License along with Athmis. If not, see <http://www.gnu.org/licenses/>. Diese Datei ist Teil von
+ * Wheelmap Optimization. Wheelmap Optimization ist Freie Software: Sie können es unter den
+ * Bedingungen der GNU General Public License, wie von der Free Software Foundation, Version 3 der
+ * Lizenz oder (nach Ihrer Option) jeder späteren veröffentlichten Version, weiterverbreiten
+ * und/oder modifizieren. Wheelmap Optimization wird in der Hoffnung, dass es nützlich sein wird,
+ * aber OHNE JEDE GEWÄHELEISTUNG, bereitgestellt; sogar ohne die implizite Gewährleistung der
+ * MARKTFÄHIGKEIT oder EIGNUNG FÜR EINEN BESTIMMTEN ZWECK. Siehe die GNU General Public License für
+ * weitere Details. Sie sollten eine Kopie der GNU General Public License zusammen mit diesem
+ * Programm erhalten haben. Wenn nicht, siehe <http://www.gnu.org/licenses/>. */
 package org.athmis.wmoptimisation.fetch_changesets;
 
 import java.io.IOException;
-import java.net.URL;
 import java.text.ParseException;
 import java.util.Calendar;
 import java.util.Collections;
@@ -40,12 +35,11 @@ import org.simpleframework.xml.Serializer;
 import org.simpleframework.xml.core.Persister;
 
 /**
- * The FetchChanges class (toolkit class) provides methods for fetching
- * changesets for given date and osm user. Uses <a
- * href="http://wiki.openstreetmap.org/wiki/API_v0.6">OSM API v0.6</a>, more
+ * The FetchChanges class (toolkit class) provides methods for fetching changesets for given date
+ * and osm user. Uses <a href="http://wiki.openstreetmap.org/wiki/API_v0.6">OSM API v0.6</a>, more
  * detailed <a href=
- * "http://wiki.openstreetmap.org/wiki/API_v0.6#Query:_GET_.2Fapi.2F0.6.2Fchangesets"
- * >Query: GET /api/0.6/changesets</a>.
+ * "http://wiki.openstreetmap.org/wiki/API_v0.6#Query:_GET_.2Fapi.2F0.6.2Fchangesets" >Query: GET
+ * /api/0.6/changesets</a>.
  */
 public final class FetchChangeSets {
 
@@ -55,8 +49,8 @@ public final class FetchChangeSets {
 	public static final String WHEELMAP_VISITOR = "wheelmap_visitor";
 
 	/**
-	 * the serializer used for serializing the OSM API response (which is in
-	 * XML) to the classes of this project
+	 * the serializer used for serializing the OSM API response (which is in XML) to the classes of
+	 * this project
 	 */
 	private static final Serializer API_RESPONSE_SERIALIZER = new Persister();
 
@@ -79,14 +73,12 @@ public final class FetchChangeSets {
 			+ "api/0.6/changesets?display_name=%s&time=%s&closed=true";
 
 	/**
-	 * the call for changeset, which closed and created after given time
-	 * (live-API)
+	 * the call for changeset, which closed and created after given time (live-API)
 	 */
 	private static final String GET_CHANGE_SETS_FOR_TIME_PERIOD = "http://api.openstreetmap.org/"
 		+ "api/0.6/changesets?display_name=%s&time=%s,%s&closed=true";
 	/**
-	 * the call for changeset, which closed and created after given time
-	 * (live-API)
+	 * the call for changeset, which closed and created after given time (live-API)
 	 */
 	private static final String GET_CHANGE_SETS_FOR_TIME_TIME_PERIOD_DEV =
 		"http://api06.dev.openstreetmap.org/"
@@ -103,9 +95,9 @@ public final class FetchChangeSets {
 	private static final int TWO_DAYS_IN_HOURS = 48;
 
 	/**
-	 * Fetches the changesets for given dates and returns a map with id of
-	 * changeset as key and the changeset as value.
-	 * 
+	 * Fetches the changesets for given dates and returns a map with id of changeset as key and the
+	 * changeset as value.
+	 *
 	 * @param user
 	 *            the user
 	 * @param youngerBorder
@@ -117,7 +109,7 @@ public final class FetchChangeSets {
 	 *             in case of errors parsing the API result
 	 */
 	public static Map<Long, ChangeSet> fetchChanges(String user, Calendar youngerBorder,
-		Calendar olderBorder) throws Exception {
+													Calendar olderBorder) throws Exception {
 		Calendar oldestCreationDate;
 		Map<Long, ChangeSet> result;
 
@@ -146,7 +138,7 @@ public final class FetchChangeSets {
 
 	/**
 	 * Fetch youngest change sets.
-	 * 
+	 *
 	 * @param createdDate
 	 *            the created date
 	 * @param user
@@ -158,14 +150,14 @@ public final class FetchChangeSets {
 	 *             the exception
 	 */
 	public static Map<Long, ChangeSet> fetchYoungestChangeSets(Calendar createdDate, String user)
-		throws IOException, Exception {
+																									throws IOException,
+																									Exception {
 		return fetch100Youngest(createdDate, user);
 	}
 
 	/**
-	 * Searches for the oldest changeset in given result. An empty result is not
-	 * permitted.
-	 * 
+	 * Searches for the oldest changeset in given result. An empty result is not permitted.
+	 *
 	 * @param changeSets
 	 *            will be searched for oldest changeset, must contain changesets
 	 * @return the date of creation of the oldest result
@@ -173,7 +165,7 @@ public final class FetchChangeSets {
 	 *             if the date string could not be parsed
 	 */
 	public static GregorianCalendar findOldestChangeset(Map<Long, ChangeSet> changeSets)
-		throws ParseException {
+																						throws ParseException {
 		List<ChangeSet> changeSetsList;
 		ChangeSet oldestSet;
 		GregorianCalendar oldest;
@@ -191,10 +183,9 @@ public final class FetchChangeSets {
 	}
 
 	/**
-	 * an example for using methods of this class, storing is commented out,
-	 * more about storing you finde here:
-	 * {@linkplain StoreChangeSets#storeWithContentToFolder(Map, String, boolean)}
-	 * 
+	 * an example for using methods of this class, storing is commented out, more about storing you
+	 * finde here: {@linkplain StoreChangeSets#storeWithContentToFolder(Map, String, boolean)}
+	 *
 	 * @param args
 	 *            not used
 	 */
@@ -209,6 +200,8 @@ public final class FetchChangeSets {
 			// it's me :-), replace by your OSM account
 			user = "roald-linus";
 
+			user = WHEELMAP_VISITOR;
+
 			// use the live-OSM-API, since May 2013 my live user works no more
 			// on the test API
 			develop = false;
@@ -217,8 +210,8 @@ public final class FetchChangeSets {
 			// pay attention to the confusing month indexing set by the Java
 			// Calendar API
 			changeSets =
-				fetchChanges(user, new GregorianCalendar(2011, 11, 31), new GregorianCalendar(2011,
-						0, 1));
+				fetchChanges(user, new GregorianCalendar(2012, 11, 31), new GregorianCalendar(2012,
+						1, 1));
 
 			// print out some parameters of the fetch result
 			LOGGER.info(changeSets.size() + " changesets fetched for " + user + " in "
@@ -228,10 +221,7 @@ public final class FetchChangeSets {
 			// comments, but first take a look at JavaDoc of
 			// StoreChangeSets.storeWithContent(..) !!!
 
-			// StoreChangeSets.storeWithContent(changeSets,
-			// "changesets-2011.zip",
-			// develop);
-
+			StoreChangeSets.storeWithContent(changeSets, "wheelchair-2012.zip", develop);
 		}
 		catch (Exception e) {
 			e.printStackTrace();
@@ -242,51 +232,48 @@ public final class FetchChangeSets {
 	}
 
 	/**
-	 * Fetches the first 100 changesets which are older then createdDate set by
-	 * object construction.
-	 * 
+	 * Fetches the first 100 changesets which are older then createdDate set by object construction.
+	 *
 	 * @param createdDate
 	 *            the created date
 	 * @param user
 	 *            the user
-	 * @return a map with changesets as value and their id's as key. Size could
-	 *         be within 0 and 100.
+	 * @return a map with changesets as value and their id's as key. Size could be within 0 and 100.
 	 * @throws IOException
 	 *             network error
 	 * @throws Exception
 	 *             error on parsing the API result
 	 */
 	private static Map<Long, ChangeSet> fetch100Youngest(Calendar createdDate, String user)
-		throws IOException, Exception {
+																							throws IOException,
+																							Exception {
 		String apiCall;
-		URL url;
 		OsmApiChangeSetsResult apiResult;
 
 		apiCall =
 			String.format(	getApiCallForClosedAfterGivenTime(develop), user,
 							ChangeSetToolkit.OSM_DATE_TO_JAVA.format(createdDate.getTime()));
 
-		url = new URL(apiCall);
-
-		apiResult = API_RESPONSE_SERIALIZER.read(OsmApiChangeSetsResult.class, url.openStream());
+		apiResult =
+			API_RESPONSE_SERIALIZER.read(	OsmApiChangeSetsResult.class,
+											StoreChangeSets.apiCallResult(apiCall));
 
 		return apiResult.asMap();
 	}
 
 	/**
-	 * Fetches at most 100 changesets which are at maximum 48 hours older then
-	 * given createdDate. The closedDate will be set to createdDate - 48 hours
+	 * Fetches at most 100 changesets which are at maximum 48 hours older then given createdDate.
+	 * The closedDate will be set to createdDate - 48 hours
 	 * <p>
-	 * 
+	 *
 	 * @param createdDate
 	 *            fetched changesets will be older then createdDate
 	 * @param user
 	 *            the user
-	 * @return a map with changesets als values and their id's as key, size is
-	 *         within 0 and 100, where 100 ist set as border by the OSM-API, so
-	 *         if size == 100 you should reduce the next createdDate at 1 hour
-	 *         for skipping the time window one hour back an get really all
-	 *         changesets
+	 * @return a map with changesets als values and their id's as key, size is within 0 and 100,
+	 *         where 100 ist set as border by the OSM-API, so if size == 100 you should reduce the
+	 *         next createdDate at 1 hour for skipping the time window one hour back an get really
+	 *         all changesets
 	 * @throws IOException
 	 *             network error
 	 * @throws Exception
@@ -296,13 +283,12 @@ public final class FetchChangeSets {
 	 *      Api06 wiki for Query: GET /api/0.6/changesets</a>
 	 */
 	private static Map<Long, ChangeSet> fetchOlderChangeSets(Calendar createdDate, String user)
-		throws IOException, Exception {
+																								throws IOException,
+																								Exception {
 		Calendar closed, created;
 		OsmApiChangeSetsResult apiResult;
 		String apiCall;
 		String createdT2, closedT1;
-		URL url;
-
 		created = (Calendar) createdDate.clone();
 		closed = (Calendar) created.clone();
 		closed.add(Calendar.HOUR, -TWO_DAYS_IN_HOURS);
@@ -314,18 +300,18 @@ public final class FetchChangeSets {
 
 		apiCall = String.format(getApiCallForPeriod(develop), user, closedT1, createdT2);
 
-		url = new URL(apiCall);
-		apiResult = API_RESPONSE_SERIALIZER.read(OsmApiChangeSetsResult.class, url.openStream());
+		apiResult =
+			API_RESPONSE_SERIALIZER.read(	OsmApiChangeSetsResult.class,
+											StoreChangeSets.apiCallResult(apiCall));
 
 		return apiResult.asMap();
 	}
 
 	/**
-	 * Returns OSM-API v0.6 call for fetching almost 100 actual changesets
-	 * closed after given time. The oldest could (closed time - 24h). * @param
-	 * devolop with <code>true</code> the OSM developer API is used, else the
-	 * live API
-	 * 
+	 * Returns OSM-API v0.6 call for fetching almost 100 actual changesets closed after given time.
+	 * The oldest could (closed time - 24h). * @param devolop with <code>true</code> the OSM
+	 * developer API is used, else the live API
+	 *
 	 * @param develop
 	 *            the develop
 	 * @return the OSM-API v0.6 call as string, replace user and T1 with strings
@@ -343,14 +329,13 @@ public final class FetchChangeSets {
 	}
 
 	/**
-	 * Returns the OSM-API v0.6 call for fetching almost 100 actual changesets
-	 * closed after given time and created before given time. Time period is at
-	 * maximum: <code>[(closed time - 24h)..(created time + 24h)]</code>
-	 * 
+	 * Returns the OSM-API v0.6 call for fetching almost 100 actual changesets closed after given
+	 * time and created before given time. Time period is at maximum:
+	 * <code>[(closed time - 24h)..(created time + 24h)]</code>
+	 *
 	 * @param develop
 	 *            the develop
-	 * @return the OSM-API v0.6 call as string, replace user, T1 and T2 with
-	 *         strings (%s)
+	 * @return the OSM-API v0.6 call as string, replace user, T1 and T2 with strings (%s)
 	 * @see <a
 	 *      href="http://wiki.openstreetmap.org/wiki/API_v0.6#Query:_GET_.2Fapi.2F0.6.2Fchangesets">OSM
 	 *      API v0.6</a>
