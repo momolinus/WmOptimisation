@@ -1,0 +1,536 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<osmChange version="0.6" generator="OpenStreetMap server" copyright="OpenStreetMap and contributors" attribution="http://www.openstreetmap.org/copyright" license="http://opendatacommons.org/licenses/odbl/1-0/">
+  <modify>
+    <node id="413437858" changeset="9062501" timestamp="2011-08-19T05:51:20Z" version="3" visible="true" user="wheelmap_visitor" uid="290680" lat="48.0132047" lon="8.4698401">
+      <tag k="amenity" v="cafe"/>
+      <tag k="name" v="CafÃ© im Dorf"/>
+      <tag k="wheelchair" v="limited"/>
+    </node>
+  </modify>
+  <modify>
+    <node id="635099739" changeset="9062501" timestamp="2011-08-19T06:13:21Z" version="6" visible="true" user="wheelmap_visitor" uid="290680" lat="51.8324776" lon="12.2478349">
+      <tag k="addr:housenumber" v="3a"/>
+      <tag k="addr:street" v="SchloÃŸplatz"/>
+      <tag k="name" v="Museum fÃ¼r Stadtgeschichte (Johannbau)"/>
+      <tag k="opening_hours" v="Tu-Su 10:00-17:00; PH 10:00-17:00"/>
+      <tag k="phone" v="+49 (0)340 2209612"/>
+      <tag k="tourism" v="museum"/>
+      <tag k="website" v="www.stadtgeschichte.dessau.de"/>
+      <tag k="wheelchair" v="limited"/>
+    </node>
+  </modify>
+  <modify>
+    <node id="635913195" changeset="9062501" timestamp="2011-08-19T07:08:24Z" version="4" visible="true" user="wheelmap_visitor" uid="290680" lat="51.8311283" lon="12.2404907">
+      <tag k="addr:city" v="Dessau-RoÃŸlau"/>
+      <tag k="addr:country" v="DE"/>
+      <tag k="addr:housenumber" v="50a"/>
+      <tag k="addr:postcode" v="06842"/>
+      <tag k="addr:street" v="Askanische StraÃŸe"/>
+      <tag k="email" v="stadtschwimmhalle@dessau.de"/>
+      <tag k="leisure" v="sports_centre"/>
+      <tag k="name" v="Gesundheitsbad, Stadtschwimmhalle Dessau"/>
+      <tag k="phone" v="+49 (0)340 5169436"/>
+      <tag k="sport" v="swimming"/>
+      <tag k="website" v="www.stadtschwimmhalle.dessau.de"/>
+      <tag k="wheelchair" v="limited"/>
+    </node>
+  </modify>
+  <modify>
+    <node id="709387269" changeset="9062501" timestamp="2011-08-19T07:15:25Z" version="2" visible="true" user="wheelmap_visitor" uid="290680" lat="44.814042" lon="20.4680922">
+      <tag k="amenity" v="theatre"/>
+      <tag k="name" v="Atelje 212"/>
+      <tag k="wheelchair" v="limited"/>
+    </node>
+  </modify>
+  <modify>
+    <node id="646549026" changeset="9062501" timestamp="2011-08-19T07:17:26Z" version="2" visible="true" user="wheelmap_visitor" uid="290680" lat="44.8244635" lon="20.4524085">
+      <tag k="amenity" v="toilets"/>
+      <tag k="wheelchair" v="no"/>
+    </node>
+  </modify>
+  <modify>
+    <node id="486217184" changeset="9062501" timestamp="2011-08-19T07:25:26Z" version="2" visible="true" user="wheelmap_visitor" uid="290680" lat="44.8219512" lon="20.4500966">
+      <tag k="name" v="Military Museum"/>
+      <tag k="tourism" v="museum"/>
+      <tag k="wheelchair" v="no"/>
+    </node>
+  </modify>
+  <modify>
+    <node id="513007181" changeset="9062501" timestamp="2011-08-19T07:25:28Z" version="3" visible="true" user="wheelmap_visitor" uid="290680" lat="44.8177566" lon="20.4571645">
+      <tag k="amenity" v="drinking_water"/>
+      <tag k="name:sl" v="Delijski vodnjak"/>
+      <tag k="name:sr" v="Ð”ÐµÐ»Ð¸Ñ˜Ñ?ÐºÐ° Ñ‡ÐµÑ?Ð¼Ð°"/>
+      <tag k="wheelchair" v="no"/>
+    </node>
+  </modify>
+  <modify>
+    <node id="940045075" changeset="9062501" timestamp="2011-08-19T07:26:29Z" version="2" visible="true" user="wheelmap_visitor" uid="290680" lat="44.8249118" lon="20.4568715">
+      <tag k="highway" v="bus_stop"/>
+      <tag k="wheelchair" v="no"/>
+    </node>
+  </modify>
+  <modify>
+    <node id="940045239" changeset="9062501" timestamp="2011-08-19T07:26:30Z" version="4" visible="true" user="wheelmap_visitor" uid="290680" lat="44.8259274" lon="20.4551929">
+      <tag k="railway" v="tram_stop"/>
+      <tag k="wheelchair" v="no"/>
+    </node>
+  </modify>
+  <modify>
+    <node id="305996173" changeset="9062501" timestamp="2011-08-19T07:29:30Z" version="3" visible="true" user="wheelmap_visitor" uid="290680" lat="51.8074398" lon="12.1542677">
+      <tag k="amenity" v="place_of_worship"/>
+      <tag k="denomination" v="protestant"/>
+      <tag k="name" v="Martin-Luther-Kirche"/>
+      <tag k="religion" v="christian"/>
+      <tag k="wheelchair" v="no"/>
+    </node>
+  </modify>
+  <modify>
+    <node id="1300479115" changeset="9062501" timestamp="2011-08-19T07:39:32Z" version="2" visible="true" user="wheelmap_visitor" uid="290680" lat="53.5475299" lon="8.5692213">
+      <tag k="addr:city" v="Bremerhaven"/>
+      <tag k="addr:country" v="DE"/>
+      <tag k="addr:housenumber" v="1"/>
+      <tag k="addr:postcode" v="27568"/>
+      <tag k="addr:street" v="Am Leuchtturm"/>
+      <tag k="name" v="im jaich boardinghouse bremerhaven"/>
+      <tag k="tourism" v="guest_house"/>
+      <tag k="wheelchair" v="limited"/>
+    </node>
+  </modify>
+  <modify>
+    <node id="501541429" changeset="9062501" timestamp="2011-08-19T07:41:33Z" version="2" visible="true" user="wheelmap_visitor" uid="290680" lat="44.8162008" lon="20.4572483">
+      <tag k="amenity" v="parking"/>
+      <tag k="wheelchair" v="no"/>
+    </node>
+  </modify>
+  <modify>
+    <node id="635734034" changeset="9062501" timestamp="2011-08-19T07:41:33Z" version="2" visible="true" user="wheelmap_visitor" uid="290680" lat="44.8163706" lon="20.4622068">
+      <tag k="amenity" v="cinema"/>
+      <tag k="wheelchair" v="no"/>
+    </node>
+  </modify>
+  <modify>
+    <node id="287012428" changeset="9062501" timestamp="2011-08-19T08:12:34Z" version="7" visible="true" user="wheelmap_visitor" uid="290680" lat="42.593737" lon="-8.771376">
+      <tag k="addr:housenumber" v="8"/>
+      <tag k="addr:street" v="CL VALLE INCLAN"/>
+      <tag k="amenity" v="fuel"/>
+      <tag k="fuel:diesel" v="yes"/>
+      <tag k="fuel:octane_95" v="yes"/>
+      <tag k="fuel:octane_98" v="yes"/>
+      <tag k="is_in:municipality" v="VILAGARCIA"/>
+      <tag k="is_in:province" v="PONTEVEDRA"/>
+      <tag k="name" v="REPSOL"/>
+      <tag k="opening_hours" v="Mo-Su 07:00-23:00"/>
+      <tag k="operator" v="Repsol"/>
+      <tag k="source" v="mityc 20100729"/>
+      <tag k="wheelchair" v="yes"/>
+    </node>
+  </modify>
+  <modify>
+    <node id="651305007" changeset="9062501" timestamp="2011-08-19T08:31:37Z" version="2" visible="true" user="wheelmap_visitor" uid="290680" lat="49.9940862" lon="8.2730174">
+      <tag k="tourism" v="viewpoint"/>
+      <tag k="wheelchair" v="no"/>
+    </node>
+  </modify>
+  <modify>
+    <node id="1307210709" changeset="9062501" timestamp="2011-08-19T08:32:38Z" version="2" visible="true" user="wheelmap_visitor" uid="290680" lat="50.8311501" lon="14.0553684">
+      <tag k="name" v="Johannes-Ruscher-HÃ¶hle"/>
+      <tag k="natural" v="cave_entrance"/>
+      <tag k="wheelchair" v="no"/>
+    </node>
+  </modify>
+  <modify>
+    <node id="1304249080" changeset="9062501" timestamp="2011-08-19T08:55:39Z" version="2" visible="true" user="wheelmap_visitor" uid="290680" lat="49.7842191" lon="7.6494782">
+      <tag k="amenity" v="parking"/>
+      <tag k="parking" v="surface"/>
+      <tag k="wheelchair" v="yes"/>
+    </node>
+  </modify>
+  <modify>
+    <node id="588584358" changeset="9062501" timestamp="2011-08-19T09:09:40Z" version="3" visible="true" user="wheelmap_visitor" uid="290680" lat="49.9323371" lon="11.5773323">
+      <tag k="highway" v="bus_stop"/>
+      <tag k="name" v="KlopstockstraÃŸe"/>
+      <tag k="operator" v="Bayreuther Verkehrs- und BÃ¤der GmbH"/>
+      <tag k="route_ref" v="4"/>
+      <tag k="shelter" v="yes"/>
+      <tag k="wheelchair" v="yes"/>
+    </node>
+  </modify>
+  <modify>
+    <node id="588584357" changeset="9062501" timestamp="2011-08-19T09:09:41Z" version="2" visible="true" user="wheelmap_visitor" uid="290680" lat="49.932424" lon="11.5773179">
+      <tag k="highway" v="bus_stop"/>
+      <tag k="name" v="KlopstockstraÃŸe"/>
+      <tag k="operator" v="Bayreuther Verkehrs- und BÃ¤der GmbH"/>
+      <tag k="route_ref" v="4"/>
+      <tag k="shelter" v="no"/>
+      <tag k="wheelchair" v="yes"/>
+    </node>
+  </modify>
+  <modify>
+    <node id="568445646" changeset="9062501" timestamp="2011-08-19T09:09:41Z" version="4" visible="true" user="wheelmap_visitor" uid="290680" lat="49.9372287" lon="11.5817565">
+      <tag k="highway" v="bus_stop"/>
+      <tag k="name" v="Stadtwerke"/>
+      <tag k="operator" v="Bayreuther Verkehrs- und BÃ¤der GmbH"/>
+      <tag k="shelter" v="yes"/>
+      <tag k="wheelchair" v="yes"/>
+    </node>
+  </modify>
+  <modify>
+    <node id="511047475" changeset="9062501" timestamp="2011-08-19T09:09:42Z" version="5" visible="true" user="wheelmap_visitor" uid="290680" lat="49.9368762" lon="11.5817035">
+      <tag k="highway" v="bus_stop"/>
+      <tag k="name" v="Stadtwerke"/>
+      <tag k="operator" v="Bayreuther Verkehrs- und BÃ¤der GmbH"/>
+      <tag k="shelter" v="yes"/>
+      <tag k="wheelchair" v="yes"/>
+    </node>
+  </modify>
+  <modify>
+    <node id="268665653" changeset="9062501" timestamp="2011-08-19T09:09:42Z" version="6" visible="true" user="wheelmap_visitor" uid="290680" lat="49.934873" lon="11.5860593">
+      <tag k="highway" v="bus_stop"/>
+      <tag k="name" v="Kreuzsteinbad"/>
+      <tag k="operator" v="Bayreuther Verkehrs- und BÃ¤der GmbH"/>
+      <tag k="route_ref" v="6;10"/>
+      <tag k="shelter" v="no"/>
+      <tag k="wheelchair" v="yes"/>
+    </node>
+  </modify>
+  <modify>
+    <node id="268665661" changeset="9062501" timestamp="2011-08-19T09:09:43Z" version="7" visible="true" user="wheelmap_visitor" uid="290680" lat="49.9349029" lon="11.5830621">
+      <tag k="highway" v="bus_stop"/>
+      <tag k="name" v="Kreuzsteinbad"/>
+      <tag k="operator" v="Bayreuther Verkehrs- und BÃ¤der GmbH"/>
+      <tag k="wheelchair" v="limited"/>
+    </node>
+  </modify>
+  <modify>
+    <node id="257688170" changeset="9062501" timestamp="2011-08-19T09:10:43Z" version="7" visible="true" user="wheelmap_visitor" uid="290680" lat="49.930335" lon="11.5868037">
+      <tag k="highway" v="bus_stop"/>
+      <tag k="name" v="Mensa"/>
+      <tag k="operator" v="Bayreuther Verkehrs- und BÃ¤der GmbH"/>
+      <tag k="route_ref" v="4;6"/>
+      <tag k="shelter" v="yes"/>
+      <tag k="wheelchair" v="yes"/>
+    </node>
+  </modify>
+  <modify>
+    <node id="588575591" changeset="9062501" timestamp="2011-08-19T09:10:47Z" version="2" visible="true" user="wheelmap_visitor" uid="290680" lat="49.9267638" lon="11.5873063">
+      <tag k="highway" v="bus_stop"/>
+      <tag k="name" v="UniversitÃ¤t Verwaltung"/>
+      <tag k="operator" v="Bayreuther Verkehrs- und BÃ¤der GmbH"/>
+      <tag k="route_ref" v="4;6"/>
+      <tag k="shelter" v="no"/>
+      <tag k="wheelchair" v="yes"/>
+    </node>
+  </modify>
+  <modify>
+    <node id="257714751" changeset="9062501" timestamp="2011-08-19T09:10:48Z" version="3" visible="true" user="wheelmap_visitor" uid="290680" lat="49.9268313" lon="11.5870389">
+      <tag k="highway" v="bus_stop"/>
+      <tag k="name" v="UniversitÃ¤t Verwaltung"/>
+      <tag k="operator" v="Bayreuther Verkehrs- und BÃ¤der GmbH"/>
+      <tag k="route_ref" v="4;6"/>
+      <tag k="shelter" v="yes"/>
+      <tag k="wheelchair" v="limited"/>
+    </node>
+  </modify>
+  <modify>
+    <node id="588575579" changeset="9062501" timestamp="2011-08-19T09:10:48Z" version="2" visible="true" user="wheelmap_visitor" uid="290680" lat="49.9286065" lon="11.5786959">
+      <tag k="highway" v="bus_stop"/>
+      <tag k="name" v="RotkreuzstraÃŸe"/>
+      <tag k="operator" v="Bayreuther Verkehrs- und BÃ¤der GmbH"/>
+      <tag k="route_ref" v="4"/>
+      <tag k="shelter" v="no"/>
+      <tag k="wheelchair" v="no"/>
+    </node>
+  </modify>
+  <modify>
+    <node id="588575583" changeset="9062501" timestamp="2011-08-19T09:10:49Z" version="2" visible="true" user="wheelmap_visitor" uid="290680" lat="49.9290293" lon="11.5781339">
+      <tag k="highway" v="bus_stop"/>
+      <tag k="name" v="RotkreuzstraÃŸe"/>
+      <tag k="operator" v="Bayreuther Verkehrs- und BÃ¤der GmbH"/>
+      <tag k="route_ref" v="4"/>
+      <tag k="shelter" v="no"/>
+      <tag k="wheelchair" v="no"/>
+    </node>
+  </modify>
+  <modify>
+    <node id="1344500710" changeset="9062501" timestamp="2011-08-19T09:28:51Z" version="3" visible="true" user="wheelmap_visitor" uid="290680" lat="50.3705458" lon="6.6354459">
+      <tag k="addr:city" v="Alendorf"/>
+      <tag k="addr:postcode" v="53945"/>
+      <tag k="addr:street" v="QuellenstraÃŸe"/>
+      <tag k="amenity" v="bank"/>
+      <tag k="name" v="GewÃ¤ssersystem der Oberen Ahr, Kalktriften, mit Pflanzen wie KÃ¼chenschelle, Orchideen und Enziane"/>
+      <tag k="phone" v="+49 2449 872-22 und -23"/>
+      <tag k="website" v="http://www.eifel-barrierefrei.de/naturerlebnisangebote/detail/Gewaessersystem-der-Oberen-Ahr-2356d/"/>
+      <tag k="wheelchair" v="yes"/>
+    </node>
+  </modify>
+  <modify>
+    <node id="1104787369" changeset="9062501" timestamp="2011-08-19T09:32:54Z" version="2" visible="true" user="wheelmap_visitor" uid="290680" lat="53.0716989" lon="8.8459283">
+      <tag k="amenity" v="restaurant"/>
+      <tag k="cuisine" v="chinese"/>
+      <tag k="name" v="Si Chuan"/>
+      <tag k="wheelchair" v="no"/>
+    </node>
+  </modify>
+  <modify>
+    <node id="299732130" changeset="9062501" timestamp="2011-08-19T09:33:54Z" version="5" visible="true" user="wheelmap_visitor" uid="290680" lat="53.0709489" lon="8.8505852">
+      <tag k="bus" v="yes"/>
+      <tag k="highway" v="bus_stop"/>
+      <tag k="name" v="Bei den Drei PfÃ¤hlen"/>
+      <tag k="public_transport" v="platform"/>
+      <tag k="shelter" v="yes"/>
+      <tag k="wheelchair" v="yes"/>
+    </node>
+  </modify>
+  <modify>
+    <node id="669554876" changeset="9062501" timestamp="2011-08-19T09:33:55Z" version="3" visible="true" user="wheelmap_visitor" uid="290680" lat="53.0724409" lon="8.842224">
+      <tag k="name" v="Am Hulsberg"/>
+      <tag k="railway" v="tram_stop"/>
+      <tag k="wheelchair" v="yes"/>
+    </node>
+  </modify>
+  <modify>
+    <node id="669554882" changeset="9062501" timestamp="2011-08-19T09:33:56Z" version="4" visible="true" user="wheelmap_visitor" uid="290680" lat="53.0722255" lon="8.8432378">
+      <tag k="name" v="Am Hulsberg"/>
+      <tag k="railway" v="tram_stop"/>
+      <tag k="wheelchair" v="yes"/>
+    </node>
+  </modify>
+  <modify>
+    <node id="669530259" changeset="9062501" timestamp="2011-08-19T09:33:56Z" version="5" visible="true" user="wheelmap_visitor" uid="290680" lat="53.0703367" lon="8.8568082">
+      <tag k="name" v="BennigsenstraÃŸe"/>
+      <tag k="railway" v="tram_stop"/>
+      <tag k="wheelchair" v="yes"/>
+    </node>
+  </modify>
+  <modify>
+    <node id="669530241" changeset="9062501" timestamp="2011-08-19T09:34:58Z" version="5" visible="true" user="wheelmap_visitor" uid="290680" lat="53.0705777" lon="8.8553975">
+      <tag k="name" v="BennigsenstraÃŸe"/>
+      <tag k="railway" v="tram_stop"/>
+      <tag k="wheelchair" v="yes"/>
+    </node>
+  </modify>
+  <modify>
+    <node id="279559352" changeset="9062501" timestamp="2011-08-19T09:34:58Z" version="2" visible="true" user="wheelmap_visitor" uid="290680" lat="53.0691916" lon="8.8572805">
+      <tag k="created_by" v="Potlatch 0.10"/>
+      <tag k="name" v="Lidl"/>
+      <tag k="shop" v="supermarket"/>
+      <tag k="wheelchair" v="yes"/>
+    </node>
+  </modify>
+  <modify>
+    <node id="669530263" changeset="9062501" timestamp="2011-08-19T09:35:59Z" version="5" visible="true" user="wheelmap_visitor" uid="290680" lat="53.0679209" lon="8.8617836">
+      <tag k="name" v="Ludwig-Quidde-StraÃŸe"/>
+      <tag k="railway" v="tram_stop"/>
+      <tag k="wheelchair" v="yes"/>
+    </node>
+  </modify>
+  <modify>
+    <node id="302523536" changeset="9062501" timestamp="2011-08-19T09:36:00Z" version="3" visible="true" user="wheelmap_visitor" uid="290680" lat="53.0661518" lon="8.8597324">
+      <tag k="amenity" v="school"/>
+      <tag k="created_by" v="Potlatch 0.10d"/>
+      <tag k="name" v="Kinderschule Bremen"/>
+      <tag k="wheelchair" v="no"/>
+    </node>
+  </modify>
+  <modify>
+    <node id="302523688" changeset="9062501" timestamp="2011-08-19T09:36:00Z" version="8" visible="true" user="wheelmap_visitor" uid="290680" lat="53.0662702" lon="8.860072">
+      <tag k="bus" v="no"/>
+      <tag k="name" v="Hohwisch"/>
+      <tag k="public_transport" v="stop_position"/>
+      <tag k="railway" v="tram_stop"/>
+      <tag k="tram" v="yes"/>
+      <tag k="wheelchair" v="yes"/>
+    </node>
+  </modify>
+  <modify>
+    <node id="564671660" changeset="9062501" timestamp="2011-08-19T09:36:01Z" version="3" visible="true" user="wheelmap_visitor" uid="290680" lat="53.0676917" lon="8.863635">
+      <tag k="name" v="Wohnmobiloase Bremen"/>
+      <tag k="tourism" v="camp_site"/>
+      <tag k="website" v="www.wohnmobiloase-bremen.de"/>
+      <tag k="wheelchair" v="no"/>
+    </node>
+  </modify>
+  <modify>
+    <node id="486179381" changeset="9062501" timestamp="2011-08-19T09:38:01Z" version="4" visible="true" user="wheelmap_visitor" uid="290680" lat="53.0710616" lon="8.8625746">
+      <tag k="amenity" v="fuel"/>
+      <tag k="name" v="Mr. Wash"/>
+      <tag k="wheelchair" v="yes"/>
+    </node>
+  </modify>
+  <modify>
+    <node id="883181314" changeset="9062501" timestamp="2011-08-19T09:39:02Z" version="2" visible="true" user="wheelmap_visitor" uid="290680" lat="40.7491" lon="-73.983903">
+      <tag k="amenity" v="cafe"/>
+      <tag k="name" v="Starbucks"/>
+      <tag k="wheelchair" v="yes"/>
+    </node>
+  </modify>
+  <modify>
+    <node id="663099023" changeset="9062501" timestamp="2011-08-19T09:39:03Z" version="2" visible="true" user="wheelmap_visitor" uid="290680" lat="40.749348" lon="-73.987903">
+      <tag k="amenity" v="fast_food"/>
+      <tag k="name" v="KFC"/>
+      <tag k="wheelchair" v="yes"/>
+    </node>
+  </modify>
+  <modify>
+    <node id="368051518" changeset="9062501" timestamp="2011-08-19T09:40:04Z" version="2" visible="true" user="wheelmap_visitor" uid="290680" lat="40.7487128" lon="-73.9859724">
+      <tag k="addr:state" v="NY"/>
+      <tag k="amenity" v="public_building"/>
+      <tag k="ele" v="15"/>
+      <tag k="gnis:county_name" v="New York"/>
+      <tag k="gnis:feature_id" v="949654"/>
+      <tag k="gnis:import_uuid" v="57871b70-0100-4405-bb30-88b2e001a944"/>
+      <tag k="gnis:reviewed" v="no"/>
+      <tag k="name" v="Empire State Building"/>
+      <tag k="source" v="USGS Geonames"/>
+      <tag k="wheelchair" v="yes"/>
+    </node>
+  </modify>
+  <modify>
+    <node id="353005973" changeset="9062501" timestamp="2011-08-19T09:40:06Z" version="3" visible="true" user="wheelmap_visitor" uid="290680" lat="53.0625809" lon="8.8654075">
+      <tag k="name" v="Krone"/>
+      <tag k="tourism" v="hotel"/>
+      <tag k="website" v="http://www.hotelkrone-bremen.de/"/>
+      <tag k="wheelchair" v="no"/>
+    </node>
+  </modify>
+  <modify>
+    <node id="353005971" changeset="9062501" timestamp="2011-08-19T09:40:07Z" version="2" visible="true" user="wheelmap_visitor" uid="290680" lat="53.062719" lon="8.8647755">
+      <tag k="name" v="Bremer Apartmenthotel"/>
+      <tag k="tourism" v="hotel"/>
+      <tag k="wheelchair" v="no"/>
+    </node>
+  </modify>
+  <modify>
+    <node id="561159120" changeset="9062501" timestamp="2011-08-19T09:40:07Z" version="2" visible="true" user="wheelmap_visitor" uid="290680" lat="53.0629777" lon="8.8639854">
+      <tag k="name" v="Messe Hotels Bremen"/>
+      <tag k="tourism" v="hotel"/>
+      <tag k="wheelchair" v="no"/>
+    </node>
+  </modify>
+  <modify>
+    <node id="353007193" changeset="9062501" timestamp="2011-08-19T09:41:08Z" version="5" visible="true" user="wheelmap_visitor" uid="290680" lat="53.0635971" lon="8.8568333">
+      <tag k="name" v="GÃ¤rtnerei Suhrfelde"/>
+      <tag k="shop" v="garden_centre"/>
+      <tag k="website" v="http://www.martinshof-bremen.de/martinshof-bremen/verkaufsstellen/gaertnerei.html"/>
+      <tag k="wheelchair" v="limited"/>
+    </node>
+  </modify>
+  <modify>
+    <node id="414941812" changeset="9062501" timestamp="2011-08-19T09:41:08Z" version="3" visible="true" user="wheelmap_visitor" uid="290680" lat="53.06294" lon="8.859105">
+      <tag k="amenity" v="parking"/>
+      <tag k="wheelchair" v="limited"/>
+    </node>
+  </modify>
+  <modify>
+    <node id="262546923" changeset="9062501" timestamp="2011-08-19T09:42:09Z" version="3" visible="true" user="wheelmap_visitor" uid="290680" lat="53.0621823" lon="8.8494541">
+      <tag k="addr:housenumber" v="1"/>
+      <tag k="addr:street" v="Pauliner Marsch"/>
+      <tag k="amenity" v="restaurant"/>
+      <tag k="name" v="JÃ¼rgenshof"/>
+      <tag k="wheelchair" v="limited"/>
+    </node>
+  </modify>
+  <modify>
+    <node id="299717707" changeset="9062501" timestamp="2011-08-19T09:46:10Z" version="2" visible="true" user="wheelmap_visitor" uid="290680" lat="53.0710224" lon="8.8395219">
+      <tag k="amenity" v="school"/>
+      <tag k="created_by" v="Potlatch 0.10b"/>
+      <tag k="name" v="Gesamtschule Mitte an der Hemelinger StraÃŸe"/>
+      <tag k="wheelchair" v="no"/>
+    </node>
+  </modify>
+  <modify>
+    <node id="292951783" changeset="9062501" timestamp="2011-08-19T09:46:10Z" version="6" visible="true" user="wheelmap_visitor" uid="290680" lat="53.0688898" lon="8.843475">
+      <tag k="bus" v="no"/>
+      <tag k="name" v="Nienburger StraÃŸe"/>
+      <tag k="public_transport" v="stop_position"/>
+      <tag k="railway" v="tram_stop"/>
+      <tag k="tram" v="yes"/>
+      <tag k="wheelchair" v="yes"/>
+    </node>
+  </modify>
+  <modify>
+    <node id="694825904" changeset="9062501" timestamp="2011-08-19T09:46:11Z" version="3" visible="true" user="wheelmap_visitor" uid="290680" lat="53.0687633" lon="8.8442069">
+      <tag k="bus" v="no"/>
+      <tag k="name" v="Nienburger StraÃŸe"/>
+      <tag k="public_transport" v="stop_position"/>
+      <tag k="railway" v="tram_stop"/>
+      <tag k="tram" v="yes"/>
+      <tag k="wheelchair" v="yes"/>
+    </node>
+  </modify>
+  <modify>
+    <node id="299848812" changeset="9062501" timestamp="2011-08-19T09:47:11Z" version="4" visible="true" user="wheelmap_visitor" uid="290680" lat="53.0685596" lon="8.8471858">
+      <tag k="amenity" v="bank"/>
+      <tag k="name" v="Sparkasse Bremen"/>
+      <tag k="operator" v="Sparkasse Bremen"/>
+      <tag k="wheelchair" v="limited"/>
+    </node>
+  </modify>
+  <modify>
+    <node id="656409761" changeset="9062501" timestamp="2011-08-19T09:47:12Z" version="3" visible="true" user="wheelmap_visitor" uid="290680" lat="53.0685259" lon="8.8466851">
+      <tag k="amenity" v="pharmacy"/>
+      <tag k="name" v="Apotheke Zur goldenen Kugel"/>
+      <tag k="wheelchair" v="limited"/>
+    </node>
+  </modify>
+  <modify>
+    <node id="472683681" changeset="9062501" timestamp="2011-08-19T09:52:13Z" version="3" visible="true" user="wheelmap_visitor" uid="290680" lat="52.5756581" lon="13.278118">
+      <tag k="highway" v="bus_stop"/>
+      <tag k="name" v="Kamener Weg"/>
+      <tag k="wheelchair" v="yes"/>
+    </node>
+  </modify>
+  <modify>
+    <node id="472683676" changeset="9062501" timestamp="2011-08-19T09:52:14Z" version="3" visible="true" user="wheelmap_visitor" uid="290680" lat="52.5757951" lon="13.2781157">
+      <tag k="highway" v="bus_stop"/>
+      <tag k="name" v="Kamener Weg"/>
+      <tag k="wheelchair" v="yes"/>
+    </node>
+  </modify>
+  <modify>
+    <node id="1404420482" changeset="9062501" timestamp="2011-08-19T09:57:16Z" version="2" visible="true" user="wheelmap_visitor" uid="290680" lat="44.8167218" lon="20.459775">
+      <tag k="name" v="Nardoni Muzej - National Museum "/>
+      <tag k="tourism" v="museum"/>
+      <tag k="wheelchair" v="yes"/>
+    </node>
+  </modify>
+  <modify>
+    <node id="1404420482" changeset="9062501" timestamp="2011-08-19T10:01:20Z" version="3" visible="true" user="wheelmap_visitor" uid="290680" lat="44.8167218" lon="20.459775">
+      <tag k="name" v="Nardoni Muzej - National Museum "/>
+      <tag k="tourism" v="museum"/>
+      <tag k="wheelchair" v="limited"/>
+    </node>
+  </modify>
+  <modify>
+    <node id="1404426550" changeset="9062501" timestamp="2011-08-19T10:02:21Z" version="2" visible="true" user="wheelmap_visitor" uid="290680" lat="44.8167697" lon="20.4606654">
+      <tag k="amenity" v="theatre"/>
+      <tag k="name" v="Narodno pozoriste - National Theatre"/>
+      <tag k="wheelchair" v="yes"/>
+    </node>
+  </modify>
+  <modify>
+    <node id="1235048888" changeset="9062501" timestamp="2011-08-19T10:03:22Z" version="2" visible="true" user="wheelmap_visitor" uid="290680" lat="39.4750071" lon="-6.351355">
+      <tag k="bench" v="yes"/>
+      <tag k="highway" v="bus_stop"/>
+      <tag k="name" v="Residencial Universidad"/>
+      <tag k="shelter" v="yes"/>
+      <tag k="wheelchair" v="no"/>
+    </node>
+  </modify>
+  <modify>
+    <node id="1404420482" changeset="9062501" timestamp="2011-08-19T10:08:24Z" version="4" visible="true" user="wheelmap_visitor" uid="290680" lat="44.8167218" lon="20.459775">
+      <tag k="name" v="Nardoni Muzej - National Museum "/>
+      <tag k="tourism" v="museum"/>
+      <tag k="wheelchair" v="no"/>
+    </node>
+  </modify>
+  <modify>
+    <node id="309162809" changeset="9062501" timestamp="2011-08-19T10:10:25Z" version="7" visible="true" user="wheelmap_visitor" uid="290680" lat="48.4005447" lon="11.7438757">
+      <tag k="bus_routes" v="FIX ME"/>
+      <tag k="highway" v="bus_stop"/>
+      <tag k="name" v="Marienplatz"/>
+      <tag k="operator" v="FIX ME"/>
+      <tag k="wheelchair" v="limited"/>
+    </node>
+  </modify>
+</osmChange>

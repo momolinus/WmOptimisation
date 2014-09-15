@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package org.athmis.wmoptimisation.changeset;
 
@@ -20,7 +20,7 @@ public class CangeSetUpdateAble extends ChangeSet {
 
 	/**
 	 * Closes the changeSet object at given time.
-	 * 
+	 *
 	 * @param closingTime
 	 *            will became the closing time
 	 */
@@ -42,15 +42,13 @@ public class CangeSetUpdateAble extends ChangeSet {
 	}
 
 	/**
-	 * Updates the bounding box with given change. Meaning setting the max
-	 * latitude and max longitude using old max values and the new latitude and
-	 * longitude from given change.
-	 * 
+	 * Updates the bounding box with given change. Meaning setting the max latitude and max
+	 * longitude using old max values and the new latitude and longitude from given change.
+	 *
 	 * @param change
-	 *            given change latitude and longitude are used for updating the
-	 *            bounding box
+	 *            given change latitude and longitude are used for updating the bounding box
 	 */
-	public void updateBoundingBox(Change change) {
+	protected void updateBoundingBox(Change change) {
 		double lat, lon;
 
 		lat = change.getLat();
@@ -62,5 +60,4 @@ public class CangeSetUpdateAble extends ChangeSet {
 		maxLongitude = Math.max(maxLongitude, lon);
 		minLongitude = Math.min(minLongitude, lon);
 	}
-
 }

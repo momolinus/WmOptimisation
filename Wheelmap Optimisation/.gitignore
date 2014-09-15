@@ -11,6 +11,9 @@ lib/
 # docs you will find in the wiki
 doc/
 
+# if you need apidoc generate:
+javadoc/
+
 # the build files
 bin/
 
@@ -18,3 +21,7 @@ bin/
 *.csv
 /javadoc.xml
 /aufgaben.todo
+
+# gradle files
+.gradle/
+gradle-app.setting
