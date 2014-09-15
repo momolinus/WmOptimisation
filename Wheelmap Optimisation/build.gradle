@@ -34,6 +34,7 @@ repositories {
 // gradle --refresh-dependencies erneuert den dependencies cache
 
 dependencies {
+   	testCompile group: 'com.floreysoft', name: 'jmte', version: '3.0'
     testCompile group: 'org.simpleframework', name: 'simple-xml', version: '2.7.+'
     testCompile group: 'log4j', name: 'log4j', version: '1.2.+'
     /* compile group: 'org.mockito', name: 'mockito-all', version: '1.9.5'

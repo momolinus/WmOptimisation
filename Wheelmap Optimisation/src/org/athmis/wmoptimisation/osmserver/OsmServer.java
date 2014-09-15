@@ -37,8 +37,8 @@ import org.athmis.wmoptimisation.algorithm.ChangeSetGenerator;
 import org.athmis.wmoptimisation.changeset.CangeSetUpdateAble;
 import org.athmis.wmoptimisation.changeset.Change;
 import org.athmis.wmoptimisation.changeset.Node;
-import org.athmis.wmoptimisation.changeset.OsmChangeContent;
 import org.athmis.wmoptimisation.changeset.Way;
+import org.athmis.wmoptimisation.fetch_changesets.OsmChangeContent;
 
 import com.google.common.collect.ArrayListMultimap;
 import com.google.common.collect.Multimap;

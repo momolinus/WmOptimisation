@@ -4,7 +4,7 @@ import java.util.Calendar;
 
 import org.athmis.wmoptimisation.changeset.CangeSetUpdateAble;
 import org.athmis.wmoptimisation.changeset.Change;
-import org.athmis.wmoptimisation.changeset.OsmChangeContent;
+import org.athmis.wmoptimisation.fetch_changesets.OsmChangeContent;
 import org.athmis.wmoptimisation.osmserver.OsmServer;
 
 public class MinimizeAreaChangeSetGenartor extends ChangeSetGenerator {

@@ -16,7 +16,9 @@
  * Programm erhalten haben. Wenn nicht, siehe <http://www.gnu.org/licenses/>. */
 package org.athmis.wmoptimisation.fetch_changesets;
 
-import java.io.IOException;
+import java.io.*;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.text.ParseException;
 import java.util.Calendar;
 import java.util.Collections;
@@ -25,12 +27,14 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipOutputStream;
 
 import org.apache.log4j.BasicConfigurator;
 import org.apache.log4j.Logger;
-import org.athmis.wmoptimisation.changeset.ChangeSet;
-import org.athmis.wmoptimisation.changeset.ChangeSetToolkit;
-import org.athmis.wmoptimisation.changeset.OsmApiChangeSetsResult;
+import org.athmis.wmoptimisation.changeset.*;
+import org.athmis.wmoptimisation.filefilter.ChangeSetContentFileFilter;
 import org.simpleframework.xml.Serializer;
 import org.simpleframework.xml.core.Persister;
 
@@ -41,7 +45,23 @@ import org.simpleframework.xml.core.Persister;
  * "http://wiki.openstreetmap.org/wiki/API_v0.6#Query:_GET_.2Fapi.2F0.6.2Fchangesets" >Query: GET
  * /api/0.6/changesets</a>.
  */
-public final class FetchChangeSets {
+public final class FetchingChangeSetsToolbox {
+
+	/**
+	 * the call for downloading changes for a given changeset id, see <a href=
+	 * "http://wiki.openstreetmap.org/wiki/API_v0.6#Download:_GET_.2Fapi.2F0.6.2Fchangeset.2F.23id.2Fdownload"
+	 * >Download: GET /api/0.6/changeset/#id/download</a>
+	 */
+	public static final String GET_CHANGE_SET_DOWNLOAD = "http://api.openstreetmap.org/"
+		+ "api/0.6/changeset/%s/download";
+
+	/**
+	 * the test call for downloading changes for a given changeset id, see <a href=
+	 * "http://wiki.openstreetmap.org/wiki/API_v0.6#Download:_GET_.2Fapi.2F0.6.2Fchangeset.2F.23id.2Fdownload"
+	 * >Download: GET /api/0.6/changeset/#id/download</a>
+	 */
+	public static final String GET_CHANGE_SET_DOWNLOAD_DEV = "http://api06.dev.openstreetmap.org/"
+		+ "api/0.6/changeset/%s/download";
 
 	/**
 	 * the public user name of <a href="wheelmap.org">wheelmap</a>
@@ -77,6 +97,7 @@ public final class FetchChangeSets {
 	 */
 	private static final String GET_CHANGE_SETS_FOR_TIME_PERIOD = "http://api.openstreetmap.org/"
 		+ "api/0.6/changesets?display_name=%s&time=%s,%s&closed=true";
+
 	/**
 	 * the call for changeset, which closed and created after given time (live-API)
 	 */
@@ -87,13 +108,55 @@ public final class FetchChangeSets {
 	/**
 	 * a logger for test and develop purpose
 	 */
-	private static final Logger LOGGER = Logger.getLogger(FetchChangeSets.class);
+	private static final Logger LOGGER = Logger.getLogger(FetchingChangeSetsToolbox.class);
+
+	/**
+	 * the default serializer, use for all serializing and deserializing tasks
+	 */
+	private static final Serializer SERIALIZER = new Persister();
 
 	/**
 	 * constant for two days in hours
 	 */
 	private static final int TWO_DAYS_IN_HOURS = 48;
 
+	/**
+	 * @param apiCall
+	 * @return
+	 * @throws MalformedURLException
+	 * @throws IOException
+	 */
+	public static String apiCallResult(String apiCall) throws MalformedURLException, IOException {
+		URL url;
+		url = new URL(apiCall);
+		BufferedReader reader = new BufferedReader(new InputStreamReader(url.openStream()));
+		StringBuilder builder = new StringBuilder();
+		reader.lines().forEach(line -> {
+			builder.append(line);
+			builder.append("\n");
+		});
+
+		return builder.toString();
+	}
+
+	/**
+	 * Build the OSM API call for fetching the changes referring to a given changeset id.
+	 *
+	 * @param changeSetId
+	 *            the if of the changeset which changes should be downloaded
+	 * @param develop
+	 *            <code>true</code> means use the OSM test API, <code>false</code> means using the
+	 *            OSM live API
+	 * @return the API call
+	 */
+	public static String createApiCall(Long changeSetId, boolean develop) {
+		if (develop) {
+			return String.format(GET_CHANGE_SET_DOWNLOAD_DEV, changeSetId.toString());
+		}
+		else {
+			return String.format(GET_CHANGE_SET_DOWNLOAD, changeSetId.toString());
+		}
+	}
 	/**
 	 * Fetches the changesets for given dates and returns a map with id of changeset as key and the
 	 * changeset as value.
@@ -134,6 +197,38 @@ public final class FetchChangeSets {
 		}
 
 		return Collections.unmodifiableMap(result);
+	}
+
+	/**
+	 * Fetches all the changes (and their content) for a given changeset id.
+	 *
+	 * @param changeSetId
+	 *            the if of the changeset
+	 * @param develop
+	 *            <code>true</code> means use the OSM test API, <code>false</code> means using the
+	 *            OSM live API
+	 * @return an {@link OsmChange} object, which contains all the changes for the given changeset
+	 * @throws IOException
+	 *             if the call returns no valid values, compare to <a href=
+	 *             "http://wiki.openstreetmap.org/wiki/API_v0.6#Download:_GET_.2Fapi.2F0.6.2Fchangeset.2F.23id.2Fdownload"
+	 *             >Error codes</a>
+	 */
+	public static OsmChange fetchContent(Long changeSetId, boolean develop) throws IOException {
+		String apiCall;
+		OsmChange result = null;
+
+		apiCall = createApiCall(changeSetId, develop);
+
+		try {
+			result = SERIALIZER.read(OsmChange.class, apiCallResult(apiCall));
+		}
+		catch (Exception e) {
+
+			throw new IOException("error with api call '" + apiCall + "', message: "
+				+ e.getMessage(), e);
+
+		}
+		return result;
 	}
 
 	/**
@@ -221,7 +316,7 @@ public final class FetchChangeSets {
 			// comments, but first take a look at JavaDoc of
 			// StoreChangeSets.storeWithContent(..) !!!
 
-			StoreChangeSets.storeWithContent(changeSets, "wheelchair-2012.zip", develop);
+			storeWithContent(changeSets, "wheelchair-2012.zip", develop);
 		}
 		catch (Exception e) {
 			e.printStackTrace();
@@ -229,6 +324,159 @@ public final class FetchChangeSets {
 		}
 
 		LOGGER.info("successfully completed");
+	}
+
+	/**
+	 * Stores given map of changesets and their content to given zip file. The changeset will be
+	 * stored to a file "[changesetId].xml", representing an {@linkplain ChangeSet} object.
+	 * <p>
+	 * All the changes of the changeset will be stored to a file "[changesetId]_content.xml",
+	 * representing an {@linkplain OsmChange} object.
+	 * <p>
+	 * The root folder will be the name of the given zip file reduced the extension ".zip".
+	 * <p>
+	 * The content for given changeset will be fetched from OSM server, <strong>so the call of this
+	 * method could take a longer time</strong>. For monitoring the progress the
+	 * {@linkplain #LOGGER} is used. Any main class should configure the logger, the easiest way is
+	 * to call <code>BasicConfigurator.configure();</code> (compare to the Log4j ApiDoc).
+	 * <p>
+	 *
+	 * @param changeSets
+	 *            stored as file in given zip file, it's content also stored as file in given zip
+	 *            file
+	 * @param zipFileName
+	 *            the name of the zip file, where changesets will be stored
+	 * @param develop
+	 *            with <code>true</code> the developer OSM API will be used, else the live OSM API
+	 *            will be used
+	 * @throws IOException
+	 *             if the call returns no valid values
+	 */
+	public static void storeWithContent(Map<Long, ChangeSet> changeSets, String zipFileName,
+										boolean develop) throws IOException {
+
+		String folder, zip;
+
+		if (!zipFileName.endsWith(".zip")) {
+			zip = zipFileName + ".zip";
+		}
+		else {
+			zip = zipFileName;
+		}
+
+		folder = zip.replace(".zip", "");
+
+		try (ZipOutputStream zipFile = new ZipOutputStream(new FileOutputStream(zip))) {
+
+			for (Entry<Long, ChangeSet> changeSet : changeSets.entrySet()) {
+				try {
+					ZipEntry folderForChangeSetEntry;
+					OsmChange changeSetContent;
+
+					// store the changeset file
+					folderForChangeSetEntry =
+						new ZipEntry(folder + "/" + changeSet.getKey() + ".xml");
+					zipFile.putNextEntry(folderForChangeSetEntry);
+
+					SERIALIZER.write(changeSet.getValue(), zipFile);
+					zipFile.closeEntry();
+
+					// store the changesets content
+					changeSetContent = fetchContent(changeSet.getKey(), develop);
+					folderForChangeSetEntry =
+						new ZipEntry(folder + "/" + changeSet.getKey()
+							+ ChangeSetContentFileFilter.CHANGE_SET_CONTENT_LABEL + ".xml");
+					zipFile.putNextEntry(folderForChangeSetEntry);
+					SERIALIZER.write(changeSetContent, zipFile);
+
+					zipFile.closeEntry();
+
+					LOGGER.info("change set 'id=" + changeSet.getKey() + "' stored to zip file");
+				}
+				catch (Exception e) {
+					LOGGER.warn("can't store content and changeset for id = " + changeSet.getKey()
+						+ " from " + changeSet.getValue().getCreatedAt()
+						+ ", changeset will be omitted", e);
+				}
+			}
+
+			// note: don't call close, should be done by surrounding "try with
+			// resources"
+			zipFile.finish();
+
+		}
+		catch (IOException e) {
+			throw new IOException("can't create zip file '" + zipFileName + "', reason: ", e);
+		}
+	}
+
+	/**
+	 * Stores given map of changesets and their content to given folder. The changeset will be
+	 * stored to a file "[changesetId].xml", representing an {@linkplain ChangeSet} object.
+	 * <p>
+	 * all the changes of the changeset will be stored to one file "[changesetId]_content.xml",
+	 * representing an {@linkplain OsmChange} object.
+	 * <p>
+	 * The content for given changeset will be fetched from OSM server, <strong>so the call of this
+	 * method could take a longer time</strong>. For monitoring the progress the
+	 * {@linkplain #LOGGER} is used. Any main class should configure the logger, the easiest way is
+	 * to call <code>BasicConfigurator.configure();</code> (compare to the Log4j ApiDoc).
+	 * <p>
+	 *
+	 * @param changeSets
+	 *            stored as file ("[changesetId].xml") to given folder
+	 * @param folderName
+	 *            where the changesets and its changes will be stored
+	 * @param develop
+	 *            with <code>true</code> the developer OSM API will be used, else the live OSM API
+	 *            will be used
+	 * @throws IOException
+	 *             if the call returns no valid values
+	 */
+	public static void storeWithContentToFolder(Map<Long, ChangeSet> changeSets, String folderName,
+												boolean develop) throws IOException {
+
+		try {
+			if (!(new File(folderName)).isDirectory()) {
+				if (!new File(folderName).mkdir()) {
+					throw new IOException("can't create folder '" + folderName + "'");
+				}
+			}
+
+			for (Entry<Long, ChangeSet> changeSet : changeSets.entrySet()) {
+
+				OsmChange content;
+				String fileName = folderName + "/" + changeSet.getKey().toString() + ".xml";
+				try {
+					// store the changeset file
+					SERIALIZER.write(changeSet.getValue(), new File(fileName));
+
+				}
+				catch (Exception e) {
+					throw new IOException("can't store changeset 'id=" + changeSet.getKey()
+						+ "'  '" + fileName + "', reason: ", e);
+				}
+
+				// store the changeset content
+				content = fetchContent(changeSet.getKey(), develop);
+				String contentFileName =
+					folderName + "/" + changeSet.getKey().toString()
+						+ ChangeSetContentFileFilter.CHANGE_SET_CONTENT_LABEL + ".xml";
+				try {
+					SERIALIZER.write(content, new File(contentFileName));
+				}
+				catch (Exception e) {
+					throw new IOException("can't put content for changeset 'id="
+						+ changeSet.getKey() + "'  file '" + contentFileName + "', reason: ", e);
+				}
+
+				LOGGER.info("change set 'id=" + changeSet.getKey() + "' stored");
+			}
+
+		}
+		catch (IOException e) {
+			throw new IOException("can't store to folder '" + folderName + "', reason: ", e);
+		}
 	}
 
 	/**
@@ -255,8 +503,7 @@ public final class FetchChangeSets {
 							ChangeSetToolkit.OSM_DATE_TO_JAVA.format(createdDate.getTime()));
 
 		apiResult =
-			API_RESPONSE_SERIALIZER.read(	OsmApiChangeSetsResult.class,
-											StoreChangeSets.apiCallResult(apiCall));
+			API_RESPONSE_SERIALIZER.read(OsmApiChangeSetsResult.class, apiCallResult(apiCall));
 
 		return apiResult.asMap();
 	}
@@ -301,8 +548,7 @@ public final class FetchChangeSets {
 		apiCall = String.format(getApiCallForPeriod(develop), user, closedT1, createdT2);
 
 		apiResult =
-			API_RESPONSE_SERIALIZER.read(	OsmApiChangeSetsResult.class,
-											StoreChangeSets.apiCallResult(apiCall));
+			API_RESPONSE_SERIALIZER.read(OsmApiChangeSetsResult.class, apiCallResult(apiCall));
 
 		return apiResult.asMap();
 	}
@@ -352,5 +598,5 @@ public final class FetchChangeSets {
 	/**
 	 * it's private to prevent instantiation.
 	 */
-	private FetchChangeSets() {}
+	private FetchingChangeSetsToolbox() {}
 }

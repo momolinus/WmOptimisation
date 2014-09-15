@@ -1,23 +1,19 @@
-/* Copyright Marcus Bleil, Oliver Rudzik, Christoph Bünte 2012 This file is part
- * of Wheelmap Optimization. Wheelmap Optimization is free software: you can
- * redistribute it and/or modify it under the terms of the GNU General Public
- * License as published by the Free Software Foundation, either version 3 of the
- * License, or (at your option) any later version. Wheelmap Optimization is
- * distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
- * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
- * PARTICULAR PURPOSE. See the GNU General Public License for more details. You
- * should have received a copy of the GNU General Public License along with
- * Athmis. If not, see <http://www.gnu.org/licenses/>. Diese Datei ist Teil von
- * Wheelmap Optimization. Wheelmap Optimization ist Freie Software: Sie können
- * es unter den Bedingungen der GNU General Public License, wie von der Free
- * Software Foundation, Version 3 der Lizenz oder (nach Ihrer Option) jeder
- * späteren veröffentlichten Version, weiterverbreiten und/oder modifizieren.
- * Wheelmap Optimization wird in der Hoffnung, dass es nützlich sein wird, aber
- * OHNE JEDE GEWÄHELEISTUNG, bereitgestellt; sogar ohne die implizite
- * Gewährleistung der MARKTFÄHIGKEIT oder EIGNUNG FÜR EINEN BESTIMMTEN ZWECK.
- * Siehe die GNU General Public License für weitere Details. Sie sollten eine
- * Kopie der GNU General Public License zusammen mit diesem Programm erhalten
- * haben. Wenn nicht, siehe <http://www.gnu.org/licenses/>. */
+/* Copyright Marcus Bleil, Oliver Rudzik, Christoph Bünte 2012 This file is part of Wheelmap
+ * Optimization. Wheelmap Optimization is free software: you can redistribute it and/or modify it
+ * under the terms of the GNU General Public License as published by the Free Software Foundation,
+ * either version 3 of the License, or (at your option) any later version. Wheelmap Optimization is
+ * distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the
+ * implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General
+ * Public License for more details. You should have received a copy of the GNU General Public
+ * License along with Athmis. If not, see <http://www.gnu.org/licenses/>. Diese Datei ist Teil von
+ * Wheelmap Optimization. Wheelmap Optimization ist Freie Software: Sie können es unter den
+ * Bedingungen der GNU General Public License, wie von der Free Software Foundation, Version 3 der
+ * Lizenz oder (nach Ihrer Option) jeder späteren veröffentlichten Version, weiterverbreiten
+ * und/oder modifizieren. Wheelmap Optimization wird in der Hoffnung, dass es nützlich sein wird,
+ * aber OHNE JEDE GEWÄHELEISTUNG, bereitgestellt; sogar ohne die implizite Gewährleistung der
+ * MARKTFÄHIGKEIT oder EIGNUNG FÜR EINEN BESTIMMTEN ZWECK. Siehe die GNU General Public License für
+ * weitere Details. Sie sollten eine Kopie der GNU General Public License zusammen mit diesem
+ * Programm erhalten haben. Wenn nicht, siehe <http://www.gnu.org/licenses/>. */
 package org.athmis.wmoptimisation.changeset;
 
 import java.util.ArrayList;
@@ -29,17 +25,12 @@ import org.simpleframework.xml.ElementList;
 import org.simpleframework.xml.Root;
 
 /**
- * A Way object contains (among others) a list with references ({@linkplain Nd})
- * to {@linkplain Node}s. Also it contains a list of{@linkplain Tag}s and a
- * reference to its {@linkplain ChangeSet}s id.
+ * A Way object contains (among others) a list with references ({@linkplain Nd}) to
+ * {@linkplain Node}s. Also it contains a list of{@linkplain Tag}s and a reference to its
+ * {@linkplain ChangeSet}s id.
  */
 @Root(name = "way", strict = false)
 public class Way implements Change {
-
-	/**
-	 * default constructor (for Simple framework)
-	 */
-	public Way() {}
 
 	@Attribute
 	private long changeset;
@@ -71,14 +62,21 @@ public class Way implements Change {
 	private int version;
 
 	/**
+	 * default constructor (for Simple framework)
+	 */
+	public Way() {}
+
+	/**
 	 * Constructor for a deep copy.
-	 * 
+	 *
 	 * @param way
+	 *            will be used to set the state of the new created object
 	 */
 	public Way(Way way) {
 		this.changeset = way.changeset;
 		this.id = way.id;
-		this.timestamp = way.timestamp; // Strings are immutable
+		// Strings are immutable
+		this.timestamp = way.timestamp;
 		this.uid = way.uid;
 		this.user = way.user;
 		this.version = way.version;
@@ -110,6 +108,22 @@ public class Way implements Change {
 	@Override
 	public long getId() {
 		return id;
+	}
+
+	/**
+	 * @return -1 as default value, further implementation could return more sensible value
+	 */
+	@Override
+	public double getLat() {
+		return -1;
+	}
+
+	/**
+	 * @return -1 as default value, further implementation could return more sensible value
+	 */
+	@Override
+	public double getLon() {
+		return -1;
 	}
 
 	public List<Tag> getTags() {
@@ -150,23 +164,5 @@ public class Way implements Change {
 	@Override
 	public String verbose() {
 		return "implementation missing";
-	}
-
-	/**
-	 * @return -1 as default value, further implementation could return more
-	 *         sensible value
-	 */
-	@Override
-	public double getLat() {
-		return -1;
-	}
-
-	/**
-	 * @return -1 as default value, further implementation could return more
-	 *         sensible value
-	 */
-	@Override
-	public double getLon() {
-		return -1;
 	}
 }

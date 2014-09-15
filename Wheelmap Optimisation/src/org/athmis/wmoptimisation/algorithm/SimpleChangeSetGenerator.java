@@ -25,7 +25,7 @@ import java.util.Calendar;
 import org.apache.log4j.Logger;
 import org.athmis.wmoptimisation.changeset.CangeSetUpdateAble;
 import org.athmis.wmoptimisation.changeset.Change;
-import org.athmis.wmoptimisation.changeset.OsmChangeContent;
+import org.athmis.wmoptimisation.fetch_changesets.OsmChangeContent;
 import org.athmis.wmoptimisation.osmserver.OsmServer;
 
 /**

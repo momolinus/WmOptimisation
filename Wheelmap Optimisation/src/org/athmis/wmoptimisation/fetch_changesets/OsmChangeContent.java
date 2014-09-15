@@ -1,81 +1,75 @@
-/* Copyright Marcus Bleil, Oliver Rudzik, Christoph Bünte 2012 This file is part
- * of Wheelmap Optimization. Wheelmap Optimization is free software: you can
- * redistribute it and/or modify it under the terms of the GNU General Public
- * License as published by the Free Software Foundation, either version 3 of the
- * License, or (at your option) any later version. Wheelmap Optimization is
- * distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
- * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
- * PARTICULAR PURPOSE. See the GNU General Public License for more details. You
- * should have received a copy of the GNU General Public License along with
- * Athmis. If not, see <http://www.gnu.org/licenses/>. Diese Datei ist Teil von
- * Wheelmap Optimization. Wheelmap Optimization ist Freie Software: Sie können
- * es unter den Bedingungen der GNU General Public License, wie von der Free
- * Software Foundation, Version 3 der Lizenz oder (nach Ihrer Option) jeder
- * späteren veröffentlichten Version, weiterverbreiten und/oder modifizieren.
- * Wheelmap Optimization wird in der Hoffnung, dass es nützlich sein wird, aber
- * OHNE JEDE GEWÄHELEISTUNG, bereitgestellt; sogar ohne die implizite
- * Gewährleistung der MARKTFÄHIGKEIT oder EIGNUNG FÜR EINEN BESTIMMTEN ZWECK.
- * Siehe die GNU General Public License für weitere Details. Sie sollten eine
- * Kopie der GNU General Public License zusammen mit diesem Programm erhalten
- * haben. Wenn nicht, siehe <http://www.gnu.org/licenses/>. */
-package org.athmis.wmoptimisation.changeset;
+/* Copyright Marcus Bleil, Oliver Rudzik, Christoph Bünte 2012 This file is part of Wheelmap
+ * Optimization. Wheelmap Optimization is free software: you can redistribute it and/or modify it
+ * under the terms of the GNU General Public License as published by the Free Software Foundation,
+ * either version 3 of the License, or (at your option) any later version. Wheelmap Optimization is
+ * distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the
+ * implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General
+ * Public License for more details. You should have received a copy of the GNU General Public
+ * License along with Athmis. If not, see <http://www.gnu.org/licenses/>. Diese Datei ist Teil von
+ * Wheelmap Optimization. Wheelmap Optimization ist Freie Software: Sie können es unter den
+ * Bedingungen der GNU General Public License, wie von der Free Software Foundation, Version 3 der
+ * Lizenz oder (nach Ihrer Option) jeder späteren veröffentlichten Version, weiterverbreiten
+ * und/oder modifizieren. Wheelmap Optimization wird in der Hoffnung, dass es nützlich sein wird,
+ * aber OHNE JEDE GEWÄHELEISTUNG, bereitgestellt; sogar ohne die implizite Gewährleistung der
+ * MARKTFÄHIGKEIT oder EIGNUNG FÜR EINEN BESTIMMTEN ZWECK. Siehe die GNU General Public License für
+ * weitere Details. Sie sollten eine Kopie der GNU General Public License zusammen mit diesem
+ * Programm erhalten haben. Wenn nicht, siehe <http://www.gnu.org/licenses/>. */
+package org.athmis.wmoptimisation.fetch_changesets;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.Map.Entry;
 import java.util.concurrent.TimeUnit;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 
 import org.apache.log4j.Logger;
+import org.athmis.wmoptimisation.changeset.*;
 import org.athmis.wmoptimisation.filefilter.ChangeSetContentFileFilter;
 import org.simpleframework.xml.Serializer;
 import org.simpleframework.xml.core.Persister;
 
 /**
- * A OsmChangeContent contains changesets (as {@linkplain ChangeSet} objects in
- * a map) and their changes ({@linkplain OsmChange}).
+ * A OsmChangeContent contains changesets (as {@linkplain ChangeSet} objects in a map) and their
+ * changes ({@linkplain OsmChange}).
  * <p>
- * The first implementation of this class was only used to be filled with
- * changes from a given zip file. This zip-file contained changes/edits from
- * real osm users, which fetched with OSM Api 0.6.
+ * The first implementation of this class was only used to be filled with changes from a given zip
+ * file. This zip-file contained changes/edits from real osm users, which fetched with OSM Api 0.6.
  */
 public class OsmChangeContent {
 
 	private static final DateFormat FORMATTER = new SimpleDateFormat();
+
 	private final static Logger LOGGER = Logger.getLogger(OsmChangeContent.class);
+
 	private final static Serializer SERIALIZER = new Persister();
 
-	// XXX mal in einen Thread/SwingWorker
 	/**
 	 * Reads a zip file with changesets files and changeset content files
-	 * 
+	 *
 	 * @param zipFileName
 	 * @return changesets and changesets content object
 	 * @throws IOException
 	 *             on error reading file, like parse errors
 	 */
-	public static OsmChangeContent readOsmChangeContent(String zipFileName) throws IOException {
+	public static OsmChangeContent createOsmChangeContentFromZip(String zipFileName)
+																					throws IOException {
 
-		OsmChangeContent result;
-		result = new OsmChangeContent();
+		OsmChangeContent changeContent;
+		changeContent = new OsmChangeContent();
 
 		// note: ZipFile implements AutoCloseable
 		try (ZipFile changeSetsZip =
 			new ZipFile(Paths.get(zipFileName).toFile(), ZipFile.OPEN_READ)) {
 
-			readZipFile(zipFileName, result, changeSetsZip);
+			readZipFile(zipFileName, changeContent, changeSetsZip);
 
 		}
 		catch (IOException e) {
@@ -83,61 +77,90 @@ public class OsmChangeContent {
 				+ zipFileName + "', reason: ", e);
 		}
 
-		return result;
+		return changeContent;
 	}
 
-	private static void readChangeSetsFromZipFile(String zipFileName, OsmChangeContent result,
-		ZipFile changeSetsZip, ZipEntry zipEntry) throws IOException {
+	public static OsmChangeContent readOsmChangeContent(String[] ids) throws Exception {
 
-		InputStream changeSetStream;
+		OsmChangeContent changeContent;
+		changeContent = new OsmChangeContent();
+
+		for (String id : ids) {
+			Path changeSetPath, changesPath;
+
+			changeSetPath = Paths.get(id + ".xml");
+			assertThatPathExists(changeSetPath);
+
+			changesPath =
+				Paths.get(id + ChangeSetContentFileFilter.CHANGE_SET_CONTENT_LABEL + ".xml");
+			assertThatPathExists(changesPath);
+
+			ChangeSet changeSet = SERIALIZER.read(ChangeSet.class, changeSetPath.toFile());
+			changeContent.add(new CangeSetUpdateAble(changeSet));
+
+			OsmChange changes = SERIALIZER.read(OsmChange.class, changesPath.toFile());
+			changeContent.add(changes);
+		}
+
+		return changeContent;
+	}
+
+	/**
+	 * @throws IOException
+	 *             if given path not exists
+	 */
+	private static void assertThatPathExists(Path changeSet) throws IOException {
+		if (!Files.exists(changeSet)) {
+			throw new IOException("can't find file " + changeSet.toString());
+		}
+
+	}
+
+	// XXX anders formatieren
+	private static void addChangeSetFromZipFile(OsmChangeContent result, InputStream chnageSetStream)
+																										throws Exception {
+
 		ChangeSet changeSet;
 
-		changeSetStream = changeSetsZip.getInputStream(zipEntry);
-		try {
-			changeSet = SERIALIZER.read(ChangeSet.class, changeSetStream);
+		changeSet = SERIALIZER.read(ChangeSet.class, chnageSetStream);
 
-			if (result.add(new CangeSetUpdateAble(changeSet)) != null) {
-				LOGGER.info("changeSet 'id=" + changeSet.getId() + "' was stored before");
-			}
-		}
-		catch (Exception e) {
-			throw new IOException("can't read changeset file '" + zipEntry.getName()
-				+ "' from zip-file '" + zipFileName + "', reason: ", e);
+		if (result.add(new CangeSetUpdateAble(changeSet)) != null) {
+			// TODO prüfen ob das sein kann und wenn ja, kommentieren warum
+			LOGGER.warn("changeSet 'id=" + changeSet.getId() + "' was stored before");
 		}
 	}
 
-	private static void readChangesFromZipFile(String zipFileName, OsmChangeContent result,
-		ZipFile changeSetsZip, ZipEntry zipEntry) throws IOException {
+	private static void addChangesFromZipFile(OsmChangeContent changeContent,
+												InputStream changesStream) throws Exception {
 
-		InputStream changeSetContentStream;
 		OsmChange changeSetContent;
 
-		changeSetContentStream = changeSetsZip.getInputStream(zipEntry);
-		try {
-			changeSetContent = SERIALIZER.read(OsmChange.class, changeSetContentStream);
-			result.add(changeSetContent);
+		changeSetContent = SERIALIZER.read(OsmChange.class, changesStream);
+		changeContent.add(changeSetContent);
 
-		}
-		catch (Exception e) {
-			throw new IOException("can't read OsmChange file '" + zipEntry.getName()
-				+ "' from zip-file '" + zipFileName + "', reason: ", e);
-		}
 	}
 
-	private static void readZipFile(String zipFileName, OsmChangeContent result,
-		ZipFile changeSetsZip) throws IOException {
+	private static void readZipFile(String zipFileName, OsmChangeContent changeContent,
+									ZipFile zipFile) throws IOException {
 
-		for (ZipEntry zipEntry : Collections.list(changeSetsZip.entries())) {
+		for (ZipEntry zipEntry : Collections.list(zipFile.entries())) {
 
-			if (zipEntry.getName().contains(ChangeSetContentFileFilter.CHANGE_SET_CONTENT_LABEL)) {
+			try {
 
-				readChangesFromZipFile(zipFileName, result, changeSetsZip, zipEntry);
+				InputStream zipEntryStream = zipFile.getInputStream(zipEntry);
+
+				if (zipEntry.getName()
+						.contains(ChangeSetContentFileFilter.CHANGE_SET_CONTENT_LABEL)) {
+					addChangesFromZipFile(changeContent, zipEntryStream);
+				}
+				else {
+					addChangeSetFromZipFile(changeContent, zipEntryStream);
+				}
 
 			}
-			else {
-
-				readChangeSetsFromZipFile(zipFileName, result, changeSetsZip, zipEntry);
-
+			catch (Exception e) {
+				throw new IOException("can't read entry " + zipEntry.getName() + " from zip-file "
+					+ zipFile.getName() + ", reason: " + e.getLocalizedMessage(), e);
 			}
 		}
 	}
@@ -146,8 +169,8 @@ public class OsmChangeContent {
 	private Map<Long, CangeSetUpdateAble> changeSets;
 
 	/**
-	 * Constructs an empty OsmChangeContent object. It has an empty map for
-	 * {@linkplain ChangeSet} and an empty list for {@linkplain OsmChange}.
+	 * Constructs an empty OsmChangeContent object. It has an empty map for {@linkplain ChangeSet}
+	 * and an empty list for {@linkplain OsmChange}.
 	 */
 	public OsmChangeContent() {
 		changeSets = new HashMap<>();
@@ -155,12 +178,12 @@ public class OsmChangeContent {
 	}
 
 	/**
-	 * Stores given changeset in internal map with changesets id as key and the
-	 * changeset object as value.
-	 * 
+	 * Stores given changeset in internal map with changesets id as key and the changeset object as
+	 * value.
+	 *
 	 * @param changeSet
-	 * @return <code>null</code> if no value for changeset id was stored, or
-	 *         previous stored changeset, which usually seem to be an error
+	 * @return <code>null</code> if no value for changeset id was stored, or previous stored
+	 *         changeset, which usually seem to be an error
 	 */
 	public ChangeSet add(CangeSetUpdateAble changeSet) {
 		return changeSets.put(Long.valueOf(changeSet.getId()), changeSet);
@@ -170,7 +193,7 @@ public class OsmChangeContent {
 	// object schon gespeichert war
 	/**
 	 * Adds given OsmChange object.
-	 * 
+	 *
 	 * @param changeContent
 	 *            will be stored to internal list
 	 */
@@ -181,19 +204,17 @@ public class OsmChangeContent {
 	// TODO ist das dir richtige Stelle, um zu prüfen, ob das Change gespeichert
 	// werden darf?
 	/**
-	 * Adds the given change to given changeset. Stores both objects. It Could
-	 * be, that given changeset is still stored, then it will not be stored
-	 * again as copy or so.
-	 * 
+	 * Adds the given change to given changeset. Stores both objects. It Could be, that given
+	 * changeset is still stored, then it will not be stored again as copy or so.
+	 *
 	 * @param change
 	 *            stores this new change
 	 * @param changeSet
 	 *            used for storing the change, stored also to this object
 	 * @throws IllegalArgumentException
-	 *             if change could not be stored to given chnageSet; reasons:
-	 *             both differ in age more than 24 hours, this has 50,000
-	 *             changes, changeset was not used for more than one hour ore
-	 *             changeset is not open
+	 *             if change could not be stored to given chnageSet; reasons: both differ in age
+	 *             more than 24 hours, this has 50,000 changes, changeset was not used for more than
+	 *             one hour ore changeset is not open
 	 */
 	public void addChangeForChangeSet(Change change, CangeSetUpdateAble changeSet) {
 		CangeSetUpdateAble changeSetForStoring;
@@ -214,12 +235,10 @@ public class OsmChangeContent {
 
 	/**
 	 * Returns changesets as table.
-	 * 
-	 * @return a changeset table with id, user, closed time, open time in hours,
-	 *         area
+	 *
+	 * @return a changeset table with id, user, closed time, open time in hours, area
 	 * @throws ParseException
-	 *             in case of syntax error in date or time string of OSM raw
-	 *             data
+	 *             in case of syntax error in date or time string of OSM raw data
 	 */
 	public String asTable() {
 		StringBuilder table;
@@ -289,7 +308,7 @@ public class OsmChangeContent {
 
 	/**
 	 * Returns the areas of all changesets as a table.
-	 * 
+	 *
 	 * @param header
 	 *            used as header for the result table
 	 * @return areas as table string
@@ -313,9 +332,9 @@ public class OsmChangeContent {
 	}
 
 	/**
-	 * Method return a list with the area (in square degree °x°) of the
-	 * changesets stored in this OsmChangeContent object.
-	 * 
+	 * Method return a list with the area (in square degree °x°) of the changesets stored in this
+	 * OsmChangeContent object.
+	 *
 	 * @return a list with the area (in square degree °x°) of the changesets
 	 */
 	public List<Double> getBoundingBoxesSquareDegree() {
@@ -364,8 +383,8 @@ public class OsmChangeContent {
 	}
 
 	/**
-	 * Returns the number of changesets this contains, the mean area of the
-	 * changesets and the number of changes/edits stored in this changesets.
+	 * Returns the number of changesets this contains, the mean area of the changesets and the
+	 * number of changes/edits stored in this changesets.
 	 */
 	@Override
 	public String toString() {
@@ -405,13 +424,13 @@ public class OsmChangeContent {
 	}
 
 	/**
-	 * Looks for given changeset (by its id), if found will be returned, else it
-	 * will be stored and returned. Changesets id will used for searching.
-	 * 
+	 * Looks for given changeset (by its id), if found will be returned, else it will be stored and
+	 * returned. Changesets id will used for searching.
+	 *
 	 * @param changeSet
 	 *            will be searched or will be stored as new one
-	 * @return the stored changeset (compared on id) or the given changeset,
-	 *         which will be stored as a new one
+	 * @return the stored changeset (compared on id) or the given changeset, which will be stored as
+	 *         a new one
 	 */
 	private CangeSetUpdateAble fetchOrStoreAndFetchChangeset(CangeSetUpdateAble changeSet) {
 		CangeSetUpdateAble changeSetForStoring;
@@ -429,9 +448,8 @@ public class OsmChangeContent {
 	}
 
 	/**
-	 * Sets the changeset id of given change, meaning change is stored to
-	 * changeset.
-	 * 
+	 * Sets the changeset id of given change, meaning change is stored to changeset.
+	 *
 	 * @param change
 	 *            will be "stored" to given changeset
 	 * @param changeSetForStoring
@@ -444,15 +462,15 @@ public class OsmChangeContent {
 
 	/**
 	 * Validates the storing.
-	 * 
+	 *
 	 * @param change
 	 *            should be stored in given change set
 	 * @param changeSetForStoring
 	 *            should store given change
 	 * @throws IllegalArgumentException
-	 *             if change could not be stored to given changeSet; reasons:
-	 *             both differ in age more than 24 hours, changeset has 50,000
-	 *             changes or changeset was not used for more than one hour
+	 *             if change could not be stored to given changeSet; reasons: both differ in age
+	 *             more than 24 hours, changeset has 50,000 changes or changeset was not used for
+	 *             more than one hour
 	 */
 	private void validateIsStoringPossible(Change change, ChangeSet changeSetForStoring) {
 
@@ -480,5 +498,24 @@ public class OsmChangeContent {
 
 		// FIXME missing test for 50 000 changesets, wenn implementiert, dann
 		// muss der Test aus Infinitest ausgeschlossen werden
+	}
+
+	/**
+	 * Returns a copy of all ways this object contains.
+	 *
+	 * @return copy of all ways this object contains, could be empty but not <code>null</code>
+	 */
+	public List<Way> getAllWays() {
+		List<Way> ways;
+
+		ways = new ArrayList<>();
+
+		for (OsmChange change : changes) {
+			for (Way way : change.getWays()) {
+				ways.add(way);
+			}
+		}
+
+		return ways;
 	}
 }

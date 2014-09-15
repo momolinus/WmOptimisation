@@ -26,7 +26,7 @@ import java.text.ParseException;
 import org.apache.log4j.BasicConfigurator;
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
-import org.athmis.wmoptimisation.changeset.OsmChangeContent;
+import org.athmis.wmoptimisation.fetch_changesets.OsmChangeContent;
 
 // TODO hier kommt die Doku für die Optimierung-Strategie rein (und dabei wird
 // sie auch entwickelt)
@@ -77,7 +77,7 @@ public class Optimize {
 		OptimizationResult optimizationResult =
 			new OptimizationResult(fileName, generator.getName());
 
-		changesFromZip = OsmChangeContent.readOsmChangeContent(fileName);
+		changesFromZip = OsmChangeContent.createOsmChangeContentFromZip(fileName);
 		optimizationResult.setMeanAreaSource(changesFromZip.getMeanAreaOfChangeSetsForNodes());
 		optimizationResult.setNoChangeSetsSource(changesFromZip.getNoChangeSets());
 		optimizationResult.setNumberNodesSource(changesFromZip.getNodes());

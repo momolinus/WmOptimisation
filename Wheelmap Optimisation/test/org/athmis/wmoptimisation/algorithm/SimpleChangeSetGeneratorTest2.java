@@ -6,7 +6,7 @@ import java.util.List;
 
 import org.athmis.wmoptimisation.changeset.ChangeSetTest;
 import org.athmis.wmoptimisation.changeset.Node;
-import org.athmis.wmoptimisation.changeset.OsmChangeContent;
+import org.athmis.wmoptimisation.fetch_changesets.OsmChangeContent;
 import org.athmis.wmoptimisation.osmserver.OsmServer;
 import org.junit.Before;
 import org.junit.Test;

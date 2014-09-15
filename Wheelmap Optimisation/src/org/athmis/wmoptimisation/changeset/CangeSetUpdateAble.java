@@ -6,7 +6,10 @@ package org.athmis.wmoptimisation.changeset;
 import java.util.Calendar;
 
 /**
- * @author Marcus
+ * The CangeSetUpdateAble class is an modifiable extension for {@linkplain ChangeSet} class. It
+ * provides methods for closing and enlarging a changeset.
+ *
+ * @author Marcus Bleil
  */
 public class CangeSetUpdateAble extends ChangeSet {
 
@@ -48,7 +51,7 @@ public class CangeSetUpdateAble extends ChangeSet {
 	 * @param change
 	 *            given change latitude and longitude are used for updating the bounding box
 	 */
-	protected void updateBoundingBox(Change change) {
+	public void updateBoundingBox(Change change) {
 		double lat, lon;
 
 		lat = change.getLat();
