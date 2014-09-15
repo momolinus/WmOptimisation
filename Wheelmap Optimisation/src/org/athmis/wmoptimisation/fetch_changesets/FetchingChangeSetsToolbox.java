@@ -157,6 +157,7 @@ public final class FetchingChangeSetsToolbox {
 			return String.format(GET_CHANGE_SET_DOWNLOAD, changeSetId.toString());
 		}
 	}
+
 	/**
 	 * Fetches the changesets for given dates and returns a map with id of changeset as key and the
 	 * changeset as value.
@@ -275,6 +276,27 @@ public final class FetchingChangeSetsToolbox {
 			+ oldestSet.getCreatedAt());
 
 		return oldest;
+	}
+
+	/**
+	 * Returns the OSM-API v0.6 call for fetching almost 100 actual changesets closed after given
+	 * time and created before given time. Time period is at maximum:
+	 * <code>[(closed time - 24h)..(created time + 24h)]</code>
+	 *
+	 * @param develop
+	 *            the develop
+	 * @return the OSM-API v0.6 call as string, replace user, T1 and T2 with strings (%s)
+	 * @see <a
+	 *      href="http://wiki.openstreetmap.org/wiki/API_v0.6#Query:_GET_.2Fapi.2F0.6.2Fchangesets">OSM
+	 *      API v0.6</a>
+	 */
+	public static String getApiCallForPeriod(boolean develop) {
+		if (develop) {
+			return GET_CHANGE_SETS_FOR_TIME_TIME_PERIOD_DEV;
+		}
+		else {
+			return GET_CHANGE_SETS_FOR_TIME_PERIOD;
+		}
 	}
 
 	/**
@@ -571,27 +593,6 @@ public final class FetchingChangeSetsToolbox {
 		}
 		else {
 			return GET_CHANGE_SETS_CLOSED_AFTER;
-		}
-	}
-
-	/**
-	 * Returns the OSM-API v0.6 call for fetching almost 100 actual changesets closed after given
-	 * time and created before given time. Time period is at maximum:
-	 * <code>[(closed time - 24h)..(created time + 24h)]</code>
-	 *
-	 * @param develop
-	 *            the develop
-	 * @return the OSM-API v0.6 call as string, replace user, T1 and T2 with strings (%s)
-	 * @see <a
-	 *      href="http://wiki.openstreetmap.org/wiki/API_v0.6#Query:_GET_.2Fapi.2F0.6.2Fchangesets">OSM
-	 *      API v0.6</a>
-	 */
-	private static String getApiCallForPeriod(boolean develop) {
-		if (develop) {
-			return GET_CHANGE_SETS_FOR_TIME_TIME_PERIOD_DEV;
-		}
-		else {
-			return GET_CHANGE_SETS_FOR_TIME_PERIOD;
 		}
 	}
 

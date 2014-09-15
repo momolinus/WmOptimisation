@@ -1,23 +1,19 @@
-/* Copyright Marcus Bleil, Oliver Rudzik, Christoph Bünte 2012 This file is part
- * of Wheelmap Optimization. Wheelmap Optimization is free software: you can
- * redistribute it and/or modify it under the terms of the GNU General Public
- * License as published by the Free Software Foundation, either version 3 of the
- * License, or (at your option) any later version. Wheelmap Optimization is
- * distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
- * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
- * PARTICULAR PURPOSE. See the GNU General Public License for more details. You
- * should have received a copy of the GNU General Public License along with
- * Athmis. If not, see <http://www.gnu.org/licenses/>. Diese Datei ist Teil von
- * Wheelmap Optimization. Wheelmap Optimization ist Freie Software: Sie können
- * es unter den Bedingungen der GNU General Public License, wie von der Free
- * Software Foundation, Version 3 der Lizenz oder (nach Ihrer Option) jeder
- * späteren veröffentlichten Version, weiterverbreiten und/oder modifizieren.
- * Wheelmap Optimization wird in der Hoffnung, dass es nützlich sein wird, aber
- * OHNE JEDE GEWÄHELEISTUNG, bereitgestellt; sogar ohne die implizite
- * Gewährleistung der MARKTFÄHIGKEIT oder EIGNUNG FÜR EINEN BESTIMMTEN ZWECK.
- * Siehe die GNU General Public License für weitere Details. Sie sollten eine
- * Kopie der GNU General Public License zusammen mit diesem Programm erhalten
- * haben. Wenn nicht, siehe <http://www.gnu.org/licenses/>. */
+/* Copyright Marcus Bleil, Oliver Rudzik, Christoph Bünte 2012 This file is part of Wheelmap
+ * Optimization. Wheelmap Optimization is free software: you can redistribute it and/or modify it
+ * under the terms of the GNU General Public License as published by the Free Software Foundation,
+ * either version 3 of the License, or (at your option) any later version. Wheelmap Optimization is
+ * distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the
+ * implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General
+ * Public License for more details. You should have received a copy of the GNU General Public
+ * License along with Athmis. If not, see <http://www.gnu.org/licenses/>. Diese Datei ist Teil von
+ * Wheelmap Optimization. Wheelmap Optimization ist Freie Software: Sie können es unter den
+ * Bedingungen der GNU General Public License, wie von der Free Software Foundation, Version 3 der
+ * Lizenz oder (nach Ihrer Option) jeder späteren veröffentlichten Version, weiterverbreiten
+ * und/oder modifizieren. Wheelmap Optimization wird in der Hoffnung, dass es nützlich sein wird,
+ * aber OHNE JEDE GEWÄHELEISTUNG, bereitgestellt; sogar ohne die implizite Gewährleistung der
+ * MARKTFÄHIGKEIT oder EIGNUNG FÜR EINEN BESTIMMTEN ZWECK. Siehe die GNU General Public License für
+ * weitere Details. Sie sollten eine Kopie der GNU General Public License zusammen mit diesem
+ * Programm erhalten haben. Wenn nicht, siehe <http://www.gnu.org/licenses/>. */
 package org.athmis.wmoptimisation.algorithm;
 
 import java.util.Collections;
@@ -31,27 +27,29 @@ import org.athmis.wmoptimisation.fetch_changesets.OsmChangeContent;
 import org.athmis.wmoptimisation.osmserver.OsmServer;
 
 /**
- * , Oliver ChangeSetGenerator implementations are used for test of a changeset
- * generation algorithm. Architecture is <a
- * href="http://en.wikipedia.org/wiki/Template_method_pattern">Template method
- * pattern</a>.
+ * , Oliver ChangeSetGenerator implementations are used for test of a changeset generation
+ * algorithm. Architecture is <a
+ * href="http://en.wikipedia.org/wiki/Template_method_pattern">Template method pattern</a>.
  */
 public abstract class ChangeSetGenerator {
 
 	private static final Logger LOGGER = Logger.getLogger(ChangeSetGenerator.class);
 
 	protected static void checkChangeSetNotNull(ChangeSet changeSet) {
-		if (changeSet == null)
+		if (changeSet == null) {
 			throw new IllegalArgumentException("changeSet could not be found");
+		}
 
 	}
 
 	protected static void checkChangeAndServerNotNull(Change change, OsmServer osmServer)
-		throws IllegalArgumentException {
-		if (change == null)
+																							throws IllegalArgumentException {
+		if (change == null) {
 			throw new IllegalArgumentException("null as Change is not permitted");
-		if (osmServer == null)
+		}
+		if (osmServer == null) {
 			throw new IllegalArgumentException("null as OsmServer is not permitted");
+		}
 	}
 
 	private OsmServer osmServer;
@@ -74,16 +72,14 @@ public abstract class ChangeSetGenerator {
 
 	// XXX Versions attribute und/oder @JavaDoc Kommentar
 	/**
-	 * Stores all changes of given ChangeSetZipContentData object into a new
-	 * ChangeSetZipContentData object. Uses specialized changeset generation
-	 * algorithm to minimize the size of changesets.
+	 * Stores all changes of given ChangeSetZipContentData object into a new ChangeSetZipContentData
+	 * object. Uses specialized changeset generation algorithm to minimize the size of changesets.
 	 * <p>
 	 * This version omits {@linkplain Change}s which are {@linkplain Way}s.
-	 * 
+	 *
 	 * @param changesToOptimize
 	 *            a set of (real) changes and changesets
-	 * @return new storage of the changes, generated by implementations of the
-	 *         template method
+	 * @return new storage of the changes, generated by implementations of the template method
 	 */
 	public final OsmChangeContent createOptimizedChangeSets(OsmChangeContent changesToOptimize) {
 
@@ -103,26 +99,24 @@ public abstract class ChangeSetGenerator {
 
 		for (Change change : changes) {
 
-			// TODO ways sollten mal gehen; Problem: ways bestehen aus Nodes,
-			// die die meisten Infos enthalten
 			if (change.isWay()) {
 				ways++;
 			}
 			else {
-
-				if (change.getCreatedAt().getTimeInMillis() < createdTimeMillis) {
-					throw new IllegalArgumentException("change " + change.verbose()
-						+ " is older than it's predecessor but must be younger");
-				}
-
-				createdTimeMillis = change.getCreatedAt().getTimeInMillis();
-
-				add(change, osmServer, optimizedDataSet);
 				nodes++;
 			}
+
+			if (change.getCreatedAt().getTimeInMillis() < createdTimeMillis) {
+				throw new IllegalArgumentException("change " + change.verbose()
+					+ " is older than it's predecessor but must be younger");
+			}
+
+			createdTimeMillis = change.getCreatedAt().getTimeInMillis();
+
+			add(change, osmServer, optimizedDataSet);
 		}
 
-		LOGGER.info(ways + " ways omitted");
+		LOGGER.info(ways + " ways processed");
 		LOGGER.info(nodes + " nodes processed");
 
 		optimizedDataSet.closeAllChangeSets();
@@ -131,20 +125,18 @@ public abstract class ChangeSetGenerator {
 	}
 
 	/**
-	 * Implementations of ChangeSetGerator must implement here their changeset
-	 * generation algorithm.
-	 * 
+	 * Implementations of ChangeSetGerator must implement here their changeset generation algorithm.
+	 *
 	 * @param change
 	 *            this change is new and must be added to any changeset
 	 * @param osmServer
 	 *            the OSM Server
 	 * @param optimizedDataSet
-	 *            the object wich stores the change and (generated) changesets,
-	 *            the task of this object is to analyze the changesets after all
-	 *            changes added
+	 *            the object wich stores the change and (generated) changesets, the task of this
+	 *            object is to analyze the changesets after all changes added
 	 */
 	protected abstract void add(Change change, OsmServer osmServer,
-		OsmChangeContent optimizedDataSet);
+								OsmChangeContent optimizedDataSet);
 
 	public String getName() {
 		return name;

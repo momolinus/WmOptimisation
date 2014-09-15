@@ -1,0 +1,2946 @@
+<osmChange id="0" version="0.6" generator="OpenStreetMap server">
+   <modify id="0">
+      <way changeset="10671963" id="73545700" timestamp="2012-02-13T10:56:53Z" uid="290680" user="wheelmap_visitor" version="3">
+         <nd ref="871759524"/>
+         <nd ref="871759525"/>
+         <nd ref="871759526"/>
+         <nd ref="871759527"/>
+         <nd ref="871759528"/>
+         <nd ref="871759529"/>
+         <nd ref="871759530"/>
+         <nd ref="871759531"/>
+         <nd ref="871759532"/>
+         <nd ref="871759533"/>
+         <nd ref="871759534"/>
+         <nd ref="871759524"/>
+         <tag id="0" k="building" v="yes"/>
+         <tag id="0" k="name" v="nahkauf"/>
+         <tag id="0" k="shop" v="supermarket"/>
+         <tag id="0" k="wheelchair" v="no"/>
+      </way>
+   </modify>
+   <modify id="0">
+      <node changeset="10671963" id="751779802" lat="51.8799631" lon="8.4977594" timestamp="2012-02-13T10:59:57Z" user="wheelmap_visitor" version="3" visible="true">
+         <tag id="0" k="name" v="Netto"/>
+         <tag id="0" k="shop" v="supermarket"/>
+         <tag id="0" k="wheelchair" v="yes"/>
+      </node>
+   </modify>
+   <modify id="0">
+      <way changeset="10671963" id="24285105" timestamp="2012-02-13T11:03:06Z" uid="290680" user="wheelmap_visitor" version="5">
+         <nd ref="262961740"/>
+         <nd ref="262961741"/>
+         <nd ref="1503693906"/>
+         <nd ref="262961742"/>
+         <nd ref="1503693908"/>
+         <nd ref="262961743"/>
+         <nd ref="262961740"/>
+         <tag id="0" k="amenity" v="parking"/>
+         <tag id="0" k="name" v="Willy-Brandt-Platz"/>
+         <tag id="0" k="parking" v="surface"/>
+         <tag id="0" k="wheelchair" v="limited"/>
+      </way>
+   </modify>
+   <modify id="0">
+      <node changeset="10671963" id="253912692" lat="51.9068535" lon="8.3848894" timestamp="2012-02-13T11:03:14Z" user="wheelmap_visitor" version="10" visible="true">
+         <tag id="0" k="name" v="GÃ¼tersloh Hbf"/>
+         <tag id="0" k="railway" v="station"/>
+         <tag id="0" k="uic_ref" v="8002461"/>
+         <tag id="0" k="wheelchair" v="limited"/>
+      </node>
+   </modify>
+   <modify id="0">
+      <node changeset="10671963" id="25717388" lat="51.9972849" lon="8.4987214" timestamp="2012-02-13T11:04:13Z" user="wheelmap_visitor" version="7" visible="true">
+         <tag id="0" k="name" v="Brackwede"/>
+         <tag id="0" k="public_transport" v="stop_position"/>
+         <tag id="0" k="railway" v="station"/>
+         <tag id="0" k="uic_ref" v="8000048"/>
+         <tag id="0" k="wheelchair" v="no"/>
+      </node>
+   </modify>
+   <modify id="0">
+      <node changeset="10671963" id="724206779" lat="51.9973484" lon="8.4985871" timestamp="2012-02-13T11:04:13Z" user="wheelmap_visitor" version="6" visible="true">
+         <tag id="0" k="name" v="Brackwede"/>
+         <tag id="0" k="public_transport" v="stop_position"/>
+         <tag id="0" k="railway" v="station"/>
+         <tag id="0" k="uic_ref" v="8000048"/>
+         <tag id="0" k="wheelchair" v="no"/>
+      </node>
+   </modify>
+   <modify id="0">
+      <node changeset="10671963" id="726881362" lat="51.9973649" lon="8.4985139" timestamp="2012-02-13T11:04:14Z" user="wheelmap_visitor" version="4" visible="true">
+         <tag id="0" k="name" v="Brackwede"/>
+         <tag id="0" k="public_transport" v="stop_position"/>
+         <tag id="0" k="rail" v="yes"/>
+         <tag id="0" k="railway" v="station"/>
+         <tag id="0" k="uic_ref" v="8000048"/>
+         <tag id="0" k="wheelchair" v="no"/>
+      </node>
+   </modify>
+   <modify id="0">
+      <node changeset="10671963" id="724206685" lat="51.9974227" lon="8.4983916" timestamp="2012-02-13T11:04:15Z" user="wheelmap_visitor" version="4" visible="true">
+         <tag id="0" k="name" v="Brackwede"/>
+         <tag id="0" k="public_transport" v="stop_position"/>
+         <tag id="0" k="rail" v="yes"/>
+         <tag id="0" k="railway" v="station"/>
+         <tag id="0" k="uic_ref" v="8000048"/>
+         <tag id="0" k="wheelchair" v="no"/>
+      </node>
+   </modify>
+   <modify id="0">
+      <node changeset="10671963" id="272506986" lat="47.9241505" lon="11.509134" timestamp="2012-02-13T11:18:16Z" user="wheelmap_visitor" version="6" visible="true">
+         <tag id="0" k="amenity" v="fuel"/>
+         <tag id="0" k="fuel:diesel" v="yes"/>
+         <tag id="0" k="fuel:octane_91" v="yes"/>
+         <tag id="0" k="fuel:octane_95" v="yes"/>
+         <tag id="0" k="fuel:octane_98" v="yes"/>
+         <tag id="0" k="name" v="Tankstelle Huber Egling"/>
+         <tag id="0" k="payment:coins" v="yes"/>
+         <tag id="0" k="payment:notes" v="yes"/>
+         <tag id="0" k="wheelchair" v="yes"/>
+      </node>
+   </modify>
+   <modify id="0">
+      <way changeset="10671963" id="110343520" timestamp="2012-02-13T11:25:18Z" uid="290680" user="wheelmap_visitor" version="8">
+         <nd ref="1260316595"/>
+         <nd ref="1260315801"/>
+         <nd ref="1260316579"/>
+         <nd ref="1260315625"/>
+         <nd ref="1260315728"/>
+         <nd ref="1260315879"/>
+         <nd ref="1260316128"/>
+         <nd ref="1260315799"/>
+         <nd ref="1260315988"/>
+         <nd ref="1260316289"/>
+         <nd ref="1260316595"/>
+         <tag id="0" k="addr:city" v="Lenggries"/>
+         <tag id="0" k="addr:country" v="DE"/>
+         <tag id="0" k="addr:housenumber" v="29"/>
+         <tag id="0" k="addr:postcode" v="83661"/>
+         <tag id="0" k="addr:street" v="GilgenhÃ¶fe"/>
+         <tag id="0" k="amenity" v="restaurant"/>
+         <tag id="0" k="building" v="yes"/>
+         <tag id="0" k="name" v="JÃ¤gerstÃ¼berl"/>
+         <tag id="0" k="website" v="http://www.jaegerstueberl.de/"/>
+         <tag id="0" k="wheelchair" v="no"/>
+      </way>
+   </modify>
+   <modify id="0">
+      <node changeset="10671963" id="368702731" lat="37.484684" lon="126.927026" timestamp="2012-02-13T11:49:19Z" user="wheelmap_visitor" version="2" visible="true">
+         <tag id="0" k="name" v="ì˜¤ì•„ì‹œìŠ¤ëª¨í…” (Oasis Motel)"/>
+         <tag id="0" k="name:en" v="Oasis Motel"/>
+         <tag id="0" k="name:ko_rm" v="Oasiseumotel"/>
+         <tag id="0" k="ncat" v="ëª¨í…”"/>
+         <tag id="0" k="source" v="http://kr.open.gugi.yahoo.com"/>
+         <tag id="0" k="tourism" v="motel"/>
+         <tag id="0" k="wheelchair" v="no"/>
+      </node>
+   </modify>
+   <modify id="0">
+      <node changeset="10671963" id="368702731" lat="37.484684" lon="126.927026" timestamp="2012-02-13T11:49:20Z" user="wheelmap_visitor" version="3" visible="true">
+         <tag id="0" k="name" v="ì˜¤ì•„ì‹œìŠ¤ëª¨í…” (Oasis Motel)"/>
+         <tag id="0" k="name:en" v="Oasis Motel"/>
+         <tag id="0" k="name:ko_rm" v="Oasiseumotel"/>
+         <tag id="0" k="ncat" v="ëª¨í…”"/>
+         <tag id="0" k="source" v="http://kr.open.gugi.yahoo.com"/>
+         <tag id="0" k="tourism" v="motel"/>
+         <tag id="0" k="wheelchair" v="limited"/>
+      </node>
+   </modify>
+   <modify id="0">
+      <node changeset="10671963" id="318237452" lat="49.7826442" lon="9.9412321" timestamp="2012-02-13T12:31:22Z" user="wheelmap_visitor" version="5" visible="true">
+         <tag id="0" k="addr:housenumber" v="1/2"/>
+         <tag id="0" k="addr:postcode" v="97074"/>
+         <tag id="0" k="addr:street" v="KeesburgstraÃŸe"/>
+         <tag id="0" k="amenity" v="restaurant"/>
+         <tag id="0" k="cuisine" v="italian"/>
+         <tag id="0" k="name" v="Vesuvio"/>
+         <tag id="0" k="wheelchair" v="no"/>
+      </node>
+   </modify>
+   <modify id="0">
+      <way changeset="10671963" id="33496355" timestamp="2012-02-13T12:31:23Z" uid="290680" user="wheelmap_visitor" version="2">
+         <nd ref="381726376"/>
+         <nd ref="381726380"/>
+         <nd ref="381726384"/>
+         <nd ref="381726389"/>
+         <nd ref="381726376"/>
+         <tag id="0" k="name" v="ESSELUNGA"/>
+         <tag id="0" k="shop" v="supermarket"/>
+         <tag id="0" k="wheelchair" v="yes"/>
+      </way>
+   </modify>
+   <modify id="0">
+      <node changeset="10671963" id="345717213" lat="49.7847358" lon="9.9360956" timestamp="2012-02-13T12:32:24Z" user="wheelmap_visitor" version="5" visible="true">
+         <tag id="0" k="addr:city" v="WÃ¼rzburg"/>
+         <tag id="0" k="addr:housenumber" v="1"/>
+         <tag id="0" k="addr:postcode" v="97072"/>
+         <tag id="0" k="addr:street" v="Franz-Ludwig-StraÃŸe"/>
+         <tag id="0" k="name" v="SchÃ¶mig"/>
+         <tag id="0" k="shop" v="butcher"/>
+         <tag id="0" k="wheelchair" v="no"/>
+      </node>
+   </modify>
+   <modify id="0">
+      <way changeset="10671963" id="112187268" timestamp="2012-02-13T12:32:25Z" uid="290680" user="wheelmap_visitor" version="2">
+         <nd ref="1276001000"/>
+         <nd ref="1276000973"/>
+         <nd ref="1276001013"/>
+         <nd ref="1276000905"/>
+         <nd ref="1276000907"/>
+         <nd ref="1276000937"/>
+         <nd ref="1276000944"/>
+         <nd ref="1276000998"/>
+         <nd ref="1276001057"/>
+         <nd ref="1276000926"/>
+         <nd ref="1276000951"/>
+         <nd ref="1276000982"/>
+         <nd ref="1276001030"/>
+         <nd ref="1276000910"/>
+         <nd ref="28100780"/>
+         <nd ref="1276000969"/>
+         <nd ref="1276001002"/>
+         <nd ref="1276001059"/>
+         <nd ref="1276000927"/>
+         <nd ref="1276000958"/>
+         <nd ref="1276000904"/>
+         <nd ref="1276000933"/>
+         <nd ref="1276000962"/>
+         <nd ref="1276000994"/>
+         <nd ref="1276001053"/>
+         <nd ref="1276000923"/>
+         <nd ref="1276000948"/>
+         <nd ref="1276000974"/>
+         <nd ref="1276001000"/>
+         <tag id="0" k="amenity" v="place_of_worship"/>
+         <tag id="0" k="building" v="yes"/>
+         <tag id="0" k="denomination" v="catholic"/>
+         <tag id="0" k="name" v="Adalberokirche"/>
+         <tag id="0" k="religion" v="christian"/>
+         <tag id="0" k="wheelchair" v="limited"/>
+      </way>
+   </modify>
+   <modify id="0">
+      <node changeset="10671963" id="530778635" lat="49.7840865" lon="9.9377307" timestamp="2012-02-13T12:32:27Z" user="wheelmap_visitor" version="3" visible="true">
+         <tag id="0" k="amenity" v="fast_food"/>
+         <tag id="0" k="name" v="Road Runner"/>
+         <tag id="0" k="wheelchair" v="limited"/>
+      </node>
+   </modify>
+   <modify id="0">
+      <way changeset="10671963" id="100018904" timestamp="2012-02-13T12:32:27Z" uid="290680" user="wheelmap_visitor" version="2">
+         <nd ref="248303464"/>
+         <nd ref="1156369350"/>
+         <nd ref="1156369812"/>
+         <nd ref="1156369699"/>
+         <nd ref="1156370283"/>
+         <nd ref="248303464"/>
+         <tag id="0" k="addr:city" v="WÃ¼rzburg"/>
+         <tag id="0" k="addr:country" v="DE"/>
+         <tag id="0" k="addr:housenumber" v="32b"/>
+         <tag id="0" k="addr:postcode" v="97074"/>
+         <tag id="0" k="addr:street" v="ErthalstraÃŸe"/>
+         <tag id="0" k="building" v="yes"/>
+         <tag id="0" k="name" v="dm"/>
+         <tag id="0" k="shop" v="chemist"/>
+         <tag id="0" k="wheelchair" v="yes"/>
+      </way>
+   </modify>
+   <modify id="0">
+      <node changeset="10671963" id="401792523" lat="49.7842086" lon="9.9504567" timestamp="2012-02-13T12:33:27Z" user="wheelmap_visitor" version="5" visible="true">
+         <tag id="0" k="addr:city" v="WÃ¼rzburg"/>
+         <tag id="0" k="addr:housenumber" v="25"/>
+         <tag id="0" k="addr:postcode" v="97074"/>
+         <tag id="0" k="addr:street" v="GegenbaurstraÃŸe"/>
+         <tag id="0" k="amenity" v="restaurant"/>
+         <tag id="0" k="cuisine" v="greek"/>
+         <tag id="0" k="name" v="Olympia"/>
+         <tag id="0" k="opening_hours" v="11:00-15:00; 17:00-23:00"/>
+         <tag id="0" k="phone" v="+49-931-71856"/>
+         <tag id="0" k="wheelchair" v="no"/>
+      </node>
+   </modify>
+   <modify id="0">
+      <way changeset="10671963" id="105780429" timestamp="2012-02-13T12:33:29Z" uid="290680" user="wheelmap_visitor" version="2">
+         <nd ref="1218032331"/>
+         <nd ref="1218032302"/>
+         <nd ref="1218032341"/>
+         <nd ref="533514868"/>
+         <nd ref="529327464"/>
+         <nd ref="533514873"/>
+         <nd ref="1218032331"/>
+         <tag id="0" k="amenity" v="university"/>
+         <tag id="0" k="wheelchair" v="limited"/>
+      </way>
+   </modify>
+   <modify id="0">
+      <way changeset="10671963" id="143369996" timestamp="2012-02-13T12:34:30Z" uid="290680" user="wheelmap_visitor" version="2">
+         <nd ref="1568935509"/>
+         <nd ref="1568935510"/>
+         <nd ref="1568935511"/>
+         <nd ref="1568935513"/>
+         <nd ref="1568935512"/>
+         <nd ref="1568935514"/>
+         <nd ref="1568935508"/>
+         <nd ref="1568935506"/>
+         <nd ref="1568935504"/>
+         <nd ref="1568935502"/>
+         <nd ref="1568935503"/>
+         <nd ref="1568935501"/>
+         <nd ref="1568935499"/>
+         <nd ref="1568935496"/>
+         <nd ref="1568935497"/>
+         <nd ref="1568935495"/>
+         <nd ref="1568935498"/>
+         <nd ref="1568935500"/>
+         <nd ref="1568935507"/>
+         <nd ref="1568935505"/>
+         <nd ref="1568935509"/>
+         <tag id="0" k="building" v="yes"/>
+         <tag id="0" k="name" v="Cactus"/>
+         <tag id="0" k="shop" v="supermarket"/>
+         <tag id="0" k="wheelchair" v="yes"/>
+      </way>
+   </modify>
+   <modify id="0">
+      <node changeset="10671963" id="993697516" lat="49.7800772" lon="9.9372651" timestamp="2012-02-13T12:34:34Z" user="wheelmap_visitor" version="3" visible="true">
+         <tag id="0" k="shop" v="hairdresser"/>
+         <tag id="0" k="wheelchair" v="limited"/>
+      </node>
+   </modify>
+   <modify id="0">
+      <way changeset="10671963" id="119747957" timestamp="2012-02-13T12:35:34Z" uid="290680" user="wheelmap_visitor" version="2">
+         <nd ref="1344352525"/>
+         <nd ref="1344352146"/>
+         <nd ref="1344352219"/>
+         <nd ref="1344352295"/>
+         <nd ref="1344352525"/>
+         <tag id="0" k="addr:city" v="WÃ¼rzburg"/>
+         <tag id="0" k="addr:country" v="DE"/>
+         <tag id="0" k="addr:housenumber" v="1"/>
+         <tag id="0" k="addr:postcode" v="97072"/>
+         <tag id="0" k="addr:street" v="FlorastraÃŸe"/>
+         <tag id="0" k="amenity" v="restaurant"/>
+         <tag id="0" k="building" v="yes"/>
+         <tag id="0" k="cuisine" v="regional"/>
+         <tag id="0" k="name" v="Zur Flora"/>
+         <tag id="0" k="phone" v="+49-931-8805849"/>
+         <tag id="0" k="wheelchair" v="no"/>
+      </way>
+   </modify>
+   <modify id="0">
+      <node changeset="10671963" id="246773673" lat="49.8481514" lon="6.1027305" timestamp="2012-02-13T12:35:35Z" user="wheelmap_visitor" version="4" visible="true">
+         <tag id="0" k="amenity" v="post_office"/>
+         <tag id="0" k="wheelchair" v="limited"/>
+      </node>
+   </modify>
+   <modify id="0">
+      <node changeset="10671963" id="27494850" lat="49.7767452" lon="9.9397958" timestamp="2012-02-13T12:35:36Z" user="wheelmap_visitor" version="4" visible="true">
+         <tag id="0" k="addr:city" v="WÃ¼rzburg"/>
+         <tag id="0" k="addr:country" v="DE"/>
+         <tag id="0" k="addr:housenumber" v="48"/>
+         <tag id="0" k="addr:postcode" v="97072"/>
+         <tag id="0" k="addr:street" v="Randersackerer StraÃŸe"/>
+         <tag id="0" k="amenity" v="fuel"/>
+         <tag id="0" k="name" v="JET"/>
+         <tag id="0" k="wheelchair" v="yes"/>
+      </node>
+   </modify>
+   <modify id="0">
+      <node changeset="10671963" id="457734408" lat="49.8480915" lon="6.1008721" timestamp="2012-02-13T12:35:37Z" user="wheelmap_visitor" version="3" visible="true">
+         <tag id="0" k="amenity" v="restaurant"/>
+         <tag id="0" k="name" v="Fiducia"/>
+         <tag id="0" k="wheelchair" v="limited"/>
+      </node>
+   </modify>
+   <modify id="0">
+      <way changeset="10671963" id="41528989" timestamp="2012-02-13T12:37:39Z" uid="290680" user="wheelmap_visitor" version="6">
+         <nd ref="508660272"/>
+         <nd ref="316301369"/>
+         <nd ref="508660282"/>
+         <nd ref="678327450"/>
+         <nd ref="508660294"/>
+         <nd ref="508660307"/>
+         <nd ref="508660312"/>
+         <nd ref="508660272"/>
+         <tag id="0" k="addr:city" v="WÃ¼rzburg"/>
+         <tag id="0" k="addr:country" v="DE"/>
+         <tag id="0" k="addr:housenumber" v="53"/>
+         <tag id="0" k="addr:postcode" v="97072"/>
+         <tag id="0" k="addr:street" v="Randersackerer StraÃŸe"/>
+         <tag id="0" k="building" v="yes"/>
+         <tag id="0" k="name" v="Edeka"/>
+         <tag id="0" k="shop" v="supermarket"/>
+         <tag id="0" k="wheelchair" v="yes"/>
+      </way>
+   </modify>
+   <modify id="0">
+      <way changeset="10671963" id="119747899" timestamp="2012-02-13T12:37:40Z" uid="290680" user="wheelmap_visitor" version="2">
+         <nd ref="1344352174"/>
+         <nd ref="1344352379"/>
+         <nd ref="1344352312"/>
+         <nd ref="1344352243"/>
+         <nd ref="1344352174"/>
+         <tag id="0" k="amenity" v="fast_food"/>
+         <tag id="0" k="building" v="yes"/>
+         <tag id="0" k="cuisine" v="pizza"/>
+         <tag id="0" k="name" v="Joey&apos;s Pizza"/>
+         <tag id="0" k="wheelchair" v="limited"/>
+      </way>
+   </modify>
+   <modify id="0">
+      <node changeset="10671963" id="564036152" lat="49.7749632" lon="9.938695" timestamp="2012-02-13T12:38:41Z" user="wheelmap_visitor" version="6" visible="true">
+         <tag id="0" k="addr:city" v="WÃ¼rzburg"/>
+         <tag id="0" k="addr:country" v="DE"/>
+         <tag id="0" k="addr:housenumber" v="1"/>
+         <tag id="0" k="addr:postcode" v="97072"/>
+         <tag id="0" k="addr:street" v="KÃ¶nigsberger StraÃŸe"/>
+         <tag id="0" k="amenity" v="cafe"/>
+         <tag id="0" k="email" v="info@dachcafe16.de"/>
+         <tag id="0" k="fax" v="+49-931-8803625"/>
+         <tag id="0" k="name" v="Dachcafe 16"/>
+         <tag id="0" k="opening_hours" v="Mo-Su 14:00-20:00; Fr 14:00-17:00"/>
+         <tag id="0" k="phone" v="+49-931-8041155"/>
+         <tag id="0" k="website" v="http://www.dachcafe16.de/"/>
+         <tag id="0" k="wheelchair" v="yes"/>
+      </node>
+   </modify>
+   <modify id="0">
+      <node changeset="10671963" id="312109322" lat="49.7752704" lon="9.9285224" timestamp="2012-02-13T12:38:43Z" user="wheelmap_visitor" version="2" visible="true">
+         <tag id="0" k="amenity" v="biergarten"/>
+         <tag id="0" k="name" v="Zollhaus"/>
+         <tag id="0" k="wheelchair" v="limited"/>
+      </node>
+   </modify>
+   <modify id="0">
+      <node changeset="10671963" id="733592395" lat="51.4101528" lon="10.4285224" timestamp="2012-02-13T13:07:44Z" user="wheelmap_visitor" version="2" visible="true">
+         <tag id="0" k="addr:city" v="Breitenworbis"/>
+         <tag id="0" k="addr:country" v="DE"/>
+         <tag id="0" k="addr:housenumber" v="41"/>
+         <tag id="0" k="addr:postcode" v="37339"/>
+         <tag id="0" k="addr:street" v="Halle-Kasseler-StraÃŸe"/>
+         <tag id="0" k="amenity" v="pharmacy"/>
+         <tag id="0" k="name" v="St.Vitus-Apotheke"/>
+         <tag id="0" k="website" v="http://www.battern.de/apotheke/thema05.shtml"/>
+         <tag id="0" k="wheelchair" v="yes"/>
+      </node>
+   </modify>
+   <modify id="0">
+      <node changeset="10671963" id="733592395" lat="51.4101528" lon="10.4285224" timestamp="2012-02-13T13:08:45Z" user="wheelmap_visitor" version="3" visible="true">
+         <tag id="0" k="addr:city" v="Breitenworbis"/>
+         <tag id="0" k="addr:country" v="DE"/>
+         <tag id="0" k="addr:housenumber" v="41"/>
+         <tag id="0" k="addr:postcode" v="37339"/>
+         <tag id="0" k="addr:street" v="Halle-Kasseler-StraÃŸe"/>
+         <tag id="0" k="amenity" v="pharmacy"/>
+         <tag id="0" k="name" v="St.Vitus-Apotheke"/>
+         <tag id="0" k="website" v="http://www.battern.de/apotheke/thema05.shtml"/>
+         <tag id="0" k="wheelchair" v="limited"/>
+      </node>
+   </modify>
+   <modify id="0">
+      <node changeset="10671963" id="733592395" lat="51.4101528" lon="10.4285224" timestamp="2012-02-13T13:09:45Z" user="wheelmap_visitor" version="4" visible="true">
+         <tag id="0" k="addr:city" v="Breitenworbis"/>
+         <tag id="0" k="addr:country" v="DE"/>
+         <tag id="0" k="addr:housenumber" v="41"/>
+         <tag id="0" k="addr:postcode" v="37339"/>
+         <tag id="0" k="addr:street" v="Halle-Kasseler-StraÃŸe"/>
+         <tag id="0" k="amenity" v="pharmacy"/>
+         <tag id="0" k="name" v="St.Vitus-Apotheke"/>
+         <tag id="0" k="website" v="http://www.battern.de/apotheke/thema05.shtml"/>
+         <tag id="0" k="wheelchair" v="yes"/>
+      </node>
+   </modify>
+   <modify id="0">
+      <node changeset="10671963" id="561212692" lat="52.5121376" lon="13.4330234" timestamp="2012-02-13T13:26:48Z" user="wheelmap_visitor" version="5" visible="true">
+         <tag id="0" k="name" v="Schlecker"/>
+         <tag id="0" k="shop" v="chemist"/>
+         <tag id="0" k="wheelchair" v="yes"/>
+      </node>
+   </modify>
+   <modify id="0">
+      <node changeset="10671963" id="1043339444" lat="51.5247878" lon="-0.1327494" timestamp="2012-02-13T13:51:47Z" user="wheelmap_visitor" version="3" visible="true">
+         <tag id="0" k="amenity" v="atm"/>
+         <tag id="0" k="wheelchair" v="no"/>
+      </node>
+   </modify>
+   <modify id="0">
+      <way changeset="10671963" id="112306641" timestamp="2012-02-13T14:08:49Z" uid="290680" user="wheelmap_visitor" version="2">
+         <nd ref="1276844045"/>
+         <nd ref="1276844027"/>
+         <nd ref="1276844057"/>
+         <nd ref="1276844025"/>
+         <nd ref="1276844069"/>
+         <nd ref="1276844038"/>
+         <nd ref="1276844045"/>
+         <tag id="0" k="building" v="yes"/>
+         <tag id="0" k="shop" v="kiosk"/>
+         <tag id="0" k="wheelchair" v="no"/>
+      </way>
+   </modify>
+   <modify id="0">
+      <way changeset="10671963" id="55923846" timestamp="2012-02-13T14:22:51Z" uid="290680" user="wheelmap_visitor" version="3">
+         <nd ref="702126394"/>
+         <nd ref="702126395"/>
+         <nd ref="702126398"/>
+         <nd ref="702126406"/>
+         <nd ref="702126397"/>
+         <nd ref="702126392"/>
+         <nd ref="702126403"/>
+         <nd ref="702126405"/>
+         <nd ref="702126408"/>
+         <nd ref="702126391"/>
+         <nd ref="702126389"/>
+         <nd ref="702126390"/>
+         <nd ref="702126402"/>
+         <nd ref="702126400"/>
+         <nd ref="702126394"/>
+         <tag id="0" k="addr:city" v="Luckenwalde"/>
+         <tag id="0" k="addr:housenumber" v="10"/>
+         <tag id="0" k="addr:postcode" v="14943"/>
+         <tag id="0" k="addr:street" v="Markt"/>
+         <tag id="0" k="amenity" v="townhall"/>
+         <tag id="0" k="building" v="yes"/>
+         <tag id="0" k="historic" v="monument"/>
+         <tag id="0" k="name" v="Stadtverwaltung Luckenwalde"/>
+         <tag id="0" k="phone" v="+49 3371 6720"/>
+         <tag id="0" k="wheelchair" v="yes"/>
+      </way>
+   </modify>
+   <modify id="0">
+      <node changeset="10671963" id="445006647" lat="50.3097118" lon="10.20903" timestamp="2012-02-13T14:34:59Z" user="wheelmap_visitor" version="4" visible="true">
+         <tag id="0" k="amenity" v="restaurant"/>
+         <tag id="0" k="cuisine" v="italian"/>
+         <tag id="0" k="name" v="Pizzeria Da Luigi"/>
+         <tag id="0" k="wheelchair" v="limited"/>
+      </node>
+   </modify>
+   <modify id="0">
+      <node changeset="10671963" id="506221331" lat="50.3265509" lon="10.203449" timestamp="2012-02-13T14:37:00Z" user="wheelmap_visitor" version="3" visible="true">
+         <tag id="0" k="amenity" v="biergarten"/>
+         <tag id="0" k="name" v="Biergarten"/>
+         <tag id="0" k="wheelchair" v="limited"/>
+      </node>
+   </modify>
+   <modify id="0">
+      <way changeset="10671963" id="92669400" timestamp="2012-02-13T14:38:01Z" uid="290680" user="wheelmap_visitor" version="2">
+         <nd ref="1074936218"/>
+         <nd ref="1074936206"/>
+         <nd ref="1074936228"/>
+         <nd ref="1074936147"/>
+         <nd ref="1074936191"/>
+         <nd ref="1074936187"/>
+         <nd ref="1074936186"/>
+         <nd ref="1074936202"/>
+         <nd ref="1074936218"/>
+         <tag id="0" k="building" v="yes"/>
+         <tag id="0" k="name" v="Schmidt"/>
+         <tag id="0" k="shop" v="bakery"/>
+         <tag id="0" k="wheelchair" v="limited"/>
+      </way>
+   </modify>
+   <modify id="0">
+      <way changeset="10671963" id="89456487" timestamp="2012-02-13T14:45:02Z" uid="290680" user="wheelmap_visitor" version="2">
+         <nd ref="1037474717"/>
+         <nd ref="1037474672"/>
+         <nd ref="1037474617"/>
+         <nd ref="1037474603"/>
+         <nd ref="1037474557"/>
+         <nd ref="1037474578"/>
+         <nd ref="1037474735"/>
+         <nd ref="1037474760"/>
+         <nd ref="1037474738"/>
+         <nd ref="1037474705"/>
+         <nd ref="1037474622"/>
+         <nd ref="1037474692"/>
+         <nd ref="1037474534"/>
+         <nd ref="1037474456"/>
+         <nd ref="1037474745"/>
+         <nd ref="1037474542"/>
+         <nd ref="1037474715"/>
+         <nd ref="1037474454"/>
+         <nd ref="1037474481"/>
+         <nd ref="1037474634"/>
+         <nd ref="1037474446"/>
+         <nd ref="1037474722"/>
+         <nd ref="1037474652"/>
+         <nd ref="1037474725"/>
+         <nd ref="1037474526"/>
+         <nd ref="1037474520"/>
+         <nd ref="1037474755"/>
+         <nd ref="1037474756"/>
+         <nd ref="1037474717"/>
+         <tag id="0" k="amenity" v="school"/>
+         <tag id="0" k="building" v="yes"/>
+         <tag id="0" k="name" v="Schule an der Ruhraue"/>
+         <tag id="0" k="wheelchair" v="yes"/>
+      </way>
+   </modify>
+   <modify id="0">
+      <way changeset="10671963" id="69474122" timestamp="2012-02-13T14:45:07Z" uid="290680" user="wheelmap_visitor" version="5">
+         <nd ref="831749877"/>
+         <nd ref="831792913"/>
+         <nd ref="831785400"/>
+         <nd ref="831779341"/>
+         <nd ref="831767961"/>
+         <nd ref="831785821"/>
+         <nd ref="831749552"/>
+         <nd ref="831762175"/>
+         <nd ref="831770942"/>
+         <nd ref="831751494"/>
+         <nd ref="831791632"/>
+         <nd ref="831762238"/>
+         <nd ref="831787913"/>
+         <nd ref="831770131"/>
+         <nd ref="831763291"/>
+         <nd ref="831788250"/>
+         <nd ref="831780447"/>
+         <nd ref="831770676"/>
+         <nd ref="831766608"/>
+         <nd ref="831767965"/>
+         <nd ref="831785169"/>
+         <nd ref="831771289"/>
+         <nd ref="831783721"/>
+         <nd ref="831749877"/>
+         <tag id="0" k="addr:housename" v="Ã‰cole primaire Paul Bert"/>
+         <tag id="0" k="addr:postcode" v="37100"/>
+         <tag id="0" k="amenity" v="school"/>
+         <tag id="0" k="name" v="Ã‰cole primaire Paul Bert"/>
+         <tag id="0" k="source" v="cadastre-dgi-fr source : Direction GÃ©nÃ©rale des ImpÃ´ts - Cadastre. Mise Ã  jour : 2010"/>
+         <tag id="0" k="wheelchair" v="limited"/>
+      </way>
+   </modify>
+   <modify id="0">
+      <node changeset="10671963" id="903252130" lat="51.3583905" lon="8.4750826" timestamp="2012-02-13T14:46:09Z" user="wheelmap_visitor" version="5" visible="true">
+         <tag id="0" k="name" v="Bigge"/>
+         <tag id="0" k="railway" v="halt"/>
+         <tag id="0" k="wheelchair" v="limited"/>
+      </node>
+   </modify>
+   <modify id="0">
+      <node changeset="10671963" id="210523935" lat="50.0053652" lon="8.2134531" timestamp="2012-02-13T15:40:06Z" user="wheelmap_visitor" version="9" visible="true">
+         <tag id="0" k="addr:housenumber" v="43"/>
+         <tag id="0" k="addr:street" v="Kurt Schumacher StraÃŸe"/>
+         <tag id="0" k="amenity" v="place_of_worship"/>
+         <tag id="0" k="denomination" v="protestant"/>
+         <tag id="0" k="name" v="FEG Mainz"/>
+         <tag id="0" k="phone" v="06131-44926"/>
+         <tag id="0" k="religion" v="christian"/>
+         <tag id="0" k="service_times" v="Su 09:30,11:15"/>
+         <tag id="0" k="website" v="http://www.feg-mainz.de/"/>
+         <tag id="0" k="wheelchair" v="limited"/>
+      </node>
+   </modify>
+   <modify id="0">
+      <node changeset="10671963" id="1273560006" lat="51.6232291" lon="7.4093211" timestamp="2012-02-13T16:01:09Z" user="wheelmap_visitor" version="2" visible="true">
+         <tag id="0" k="highway" v="bus_stop"/>
+         <tag id="0" k="name" v="Ostring"/>
+         <tag id="0" k="wheelchair" v="yes"/>
+      </node>
+   </modify>
+   <modify id="0">
+      <node changeset="10671963" id="1273559908" lat="51.6235992" lon="7.4076722" timestamp="2012-02-13T16:01:10Z" user="wheelmap_visitor" version="2" visible="true">
+         <tag id="0" k="highway" v="bus_stop"/>
+         <tag id="0" k="name" v="Zum Tal"/>
+         <tag id="0" k="wheelchair" v="yes"/>
+      </node>
+   </modify>
+   <modify id="0">
+      <node changeset="10671963" id="1273560093" lat="51.6236588" lon="7.4031748" timestamp="2012-02-13T16:02:12Z" user="wheelmap_visitor" version="2" visible="true">
+         <tag id="0" k="highway" v="bus_stop"/>
+         <tag id="0" k="name" v="KirchstraÃŸe"/>
+         <tag id="0" k="wheelchair" v="yes"/>
+      </node>
+   </modify>
+   <modify id="0">
+      <node changeset="10671963" id="22373224" lat="51.6245511" lon="7.3987706" timestamp="2012-02-13T16:02:13Z" user="wheelmap_visitor" version="6" visible="true">
+         <tag id="0" k="amenity" v="bus_station"/>
+         <tag id="0" k="name" v="Am Moselbach"/>
+         <tag id="0" k="wheelchair" v="yes"/>
+      </node>
+   </modify>
+   <modify id="0">
+      <node changeset="10671963" id="1081898041" lat="51.6245128" lon="7.3990948" timestamp="2012-02-13T16:03:14Z" user="wheelmap_visitor" version="2" visible="true">
+         <tag id="0" k="amenity" v="post_office"/>
+         <tag id="0" k="wheelchair" v="yes"/>
+      </node>
+   </modify>
+   <modify id="0">
+      <node changeset="10671963" id="22373224" lat="51.6245511" lon="7.3987706" timestamp="2012-02-13T16:03:14Z" user="wheelmap_visitor" version="7" visible="true">
+         <tag id="0" k="amenity" v="bus_station"/>
+         <tag id="0" k="name" v="Am Moselbach"/>
+         <tag id="0" k="wheelchair" v="limited"/>
+      </node>
+   </modify>
+   <modify id="0">
+      <node changeset="10671963" id="306700916" lat="51.6244177" lon="7.3993134" timestamp="2012-02-13T16:03:15Z" user="wheelmap_visitor" version="4" visible="true">
+         <tag id="0" k="amenity" v="post_office"/>
+         <tag id="0" k="created_by" v="Potlatch 0.10f"/>
+         <tag id="0" k="wheelchair" v="yes"/>
+      </node>
+   </modify>
+   <modify id="0">
+      <node changeset="10671963" id="1271342728" lat="51.6246011" lon="7.3962475" timestamp="2012-02-13T16:04:16Z" user="wheelmap_visitor" version="2" visible="true">
+         <tag id="0" k="highway" v="bus_stop"/>
+         <tag id="0" k="name" v="Ziegeleistr."/>
+         <tag id="0" k="wheelchair" v="yes"/>
+      </node>
+   </modify>
+   <modify id="0">
+      <node changeset="10671963" id="1271342732" lat="51.6239166" lon="7.3939864" timestamp="2012-02-13T16:04:17Z" user="wheelmap_visitor" version="2" visible="true">
+         <tag id="0" k="highway" v="bus_stop"/>
+         <tag id="0" k="name" v="SchÃ¼tzenstr."/>
+         <tag id="0" k="wheelchair" v="yes"/>
+      </node>
+   </modify>
+   <modify id="0">
+      <node changeset="10671963" id="1271342727" lat="51.6247392" lon="7.3963226" timestamp="2012-02-13T16:04:18Z" user="wheelmap_visitor" version="2" visible="true">
+         <tag id="0" k="highway" v="bus_stop"/>
+         <tag id="0" k="name" v="Ziegeleistr."/>
+         <tag id="0" k="wheelchair" v="yes"/>
+      </node>
+   </modify>
+   <modify id="0">
+      <node changeset="10671963" id="1271342740" lat="51.6237569" lon="7.3939381" timestamp="2012-02-13T16:05:20Z" user="wheelmap_visitor" version="2" visible="true">
+         <tag id="0" k="highway" v="bus_stop"/>
+         <tag id="0" k="name" v="SchÃ¼tzenstr."/>
+         <tag id="0" k="wheelchair" v="yes"/>
+      </node>
+   </modify>
+   <modify id="0">
+      <node changeset="10671963" id="1271342741" lat="51.6229725" lon="7.3915482" timestamp="2012-02-13T16:05:27Z" user="wheelmap_visitor" version="2" visible="true">
+         <tag id="0" k="highway" v="bus_stop"/>
+         <tag id="0" k="name" v="Waltrop Rathaus"/>
+         <tag id="0" k="wheelchair" v="yes"/>
+      </node>
+   </modify>
+   <modify id="0">
+      <node changeset="10671963" id="1271342734" lat="51.6231806" lon="7.3908911" timestamp="2012-02-13T16:05:28Z" user="wheelmap_visitor" version="2" visible="true">
+         <tag id="0" k="highway" v="bus_stop"/>
+         <tag id="0" k="name" v="Waltrop Rathaus"/>
+         <tag id="0" k="wheelchair" v="yes"/>
+      </node>
+   </modify>
+   <modify id="0">
+      <node changeset="10671963" id="1271342730" lat="51.6228409" lon="7.3904056" timestamp="2012-02-13T16:05:36Z" user="wheelmap_visitor" version="2" visible="true">
+         <tag id="0" k="highway" v="bus_stop"/>
+         <tag id="0" k="name" v="Waltrop Rathaus"/>
+         <tag id="0" k="wheelchair" v="yes"/>
+      </node>
+   </modify>
+   <modify id="0">
+      <node changeset="10671963" id="1271342742" lat="51.622671" lon="7.3911247" timestamp="2012-02-13T16:06:06Z" user="wheelmap_visitor" version="2" visible="true">
+         <tag id="0" k="highway" v="bus_stop"/>
+         <tag id="0" k="name" v="Waltrop Rathaus"/>
+         <tag id="0" k="wheelchair" v="limited"/>
+      </node>
+   </modify>
+   <modify id="0">
+      <node changeset="10671963" id="1271342731" lat="51.6219201" lon="7.3864252" timestamp="2012-02-13T16:06:39Z" user="wheelmap_visitor" version="2" visible="true">
+         <tag id="0" k="highway" v="bus_stop"/>
+         <tag id="0" k="name" v="Waltrop Krankenhaus"/>
+         <tag id="0" k="wheelchair" v="limited"/>
+      </node>
+   </modify>
+   <modify id="0">
+      <node changeset="10671963" id="1271342736" lat="51.6220033" lon="7.3859451" timestamp="2012-02-13T16:06:42Z" user="wheelmap_visitor" version="2" visible="true">
+         <tag id="0" k="highway" v="bus_stop"/>
+         <tag id="0" k="name" v="Waltrop Krankenhaus"/>
+         <tag id="0" k="wheelchair" v="no"/>
+      </node>
+   </modify>
+   <modify id="0">
+      <node changeset="10671963" id="1253912815" lat="51.6188184" lon="7.3674835" timestamp="2012-02-13T16:08:09Z" user="wheelmap_visitor" version="3" visible="true">
+         <tag id="0" k="highway" v="bus_stop"/>
+         <tag id="0" k="name" v="FranzstraÃŸe"/>
+         <tag id="0" k="wheelchair" v="limited"/>
+      </node>
+   </modify>
+   <modify id="0">
+      <node changeset="10671963" id="1358823691" lat="51.6166215" lon="7.3552107" timestamp="2012-02-13T16:08:44Z" user="wheelmap_visitor" version="2" visible="true">
+         <tag id="0" k="highway" v="bus_stop"/>
+         <tag id="0" k="name" v="Oberwiese"/>
+         <tag id="0" k="wheelchair" v="limited"/>
+      </node>
+   </modify>
+   <modify id="0">
+      <node changeset="10671963" id="1253912814" lat="51.6164162" lon="7.3507959" timestamp="2012-02-13T16:09:44Z" user="wheelmap_visitor" version="2" visible="true">
+         <tag id="0" k="highway" v="bus_stop"/>
+         <tag id="0" k="name" v="Lohburger StraÃŸe"/>
+         <tag id="0" k="wheelchair" v="limited"/>
+      </node>
+   </modify>
+   <modify id="0">
+      <node changeset="10671963" id="1253912826" lat="51.616579" lon="7.3456751" timestamp="2012-02-13T16:09:45Z" user="wheelmap_visitor" version="2" visible="true">
+         <tag id="0" k="highway" v="bus_stop"/>
+         <tag id="0" k="name" v="Recklinghauser StraÃŸe 237"/>
+         <tag id="0" k="wheelchair" v="no"/>
+      </node>
+   </modify>
+   <modify id="0">
+      <node changeset="10671963" id="1253912826" lat="51.616579" lon="7.3456751" timestamp="2012-02-13T16:09:46Z" user="wheelmap_visitor" version="3" visible="true">
+         <tag id="0" k="highway" v="bus_stop"/>
+         <tag id="0" k="name" v="Recklinghauser StraÃŸe 237"/>
+         <tag id="0" k="wheelchair" v="limited"/>
+      </node>
+   </modify>
+   <modify id="0">
+      <node changeset="10671963" id="1253912816" lat="51.6169814" lon="7.3420659" timestamp="2012-02-13T16:10:10Z" user="wheelmap_visitor" version="2" visible="true">
+         <tag id="0" k="highway" v="bus_stop"/>
+         <tag id="0" k="name" v="Schwarzer Weg"/>
+         <tag id="0" k="wheelchair" v="limited"/>
+      </node>
+   </modify>
+   <modify id="0">
+      <node changeset="10671963" id="670515486" lat="46.948117" lon="7.4523978" timestamp="2012-02-13T16:10:46Z" user="wheelmap_visitor" version="3" visible="true">
+         <tag id="0" k="amenity" v="bank"/>
+         <tag id="0" k="name" v="BEKB"/>
+         <tag id="0" k="operator" v="BEKB"/>
+         <tag id="0" k="wheelchair" v="yes"/>
+      </node>
+   </modify>
+   <modify id="0">
+      <node changeset="10671963" id="670630948" lat="46.948968" lon="7.444525" timestamp="2012-02-13T16:11:47Z" user="wheelmap_visitor" version="2" visible="true">
+         <tag id="0" k="name" v="Kreuz"/>
+         <tag id="0" k="tourism" v="hotel"/>
+         <tag id="0" k="wheelchair" v="limited"/>
+      </node>
+   </modify>
+   <modify id="0">
+      <node changeset="10671963" id="249786773" lat="51.5126353" lon="-0.3088643" timestamp="2012-02-13T16:11:48Z" user="wheelmap_visitor" version="3" visible="true">
+         <tag id="0" k="created_by" v="JOSM"/>
+         <tag id="0" k="highway" v="bus_stop"/>
+         <tag id="0" k="wheelchair" v="yes"/>
+      </node>
+   </modify>
+   <modify id="0">
+      <node changeset="10671963" id="1267410559" lat="51.61825" lon="7.3258152" timestamp="2012-02-13T16:11:49Z" user="wheelmap_visitor" version="2" visible="true">
+         <tag id="0" k="highway" v="bus_stop"/>
+         <tag id="0" k="name" v="Kanalstr."/>
+         <tag id="0" k="wheelchair" v="yes"/>
+      </node>
+   </modify>
+   <modify id="0">
+      <node changeset="10671963" id="736825361" lat="51.6184173" lon="7.3253594" timestamp="2012-02-13T16:11:50Z" user="wheelmap_visitor" version="2" visible="true">
+         <tag id="0" k="highway" v="bus_stop"/>
+         <tag id="0" k="name" v="KanalstraÃŸe"/>
+         <tag id="0" k="wheelchair" v="yes"/>
+      </node>
+   </modify>
+   <modify id="0">
+      <way changeset="10671963" id="23227148" timestamp="2012-02-13T16:11:51Z" uid="290680" user="wheelmap_visitor" version="5">
+         <nd ref="251286339"/>
+         <nd ref="251286340"/>
+         <nd ref="251286341"/>
+         <nd ref="251286342"/>
+         <nd ref="251286339"/>
+         <tag id="0" k="building" v="yes"/>
+         <tag id="0" k="name" v="Waitrose"/>
+         <tag id="0" k="shop" v="supermarket"/>
+         <tag id="0" k="wheelchair" v="yes"/>
+      </way>
+   </modify>
+   <modify id="0">
+      <way changeset="10671963" id="80402499" timestamp="2012-02-13T16:12:13Z" uid="290680" user="wheelmap_visitor" version="2">
+         <nd ref="938272254"/>
+         <nd ref="938272255"/>
+         <nd ref="938272256"/>
+         <nd ref="938272257"/>
+         <nd ref="938272258"/>
+         <nd ref="938272259"/>
+         <nd ref="938272260"/>
+         <nd ref="938272261"/>
+         <nd ref="938272262"/>
+         <nd ref="938272254"/>
+         <tag id="0" k="amenity" v="hospital"/>
+         <tag id="0" k="name" v="Ealing Hospital NHS Trust"/>
+         <tag id="0" k="phone" v="020 8967 5000"/>
+         <tag id="0" k="wheelchair" v="yes"/>
+      </way>
+   </modify>
+   <modify id="0">
+      <node changeset="10671963" id="1439401341" lat="51.6194298" lon="7.3196821" timestamp="2012-02-13T16:12:16Z" user="wheelmap_visitor" version="4" visible="true">
+         <tag id="0" k="bus" v="yes"/>
+         <tag id="0" k="highway" v="bus_stop"/>
+         <tag id="0" k="name" v="Wittener StraÃŸe"/>
+         <tag id="0" k="wheelchair" v="yes"/>
+      </node>
+   </modify>
+   <modify id="0">
+      <node changeset="10671963" id="1457776401" lat="51.6225919" lon="7.321437" timestamp="2012-02-13T16:12:52Z" user="wheelmap_visitor" version="5" visible="true">
+         <tag id="0" k="bus" v="yes"/>
+         <tag id="0" k="highway" v="bus_stop"/>
+         <tag id="0" k="name" v="Datteln Bahnhof"/>
+         <tag id="0" k="public_transport" v="stop_position"/>
+         <tag id="0" k="wheelchair" v="yes"/>
+      </node>
+   </modify>
+   <modify id="0">
+      <node changeset="10671963" id="1458524479" lat="51.6278883" lon="7.3234761" timestamp="2012-02-13T16:13:17Z" user="wheelmap_visitor" version="5" visible="true">
+         <tag id="0" k="bus" v="yes"/>
+         <tag id="0" k="highway" v="bus_stop"/>
+         <tag id="0" k="name" v="Neuer Weg"/>
+         <tag id="0" k="public_transport" v="stop_position"/>
+         <tag id="0" k="wheelchair" v="limited"/>
+      </node>
+   </modify>
+   <modify id="0">
+      <node changeset="10671963" id="32546054" lat="51.5282081" lon="-0.3523486" timestamp="2012-02-13T16:13:18Z" user="wheelmap_visitor" version="3" visible="true">
+         <tag id="0" k="amenity" v="atm"/>
+         <tag id="0" k="created_by" v="Potlatch 0.4a"/>
+         <tag id="0" k="name" v="Lloyds TSB"/>
+         <tag id="0" k="wheelchair" v="yes"/>
+      </node>
+   </modify>
+   <modify id="0">
+      <node changeset="10671963" id="1458889611" lat="51.6278861" lon="7.3180387" timestamp="2012-02-13T16:13:19Z" user="wheelmap_visitor" version="4" visible="true">
+         <tag id="0" k="bus" v="yes"/>
+         <tag id="0" k="highway" v="bus_stop"/>
+         <tag id="0" k="name" v="Neuer Weg Nr. 47"/>
+         <tag id="0" k="wheelchair" v="yes"/>
+      </node>
+   </modify>
+   <modify id="0">
+      <node changeset="10671963" id="272743928" lat="51.6277977" lon="7.3112796" timestamp="2012-02-13T16:13:53Z" user="wheelmap_visitor" version="4" visible="true">
+         <tag id="0" k="bus" v="yes"/>
+         <tag id="0" k="highway" v="bus_stop"/>
+         <tag id="0" k="name" v="Dahlstr."/>
+         <tag id="0" k="wheelchair" v="yes"/>
+      </node>
+   </modify>
+   <modify id="0">
+      <node changeset="10671963" id="1458895941" lat="51.6286794" lon="7.3013251" timestamp="2012-02-13T16:13:54Z" user="wheelmap_visitor" version="3" visible="true">
+         <tag id="0" k="bus" v="yes"/>
+         <tag id="0" k="highway" v="bus_stop"/>
+         <tag id="0" k="name" v="FeldstraÃŸe"/>
+         <tag id="0" k="public_transport" v="stop_position"/>
+         <tag id="0" k="wheelchair" v="yes"/>
+      </node>
+   </modify>
+   <modify id="0">
+      <node changeset="10671963" id="30136132" lat="51.6309758" lon="7.2942351" timestamp="2012-02-13T16:14:20Z" user="wheelmap_visitor" version="7" visible="true">
+         <tag id="0" k="bus" v="yes"/>
+         <tag id="0" k="highway" v="bus_stop"/>
+         <tag id="0" k="name" v="Schloss Horneburg"/>
+         <tag id="0" k="wheelchair" v="limited"/>
+      </node>
+   </modify>
+   <modify id="0">
+      <node changeset="10671963" id="1274055367" lat="51.6317973" lon="7.2926177" timestamp="2012-02-13T16:14:21Z" user="wheelmap_visitor" version="4" visible="true">
+         <tag id="0" k="highway" v="bus_stop"/>
+         <tag id="0" k="name" v="WilhelmstraÃŸe"/>
+         <tag id="0" k="shelter" v="yes"/>
+         <tag id="0" k="wheelchair" v="limited"/>
+      </node>
+   </modify>
+   <modify id="0">
+      <way changeset="10671963" id="111247940" timestamp="2012-02-13T16:14:56Z" uid="290680" user="wheelmap_visitor" version="3">
+         <nd ref="1267846012"/>
+         <nd ref="1267524162"/>
+         <nd ref="1267523989"/>
+         <nd ref="1212697996"/>
+         <nd ref="1267523784"/>
+         <nd ref="1212698075"/>
+         <nd ref="1212697944"/>
+         <nd ref="1212697898"/>
+         <nd ref="1212698360"/>
+         <nd ref="1212698114"/>
+         <nd ref="1212697814"/>
+         <nd ref="1267524075"/>
+         <nd ref="1267524093"/>
+         <nd ref="1267524329"/>
+         <nd ref="1267524154"/>
+         <nd ref="1267524342"/>
+         <nd ref="1267524373"/>
+         <nd ref="1267523992"/>
+         <nd ref="1267524072"/>
+         <nd ref="1267524577"/>
+         <nd ref="1267914562"/>
+         <nd ref="1267524655"/>
+         <nd ref="1212698374"/>
+         <nd ref="1212698273"/>
+         <nd ref="1267523813"/>
+         <nd ref="1267524378"/>
+         <nd ref="1212698068"/>
+         <nd ref="1212698031"/>
+         <nd ref="1212698178"/>
+         <nd ref="1267524463"/>
+         <nd ref="1267524683"/>
+         <nd ref="1267523727"/>
+         <nd ref="1267914570"/>
+         <nd ref="1267523778"/>
+         <nd ref="1267524695"/>
+         <nd ref="1267524302"/>
+         <nd ref="1267524067"/>
+         <nd ref="1212698254"/>
+         <nd ref="1212698195"/>
+         <nd ref="1212697890"/>
+         <nd ref="1212697983"/>
+         <nd ref="1212698011"/>
+         <nd ref="1212698399"/>
+         <nd ref="1212697832"/>
+         <nd ref="1267523735"/>
+         <nd ref="1212697978"/>
+         <nd ref="1267524232"/>
+         <nd ref="1267524383"/>
+         <nd ref="1267524298"/>
+         <nd ref="1212698232"/>
+         <nd ref="1212698159"/>
+         <nd ref="1267524573"/>
+         <nd ref="1267523890"/>
+         <nd ref="1267524252"/>
+         <nd ref="1267523663"/>
+         <nd ref="1267524482"/>
+         <nd ref="1267523669"/>
+         <nd ref="1212698193"/>
+         <nd ref="1212698130"/>
+         <nd ref="1267523869"/>
+         <nd ref="1267523613"/>
+         <nd ref="1267524019"/>
+         <nd ref="1267524525"/>
+         <nd ref="1267524486"/>
+         <nd ref="1267524307"/>
+         <nd ref="1212698163"/>
+         <nd ref="1212697855"/>
+         <nd ref="1267812136"/>
+         <nd ref="1212698099"/>
+         <nd ref="1267812066"/>
+         <nd ref="1267812072"/>
+         <nd ref="1267812150"/>
+         <nd ref="1267812172"/>
+         <nd ref="1267812187"/>
+         <nd ref="1267812208"/>
+         <nd ref="1212698269"/>
+         <nd ref="1267812046"/>
+         <nd ref="1267812062"/>
+         <nd ref="1267812193"/>
+         <nd ref="1267812047"/>
+         <nd ref="1267812218"/>
+         <nd ref="1267845762"/>
+         <nd ref="1267846108"/>
+         <nd ref="1267846019"/>
+         <nd ref="1267845821"/>
+         <nd ref="1267846070"/>
+         <nd ref="1267846028"/>
+         <nd ref="1267845852"/>
+         <nd ref="1267846017"/>
+         <nd ref="1267846012"/>
+         <tag id="0" k="addr:housename" v="FreiheitshÃ¤user Horneburg"/>
+         <tag id="0" k="name" v="FreiheitshÃ¤user Horneburg"/>
+         <tag id="0" k="tourism" v="attraction"/>
+         <tag id="0" k="wheelchair" v="yes"/>
+      </way>
+   </modify>
+   <modify id="0">
+      <way changeset="10671963" id="105231908" timestamp="2012-02-13T16:14:59Z" uid="290680" user="wheelmap_visitor" version="8">
+         <nd ref="1212698287"/>
+         <nd ref="1212697840"/>
+         <nd ref="1212698222"/>
+         <nd ref="1212698046"/>
+         <nd ref="1212698393"/>
+         <nd ref="1212698331"/>
+         <nd ref="1212697828"/>
+         <nd ref="1212698287"/>
+         <tag id="0" k="addr:city" v="Datteln"/>
+         <tag id="0" k="addr:country" v="DE"/>
+         <tag id="0" k="addr:housename" v="FreiheitshÃ¤user Horneburg"/>
+         <tag id="0" k="addr:housenumber" v="28"/>
+         <tag id="0" k="addr:postcode" v="45711"/>
+         <tag id="0" k="addr:street" v="Horneburger StraÃŸe"/>
+         <tag id="0" k="alt_name" v="FreiheitshÃ¤user"/>
+         <tag id="0" k="building" v="yes"/>
+         <tag id="0" k="note:de" v="Ã„ltestes Haus in Datteln (?)"/>
+         <tag id="0" k="tourism" v="attraction"/>
+         <tag id="0" k="wheelchair" v="yes"/>
+      </way>
+   </modify>
+   <modify id="0">
+      <way changeset="10671963" id="109714665" timestamp="2012-02-13T16:15:23Z" uid="290680" user="wheelmap_visitor" version="9">
+         <nd ref="1255250200"/>
+         <nd ref="1255250035"/>
+         <nd ref="1255250087"/>
+         <nd ref="1255250160"/>
+         <nd ref="1255250085"/>
+         <nd ref="1255250007"/>
+         <nd ref="1255250071"/>
+         <nd ref="1255250020"/>
+         <nd ref="1255250015"/>
+         <nd ref="1255250063"/>
+         <nd ref="1255250247"/>
+         <nd ref="1255250139"/>
+         <nd ref="1255250088"/>
+         <nd ref="1255250307"/>
+         <nd ref="1255250171"/>
+         <nd ref="1255250183"/>
+         <nd ref="1255250042"/>
+         <nd ref="1255250127"/>
+         <nd ref="1255250039"/>
+         <nd ref="1212713886"/>
+         <nd ref="1372165080"/>
+         <nd ref="1255250185"/>
+         <nd ref="1255249990"/>
+         <nd ref="1255250022"/>
+         <nd ref="1255249989"/>
+         <nd ref="1255250045"/>
+         <nd ref="1255250236"/>
+         <nd ref="1372165054"/>
+         <nd ref="1482698022"/>
+         <nd ref="1255250278"/>
+         <nd ref="1255250210"/>
+         <nd ref="1255250268"/>
+         <nd ref="1255250133"/>
+         <nd ref="1372165005"/>
+         <nd ref="1255250083"/>
+         <nd ref="1255250130"/>
+         <nd ref="1255250200"/>
+         <tag id="0" k="addr:city" v="Datteln"/>
+         <tag id="0" k="addr:country" v="DE"/>
+         <tag id="0" k="addr:housenumber" v="39"/>
+         <tag id="0" k="addr:postcode" v="45711"/>
+         <tag id="0" k="addr:street" v="Horneburger StraÃŸe"/>
+         <tag id="0" k="amenity" v="school"/>
+         <tag id="0" k="building" v="yes"/>
+         <tag id="0" k="website" v="http://www.internat-schloss-horneburg.de"/>
+         <tag id="0" k="wheelchair" v="yes"/>
+      </way>
+   </modify>
+   <modify id="0">
+      <way changeset="10671963" id="109714665" timestamp="2012-02-13T16:15:27Z" uid="290680" user="wheelmap_visitor" version="10">
+         <nd ref="1255250200"/>
+         <nd ref="1255250035"/>
+         <nd ref="1255250087"/>
+         <nd ref="1255250160"/>
+         <nd ref="1255250085"/>
+         <nd ref="1255250007"/>
+         <nd ref="1255250071"/>
+         <nd ref="1255250020"/>
+         <nd ref="1255250015"/>
+         <nd ref="1255250063"/>
+         <nd ref="1255250247"/>
+         <nd ref="1255250139"/>
+         <nd ref="1255250088"/>
+         <nd ref="1255250307"/>
+         <nd ref="1255250171"/>
+         <nd ref="1255250183"/>
+         <nd ref="1255250042"/>
+         <nd ref="1255250127"/>
+         <nd ref="1255250039"/>
+         <nd ref="1212713886"/>
+         <nd ref="1372165080"/>
+         <nd ref="1255250185"/>
+         <nd ref="1255249990"/>
+         <nd ref="1255250022"/>
+         <nd ref="1255249989"/>
+         <nd ref="1255250045"/>
+         <nd ref="1255250236"/>
+         <nd ref="1372165054"/>
+         <nd ref="1482698022"/>
+         <nd ref="1255250278"/>
+         <nd ref="1255250210"/>
+         <nd ref="1255250268"/>
+         <nd ref="1255250133"/>
+         <nd ref="1372165005"/>
+         <nd ref="1255250083"/>
+         <nd ref="1255250130"/>
+         <nd ref="1255250200"/>
+         <tag id="0" k="addr:city" v="Datteln"/>
+         <tag id="0" k="addr:country" v="DE"/>
+         <tag id="0" k="addr:housenumber" v="39"/>
+         <tag id="0" k="addr:postcode" v="45711"/>
+         <tag id="0" k="addr:street" v="Horneburger StraÃŸe"/>
+         <tag id="0" k="amenity" v="school"/>
+         <tag id="0" k="building" v="yes"/>
+         <tag id="0" k="website" v="http://www.internat-schloss-horneburg.de"/>
+         <tag id="0" k="wheelchair" v="limited"/>
+      </way>
+   </modify>
+   <modify id="0">
+      <way changeset="10671963" id="123020442" timestamp="2012-02-13T16:15:29Z" uid="290680" user="wheelmap_visitor" version="5">
+         <nd ref="1326373415"/>
+         <nd ref="1373108315"/>
+         <nd ref="1185773395"/>
+         <nd ref="1495833362"/>
+         <nd ref="1373108322"/>
+         <nd ref="1373108312"/>
+         <nd ref="1373108317"/>
+         <nd ref="356964914"/>
+         <nd ref="1373108318"/>
+         <nd ref="1373108319"/>
+         <nd ref="1373108335"/>
+         <nd ref="1373108323"/>
+         <nd ref="1373108337"/>
+         <nd ref="1373108321"/>
+         <nd ref="1373108314"/>
+         <nd ref="1373108338"/>
+         <nd ref="1373108333"/>
+         <nd ref="1373108336"/>
+         <nd ref="1373108320"/>
+         <nd ref="1373108334"/>
+         <nd ref="1373108313"/>
+         <nd ref="1373108324"/>
+         <nd ref="290686226"/>
+         <nd ref="1372165088"/>
+         <nd ref="1213417554"/>
+         <nd ref="1273055937"/>
+         <nd ref="1213417477"/>
+         <nd ref="613149863"/>
+         <nd ref="613149865"/>
+         <nd ref="1369485066"/>
+         <nd ref="1369485058"/>
+         <nd ref="613149873"/>
+         <nd ref="1211257988"/>
+         <nd ref="1211258083"/>
+         <nd ref="1211258119"/>
+         <nd ref="1369485059"/>
+         <nd ref="738208618"/>
+         <nd ref="1214181550"/>
+         <nd ref="1212697896"/>
+         <nd ref="1214181599"/>
+         <nd ref="1214181625"/>
+         <nd ref="1326373415"/>
+         <tag id="0" k="addr:housename" v="SchloÃŸ Horneburg"/>
+         <tag id="0" k="addr:housenumber" v="39"/>
+         <tag id="0" k="addr:postcode" v="45711"/>
+         <tag id="0" k="addr:street" v="Horneburger StraÃŸe"/>
+         <tag id="0" k="amenity" v="school"/>
+         <tag id="0" k="name" v="FÃ¶rderschulinternat SchloÃŸ Horneburg"/>
+         <tag id="0" k="wheelchair" v="limited"/>
+      </way>
+   </modify>
+   <modify id="0">
+      <node changeset="10671963" id="469767395" lat="51.531381" lon="-0.3500711" timestamp="2012-02-13T16:15:37Z" user="wheelmap_visitor" version="2" visible="true">
+         <tag id="0" k="highway" v="bus_stop"/>
+         <tag id="0" k="local_ref" v="X"/>
+         <tag id="0" k="name" v="Costons Lane"/>
+         <tag id="0" k="naptan:AtcoCode" v="490005626N"/>
+         <tag id="0" k="naptan:Bearing" v="N"/>
+         <tag id="0" k="naptan:CommonName" v="Costons Lane"/>
+         <tag id="0" k="naptan:Indicator" v="Stop X"/>
+         <tag id="0" k="naptan:Street" v="GREENFORD ROAD"/>
+         <tag id="0" k="naptan:verified" v="no"/>
+         <tag id="0" k="wheelchair" v="yes"/>
+      </node>
+   </modify>
+   <modify id="0">
+      <node changeset="10671963" id="1372165063" lat="51.6312495" lon="7.2946777" timestamp="2012-02-13T16:15:38Z" user="wheelmap_visitor" version="5" visible="true">
+         <tag id="0" k="leisure" v="playground"/>
+         <tag id="0" k="name" v="Schachfeld"/>
+         <tag id="0" k="wheelchair" v="yes"/>
+      </node>
+   </modify>
+   <modify id="0">
+      <node changeset="10671963" id="1222596255" lat="51.6318826" lon="7.2952126" timestamp="2012-02-13T16:15:39Z" user="wheelmap_visitor" version="7" visible="true">
+         <tag id="0" k="access" v="private"/>
+         <tag id="0" k="leisure" v="playground"/>
+         <tag id="0" k="wheelchair" v="limited"/>
+      </node>
+   </modify>
+   <modify id="0">
+      <way changeset="10671963" id="109714663" timestamp="2012-02-13T16:15:39Z" uid="290680" user="wheelmap_visitor" version="10">
+         <nd ref="1255250212"/>
+         <nd ref="1255250109"/>
+         <nd ref="1255250003"/>
+         <nd ref="1255250049"/>
+         <nd ref="1255250214"/>
+         <nd ref="1255249988"/>
+         <nd ref="1255250032"/>
+         <nd ref="1255250295"/>
+         <nd ref="1372165047"/>
+         <nd ref="1482698014"/>
+         <nd ref="1372165184"/>
+         <nd ref="1372165132"/>
+         <nd ref="1255250067"/>
+         <nd ref="1372165057"/>
+         <nd ref="1372165169"/>
+         <nd ref="1372165146"/>
+         <nd ref="1255250104"/>
+         <nd ref="1255250108"/>
+         <nd ref="1255250152"/>
+         <nd ref="1255249987"/>
+         <nd ref="1255249995"/>
+         <nd ref="1255250113"/>
+         <nd ref="1255250044"/>
+         <nd ref="1255250051"/>
+         <nd ref="1255250212"/>
+         <tag id="0" k="addr:city" v="Datteln"/>
+         <tag id="0" k="addr:country" v="DE"/>
+         <tag id="0" k="addr:housenumber" v="39"/>
+         <tag id="0" k="addr:postcode" v="45711"/>
+         <tag id="0" k="addr:street" v="Horneburger StraÃŸe"/>
+         <tag id="0" k="amenity" v="school"/>
+         <tag id="0" k="building" v="yes"/>
+         <tag id="0" k="historic" v="castle"/>
+         <tag id="0" k="name" v="Schloss Horneburg"/>
+         <tag id="0" k="tourism" v="attraction"/>
+         <tag id="0" k="wheelchair" v="limited"/>
+         <tag id="0" k="wikipedia" v="http://de.wikipedia.org/wiki/Schloss_Horneburg"/>
+      </way>
+   </modify>
+   <modify id="0">
+      <way changeset="10671963" id="109714663" timestamp="2012-02-13T16:15:41Z" uid="290680" user="wheelmap_visitor" version="11">
+         <nd ref="1255250212"/>
+         <nd ref="1255250109"/>
+         <nd ref="1255250003"/>
+         <nd ref="1255250049"/>
+         <nd ref="1255250214"/>
+         <nd ref="1255249988"/>
+         <nd ref="1255250032"/>
+         <nd ref="1255250295"/>
+         <nd ref="1372165047"/>
+         <nd ref="1482698014"/>
+         <nd ref="1372165184"/>
+         <nd ref="1372165132"/>
+         <nd ref="1255250067"/>
+         <nd ref="1372165057"/>
+         <nd ref="1372165169"/>
+         <nd ref="1372165146"/>
+         <nd ref="1255250104"/>
+         <nd ref="1255250108"/>
+         <nd ref="1255250152"/>
+         <nd ref="1255249987"/>
+         <nd ref="1255249995"/>
+         <nd ref="1255250113"/>
+         <nd ref="1255250044"/>
+         <nd ref="1255250051"/>
+         <nd ref="1255250212"/>
+         <tag id="0" k="addr:city" v="Datteln"/>
+         <tag id="0" k="addr:country" v="DE"/>
+         <tag id="0" k="addr:housenumber" v="39"/>
+         <tag id="0" k="addr:postcode" v="45711"/>
+         <tag id="0" k="addr:street" v="Horneburger StraÃŸe"/>
+         <tag id="0" k="amenity" v="school"/>
+         <tag id="0" k="building" v="yes"/>
+         <tag id="0" k="historic" v="castle"/>
+         <tag id="0" k="name" v="Schloss Horneburg"/>
+         <tag id="0" k="tourism" v="attraction"/>
+         <tag id="0" k="wheelchair" v="no"/>
+         <tag id="0" k="wikipedia" v="http://de.wikipedia.org/wiki/Schloss_Horneburg"/>
+      </way>
+   </modify>
+   <modify id="0">
+      <way changeset="10671963" id="123021949" timestamp="2012-02-13T16:15:44Z" uid="290680" user="wheelmap_visitor" version="2">
+         <nd ref="1211257826"/>
+         <nd ref="1369485064"/>
+         <nd ref="1211258214"/>
+         <nd ref="1211258285"/>
+         <nd ref="1211257910"/>
+         <nd ref="1373155937"/>
+         <nd ref="1373155945"/>
+         <nd ref="1373155957"/>
+         <nd ref="1373155933"/>
+         <nd ref="1373155942"/>
+         <nd ref="1373155940"/>
+         <nd ref="1211258164"/>
+         <nd ref="1211258240"/>
+         <nd ref="1211257826"/>
+         <tag id="0" k="amenity" v="place_of_worship"/>
+         <tag id="0" k="building" v="church"/>
+         <tag id="0" k="name" v="Russische Gemeinde der heiligen Boris und Gleb Horneburg"/>
+         <tag id="0" k="religion" v="christian"/>
+         <tag id="0" k="tourism" v="attraction"/>
+         <tag id="0" k="website" v="http://www.borisogleb.de"/>
+         <tag id="0" k="wheelchair" v="limited"/>
+      </way>
+   </modify>
+   <modify id="0">
+      <way changeset="10671963" id="111196874" timestamp="2012-02-13T16:16:01Z" uid="290680" user="wheelmap_visitor" version="3">
+         <nd ref="1267523653"/>
+         <nd ref="1267524395"/>
+         <nd ref="1267524623"/>
+         <nd ref="1267523740"/>
+         <nd ref="1267524387"/>
+         <nd ref="1267524461"/>
+         <nd ref="1267524456"/>
+         <nd ref="1267523653"/>
+         <tag id="0" k="addr:housename" v="FreiheitshÃ¤user Horneburg"/>
+         <tag id="0" k="name" v="Tuens HÃ¼sken"/>
+         <tag id="0" k="tourism" v="attraction"/>
+         <tag id="0" k="wheelchair" v="no"/>
+      </way>
+   </modify>
+   <modify id="0">
+      <way changeset="10671963" id="105078971" timestamp="2012-02-13T16:16:45Z" uid="290680" user="wheelmap_visitor" version="7">
+         <nd ref="1211258229"/>
+         <nd ref="1211258172"/>
+         <nd ref="1211257922"/>
+         <nd ref="1211258089"/>
+         <nd ref="1211258294"/>
+         <nd ref="1211257991"/>
+         <nd ref="1211257709"/>
+         <nd ref="1211258219"/>
+         <nd ref="1211258169"/>
+         <nd ref="1211258045"/>
+         <nd ref="1211257811"/>
+         <nd ref="1211258217"/>
+         <nd ref="1211258179"/>
+         <nd ref="1211258017"/>
+         <nd ref="1211258077"/>
+         <nd ref="1211258010"/>
+         <nd ref="1211257889"/>
+         <nd ref="1211258266"/>
+         <nd ref="1211258307"/>
+         <nd ref="1211258209"/>
+         <nd ref="1211257716"/>
+         <nd ref="1211257712"/>
+         <nd ref="1211258115"/>
+         <nd ref="1211258229"/>
+         <tag id="0" k="amenity" v="place_of_worship"/>
+         <tag id="0" k="height" v="18"/>
+         <tag id="0" k="name" v="St. Maria Magdalena"/>
+         <tag id="0" k="note:de" v="Die Gemeinde St. Maria Magdalena ist mit der Gemeinde in Meckinghoven und Henrichenburg im Jahr zusammengelegt worden."/>
+         <tag id="0" k="religion" v="christian"/>
+         <tag id="0" k="website" v="http://www.dominikus-datteln.de/"/>
+         <tag id="0" k="wheelchair" v="limited"/>
+      </way>
+   </modify>
+   <modify id="0">
+      <way changeset="10671963" id="89460102" timestamp="2012-02-13T16:17:02Z" uid="290680" user="wheelmap_visitor" version="3">
+         <nd ref="1037504804"/>
+         <nd ref="1037505042"/>
+         <nd ref="1037504549"/>
+         <nd ref="1037505360"/>
+         <nd ref="1037504827"/>
+         <nd ref="1037504655"/>
+         <nd ref="1037503981"/>
+         <nd ref="1037504792"/>
+         <nd ref="1037504200"/>
+         <nd ref="1037503908"/>
+         <nd ref="1037505315"/>
+         <nd ref="1037504376"/>
+         <nd ref="1037503453"/>
+         <nd ref="1037505551"/>
+         <nd ref="1081914658"/>
+         <nd ref="1522638817"/>
+         <nd ref="1522638823"/>
+         <nd ref="1522638819"/>
+         <nd ref="1037504804"/>
+         <tag id="0" k="building" v="yes"/>
+         <tag id="0" k="name" v="Hornbach"/>
+         <tag id="0" k="shop" v="doityourself"/>
+         <tag id="0" k="wheelchair" v="limited"/>
+      </way>
+   </modify>
+   <modify id="0">
+      <node changeset="10671963" id="479733308" lat="51.6259763" lon="7.3122702" timestamp="2012-02-13T16:17:47Z" user="wheelmap_visitor" version="3" visible="true">
+         <tag id="0" k="amenity" v="place_of_worship"/>
+         <tag id="0" k="denomination" v="catholic"/>
+         <tag id="0" k="name" v="Klosterkirche St.Dominikus"/>
+         <tag id="0" k="religion" v="christian"/>
+         <tag id="0" k="wheelchair" v="limited"/>
+      </node>
+   </modify>
+   <modify id="0">
+      <way changeset="10671963" id="24496970" timestamp="2012-02-13T16:18:04Z" uid="290680" user="wheelmap_visitor" version="2">
+         <nd ref="266378594"/>
+         <nd ref="266378595"/>
+         <nd ref="266378596"/>
+         <nd ref="266378597"/>
+         <nd ref="266378598"/>
+         <nd ref="266378599"/>
+         <nd ref="266378600"/>
+         <nd ref="266378601"/>
+         <nd ref="266378594"/>
+         <tag id="0" k="layer" v="1"/>
+         <tag id="0" k="leisure" v="playground"/>
+         <tag id="0" k="wheelchair" v="limited"/>
+      </way>
+   </modify>
+   <modify id="0">
+      <node changeset="10671963" id="469775806" lat="51.554084" lon="-0.3600423" timestamp="2012-02-13T16:18:05Z" user="wheelmap_visitor" version="4" visible="true">
+         <tag id="0" k="highway" v="bus_stop"/>
+         <tag id="0" k="local_ref" v="NL"/>
+         <tag id="0" k="name" v="Northolt Fire Station"/>
+         <tag id="0" k="naptan:AtcoCode" v="490010390S"/>
+         <tag id="0" k="naptan:Bearing" v="S"/>
+         <tag id="0" k="naptan:CommonName" v="Northolt Fire Station"/>
+         <tag id="0" k="naptan:Indicator" v="Stop NL"/>
+         <tag id="0" k="naptan:verified" v="no"/>
+         <tag id="0" k="wheelchair" v="yes"/>
+      </node>
+   </modify>
+   <modify id="0">
+      <node changeset="10671963" id="1348720483" lat="52.5017643" lon="13.4318185" timestamp="2012-02-13T16:41:51Z" user="wheelmap_visitor" version="2" visible="true">
+         <tag id="0" k="amenity" v="fast_food"/>
+         <tag id="0" k="cuisine" v="asian"/>
+         <tag id="0" k="name" v="Sushi-Asia Food"/>
+         <tag id="0" k="wheelchair" v="no"/>
+      </node>
+   </modify>
+   <modify id="0">
+      <way changeset="10671963" id="33618318" timestamp="2012-02-13T16:44:08Z" uid="290680" user="wheelmap_visitor" version="3">
+         <nd ref="384353959"/>
+         <nd ref="384353965"/>
+         <nd ref="384353971"/>
+         <nd ref="384353978"/>
+         <nd ref="384353959"/>
+         <tag id="0" k="amenity" v="place_of_worship"/>
+         <tag id="0" k="building" v="yes"/>
+         <tag id="0" k="name" v="Kirche Manslagt"/>
+         <tag id="0" k="religion" v="christian"/>
+         <tag id="0" k="wheelchair" v="limited"/>
+      </way>
+   </modify>
+   <modify id="0">
+      <way changeset="10671963" id="70130267" timestamp="2012-02-13T16:56:59Z" uid="290680" user="wheelmap_visitor" version="4">
+         <nd ref="837696839"/>
+         <nd ref="837696381"/>
+         <nd ref="837696906"/>
+         <nd ref="837696670"/>
+         <nd ref="837696839"/>
+         <tag id="0" k="amenity" v="place_of_worship"/>
+         <tag id="0" k="building" v="yes"/>
+         <tag id="0" k="denomination" v="protestant"/>
+         <tag id="0" k="name" v="Kirche Ahrendsfelde"/>
+         <tag id="0" k="religion" v="christian"/>
+         <tag id="0" k="wheelchair" v="yes"/>
+      </way>
+   </modify>
+   <modify id="0">
+      <way changeset="10671963" id="70130266" timestamp="2012-02-13T16:57:00Z" uid="290680" user="wheelmap_visitor" version="3">
+         <nd ref="837696528"/>
+         <nd ref="837696700"/>
+         <nd ref="837696902"/>
+         <nd ref="837696629"/>
+         <nd ref="837696528"/>
+         <tag id="0" k="amenity" v="townhall"/>
+         <tag id="0" k="building" v="yes"/>
+         <tag id="0" k="name" v="Rathaus Ahrensfelde"/>
+         <tag id="0" k="wheelchair" v="yes"/>
+      </way>
+   </modify>
+   <modify id="0">
+      <way changeset="10671963" id="24936300" timestamp="2012-02-13T16:57:02Z" uid="290680" user="wheelmap_visitor" version="6">
+         <nd ref="270979051"/>
+         <nd ref="270979054"/>
+         <nd ref="270979056"/>
+         <nd ref="270979059"/>
+         <nd ref="270979051"/>
+         <tag id="0" k="building" v="yes"/>
+         <tag id="0" k="name" v="Netto"/>
+         <tag id="0" k="shop" v="supermarket"/>
+         <tag id="0" k="wheelchair" v="yes"/>
+      </way>
+   </modify>
+   <modify id="0">
+      <way changeset="10671963" id="25038942" timestamp="2012-02-13T16:57:11Z" uid="290680" user="wheelmap_visitor" version="6">
+         <nd ref="272397978"/>
+         <nd ref="272397979"/>
+         <nd ref="272397980"/>
+         <nd ref="1400033065"/>
+         <nd ref="272397981"/>
+         <nd ref="1400033076"/>
+         <nd ref="272397978"/>
+         <tag id="0" k="building" v="yes"/>
+         <tag id="0" k="name" v="Norma"/>
+         <tag id="0" k="shop" v="supermarket"/>
+         <tag id="0" k="wheelchair" v="yes"/>
+      </way>
+   </modify>
+   <modify id="0">
+      <way changeset="10671963" id="39963988" timestamp="2012-02-13T17:35:05Z" uid="290680" user="wheelmap_visitor" version="2">
+         <nd ref="480056678"/>
+         <nd ref="480056681"/>
+         <nd ref="480056683"/>
+         <nd ref="480056684"/>
+         <nd ref="480056678"/>
+         <tag id="0" k="amenity" v="parking"/>
+         <tag id="0" k="fee" v="yes"/>
+         <tag id="0" k="wheelchair" v="yes"/>
+      </way>
+   </modify>
+   <modify id="0">
+      <way changeset="10671963" id="30067004" timestamp="2012-02-13T17:35:06Z" uid="290680" user="wheelmap_visitor" version="5">
+         <nd ref="1108894739"/>
+         <nd ref="1108894740"/>
+         <nd ref="1108894741"/>
+         <nd ref="331172426"/>
+         <nd ref="331172425"/>
+         <nd ref="393081980"/>
+         <nd ref="331172424"/>
+         <nd ref="331172427"/>
+         <nd ref="331172476"/>
+         <nd ref="331172478"/>
+         <nd ref="331172479"/>
+         <nd ref="331172480"/>
+         <nd ref="331172571"/>
+         <nd ref="331172688"/>
+         <nd ref="331172690"/>
+         <nd ref="331172693"/>
+         <nd ref="1108894742"/>
+         <nd ref="1108894744"/>
+         <nd ref="1108894745"/>
+         <nd ref="331172944"/>
+         <nd ref="331172945"/>
+         <nd ref="331172946"/>
+         <nd ref="331172947"/>
+         <nd ref="1108894739"/>
+         <tag id="0" k="amenity" v="townhall"/>
+         <tag id="0" k="building" v="yes"/>
+         <tag id="0" k="name" v="Rathaus"/>
+         <tag id="0" k="wheelchair" v="yes"/>
+      </way>
+   </modify>
+   <modify id="0">
+      <node changeset="10671963" id="388072791" lat="47.4816545" lon="8.4574019" timestamp="2012-02-13T17:47:08Z" user="wheelmap_visitor" version="6" visible="true">
+         <tag id="0" k="addr:housenumber" v="1"/>
+         <tag id="0" k="addr:street" v="Buckweg"/>
+         <tag id="0" k="amenity" v="fast_food"/>
+         <tag id="0" k="cuisine" v="pizza"/>
+         <tag id="0" k="name" v="Pinocchio Pizza"/>
+         <tag id="0" k="opening_hours" v="Mo-Fr 10:30-13:30, 16:00-22:00; Sa 16:00-22:30; Su 16:00-22:00"/>
+         <tag id="0" k="phone" v="+41448540614"/>
+         <tag id="0" k="website" v="www.pinocchio-pizza.ch"/>
+         <tag id="0" k="wheelchair" v="yes"/>
+      </node>
+   </modify>
+   <modify id="0">
+      <node changeset="10671963" id="248518801" lat="47.4822124" lon="8.4569857" timestamp="2012-02-13T17:49:10Z" user="wheelmap_visitor" version="2" visible="true">
+         <tag id="0" k="amenity" v="post_office"/>
+         <tag id="0" k="created_by" v="Potlatch 0.7b"/>
+         <tag id="0" k="wheelchair" v="yes"/>
+      </node>
+   </modify>
+   <modify id="0">
+      <node changeset="10671963" id="1260340570" lat="54.3722713" lon="10.2145926" timestamp="2012-02-13T17:53:18Z" user="wheelmap_visitor" version="3" visible="true">
+         <tag id="0" k="addr:city" v="Heikendorf"/>
+         <tag id="0" k="addr:country" v="DE"/>
+         <tag id="0" k="addr:housename" v="Sportheim Heikendorf"/>
+         <tag id="0" k="addr:housenumber" v="2"/>
+         <tag id="0" k="addr:postcode" v="24226"/>
+         <tag id="0" k="addr:street" v="Neuheikendorfer Weg"/>
+         <tag id="0" k="amenity" v="restaurant"/>
+         <tag id="0" k="cuisine" v="german"/>
+         <tag id="0" k="name" v="HSV Sportheim Heikendorf"/>
+         <tag id="0" k="phone" v="+49 (431) 241438"/>
+         <tag id="0" k="website" v="http://www.heikendorf-online.de/restaurant.php?nav=&amp;ID=&amp;b=11&amp;lan=en"/>
+         <tag id="0" k="wheelchair" v="yes"/>
+      </node>
+   </modify>
+   <modify id="0">
+      <node changeset="10671963" id="313232172" lat="47.4832697" lon="8.4554554" timestamp="2012-02-13T17:53:23Z" user="wheelmap_visitor" version="2" visible="true">
+         <tag id="0" k="name" v="Migros"/>
+         <tag id="0" k="shop" v="supermarket"/>
+         <tag id="0" k="wheelchair" v="yes"/>
+      </node>
+   </modify>
+   <modify id="0">
+      <node changeset="10671963" id="1258950605" lat="54.3698778" lon="10.2029001" timestamp="2012-02-13T17:59:11Z" user="wheelmap_visitor" version="5" visible="true">
+         <tag id="0" k="addr:city" v="Heikendorf"/>
+         <tag id="0" k="addr:country" v="DE"/>
+         <tag id="0" k="addr:housenumber" v="11"/>
+         <tag id="0" k="addr:postcode" v="24226"/>
+         <tag id="0" k="addr:street" v="DorfstraÃŸe"/>
+         <tag id="0" k="name" v="Steffen"/>
+         <tag id="0" k="shop" v="butcher"/>
+         <tag id="0" k="wheelchair" v="yes"/>
+      </node>
+   </modify>
+   <modify id="0">
+      <way changeset="10671963" id="110079470" timestamp="2012-02-13T18:00:13Z" uid="290680" user="wheelmap_visitor" version="3">
+         <nd ref="1258424516"/>
+         <nd ref="1258424494"/>
+         <nd ref="1258424509"/>
+         <nd ref="1258424514"/>
+         <nd ref="1258424516"/>
+         <tag id="0" k="addr:city" v="Heikendorf"/>
+         <tag id="0" k="addr:country" v="DE"/>
+         <tag id="0" k="addr:housenumber" v="3"/>
+         <tag id="0" k="addr:postcode" v="24226"/>
+         <tag id="0" k="addr:street" v="Am Schmiedeplatz"/>
+         <tag id="0" k="name" v="Rossmann / Kloppenburg"/>
+         <tag id="0" k="opening_hours" v="Mo 08:00-18:30; Tu 08:00-18:30; We 08:00-18:30; Th 08:00-18:30; Fr 08:00-18:30; Sa 08:00-14:00"/>
+         <tag id="0" k="operator" v="Dirk Rossmann GmbH"/>
+         <tag id="0" k="phone" v="+49 431 2378307"/>
+         <tag id="0" k="shop" v="chemist"/>
+         <tag id="0" k="source" v="Import Rossmann"/>
+         <tag id="0" k="website" v="http://www.rossmann.de"/>
+         <tag id="0" k="wheelchair" v="yes"/>
+      </way>
+   </modify>
+   <modify id="0">
+      <way changeset="10671963" id="110100500" timestamp="2012-02-13T18:01:15Z" uid="290680" user="wheelmap_visitor" version="3">
+         <nd ref="659936996"/>
+         <nd ref="1258586704"/>
+         <nd ref="1258586689"/>
+         <nd ref="1258586677"/>
+         <nd ref="1258586695"/>
+         <nd ref="1258586696"/>
+         <nd ref="1258586699"/>
+         <nd ref="1258586691"/>
+         <nd ref="1258586692"/>
+         <nd ref="659936996"/>
+         <tag id="0" k="addr:city" v="GÃ¶hrener Weg"/>
+         <tag id="0" k="addr:country" v="DE"/>
+         <tag id="0" k="addr:housenumber" v="10"/>
+         <tag id="0" k="addr:postcode" v="24226"/>
+         <tag id="0" k="addr:street" v="Dorfplatz"/>
+         <tag id="0" k="amenity" v="bank"/>
+         <tag id="0" k="atm" v="yes"/>
+         <tag id="0" k="building" v="yes"/>
+         <tag id="0" k="contact:fax" v="+49(431)23737722"/>
+         <tag id="0" k="contact:phone" v="+49(431)237370"/>
+         <tag id="0" k="contact:website" v="http://www.foerde-sparkasse.de/"/>
+         <tag id="0" k="name" v="FÃ¶rde Sparkasse"/>
+         <tag id="0" k="wheelchair" v="yes"/>
+      </way>
+   </modify>
+   <modify id="0">
+      <node changeset="10671963" id="1619144657" lat="52.0353879" lon="6.8230205" timestamp="2012-02-13T18:34:26Z" user="wheelmap_visitor" version="2" visible="true">
+         <tag id="0" k="amenity" v="toilets"/>
+         <tag id="0" k="wheelchair" v="no"/>
+      </node>
+   </modify>
+   <modify id="0">
+      <way changeset="10671963" id="104526087" timestamp="2012-02-13T18:35:19Z" uid="290680" user="wheelmap_visitor" version="4">
+         <nd ref="1205943654"/>
+         <nd ref="1205943680"/>
+         <nd ref="1205943639"/>
+         <nd ref="1205943681"/>
+         <nd ref="1205943678"/>
+         <nd ref="1205943641"/>
+         <nd ref="1205943673"/>
+         <nd ref="1205943647"/>
+         <nd ref="1205943683"/>
+         <nd ref="1205943676"/>
+         <nd ref="1436422473"/>
+         <nd ref="1436422677"/>
+         <nd ref="1436422396"/>
+         <nd ref="1436422422"/>
+         <nd ref="1205943652"/>
+         <nd ref="1205943650"/>
+         <nd ref="1205943682"/>
+         <nd ref="1205943643"/>
+         <nd ref="1436422547"/>
+         <nd ref="1436422786"/>
+         <nd ref="1205943654"/>
+         <tag id="0" k="amenity" v="library"/>
+         <tag id="0" k="building" v="yes"/>
+         <tag id="0" k="name" v="StadtbÃ¼cherei Vreden"/>
+         <tag id="0" k="wheelchair" v="no"/>
+      </way>
+   </modify>
+   <modify id="0">
+      <node changeset="10671963" id="1619145210" lat="52.0360133" lon="6.8228783" timestamp="2012-02-13T18:35:22Z" user="wheelmap_visitor" version="2" visible="true">
+         <tag id="0" k="amenity" v="police"/>
+         <tag id="0" k="wheelchair" v="no"/>
+      </node>
+   </modify>
+   <modify id="0">
+      <node changeset="10671963" id="1496666586" lat="52.035144" lon="6.8254777" timestamp="2012-02-13T18:35:24Z" user="wheelmap_visitor" version="3" visible="true">
+         <tag id="0" k="name" v="K&amp;K"/>
+         <tag id="0" k="shop" v="supermarket"/>
+         <tag id="0" k="wheelchair" v="limited"/>
+      </node>
+   </modify>
+   <modify id="0">
+      <node changeset="10671963" id="1496666579" lat="52.0348649" lon="6.8239268" timestamp="2012-02-13T18:35:25Z" user="wheelmap_visitor" version="3" visible="true">
+         <tag id="0" k="name" v="woolworth"/>
+         <tag id="0" k="shop" v="department_store"/>
+         <tag id="0" k="wheelchair" v="limited"/>
+      </node>
+   </modify>
+   <modify id="0">
+      <node changeset="10671963" id="590012171" lat="52.0332303" lon="6.8248213" timestamp="2012-02-13T18:41:13Z" user="wheelmap_visitor" version="2" visible="true">
+         <tag id="0" k="amenity" v="parking"/>
+         <tag id="0" k="name" v="Busbahnhof"/>
+         <tag id="0" k="wheelchair" v="limited"/>
+      </node>
+   </modify>
+   <modify id="0">
+      <way changeset="10671963" id="104525777" timestamp="2012-02-13T18:41:14Z" uid="290680" user="wheelmap_visitor" version="3">
+         <nd ref="1205931937"/>
+         <nd ref="1205931907"/>
+         <nd ref="1205931933"/>
+         <nd ref="1205931932"/>
+         <nd ref="1205931930"/>
+         <nd ref="1205931913"/>
+         <nd ref="1205931916"/>
+         <nd ref="1205931903"/>
+         <nd ref="1205931868"/>
+         <nd ref="1205931877"/>
+         <nd ref="1205931919"/>
+         <nd ref="1205931909"/>
+         <nd ref="1205931864"/>
+         <nd ref="1205931871"/>
+         <nd ref="1205931938"/>
+         <nd ref="1205931915"/>
+         <nd ref="1205931874"/>
+         <nd ref="1205931937"/>
+         <tag id="0" k="building" v="yes"/>
+         <tag id="0" k="leisure" v="sports_centre"/>
+         <tag id="0" k="name" v="Rundsporthalle"/>
+         <tag id="0" k="sport" v="gymnastics"/>
+         <tag id="0" k="wheelchair" v="no"/>
+      </way>
+   </modify>
+   <modify id="0">
+      <node changeset="10671963" id="1313234001" lat="59.8747846" lon="10.8109025" timestamp="2012-02-13T19:03:16Z" user="wheelmap_visitor" version="2" visible="true">
+         <tag id="0" k="amenity" v="parking"/>
+         <tag id="0" k="wheelchair" v="yes"/>
+      </node>
+   </modify>
+   <modify id="0">
+      <way changeset="10671963" id="116508575" timestamp="2012-02-13T19:03:17Z" uid="290680" user="wheelmap_visitor" version="2">
+         <nd ref="1313234003"/>
+         <nd ref="1313234000"/>
+         <nd ref="1313233999"/>
+         <nd ref="1313234002"/>
+         <nd ref="1313234003"/>
+         <tag id="0" k="building" v="yes"/>
+         <tag id="0" k="name" v="Lambertseter senter"/>
+         <tag id="0" k="shop" v="mall"/>
+         <tag id="0" k="wheelchair" v="yes"/>
+      </way>
+   </modify>
+   <modify id="0">
+      <node changeset="10671963" id="1289266899" lat="59.9283822" lon="10.7593178" timestamp="2012-02-13T19:05:20Z" user="wheelmap_visitor" version="4" visible="true">
+         <tag id="0" k="highway" v="bus_stop"/>
+         <tag id="0" k="name" v="Sannergata"/>
+         <tag id="0" k="ref" v="03010521"/>
+         <tag id="0" k="route_ref" v="21;33"/>
+         <tag id="0" k="source" v="Trafikanten"/>
+         <tag id="0" k="source:date" v="2011-03-22"/>
+         <tag id="0" k="wheelchair" v="yes"/>
+      </node>
+   </modify>
+   <modify id="0">
+      <node changeset="10671963" id="1489467281" lat="48.8749393" lon="2.3407815" timestamp="2012-02-13T19:06:23Z" user="wheelmap_visitor" version="2" visible="true">
+         <tag id="0" k="amenity" v="bank"/>
+         <tag id="0" k="atm" v="yes"/>
+         <tag id="0" k="name" v="LCL"/>
+         <tag id="0" k="operator" v="LCL"/>
+         <tag id="0" k="wheelchair" v="yes"/>
+      </node>
+   </modify>
+   <modify id="0">
+      <node changeset="10671963" id="286427521" lat="59.914221" lon="10.7568654" timestamp="2012-02-13T19:08:23Z" user="wheelmap_visitor" version="3" visible="true">
+         <tag id="0" k="amenity" v="parking"/>
+         <tag id="0" k="fee" v="yes"/>
+         <tag id="0" k="name" v="Spektrum parkeringshus"/>
+         <tag id="0" k="operator" v="Europark"/>
+         <tag id="0" k="parking" v="multi-storey"/>
+         <tag id="0" k="wheelchair" v="yes"/>
+      </node>
+   </modify>
+   <modify id="0">
+      <way changeset="10671963" id="55528519" timestamp="2012-02-13T19:14:24Z" uid="290680" user="wheelmap_visitor" version="8">
+         <nd ref="697839451"/>
+         <nd ref="697839459"/>
+         <nd ref="697839457"/>
+         <nd ref="697839455"/>
+         <nd ref="697839451"/>
+         <tag id="0" k="addr:housenumber" v="11"/>
+         <tag id="0" k="addr:street" v="Markt"/>
+         <tag id="0" k="building" v="yes"/>
+         <tag id="0" k="name" v="Heimatmuseum"/>
+         <tag id="0" k="opening_hours" v="Tu, We, Fr 10:00-17:00; Th 10:00-18:00"/>
+         <tag id="0" k="operator" v="Stadt Luckenwalde"/>
+         <tag id="0" k="phone" v="03371-67 25 50/-551"/>
+         <tag id="0" k="tourism" v="museum"/>
+         <tag id="0" k="wheelchair" v="yes"/>
+      </way>
+   </modify>
+   <modify id="0">
+      <node changeset="10671963" id="824062022" lat="46.9486778" lon="7.4404005" timestamp="2012-02-13T19:42:26Z" user="wheelmap_visitor" version="2" visible="true">
+         <tag id="0" k="amenity" v="fast_food"/>
+         <tag id="0" k="layer" v="-3"/>
+         <tag id="0" k="name" v="Swiss Grill"/>
+         <tag id="0" k="wheelchair" v="yes"/>
+      </node>
+   </modify>
+   <modify id="0">
+      <node changeset="10671963" id="1624367963" lat="50.9477518" lon="6.9156114" timestamp="2012-02-13T20:34:28Z" user="wheelmap_visitor" version="2" visible="true">
+         <tag id="0" k="amenity" v="restaurant"/>
+         <tag id="0" k="name" v="Ya Daary"/>
+         <tag id="0" k="wheelchair" v="no"/>
+      </node>
+   </modify>
+   <modify id="0">
+      <node changeset="10671963" id="754311152" lat="50.9489877" lon="6.9173205" timestamp="2012-02-13T20:34:29Z" user="wheelmap_visitor" version="3" visible="true">
+         <tag id="0" k="addr:housenumber" v="9"/>
+         <tag id="0" k="addr:street" v="SÃ¶mmeringstraÃŸe"/>
+         <tag id="0" k="amenity" v="bar"/>
+         <tag id="0" k="name" v="Rubinrot"/>
+         <tag id="0" k="wheelchair" v="no"/>
+      </node>
+   </modify>
+   <modify id="0">
+      <node changeset="10671963" id="824651730" lat="46.9491269" lon="7.4402289" timestamp="2012-02-13T20:42:29Z" user="wheelmap_visitor" version="2" visible="true">
+         <tag id="0" k="layer" v="-3"/>
+         <tag id="0" k="name" v="Kiosk"/>
+         <tag id="0" k="shop" v="kiosk"/>
+         <tag id="0" k="wheelchair" v="yes"/>
+      </node>
+   </modify>
+   <modify id="0">
+      <node changeset="10671963" id="1490603294" lat="41.4131219" lon="1.966743" timestamp="2012-02-13T20:48:31Z" user="wheelmap_visitor" version="2" visible="true">
+         <tag id="0" k="name" v="Cal Anzi"/>
+         <tag id="0" k="shop" v="alcohol"/>
+         <tag id="0" k="wheelchair" v="yes"/>
+      </node>
+   </modify>
+   <modify id="0">
+      <node changeset="10671963" id="1475916214" lat="41.4139553" lon="1.966647" timestamp="2012-02-13T20:49:31Z" user="wheelmap_visitor" version="2" visible="true">
+         <tag id="0" k="amenity" v="drinking_water"/>
+         <tag id="0" k="wheelchair" v="yes"/>
+      </node>
+   </modify>
+   <modify id="0">
+      <node changeset="10671963" id="1617645904" lat="41.4131732" lon="1.9705572" timestamp="2012-02-13T20:50:32Z" user="wheelmap_visitor" version="2" visible="true">
+         <tag id="0" k="amenity" v="drinking_water"/>
+         <tag id="0" k="wheelchair" v="yes"/>
+      </node>
+   </modify>
+   <modify id="0">
+      <node changeset="10671963" id="1609915439" lat="41.4117925" lon="1.9714926" timestamp="2012-02-13T20:51:34Z" user="wheelmap_visitor" version="2" visible="true">
+         <tag id="0" k="amenity" v="kindergarten"/>
+         <tag id="0" k="name" v="Llar d&apos;infants El Patufet"/>
+         <tag id="0" k="wheelchair" v="limited"/>
+      </node>
+   </modify>
+   <modify id="0">
+      <node changeset="10671963" id="1478224912" lat="41.4119303" lon="1.9700727" timestamp="2012-02-13T20:51:36Z" user="wheelmap_visitor" version="2" visible="true">
+         <tag id="0" k="amenity" v="drinking_water"/>
+         <tag id="0" k="wheelchair" v="yes"/>
+      </node>
+   </modify>
+   <modify id="0">
+      <way changeset="10671963" id="130453412" timestamp="2012-02-13T20:52:36Z" uid="290680" user="wheelmap_visitor" version="5">
+         <nd ref="1436885682"/>
+         <nd ref="1436885686"/>
+         <nd ref="1436885685"/>
+         <nd ref="1436885684"/>
+         <nd ref="1436885683"/>
+         <nd ref="1595025382"/>
+         <nd ref="1595105498"/>
+         <nd ref="1436885674"/>
+         <nd ref="1436885673"/>
+         <nd ref="1436885682"/>
+         <tag id="0" k="area" v="yes"/>
+         <tag id="0" k="leisure" v="playground"/>
+         <tag id="0" k="name" v="Parc infantil"/>
+         <tag id="0" k="wheelchair" v="yes"/>
+      </way>
+   </modify>
+   <modify id="0">
+      <way changeset="10671963" id="133901407" timestamp="2012-02-13T20:52:38Z" uid="290680" user="wheelmap_visitor" version="4">
+         <nd ref="1473398748"/>
+         <nd ref="1609994681"/>
+         <nd ref="1609994690"/>
+         <nd ref="1473398924"/>
+         <nd ref="1473398914"/>
+         <nd ref="1473398918"/>
+         <nd ref="1473398916"/>
+         <nd ref="1473398920"/>
+         <nd ref="1473398922"/>
+         <nd ref="1473398927"/>
+         <nd ref="1473398939"/>
+         <nd ref="1473398941"/>
+         <nd ref="1473398930"/>
+         <nd ref="1609994675"/>
+         <nd ref="1473398748"/>
+         <tag id="0" k="amenity" v="school"/>
+         <tag id="0" k="area" v="yes"/>
+         <tag id="0" k="name" v="Escola el Solell"/>
+         <tag id="0" k="wheelchair" v="limited"/>
+      </way>
+   </modify>
+   <modify id="0">
+      <way changeset="10671963" id="133901400" timestamp="2012-02-13T20:52:40Z" uid="290680" user="wheelmap_visitor" version="2">
+         <nd ref="1473398911"/>
+         <nd ref="1473398881"/>
+         <nd ref="1473398877"/>
+         <nd ref="1473398879"/>
+         <nd ref="1473398885"/>
+         <nd ref="1473398883"/>
+         <nd ref="1473398887"/>
+         <nd ref="1473398903"/>
+         <nd ref="1473398908"/>
+         <nd ref="1473398911"/>
+         <tag id="0" k="area" v="yes"/>
+         <tag id="0" k="leisure" v="playground"/>
+         <tag id="0" k="name" v="Parc de l&apos;EspÃ­gol"/>
+         <tag id="0" k="wheelchair" v="yes"/>
+      </way>
+   </modify>
+   <modify id="0">
+      <way changeset="10671963" id="133901410" timestamp="2012-02-13T20:53:44Z" uid="290680" user="wheelmap_visitor" version="3">
+         <nd ref="1473398875"/>
+         <nd ref="1478224997"/>
+         <nd ref="1478224995"/>
+         <nd ref="1473398820"/>
+         <nd ref="1473398796"/>
+         <nd ref="1473398789"/>
+         <nd ref="1473398793"/>
+         <nd ref="1473398821"/>
+         <nd ref="1478225000"/>
+         <nd ref="1473398875"/>
+         <tag id="0" k="area" v="yes"/>
+         <tag id="0" k="leisure" v="playground"/>
+         <tag id="0" k="wheelchair" v="limited"/>
+      </way>
+   </modify>
+   <modify id="0">
+      <node changeset="10671963" id="1475916211" lat="41.4130224" lon="1.9694789" timestamp="2012-02-13T20:55:42Z" user="wheelmap_visitor" version="3" visible="true">
+         <tag id="0" k="amenity" v="drinking_water"/>
+         <tag id="0" k="wheelchair" v="yes"/>
+      </node>
+   </modify>
+   <modify id="0">
+      <node changeset="10671963" id="1474270317" lat="41.4129638" lon="1.9674283" timestamp="2012-02-13T20:56:43Z" user="wheelmap_visitor" version="2" visible="true">
+         <tag id="0" k="amenity" v="drinking_water"/>
+         <tag id="0" k="wheelchair" v="limited"/>
+      </node>
+   </modify>
+   <modify id="0">
+      <node changeset="10671963" id="1440926037" lat="41.4108191" lon="1.9712571" timestamp="2012-02-13T20:56:47Z" user="wheelmap_visitor" version="6" visible="true">
+         <tag id="0" k="addr:street" v="Carrer Sant CristÃ²fol, s/n"/>
+         <tag id="0" k="amenity" v="townhall"/>
+         <tag id="0" k="covered" v="yes"/>
+         <tag id="0" k="email" v="labustia.lapalma@diba.es"/>
+         <tag id="0" k="name" v="Ajuntament de La Palma"/>
+         <tag id="0" k="phone" v="93-672-02-02"/>
+         <tag id="0" k="postal_code" v="08756"/>
+         <tag id="0" k="website" v="http://www.lapalma.diba.es/index.htm"/>
+         <tag id="0" k="wheelchair" v="yes"/>
+      </node>
+   </modify>
+   <modify id="0">
+      <node changeset="10671963" id="1619454020" lat="41.4128983" lon="1.9704954" timestamp="2012-02-13T20:57:44Z" user="wheelmap_visitor" version="2" visible="true">
+         <tag id="0" k="description" v="Monument realitzat per la XI trobada gegantera l&apos;any 2008"/>
+         <tag id="0" k="historic" v="memorial"/>
+         <tag id="0" k="name" v="Monument &quot;Gegants de La Palma&quot;"/>
+         <tag id="0" k="start_date" v="2008"/>
+         <tag id="0" k="wheelchair" v="yes"/>
+      </node>
+   </modify>
+   <modify id="0">
+      <node changeset="10671963" id="1474270316" lat="41.4134103" lon="1.9655691" timestamp="2012-02-13T20:58:45Z" user="wheelmap_visitor" version="3" visible="true">
+         <tag id="0" k="amenity" v="theatre"/>
+         <tag id="0" k="name" v="Teatre Societat AlianÃ§a Palmarenca"/>
+         <tag id="0" k="wheelchair" v="limited"/>
+      </node>
+   </modify>
+   <modify id="0">
+      <node changeset="10671963" id="1435018560" lat="41.4132259" lon="1.9657498" timestamp="2012-02-13T20:59:47Z" user="wheelmap_visitor" version="4" visible="true">
+         <tag id="0" k="amenity" v="drinking_water"/>
+         <tag id="0" k="wheelchair" v="yes"/>
+      </node>
+   </modify>
+   <modify id="0">
+      <node changeset="10671963" id="280466297" lat="55.6778757" lon="12.5695321" timestamp="2012-02-13T21:56:51Z" user="wheelmap_visitor" version="3" visible="true">
+         <tag id="0" k="amenity" v="restaurant"/>
+         <tag id="0" k="name" v="La Galette"/>
+         <tag id="0" k="wheelchair" v="yes"/>
+      </node>
+   </modify>
+   <modify id="0">
+      <node changeset="10671963" id="280466425" lat="55.678228" lon="12.569743" timestamp="2012-02-13T21:56:52Z" user="wheelmap_visitor" version="3" visible="true">
+         <tag id="0" k="amenity" v="restaurant"/>
+         <tag id="0" k="created_by" v="Potlatch 0.10"/>
+         <tag id="0" k="name" v="L&apos;education Nationale"/>
+         <tag id="0" k="wheelchair" v="limited"/>
+      </node>
+   </modify>
+   <modify id="0">
+      <node changeset="10671963" id="519533642" lat="55.6778304" lon="12.5721265" timestamp="2012-02-13T21:57:54Z" user="wheelmap_visitor" version="3" visible="true">
+         <tag id="0" k="name" v="7-Eleven"/>
+         <tag id="0" k="opening_hours" v="24/7"/>
+         <tag id="0" k="shop" v="convenience"/>
+         <tag id="0" k="wheelchair" v="yes"/>
+      </node>
+   </modify>
+   <modify id="0">
+      <node changeset="10671963" id="828136427" lat="48.9287198" lon="10.4924095" timestamp="2012-02-13T22:15:54Z" user="wheelmap_visitor" version="2" visible="true">
+         <tag id="0" k="amenity" v="restaurant"/>
+         <tag id="0" k="cuisine" v="german"/>
+         <tag id="0" k="name" v="Gasthaus zur Klosterschenke"/>
+         <tag id="0" k="wheelchair" v="yes"/>
+      </node>
+   </modify>
+   <modify id="0">
+      <node changeset="10671963" id="502084753" lat="-33.4975864" lon="-70.6823341" timestamp="2012-02-13T22:21:57Z" user="wheelmap_visitor" version="2" visible="true">
+         <tag id="0" k="name" v="EstaciÃ³n Pedro Aguirre Cerda"/>
+         <tag id="0" k="railway" v="station"/>
+         <tag id="0" k="wheelchair" v="yes"/>
+      </node>
+   </modify>
+   <modify id="0">
+      <node changeset="10671963" id="1175652061" lat="-33.4941885" lon="-70.6866508" timestamp="2012-02-13T22:22:58Z" user="wheelmap_visitor" version="2" visible="true">
+         <tag id="0" k="attribution" v="CoordinaciÃ³n de Transportes de Santiago"/>
+         <tag id="0" k="highway" v="bus_stop"/>
+         <tag id="0" k="is_in:city" v="Pedro Aguirre Cerda"/>
+         <tag id="0" k="name" v="Centro AmÃ©rica / Central"/>
+         <tag id="0" k="ref" v="PH89"/>
+         <tag id="0" k="ref_name" v="Centro AmÃ©rica / Central"/>
+         <tag id="0" k="route_ref" v="105;105C2;120"/>
+         <tag id="0" k="source" v="http://www.transantiago.cl"/>
+         <tag id="0" k="ts_calle" v="Central"/>
+         <tag id="0" k="ts_codigo" v="T-28-233-SN-15"/>
+         <tag id="0" k="ts_desde" v="Plano Regulador"/>
+         <tag id="0" k="ts_hacia" v="Centro America"/>
+         <tag id="0" k="ts_orientacion" v="SN"/>
+         <tag id="0" k="wheelchair" v="no"/>
+      </node>
+   </modify>
+   <modify id="0">
+      <node changeset="10671963" id="301699773" lat="-33.5025062" lon="-70.65452" timestamp="2012-02-13T22:22:59Z" user="wheelmap_visitor" version="4" visible="true">
+         <tag id="0" k="name" v="Departamental"/>
+         <tag id="0" k="railway" v="station"/>
+         <tag id="0" k="wheelchair" v="no"/>
+      </node>
+   </modify>
+   <modify id="0">
+      <node changeset="10671963" id="1381121025" lat="-33.5041822" lon="-70.6543276" timestamp="2012-02-13T22:23:01Z" user="wheelmap_visitor" version="2" visible="true">
+         <tag id="0" k="name" v="Homecenter"/>
+         <tag id="0" k="shop" v="doityourself"/>
+         <tag id="0" k="wheelchair" v="yes"/>
+      </node>
+   </modify>
+   <modify id="0">
+      <node changeset="10671963" id="301699834" lat="-33.5096362" lon="-70.6565891" timestamp="2012-02-13T22:24:01Z" user="wheelmap_visitor" version="4" visible="true">
+         <tag id="0" k="name" v="Ciudad del NiÃ±o"/>
+         <tag id="0" k="railway" v="station"/>
+         <tag id="0" k="wheelchair" v="no"/>
+      </node>
+   </modify>
+   <modify id="0">
+      <node changeset="10671963" id="301699842" lat="-33.5172771" lon="-70.6587857" timestamp="2012-02-13T22:24:02Z" user="wheelmap_visitor" version="5" visible="true">
+         <tag id="0" k="name" v="Lo Ovalle"/>
+         <tag id="0" k="railway" v="station"/>
+         <tag id="0" k="wheelchair" v="no"/>
+      </node>
+   </modify>
+   <modify id="0">
+      <node changeset="10671963" id="301699913" lat="-33.5263977" lon="-70.6612898" timestamp="2012-02-13T22:24:03Z" user="wheelmap_visitor" version="3" visible="true">
+         <tag id="0" k="name" v="El Parron"/>
+         <tag id="0" k="railway" v="station"/>
+         <tag id="0" k="wheelchair" v="yes"/>
+      </node>
+   </modify>
+   <modify id="0">
+      <node changeset="10671963" id="301700067" lat="-33.5374037" lon="-70.6642613" timestamp="2012-02-13T22:25:03Z" user="wheelmap_visitor" version="6" visible="true">
+         <tag id="0" k="name" v="La Cisterna"/>
+         <tag id="0" k="railway" v="station"/>
+         <tag id="0" k="wheelchair" v="yes"/>
+      </node>
+   </modify>
+   <modify id="0">
+      <node changeset="10671963" id="301704116" lat="-33.541243" lon="-70.6429873" timestamp="2012-02-13T22:27:06Z" user="wheelmap_visitor" version="7" visible="true">
+         <tag id="0" k="name" v="San Ramon"/>
+         <tag id="0" k="railway" v="station"/>
+         <tag id="0" k="wheelchair" v="yes"/>
+      </node>
+   </modify>
+   <modify id="0">
+      <node changeset="10671963" id="906418813" lat="-33.539695" lon="-70.6518381" timestamp="2012-02-13T22:27:09Z" user="wheelmap_visitor" version="2" visible="true">
+         <tag id="0" k="addr:housenumber" v="1287"/>
+         <tag id="0" k="addr:street" v="Americo Vespucio"/>
+         <tag id="0" k="amenity" v="school"/>
+         <tag id="0" k="name" v="Liceo Politecnico Galvarino NÂº 2"/>
+         <tag id="0" k="operator" v="3"/>
+         <tag id="0" k="school:type" v="410;510"/>
+         <tag id="0" k="source" v="Gobierno Regional Metropolitano de Santiago (http://www.gobiernosantiago.cl/)"/>
+         <tag id="0" k="wheelchair" v="no"/>
+      </node>
+   </modify>
+   <modify id="0">
+      <node changeset="10671963" id="301703484" lat="-33.5424769" lon="-70.6340442" timestamp="2012-02-13T22:28:13Z" user="wheelmap_visitor" version="5" visible="true">
+         <tag id="0" k="name" v="Santa Rosa"/>
+         <tag id="0" k="railway" v="station"/>
+         <tag id="0" k="wheelchair" v="yes"/>
+      </node>
+   </modify>
+   <modify id="0">
+      <node changeset="10671963" id="332051055" lat="-33.5523217" lon="-70.6351589" timestamp="2012-02-13T22:28:16Z" user="wheelmap_visitor" version="3" visible="true">
+         <tag id="0" k="amenity" v="hospital"/>
+         <tag id="0" k="name" v="Hospital Padre Hurtado"/>
+         <tag id="0" k="wheelchair" v="yes"/>
+      </node>
+   </modify>
+   <modify id="0">
+      <node changeset="10671963" id="332051132" lat="-33.5457765" lon="-70.6344293" timestamp="2012-02-13T22:28:18Z" user="wheelmap_visitor" version="3" visible="true">
+         <tag id="0" k="name" v="Lider"/>
+         <tag id="0" k="shop" v="supermarket"/>
+         <tag id="0" k="wheelchair" v="yes"/>
+      </node>
+   </modify>
+   <modify id="0">
+      <way changeset="10671963" id="128520000" timestamp="2012-02-13T22:29:18Z" uid="290680" user="wheelmap_visitor" version="3">
+         <nd ref="1420139892"/>
+         <nd ref="1420139890"/>
+         <nd ref="1420139879"/>
+         <nd ref="1420139878"/>
+         <nd ref="1420139887"/>
+         <nd ref="1420139884"/>
+         <nd ref="1420139876"/>
+         <nd ref="1420139873"/>
+         <nd ref="1420139857"/>
+         <nd ref="1420139858"/>
+         <nd ref="1420139847"/>
+         <nd ref="1420139851"/>
+         <nd ref="1420139860"/>
+         <nd ref="1420139861"/>
+         <nd ref="1420139849"/>
+         <nd ref="1420139852"/>
+         <nd ref="1420139862"/>
+         <nd ref="1420139863"/>
+         <nd ref="1420139892"/>
+         <tag id="0" k="building" v="yes"/>
+         <tag id="0" k="email" v="info@palace.it"/>
+         <tag id="0" k="fax" v="+39 0473 271 100"/>
+         <tag id="0" k="name" v="Palace Merano"/>
+         <tag id="0" k="phone" v="+39 0473 271 000"/>
+         <tag id="0" k="tourism" v="hotel"/>
+         <tag id="0" k="website" v="http://www.palace.it"/>
+         <tag id="0" k="wheelchair" v="yes"/>
+      </way>
+   </modify>
+   <modify id="0">
+      <way changeset="10671963" id="58989725" timestamp="2012-02-13T22:30:20Z" uid="290680" user="wheelmap_visitor" version="2">
+         <nd ref="731065731"/>
+         <nd ref="731065728"/>
+         <nd ref="731065726"/>
+         <nd ref="731065733"/>
+         <nd ref="731065731"/>
+         <tag id="0" k="amenity" v="restaurant"/>
+         <tag id="0" k="building" v="yes"/>
+         <tag id="0" k="cuisine" v="regional"/>
+         <tag id="0" k="name" v="Saxifraga"/>
+         <tag id="0" k="wheelchair" v="no"/>
+      </way>
+   </modify>
+   <modify id="0">
+      <way changeset="10671963" id="58999015" timestamp="2012-02-13T22:30:22Z" uid="290680" user="wheelmap_visitor" version="4">
+         <nd ref="731249875"/>
+         <nd ref="731249866"/>
+         <nd ref="731249869"/>
+         <nd ref="1331345203"/>
+         <nd ref="1331345176"/>
+         <nd ref="1331345212"/>
+         <nd ref="1331345222"/>
+         <nd ref="1331345174"/>
+         <nd ref="1331345218"/>
+         <nd ref="731249870"/>
+         <nd ref="731249875"/>
+         <tag id="0" k="addr:housenumber" v="1"/>
+         <tag id="0" k="addr:street" v="Thermenplatz"/>
+         <tag id="0" k="building" v="yes"/>
+         <tag id="0" k="name" v="Hotel Therme Meran"/>
+         <tag id="0" k="stars" v="5"/>
+         <tag id="0" k="tourism" v="hotel"/>
+         <tag id="0" k="website" v="http://www.hotelthermemeran.it/"/>
+         <tag id="0" k="wheelchair" v="yes"/>
+      </way>
+   </modify>
+   <modify id="0">
+      <node changeset="10671963" id="1175407290" lat="-33.5605951" lon="-70.6143604" timestamp="2012-02-13T22:30:26Z" user="wheelmap_visitor" version="2" visible="true">
+         <tag id="0" k="attribution" v="CoordinaciÃ³n de Transportes de Santiago"/>
+         <tag id="0" k="highway" v="bus_stop"/>
+         <tag id="0" k="is_in:city" v="La Pintana"/>
+         <tag id="0" k="name" v="General Arriagada / La Serena"/>
+         <tag id="0" k="ref" v="PG833"/>
+         <tag id="0" k="ref_name" v="General Arriagada / La Serena"/>
+         <tag id="0" k="route_ref" v="G04 PRN;G04;G10;G15 N;G15"/>
+         <tag id="0" k="source" v="http://www.transantiago.cl"/>
+         <tag id="0" k="ts_calle" v="La Serena"/>
+         <tag id="0" k="ts_codigo" v="L-23-23-OP-15"/>
+         <tag id="0" k="ts_desde" v="Salome"/>
+         <tag id="0" k="ts_hacia" v="General Arriagada"/>
+         <tag id="0" k="ts_orientacion" v="OP"/>
+         <tag id="0" k="wheelchair" v="limited"/>
+      </node>
+   </modify>
+   <modify id="0">
+      <way changeset="10671963" id="69323593" timestamp="2012-02-13T22:30:29Z" uid="290680" user="wheelmap_visitor" version="5">
+         <nd ref="830600910"/>
+         <nd ref="830602854"/>
+         <nd ref="830604979"/>
+         <nd ref="830604152"/>
+         <nd ref="830599966"/>
+         <nd ref="830599651"/>
+         <nd ref="830602249"/>
+         <nd ref="830601235"/>
+         <nd ref="830603103"/>
+         <nd ref="830602474"/>
+         <nd ref="830604409"/>
+         <nd ref="830603440"/>
+         <nd ref="830600250"/>
+         <nd ref="830604667"/>
+         <nd ref="830601884"/>
+         <nd ref="830600562"/>
+         <nd ref="830602726"/>
+         <nd ref="830602113"/>
+         <nd ref="830603959"/>
+         <nd ref="830602961"/>
+         <nd ref="830605095"/>
+         <nd ref="830604270"/>
+         <nd ref="830600910"/>
+         <tag id="0" k="building" v="yes"/>
+         <tag id="0" k="historic" v="castle"/>
+         <tag id="0" k="name" v="LandesfÃ¼rstliche Burg - Castello Principesco"/>
+         <tag id="0" k="name:de" v="LandesfÃ¼rstliche Burg"/>
+         <tag id="0" k="name:en" v="The Princes&apos; Castle"/>
+         <tag id="0" k="name:it" v="Castello Principesco"/>
+         <tag id="0" k="wheelchair" v="no"/>
+      </way>
+   </modify>
+   <modify id="0">
+      <node changeset="10671963" id="1175525069" lat="-33.5618793" lon="-70.6102179" timestamp="2012-02-13T22:31:29Z" user="wheelmap_visitor" version="2" visible="true">
+         <tag id="0" k="attribution" v="CoordinaciÃ³n de Transportes de Santiago"/>
+         <tag id="0" k="highway" v="bus_stop"/>
+         <tag id="0" k="is_in:city" v="La Florida"/>
+         <tag id="0" k="name" v="BahÃ­a Catalina / San Miguel"/>
+         <tag id="0" k="ref" v="PE710"/>
+         <tag id="0" k="ref_name" v="BahÃ­a Catalina / San Miguel"/>
+         <tag id="0" k="route_ref" v="E11;G15 N;G15"/>
+         <tag id="0" k="source" v="http://www.transantiago.cl"/>
+         <tag id="0" k="ts_calle" v="San Miguel"/>
+         <tag id="0" k="ts_codigo" v="L-33-58-OP-5"/>
+         <tag id="0" k="ts_desde" v="Las Quinchas"/>
+         <tag id="0" k="ts_hacia" v="BahÃ­a Catalina"/>
+         <tag id="0" k="ts_orientacion" v="OP"/>
+         <tag id="0" k="wheelchair" v="no"/>
+      </node>
+   </modify>
+   <modify id="0">
+      <node changeset="10671963" id="256377970" lat="-33.5609878" lon="-70.5852851" timestamp="2012-02-13T22:32:30Z" user="wheelmap_visitor" version="5" visible="true">
+         <tag id="0" k="name" v="Los Quillayes"/>
+         <tag id="0" k="railway" v="station"/>
+         <tag id="0" k="wheelchair" v="yes"/>
+      </node>
+   </modify>
+   <modify id="0">
+      <node changeset="10671963" id="906419605" lat="-33.5530797" lon="-70.5897183" timestamp="2012-02-13T22:32:31Z" user="wheelmap_visitor" version="3" visible="true">
+         <tag id="0" k="addr:housenumber" v="153"/>
+         <tag id="0" k="addr:street" v="San Jose De La Estrella"/>
+         <tag id="0" k="amenity" v="school"/>
+         <tag id="0" k="contact:email" v="eduindiragandhi@comudef.cl"/>
+         <tag id="0" k="name" v="Liceo Municipal Indira Gandhi"/>
+         <tag id="0" k="operator" v="1"/>
+         <tag id="0" k="school:type" v="10;110;361"/>
+         <tag id="0" k="source" v="Gobierno Regional Metropolitano de Santiago (http://www.gobiernosantiago.cl/)"/>
+         <tag id="0" k="wheelchair" v="yes"/>
+      </node>
+   </modify>
+   <modify id="0">
+      <node changeset="10671963" id="470378182" lat="-33.5536425" lon="-70.5865818" timestamp="2012-02-13T22:32:32Z" user="wheelmap_visitor" version="4" visible="true">
+         <tag id="0" k="name" v="San Jose de la Estrella"/>
+         <tag id="0" k="railway" v="station"/>
+         <tag id="0" k="wheelchair" v="yes"/>
+      </node>
+   </modify>
+   <modify id="0">
+      <node changeset="10671963" id="353473996" lat="-33.5523295" lon="-70.5874932" timestamp="2012-02-13T22:33:33Z" user="wheelmap_visitor" version="7" visible="true">
+         <tag id="0" k="amenity" v="place_of_worship"/>
+         <tag id="0" k="denomination" v="catholic"/>
+         <tag id="0" k="name" v="Parroquia Divino Redentor"/>
+         <tag id="0" k="religion" v="christian"/>
+         <tag id="0" k="wheelchair" v="no"/>
+      </node>
+   </modify>
+   <modify id="0">
+      <node changeset="10671963" id="891225496" lat="-33.5536199" lon="-70.576695" timestamp="2012-02-13T22:33:35Z" user="wheelmap_visitor" version="2" visible="true">
+         <tag id="0" k="amenity" v="school"/>
+         <tag id="0" k="name" v="Liceo anexo BenjamÃ­n VicuÃ±a Mackenna"/>
+         <tag id="0" k="wheelchair" v="yes"/>
+      </node>
+   </modify>
+   <modify id="0">
+      <node changeset="10671963" id="301703081" lat="-33.5310045" lon="-70.6054213" timestamp="2012-02-13T22:35:35Z" user="wheelmap_visitor" version="6" visible="true">
+         <tag id="0" k="name" v="Santa Julia"/>
+         <tag id="0" k="railway" v="station"/>
+         <tag id="0" k="wheelchair" v="yes"/>
+      </node>
+   </modify>
+   <modify id="0">
+      <node changeset="10671963" id="301703223" lat="-33.541201" lon="-70.6159502" timestamp="2012-02-13T22:35:37Z" user="wheelmap_visitor" version="7" visible="true">
+         <tag id="0" k="name" v="La Granja"/>
+         <tag id="0" k="railway" v="station"/>
+         <tag id="0" k="wheelchair" v="yes"/>
+      </node>
+   </modify>
+   <modify id="0">
+      <node changeset="10671963" id="320398031" lat="-33.5216525" lon="-70.5983254" timestamp="2012-02-13T22:35:37Z" user="wheelmap_visitor" version="3" visible="true">
+         <tag id="0" k="amenity" v="fuel"/>
+         <tag id="0" k="name" v="Shell"/>
+         <tag id="0" k="wheelchair" v="yes"/>
+      </node>
+   </modify>
+   <modify id="0">
+      <node changeset="10671963" id="496673282" lat="-33.5230916" lon="-70.5996241" timestamp="2012-02-13T22:35:39Z" user="wheelmap_visitor" version="4" visible="true">
+         <tag id="0" k="amenity" v="fuel"/>
+         <tag id="0" k="name" v="Copec"/>
+         <tag id="0" k="wheelchair" v="yes"/>
+      </node>
+   </modify>
+   <modify id="0">
+      <node changeset="10671963" id="1235438116" lat="-33.5235677" lon="-70.5984872" timestamp="2012-02-13T22:35:40Z" user="wheelmap_visitor" version="3" visible="true">
+         <tag id="0" k="amenity" v="fuel"/>
+         <tag id="0" k="name" v="Esso"/>
+         <tag id="0" k="wheelchair" v="yes"/>
+      </node>
+   </modify>
+   <modify id="0">
+      <node changeset="10671963" id="1002623810" lat="-33.5209325" lon="-70.5999669" timestamp="2012-02-13T22:35:41Z" user="wheelmap_visitor" version="3" visible="true">
+         <tag id="0" k="amenity" v="pharmacy"/>
+         <tag id="0" k="name" v="Dr. Simi"/>
+         <tag id="0" k="wheelchair" v="yes"/>
+      </node>
+   </modify>
+   <modify id="0">
+      <node changeset="10671963" id="320398361" lat="-33.5190367" lon="-70.5969466" timestamp="2012-02-13T22:36:42Z" user="wheelmap_visitor" version="3" visible="true">
+         <tag id="0" k="amenity" v="hospital"/>
+         <tag id="0" k="created_by" v="Potlatch 0.10f"/>
+         <tag id="0" k="name" v="ClÃ­nica Vespucio"/>
+         <tag id="0" k="wheelchair" v="yes"/>
+      </node>
+   </modify>
+   <modify id="0">
+      <node changeset="10671963" id="256999811" lat="-33.5195014" lon="-70.6000032" timestamp="2012-02-13T22:36:43Z" user="wheelmap_visitor" version="9" visible="true">
+         <tag id="0" k="name" v="Bellavista de la Florida"/>
+         <tag id="0" k="railway" v="station"/>
+         <tag id="0" k="wheelchair" v="yes"/>
+      </node>
+   </modify>
+   <modify id="0">
+      <node changeset="10671963" id="1119842045" lat="-33.5178726" lon="-70.5984988" timestamp="2012-02-13T22:36:43Z" user="wheelmap_visitor" version="2" visible="true">
+         <tag id="0" k="addr:housenumber" v="7110"/>
+         <tag id="0" k="addr:street" v="Avda. VicuÃ±a Mackenna Oriente"/>
+         <tag id="0" k="name" v="Mall Plaza Vespucio"/>
+         <tag id="0" k="shop" v="mall"/>
+         <tag id="0" k="wheelchair" v="yes"/>
+      </node>
+   </modify>
+   <modify id="0">
+      <way changeset="10671963" id="86328648" timestamp="2012-02-13T22:36:44Z" uid="290680" user="wheelmap_visitor" version="4">
+         <nd ref="1002603012"/>
+         <nd ref="1002603016"/>
+         <nd ref="1002603019"/>
+         <nd ref="1002603025"/>
+         <nd ref="1002603033"/>
+         <nd ref="1002603036"/>
+         <nd ref="1002603037"/>
+         <nd ref="1002603012"/>
+         <tag id="0" k="amenity" v="townhall"/>
+         <tag id="0" k="name" v="Municipalidad de La Florida"/>
+         <tag id="0" k="wheelchair" v="no"/>
+      </way>
+   </modify>
+   <modify id="0">
+      <node changeset="10671963" id="1399040168" lat="-33.5171503" lon="-70.5974148" timestamp="2012-02-13T22:36:45Z" user="wheelmap_visitor" version="2" visible="true">
+         <tag id="0" k="amenity" v="cinema"/>
+         <tag id="0" k="name" v="Cinemark"/>
+         <tag id="0" k="wheelchair" v="no"/>
+      </node>
+   </modify>
+   <modify id="0">
+      <node changeset="10671963" id="256377241" lat="-33.5360515" lon="-70.5926665" timestamp="2012-02-13T22:38:46Z" user="wheelmap_visitor" version="5" visible="true">
+         <tag id="0" k="name" v="Rojas Magallanes"/>
+         <tag id="0" k="railway" v="station"/>
+         <tag id="0" k="wheelchair" v="yes"/>
+      </node>
+   </modify>
+   <modify id="0">
+      <node changeset="10671963" id="256376944" lat="-33.5264118" lon="-70.5967595" timestamp="2012-02-13T22:38:47Z" user="wheelmap_visitor" version="5" visible="true">
+         <tag id="0" k="name" v="Vicente ValdÃ©s"/>
+         <tag id="0" k="railway" v="station"/>
+         <tag id="0" k="wheelchair" v="yes"/>
+      </node>
+   </modify>
+   <modify id="0">
+      <node changeset="10671963" id="256377430" lat="-33.5468451" lon="-70.5878594" timestamp="2012-02-13T22:39:47Z" user="wheelmap_visitor" version="4" visible="true">
+         <tag id="0" k="name" v="Trinidad"/>
+         <tag id="0" k="railway" v="station"/>
+         <tag id="0" k="wheelchair" v="yes"/>
+      </node>
+   </modify>
+   <modify id="0">
+      <node changeset="10671963" id="906421774" lat="-33.5177355" lon="-70.592771" timestamp="2012-02-13T22:40:48Z" user="wheelmap_visitor" version="2" visible="true">
+         <tag id="0" k="addr:housenumber" v="6865"/>
+         <tag id="0" k="addr:street" v="Yokohama"/>
+         <tag id="0" k="amenity" v="school"/>
+         <tag id="0" k="contact:email" v="edusamore@comudef.cl"/>
+         <tag id="0" k="name" v="Complejo Educ.Cardenal Antonio Samore"/>
+         <tag id="0" k="operator" v="1"/>
+         <tag id="0" k="school:type" v="110;410;460"/>
+         <tag id="0" k="source" v="Gobierno Regional Metropolitano de Santiago (http://www.gobiernosantiago.cl/)"/>
+         <tag id="0" k="wheelchair" v="yes"/>
+      </node>
+   </modify>
+   <modify id="0">
+      <way changeset="10671963" id="104945541" timestamp="2012-02-13T22:40:49Z" uid="290680" user="wheelmap_visitor" version="3">
+         <nd ref="1210042962"/>
+         <nd ref="1210042963"/>
+         <nd ref="1210042964"/>
+         <nd ref="1210042965"/>
+         <nd ref="1210042966"/>
+         <nd ref="1210042967"/>
+         <nd ref="1210042968"/>
+         <nd ref="1210042969"/>
+         <nd ref="1210042970"/>
+         <nd ref="1210042971"/>
+         <nd ref="1210042962"/>
+         <tag id="0" k="building" v="yes"/>
+         <tag id="0" k="landuse" v="retail"/>
+         <tag id="0" k="name" v="Montserrat"/>
+         <tag id="0" k="shop" v="supermarket"/>
+         <tag id="0" k="wheelchair" v="yes"/>
+      </way>
+   </modify>
+   <modify id="0">
+      <node changeset="10671963" id="256376571" lat="-33.5197451" lon="-70.5961569" timestamp="2012-02-13T22:40:50Z" user="wheelmap_visitor" version="6" visible="true">
+         <tag id="0" k="name" v="VicuÃ±a Mackenna"/>
+         <tag id="0" k="railway" v="station"/>
+         <tag id="0" k="wheelchair" v="yes"/>
+      </node>
+   </modify>
+   <modify id="0">
+      <node changeset="10671963" id="1175284676" lat="-33.5196806" lon="-70.5987293" timestamp="2012-02-13T22:40:51Z" user="wheelmap_visitor" version="3" visible="true">
+         <tag id="0" k="attribution" v="CoordinaciÃ³n de Transportes de Santiago"/>
+         <tag id="0" k="highway" v="bus_stop"/>
+         <tag id="0" k="is_in:city" v="La Florida"/>
+         <tag id="0" k="name" v="EstaciÃ³n Intermodal Bellavista de La Florida"/>
+         <tag id="0" k="ref" v="PE1282"/>
+         <tag id="0" k="ref_name" v="EstaciÃ³n Intermodal Bellavista de La Florida"/>
+         <tag id="0" k="route_ref" v="D06;D13;E05 PM;E05;E06 PM;E06;E07;E08 PM;E08 PT;E08;E13 PM;E13 PT;E13;E14 PM;E14 PT;E14;E15C;E17;E18;F25 PM;F25"/>
+         <tag id="0" k="source" v="http://www.transantiago.cl"/>
+         <tag id="0" k="ts_calle" v="VicuÃ±a Mackenna"/>
+         <tag id="0" k="ts_codigo" v="I-33-134-SN-67"/>
+         <tag id="0" k="ts_desde" v="EstaciÃ³n Intermodal Bellavista de La Florida"/>
+         <tag id="0" k="ts_hacia" v="San Carlos de Ancud"/>
+         <tag id="0" k="ts_orientacion" v="SN"/>
+         <tag id="0" k="ts_zona_paga" v="6:00 - 23:00"/>
+         <tag id="0" k="wheelchair" v="no"/>
+      </node>
+   </modify>
+   <modify id="0">
+      <node changeset="10671963" id="256374127" lat="-33.5095136" lon="-70.5900968" timestamp="2012-02-13T22:41:53Z" user="wheelmap_visitor" version="5" visible="true">
+         <tag id="0" k="name" v="Macul"/>
+         <tag id="0" k="railway" v="station"/>
+         <tag id="0" k="wheelchair" v="yes"/>
+      </node>
+   </modify>
+   <modify id="0">
+      <node changeset="10671963" id="1332352097" lat="-33.5085947" lon="-70.5881426" timestamp="2012-02-13T22:42:53Z" user="wheelmap_visitor" version="3" visible="true">
+         <tag id="0" k="name" v="Homecenter Sodimac"/>
+         <tag id="0" k="shop" v="doityourself"/>
+         <tag id="0" k="wheelchair" v="yes"/>
+      </node>
+   </modify>
+   <modify id="0">
+      <node changeset="10671963" id="256374120" lat="-33.4997867" lon="-70.5868464" timestamp="2012-02-13T22:42:54Z" user="wheelmap_visitor" version="6" visible="true">
+         <tag id="0" k="name" v="Las Torres"/>
+         <tag id="0" k="railway" v="station"/>
+         <tag id="0" k="wheelchair" v="yes"/>
+      </node>
+   </modify>
+   <modify id="0">
+      <way changeset="10671963" id="86328648" timestamp="2012-02-13T22:42:55Z" uid="290680" user="wheelmap_visitor" version="5">
+         <nd ref="1002603012"/>
+         <nd ref="1002603016"/>
+         <nd ref="1002603019"/>
+         <nd ref="1002603025"/>
+         <nd ref="1002603033"/>
+         <nd ref="1002603036"/>
+         <nd ref="1002603037"/>
+         <nd ref="1002603012"/>
+         <tag id="0" k="amenity" v="townhall"/>
+         <tag id="0" k="name" v="Municipalidad de La Florida"/>
+         <tag id="0" k="wheelchair" v="limited"/>
+      </way>
+   </modify>
+   <modify id="0">
+      <way changeset="10671963" id="86328648" timestamp="2012-02-13T22:43:56Z" uid="290680" user="wheelmap_visitor" version="6">
+         <nd ref="1002603012"/>
+         <nd ref="1002603016"/>
+         <nd ref="1002603019"/>
+         <nd ref="1002603025"/>
+         <nd ref="1002603033"/>
+         <nd ref="1002603036"/>
+         <nd ref="1002603037"/>
+         <nd ref="1002603012"/>
+         <tag id="0" k="amenity" v="townhall"/>
+         <tag id="0" k="name" v="Municipalidad de La Florida"/>
+         <tag id="0" k="wheelchair" v="no"/>
+      </way>
+   </modify>
+   <modify id="0">
+      <node changeset="10671963" id="256378408" lat="-33.569286" lon="-70.5837892" timestamp="2012-02-13T22:44:56Z" user="wheelmap_visitor" version="7" visible="true">
+         <tag id="0" k="name" v="Elisa Correa"/>
+         <tag id="0" k="railway" v="station"/>
+         <tag id="0" k="wheelchair" v="yes"/>
+      </node>
+   </modify>
+   <modify id="0">
+      <node changeset="10671963" id="338511118" lat="-33.5745464" lon="-70.5813935" timestamp="2012-02-13T22:44:56Z" user="wheelmap_visitor" version="6" visible="true">
+         <tag id="0" k="amenity" v="hospital"/>
+         <tag id="0" k="name" v="Hospital de NiÃ±os"/>
+         <tag id="0" k="wheelchair" v="yes"/>
+      </node>
+   </modify>
+   <modify id="0">
+      <node changeset="10671963" id="338511099" lat="-33.5764518" lon="-70.5809003" timestamp="2012-02-13T22:44:57Z" user="wheelmap_visitor" version="5" visible="true">
+         <tag id="0" k="amenity" v="hospital"/>
+         <tag id="0" k="name" v="Centro de Diagnostico y Tratamiento"/>
+         <tag id="0" k="wheelchair" v="yes"/>
+      </node>
+   </modify>
+   <modify id="0">
+      <node changeset="10671963" id="338511112" lat="-33.5772742" lon="-70.5805677" timestamp="2012-02-13T22:45:58Z" user="wheelmap_visitor" version="3" visible="true">
+         <tag id="0" k="amenity" v="hospital"/>
+         <tag id="0" k="name" v="Hospital de Adultos"/>
+         <tag id="0" k="wheelchair" v="yes"/>
+      </node>
+   </modify>
+   <modify id="0">
+      <node changeset="10671963" id="256378595" lat="-33.5768261" lon="-70.5822952" timestamp="2012-02-13T22:46:01Z" user="wheelmap_visitor" version="7" visible="true">
+         <tag id="0" k="name" v="Hospital Sotero del Rio"/>
+         <tag id="0" k="railway" v="station"/>
+         <tag id="0" k="wheelchair" v="yes"/>
+      </node>
+   </modify>
+   <modify id="0">
+      <node changeset="10671963" id="1617723464" lat="-33.5766477" lon="-70.5817615" timestamp="2012-02-13T22:50:00Z" user="wheelmap_visitor" version="2" visible="true">
+         <tag id="0" k="amenity" v="hospital"/>
+         <tag id="0" k="emergency" v="yes"/>
+         <tag id="0" k="name" v="Hospital Doctor SÃ³tero del RÃ­o"/>
+         <tag id="0" k="wheelchair" v="yes"/>
+      </node>
+   </modify>
+   <modify id="0">
+      <node changeset="10671963" id="157488825" lat="-33.5846255" lon="-70.6300389" timestamp="2012-02-13T22:51:01Z" user="wheelmap_visitor" version="3" visible="true">
+         <tag id="0" k="amenity" v="townhall"/>
+         <tag id="0" k="name" v="Municipalidad de La Pintana"/>
+         <tag id="0" k="wheelchair" v="limited"/>
+      </node>
+   </modify>
+   <modify id="0">
+      <way changeset="10671963" id="60065087" timestamp="2012-02-13T22:54:02Z" uid="290680" user="wheelmap_visitor" version="4">
+         <nd ref="746505670"/>
+         <nd ref="746505511"/>
+         <nd ref="746505701"/>
+         <nd ref="746505551"/>
+         <nd ref="746505737"/>
+         <nd ref="746505657"/>
+         <nd ref="746505495"/>
+         <nd ref="746505687"/>
+         <nd ref="746505536"/>
+         <nd ref="746505720"/>
+         <nd ref="746505573"/>
+         <nd ref="746505756"/>
+         <nd ref="746505608"/>
+         <nd ref="746505522"/>
+         <nd ref="746505706"/>
+         <nd ref="746505505"/>
+         <nd ref="746505670"/>
+         <tag id="0" k="addr:housenumber" v="2"/>
+         <tag id="0" k="addr:street" v="Friedrich-Ebert-StraÃŸe"/>
+         <tag id="0" k="amenity" v="place_of_worship"/>
+         <tag id="0" k="name" v="St. Paul"/>
+         <tag id="0" k="note" v="Pfarrkirche"/>
+         <tag id="0" k="religion" v="christian"/>
+         <tag id="0" k="wheelchair" v="yes"/>
+      </way>
+   </modify>
+   <modify id="0">
+      <way changeset="10671963" id="138285225" timestamp="2012-02-13T22:56:05Z" uid="290680" user="wheelmap_visitor" version="2">
+         <nd ref="1516121127"/>
+         <nd ref="1516121128"/>
+         <nd ref="1516121166"/>
+         <nd ref="1516121130"/>
+         <nd ref="1516121127"/>
+         <tag id="0" k="amenity" v="university"/>
+         <tag id="0" k="name" v="DUOC UC San JoaquÃ­n"/>
+         <tag id="0" k="wheelchair" v="yes"/>
+      </way>
+   </modify>
+   <modify id="0">
+      <way changeset="10671963" id="39611831" timestamp="2012-02-13T22:56:06Z" uid="290680" user="wheelmap_visitor" version="6">
+         <nd ref="474849682"/>
+         <nd ref="474849685"/>
+         <nd ref="474849686"/>
+         <nd ref="276280316"/>
+         <nd ref="474849682"/>
+         <tag id="0" k="amenity" v="university"/>
+         <tag id="0" k="landuse" v="college"/>
+         <tag id="0" k="name" v="Inacap (Sede Sur)"/>
+         <tag id="0" k="wheelchair" v="yes"/>
+      </way>
+   </modify>
+   <modify id="0">
+      <way changeset="10671963" id="39611830" timestamp="2012-02-13T22:56:12Z" uid="290680" user="wheelmap_visitor" version="9">
+         <nd ref="917047730"/>
+         <nd ref="474849663"/>
+         <nd ref="917047646"/>
+         <nd ref="474849672"/>
+         <nd ref="474849675"/>
+         <nd ref="474849676"/>
+         <nd ref="917047537"/>
+         <nd ref="917047565"/>
+         <nd ref="917047487"/>
+         <nd ref="917047783"/>
+         <nd ref="917047730"/>
+         <tag id="0" k="amenity" v="university"/>
+         <tag id="0" k="landuse" v="college"/>
+         <tag id="0" k="name" v="Universidad Tecnica Federico Santa Maria"/>
+         <tag id="0" k="wheelchair" v="yes"/>
+      </way>
+   </modify>
+   <modify id="0">
+      <node changeset="10671963" id="1379881774" lat="49.0170665" lon="12.0774046" timestamp="2012-02-13T22:57:10Z" user="wheelmap_visitor" version="6" visible="true">
+         <tag id="0" k="addr:housenumber" v="35"/>
+         <tag id="0" k="addr:street" v="PrÃ¼feninger StraÃŸe"/>
+         <tag id="0" k="amenity" v="cafe"/>
+         <tag id="0" k="email" v="info@cafe-la-roche.de"/>
+         <tag id="0" k="name" v="CafÃ© La RochÃ©"/>
+         <tag id="0" k="opening_hours" v="Mo-Fr 8:00-18:00, Sa,Su 9:00-18:00"/>
+         <tag id="0" k="operator" v="Frischeisen Backwaren GmbH"/>
+         <tag id="0" k="phone" v="+49 941 3780 28 46"/>
+         <tag id="0" k="website" v="http://www.cafe-la-roche.de"/>
+         <tag id="0" k="wheelchair" v="yes"/>
+      </node>
+   </modify>
+   <modify id="0">
+      <way changeset="10671963" id="93584232" timestamp="2012-02-13T23:18:15Z" uid="290680" user="wheelmap_visitor" version="5">
+         <nd ref="1085510459"/>
+         <nd ref="1085510477"/>
+         <nd ref="1560685596"/>
+         <nd ref="1222253883"/>
+         <nd ref="625445316"/>
+         <nd ref="371177387"/>
+         <nd ref="371177390"/>
+         <nd ref="1085510526"/>
+         <nd ref="1085510461"/>
+         <nd ref="1085510471"/>
+         <nd ref="1085510496"/>
+         <nd ref="1085510465"/>
+         <nd ref="371177393"/>
+         <nd ref="1085510444"/>
+         <nd ref="1085510507"/>
+         <nd ref="1085510460"/>
+         <nd ref="1560685586"/>
+         <nd ref="1560685585"/>
+         <nd ref="1085510522"/>
+         <nd ref="1085510476"/>
+         <nd ref="1085518238"/>
+         <nd ref="1085510508"/>
+         <nd ref="371177361"/>
+         <nd ref="371177358"/>
+         <nd ref="1560685581"/>
+         <nd ref="1560685580"/>
+         <nd ref="371177356"/>
+         <nd ref="371177371"/>
+         <nd ref="1085518131"/>
+         <nd ref="1085510474"/>
+         <nd ref="1085510541"/>
+         <nd ref="1085518115"/>
+         <nd ref="1560685582"/>
+         <nd ref="1560685584"/>
+         <nd ref="1085510463"/>
+         <nd ref="1560685588"/>
+         <nd ref="1560685587"/>
+         <nd ref="1085510534"/>
+         <nd ref="371177380"/>
+         <nd ref="1560685589"/>
+         <nd ref="1560685590"/>
+         <nd ref="1560685591"/>
+         <nd ref="371177384"/>
+         <nd ref="1560685592"/>
+         <nd ref="1560685593"/>
+         <nd ref="1560685595"/>
+         <nd ref="1560685594"/>
+         <nd ref="1085510459"/>
+         <tag id="0" k="addr:city" v="Regensburg"/>
+         <tag id="0" k="addr:country" v="DE"/>
+         <tag id="0" k="addr:housename" v="Donau-Einkaufszentrum"/>
+         <tag id="0" k="addr:housenumber" v="5"/>
+         <tag id="0" k="addr:postcode" v="93059"/>
+         <tag id="0" k="addr:street" v="Weichser Weg"/>
+         <tag id="0" k="building" v="yes"/>
+         <tag id="0" k="name" v="Donau-Einkaufszentrum"/>
+         <tag id="0" k="opening_hours" v="Mo-Sa 09:30-20:00"/>
+         <tag id="0" k="operator" v="Donau-Einkaufszentrum GmbH"/>
+         <tag id="0" k="shop" v="mall"/>
+         <tag id="0" k="source" v="Bing"/>
+         <tag id="0" k="wheelchair" v="yes"/>
+      </way>
+   </modify>
+   <modify id="0">
+      <node changeset="10671963" id="1322376595" lat="49.0191965" lon="12.0823006" timestamp="2012-02-13T23:19:16Z" user="wheelmap_visitor" version="2" visible="true">
+         <tag id="0" k="amenity" v="toilets"/>
+         <tag id="0" k="wheelchair" v="yes"/>
+      </node>
+   </modify>
+   <modify id="0">
+      <way changeset="10671963" id="31469423" timestamp="2012-02-13T23:20:18Z" uid="290680" user="wheelmap_visitor" version="7">
+         <nd ref="351570210"/>
+         <nd ref="1321445630"/>
+         <nd ref="1321445645"/>
+         <nd ref="351570240"/>
+         <nd ref="1101942584"/>
+         <nd ref="351570269"/>
+         <nd ref="1294378071"/>
+         <nd ref="1294378070"/>
+         <nd ref="351570273"/>
+         <nd ref="351570277"/>
+         <nd ref="1321445598"/>
+         <nd ref="351570286"/>
+         <nd ref="351570297"/>
+         <nd ref="351570303"/>
+         <nd ref="351570311"/>
+         <nd ref="351570210"/>
+         <tag id="0" k="amenity" v="hospital"/>
+         <tag id="0" k="name" v="Krankenhaus der Barmherzigen BrÃ¼der"/>
+         <tag id="0" k="wheelchair" v="yes"/>
+      </way>
+   </modify>
+   <modify id="0">
+      <way changeset="10671963" id="89375230" timestamp="2012-02-13T23:21:18Z" uid="290680" user="wheelmap_visitor" version="3">
+         <nd ref="1036641031"/>
+         <nd ref="1036641069"/>
+         <nd ref="203940952"/>
+         <nd ref="203940951"/>
+         <nd ref="1036641055"/>
+         <nd ref="1036641031"/>
+         <tag id="0" k="addr:city" v="Regensburg"/>
+         <tag id="0" k="addr:country" v="DE"/>
+         <tag id="0" k="addr:housename" v="LIDL"/>
+         <tag id="0" k="addr:housenumber" v="4"/>
+         <tag id="0" k="addr:postcode" v="93051"/>
+         <tag id="0" k="addr:street" v="PrÃ¼feninger SchloÃŸstraÃŸe"/>
+         <tag id="0" k="building" v="yes"/>
+         <tag id="0" k="name" v="LIDL"/>
+         <tag id="0" k="opening_hours" v="Mo-Sa 08:00-20:00"/>
+         <tag id="0" k="operator" v="Lidl"/>
+         <tag id="0" k="shop" v="supermarket"/>
+         <tag id="0" k="wheelchair" v="limited"/>
+      </way>
+   </modify>
+   <modify id="0">
+      <way changeset="10671963" id="95209257" timestamp="2012-02-13T23:23:20Z" uid="290680" user="wheelmap_visitor" version="5">
+         <nd ref="1104480797"/>
+         <nd ref="1109139722"/>
+         <nd ref="1109139713"/>
+         <nd ref="1109139726"/>
+         <nd ref="1104480828"/>
+         <nd ref="1104480873"/>
+         <nd ref="1109139716"/>
+         <nd ref="1109139700"/>
+         <nd ref="1104480787"/>
+         <nd ref="1109139740"/>
+         <nd ref="1104480797"/>
+         <tag id="0" k="addr:city" v="Regensburg"/>
+         <tag id="0" k="addr:country" v="DE"/>
+         <tag id="0" k="addr:housename" v="ALDI"/>
+         <tag id="0" k="addr:housenumber" v="18"/>
+         <tag id="0" k="addr:postcode" v="93049"/>
+         <tag id="0" k="addr:street" v="Rennweg"/>
+         <tag id="0" k="building" v="yes"/>
+         <tag id="0" k="name" v="ALDI"/>
+         <tag id="0" k="opening_hours" v="Mo-Sa 08:00-20:00"/>
+         <tag id="0" k="shop" v="supermarket"/>
+         <tag id="0" k="website" v="http://www.aldi-sued.de"/>
+         <tag id="0" k="wheelchair" v="limited"/>
+      </way>
+   </modify>
+   <modify id="0">
+      <node changeset="10671963" id="1554706994" lat="49.0099013" lon="12.0632136" timestamp="2012-02-13T23:25:21Z" user="wheelmap_visitor" version="2" visible="true">
+         <tag id="0" k="amenity" v="fast_food"/>
+         <tag id="0" k="name" v="McDonalds"/>
+         <tag id="0" k="wheelchair" v="limited"/>
+      </node>
+   </modify>
+   <modify id="0">
+      <node changeset="10671963" id="534775466" lat="49.0117629" lon="12.0999113" timestamp="2012-02-13T23:26:22Z" user="wheelmap_visitor" version="6" visible="true">
+         <tag id="0" k="name" v="Regensburg Hbf"/>
+         <tag id="0" k="public_transport" v="stop_position"/>
+         <tag id="0" k="rail" v="yes"/>
+         <tag id="0" k="railway" v="halt"/>
+         <tag id="0" k="ref" v="Gl. 5"/>
+         <tag id="0" k="wheelchair" v="yes"/>
+      </node>
+   </modify>
+   <modify id="0">
+      <node changeset="10671963" id="527358898" lat="49.0114819" lon="12.0999377" timestamp="2012-02-13T23:26:23Z" user="wheelmap_visitor" version="5" visible="true">
+         <tag id="0" k="name" v="Regensburg Hbf"/>
+         <tag id="0" k="public_transport" v="stop_position"/>
+         <tag id="0" k="rail" v="yes"/>
+         <tag id="0" k="railway" v="halt"/>
+         <tag id="0" k="ref" v="Gl. 9"/>
+         <tag id="0" k="wheelchair" v="yes"/>
+      </node>
+   </modify>
+   <modify id="0">
+      <way changeset="10671963" id="93940755" timestamp="2012-02-13T23:29:24Z" uid="290680" user="wheelmap_visitor" version="2">
+         <nd ref="1092085877"/>
+         <nd ref="393097386"/>
+         <nd ref="1092085918"/>
+         <nd ref="1092085904"/>
+         <nd ref="1092085877"/>
+         <tag id="0" k="addr:city" v="Regensburg"/>
+         <tag id="0" k="addr:country" v="DE"/>
+         <tag id="0" k="addr:housename" v="Pusttet"/>
+         <tag id="0" k="addr:housenumber" v="6-8"/>
+         <tag id="0" k="addr:postcode" v="93047"/>
+         <tag id="0" k="addr:street" v="GesandtenstraÃŸe"/>
+         <tag id="0" k="building" v="yes"/>
+         <tag id="0" k="name" v="Pustet"/>
+         <tag id="0" k="opening_hours" v="Mo-Fr 09:00-20:00, Sa 09:30-20:00"/>
+         <tag id="0" k="shop" v="books"/>
+         <tag id="0" k="wheelchair" v="limited"/>
+      </way>
+   </modify>
+   <modify id="0">
+      <node changeset="10671963" id="362783543" lat="49.0179199" lon="12.0970138" timestamp="2012-02-13T23:31:24Z" user="wheelmap_visitor" version="8" visible="true">
+         <tag id="0" k="amenity" v="toilets"/>
+         <tag id="0" k="charge" v="no"/>
+         <tag id="0" k="wheelchair" v="yes"/>
+      </node>
+   </modify>
+   <modify id="0">
+      <way changeset="10671963" id="34237729" timestamp="2012-02-13T23:31:25Z" uid="290680" user="wheelmap_visitor" version="11">
+         <nd ref="392656237"/>
+         <nd ref="392656235"/>
+         <nd ref="393087875"/>
+         <nd ref="523635329"/>
+         <nd ref="1317371666"/>
+         <nd ref="526740467"/>
+         <nd ref="392656233"/>
+         <nd ref="1150435621"/>
+         <nd ref="704783125"/>
+         <nd ref="392656237"/>
+         <tag id="0" k="addr:city" v="Regensburg"/>
+         <tag id="0" k="addr:country" v="DE"/>
+         <tag id="0" k="addr:housename" v="GALERIA Kaufhof"/>
+         <tag id="0" k="addr:housenumber" v="8"/>
+         <tag id="0" k="addr:postcode" v="93047"/>
+         <tag id="0" k="addr:street" v="Neupfarrplatz"/>
+         <tag id="0" k="building" v="yes"/>
+         <tag id="0" k="name" v="GALERIA Kaufhof"/>
+         <tag id="0" k="shop" v="department_store"/>
+         <tag id="0" k="wheelchair" v="limited"/>
+      </way>
+   </modify>
+   <modify id="0">
+      <node changeset="10671963" id="1410156649" lat="49.0219137" lon="12.1021616" timestamp="2012-02-13T23:35:25Z" user="wheelmap_visitor" version="3" visible="true">
+         <tag id="0" k="amenity" v="toilets"/>
+         <tag id="0" k="wheelchair" v="yes"/>
+      </node>
+   </modify>
+   <modify id="0">
+      <way changeset="10671963" id="24556961" timestamp="2012-02-13T23:38:28Z" uid="290680" user="wheelmap_visitor" version="7">
+         <nd ref="267011557"/>
+         <nd ref="267011559"/>
+         <nd ref="320128025"/>
+         <nd ref="320128024"/>
+         <nd ref="267011560"/>
+         <nd ref="267011558"/>
+         <nd ref="267011557"/>
+         <tag id="0" k="building" v="yes"/>
+         <tag id="0" k="name" v="Globus"/>
+         <tag id="0" k="shop" v="supermarket"/>
+         <tag id="0" k="wheelchair" v="yes"/>
+      </way>
+   </modify>
+</osmChange>

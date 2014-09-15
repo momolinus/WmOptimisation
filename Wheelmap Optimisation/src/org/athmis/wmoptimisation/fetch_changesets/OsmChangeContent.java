@@ -105,17 +105,6 @@ public class OsmChangeContent {
 		return changeContent;
 	}
 
-	/**
-	 * @throws IOException
-	 *             if given path not exists
-	 */
-	private static void assertThatPathExists(Path changeSet) throws IOException {
-		if (!Files.exists(changeSet)) {
-			throw new IOException("can't find file " + changeSet.toString());
-		}
-
-	}
-
 	// XXX anders formatieren
 	private static void addChangeSetFromZipFile(OsmChangeContent result, InputStream chnageSetStream)
 																										throws Exception {
@@ -137,6 +126,17 @@ public class OsmChangeContent {
 
 		changeSetContent = SERIALIZER.read(OsmChange.class, changesStream);
 		changeContent.add(changeSetContent);
+
+	}
+
+	/**
+	 * @throws IOException
+	 *             if given path not exists
+	 */
+	private static void assertThatPathExists(Path changeSet) throws IOException {
+		if (!Files.exists(changeSet)) {
+			throw new IOException("can't find file " + changeSet.toString());
+		}
 
 	}
 
@@ -307,6 +307,25 @@ public class OsmChangeContent {
 	}
 
 	/**
+	 * Returns a copy of all ways this object contains.
+	 *
+	 * @return copy of all ways this object contains, could be empty but not <code>null</code>
+	 */
+	public List<Way> getAllWays() {
+		List<Way> ways;
+
+		ways = new ArrayList<>();
+
+		for (OsmChange change : changes) {
+			for (Way way : change.getWays()) {
+				ways.add(way);
+			}
+		}
+
+		return ways;
+	}
+
+	/**
 	 * Returns the areas of all changesets as a table.
 	 *
 	 * @param header
@@ -348,9 +367,10 @@ public class OsmChangeContent {
 		return boundingBoxes;
 	}
 
-	public double getMeanAreaOfChangeSetsForNodes() {
+	public double getMeanArea() {
 		double areasSum = 0;
 		int noAreas = 0;
+
 		for (ChangeSet changeSet : changeSets.values()) {
 			if (changeSet.getBoundingBoxSquareDegree() > 0) {
 				noAreas++;
@@ -498,24 +518,5 @@ public class OsmChangeContent {
 
 		// FIXME missing test for 50 000 changesets, wenn implementiert, dann
 		// muss der Test aus Infinitest ausgeschlossen werden
-	}
-
-	/**
-	 * Returns a copy of all ways this object contains.
-	 *
-	 * @return copy of all ways this object contains, could be empty but not <code>null</code>
-	 */
-	public List<Way> getAllWays() {
-		List<Way> ways;
-
-		ways = new ArrayList<>();
-
-		for (OsmChange change : changes) {
-			for (Way way : change.getWays()) {
-				ways.add(way);
-			}
-		}
-
-		return ways;
 	}
 }

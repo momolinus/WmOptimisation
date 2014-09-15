@@ -115,10 +115,9 @@ public class ChangeSet implements Comparable<ChangeSet> {
 
 	/**
 	 * Constructor for a deep copy of given changeset.
-	 * 
+	 *
 	 * @param changeSet
-	 *            its state will be used to construct a new ChangeSet object (a
-	 *            deep copy)
+	 *            its state will be used to construct a new ChangeSet object (a deep copy)
 	 */
 	public ChangeSet(ChangeSet changeSet) {
 		this.area = changeSet.area;
@@ -160,11 +159,10 @@ public class ChangeSet implements Comparable<ChangeSet> {
 	}
 
 	/**
-	 * Returns the bounding box of the changeset in °*° (in words:
-	 * "square degree").
-	 * 
-	 * @return the bounding box of the changeset, {@link Double#isInfinite()} if
-	 *         changeset has no {@linkplain Change}s
+	 * Returns the bounding box of the changeset in °*° (in words: "square degree").
+	 *
+	 * @return the bounding box of the changeset, {@link Double#isInfinite()} if changeset has no
+	 *         {@linkplain Change}s
 	 */
 	public double getBoundingBoxSquareDegree() {
 
@@ -197,9 +195,8 @@ public class ChangeSet implements Comparable<ChangeSet> {
 	}
 
 	/**
-	 * Returns the open hours, decimal place is hours fraction, e.g. 0.5 means
-	 * 30 min.
-	 * 
+	 * Returns the open hours, decimal place is hours fraction, e.g. 0.5 means 30 min.
+	 *
 	 * @return the open hours of the changeset, maximum should be 24 h
 	 */
 	public double getOpenTimeInHours() {
@@ -244,9 +241,10 @@ public class ChangeSet implements Comparable<ChangeSet> {
 
 		Date closed;
 		try {
-			if (closedAt == null)
+			if (closedAt == null) {
 				throw new IllegalStateException("closedAt is null, id = " + String.valueOf(id)
 					+ ", user = " + String.valueOf(user));
+			}
 
 			closed = ChangeSetToolkit.OSM_DATE_TO_JAVA.parse(closedAt);
 			result.setTime(closed);
@@ -263,9 +261,10 @@ public class ChangeSet implements Comparable<ChangeSet> {
 		Calendar result = GregorianCalendar.getInstance();
 		Date created;
 		try {
-			if (createdAt == null)
+			if (createdAt == null) {
 				throw new IllegalStateException("createdAt is null, id = " + String.valueOf(id)
 					+ ", user = " + String.valueOf(user));
+			}
 
 			created = ChangeSetToolkit.OSM_DATE_TO_JAVA.parse(createdAt);
 			result.setTime(created);
