@@ -16,7 +16,10 @@
  * Programm erhalten haben. Wenn nicht, siehe <http://www.gnu.org/licenses/>. */
 package org.athmis.wmoptimisation.algorithm;
 
+import java.io.BufferedWriter;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.text.ParseException;
 
 import org.apache.log4j.BasicConfigurator;
@@ -60,32 +63,45 @@ public class Optimize {
 
 		generator = new SimpleChangeSetGenerator();
 
-		result = runChangeSetGenerator(generator, "wheelchair_visitor-2010.zip");
+		result = runChangeSetGenerator(generator, "wheelchair_visitor-2010.zip", false);
 		System.out.println(result.oneRowHeader());
 		System.out.println(result.toOneRow());
 
 		generator = new MinimizeAreaChangeSetGenartor();
 
-		result = runChangeSetGenerator(generator, "wheelchair_visitor-2010.zip");
+		result = runChangeSetGenerator(generator, "wheelchair_visitor-2010.zip", true);
 		System.out.println(result.toOneRow());
 
 		LOGGER.info("finished");
 	}
 
 	private static OptimizationResult runChangeSetGenerator(ChangeSetGenerator generator,
-															String fileName) throws IOException {
+															String fileName, boolean verbose)
+																								throws IOException {
 		OsmChangeContent changeContent, optimizedChangeSet;
+		BufferedWriter resultFile = Files.newBufferedWriter(Paths.get(fileName + "_result.csv"));
 
 		OptimizationResult optimizationResult =
 			new OptimizationResult(fileName, generator.getName());
 
 		changeContent = OsmChangeContent.createOsmChangeContentFromZip(fileName);
+		if (verbose) {
+			resultFile.append(changeContent.getChangeSetsAsStrTable("original", true));
+		}
 
 		optimizationResult.setMeanAreaSource(changeContent.getMeanArea());
 		optimizationResult.setNoChangeSetsSource(changeContent.getNoChangeSets());
 		optimizationResult.setNumberNodesSource(changeContent.getNodes());
 
 		optimizedChangeSet = generator.createOptimizedChangeSets(changeContent);
+		if (verbose) {
+			resultFile.newLine();
+			resultFile
+					.append(optimizedChangeSet.getChangeSetsAsStrTable(generator.getName(), false));
+
+			resultFile.close();
+		}
+
 
 		optimizationResult.setMeanAreaOptimized(optimizedChangeSet.getMeanArea());
 		optimizationResult.setNoChangeSetsOptimized(optimizedChangeSet.getNoChangeSets());

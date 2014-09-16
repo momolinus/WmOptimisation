@@ -317,7 +317,7 @@ public final class FetchingChangeSetsToolbox {
 			// it's me :-), replace by your OSM account
 			user = "roald-linus";
 
-			user = WHEELMAP_VISITOR;
+			// user = WHEELMAP_VISITOR;
 
 			// use the live-OSM-API, since May 2013 my live user works no more
 			// on the test API
@@ -327,7 +327,7 @@ public final class FetchingChangeSetsToolbox {
 			// pay attention to the confusing month indexing set by the Java
 			// Calendar API
 			changeSets =
-				fetchChanges(user, new GregorianCalendar(2012, 11, 31), new GregorianCalendar(2012,
+				fetchChanges(user, new GregorianCalendar(2011, 11, 31), new GregorianCalendar(2011,
 						1, 1));
 
 			// print out some parameters of the fetch result
@@ -338,7 +338,7 @@ public final class FetchingChangeSetsToolbox {
 			// comments, but first take a look at JavaDoc of
 			// StoreChangeSets.storeWithContent(..) !!!
 
-			storeWithContent(changeSets, "wheelchair-2012.zip", develop);
+			storeWithContent(changeSets, "roald-linus-2011.zip", develop);
 		}
 		catch (Exception e) {
 			e.printStackTrace();

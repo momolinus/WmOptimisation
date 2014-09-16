@@ -169,6 +169,9 @@ public class OsmChangeContent {
 	}
 
 	private List<OsmChange> changes;
+	/**
+	 * a map with all changesets as value and changesets id as key
+	 */
 	private Map<Long, CangeSetUpdateAble> changeSets;
 
 	/**
@@ -374,7 +377,7 @@ public class OsmChangeContent {
 
 			for (OsmChange change : changes) {
 				if (change.getChangeSetId() == changeSet.getId()) {
-					noChanges += 1.0;
+					noChanges += change.getNumber();
 				}
 			}
 
@@ -382,6 +385,34 @@ public class OsmChangeContent {
 		}
 
 		return changeSetsTable;
+	}
+
+	public String getChangeSetsAsStrTable(String algorithmus, boolean header) {
+		StringBuilder tableBuilder = new StringBuilder();
+
+		Table<Long, String, String> table = getChangeSets(algorithmus);
+
+		if (header) {
+			tableBuilder.append("changesetId");
+			for (String column : table.columnKeySet()) {
+				tableBuilder.append(";" + column);
+			}
+
+			tableBuilder.append("\n");
+		}
+
+		for (Long changeId : table.rowKeySet()) {
+
+			tableBuilder.append(Long.toString(changeId));
+
+			for (Entry<String, String> row : table.row(changeId).entrySet()) {
+				tableBuilder.append(";" + row.getValue());
+			}
+
+			tableBuilder.append("\n");
+		}
+
+		return tableBuilder.toString();
 	}
 
 	/**

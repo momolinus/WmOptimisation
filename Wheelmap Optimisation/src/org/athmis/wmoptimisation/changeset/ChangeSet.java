@@ -87,7 +87,7 @@ public class ChangeSet implements Comparable<ChangeSet> {
 	private List<Tag> tags = new ArrayList<Tag>();
 
 	@Attribute(name = "user")
-	private String user;
+	private String user = "no_user";
 
 	// leave visibility "protected" for test purpose
 	@Attribute(name = "created_at", required = false)

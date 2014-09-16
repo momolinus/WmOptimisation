@@ -12,7 +12,7 @@ public class MinimizeAreaChangeSetGenartor extends ChangeSetGenerator {
 	private Long changeSetInUseId;
 
 	private void initChangeSetInUseId(OsmServer osmServer, Calendar changeTime)
-		throws IllegalStateException {
+																				throws IllegalStateException {
 
 		// first run
 		if (changeSetInUseId == null) {
@@ -27,9 +27,10 @@ public class MinimizeAreaChangeSetGenartor extends ChangeSetGenerator {
 			}
 		}
 
-		if (changeSetInUseId == null)
+		if (changeSetInUseId == null) {
 			throw new IllegalStateException("no change set created by osm server of type "
 				+ osmServer.getClass().getSimpleName());
+		}
 	}
 
 	@Override
@@ -44,16 +45,14 @@ public class MinimizeAreaChangeSetGenartor extends ChangeSetGenerator {
 		initChangeSetInUseId(osmServer, changeTime);
 
 		changeSet = osmServer.getChangeSet(changeSetInUseId);
+
 		assertThatChangeSetNotNull(changeSet);
-		
-		if (changeSet.getBoundingBoxSquareDegree() > 0.00116){
+
+		if (changeSet.getBoundingBoxSquareDegree() > 0.00116) {
 			changeSet.close(changeTime);
 			changeSetInUseId = osmServer.createChangeSet(changeTime);
 			changeSet = osmServer.getChangeSet(changeSetInUseId);
 		}
-
 		optimizedDataSet.addChangeForChangeSet(change, changeSet);
-
 	}
-
 }

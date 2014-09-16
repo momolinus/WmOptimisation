@@ -16,8 +16,11 @@
  * Programm erhalten haben. Wenn nicht, siehe <http://www.gnu.org/licenses/>. */
 package org.athmis.wmoptimisation.analyse;
 
+import java.io.BufferedWriter;
 import java.io.IOException;
-import java.util.*;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.List;
 
 import org.athmis.wmoptimisation.changeset.Way;
 import org.athmis.wmoptimisation.fetch_changesets.OsmChangeContent;
@@ -58,6 +61,16 @@ public class InspectChangeSets {
 		return result;
 	}
 
+	public static void contentToTable(String zipFile, String table) throws IOException {
+		BufferedWriter tableWriter;
+		OsmChangeContent content;
+
+		content = OsmChangeContent.createOsmChangeContentFromZip(zipFile);
+		tableWriter = Files.newBufferedWriter(Paths.get(table));
+		tableWriter.append(content.getChangeSetsAsStrTable("roald", true));
+		tableWriter.close();
+	}
+
 	/**
 	 * some samples
 	 *
@@ -65,10 +78,17 @@ public class InspectChangeSets {
 	 *            not used
 	 */
 	public static void main(String[] args) {
-		String wheelchair2012 = "wheelchair_visitor-2010.zip";
+		// String wheelchair2012 = "wheelchair_visitor-2010.zip";
 
-		String description = describeWays(wheelchair2012);
+		// String description = describeWays(wheelchair2012);
 
-		System.out.println(description);
+		// System.out.println(description);
+
+		try {
+			contentToTable("roald-linus-2011.zip", "roald-linus-2011-table.csv");
+		}
+		catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 }
