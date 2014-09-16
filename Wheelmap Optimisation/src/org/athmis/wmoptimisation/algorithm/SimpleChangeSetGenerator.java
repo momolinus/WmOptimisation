@@ -94,4 +94,9 @@ public class SimpleChangeSetGenerator extends ChangeSetGenerator {
 		optimizedDataSet.addChangeForChangeSet(change, changeSet);
 		LOGGER.trace("change " + change.getId() + " added to changeset " + changeSet.getId());
 	}
+
+	@Override
+	public String getName() {
+		return "simple";
+	}
 }

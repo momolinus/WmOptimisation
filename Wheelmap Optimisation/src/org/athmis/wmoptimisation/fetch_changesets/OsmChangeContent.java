@@ -174,6 +174,8 @@ public class OsmChangeContent {
 	 */
 	private Map<Long, CangeSetUpdateAble> changeSets;
 
+	private String header = "missing";
+
 	/**
 	 * Constructs an empty OsmChangeContent object. It has an empty map for {@linkplain ChangeSet}
 	 * and an empty list for {@linkplain OsmChange}.
@@ -362,6 +364,11 @@ public class OsmChangeContent {
 		return result.toString();
 	}
 
+	public String getChangeSetsAsStrTableHeader() {
+
+		return header;
+	}
+
 	public Table<Long, String, String> getChangeSets(String algorithmus) {
 		Table<Long, String, String> changeSetsTable;
 
@@ -387,19 +394,22 @@ public class OsmChangeContent {
 		return changeSetsTable;
 	}
 
-	public String getChangeSetsAsStrTable(String algorithmus, boolean header) {
+	public String getChangeSetsAsStrTable(String algorithmus, boolean withHeader) {
 		StringBuilder tableBuilder = new StringBuilder();
 
 		Table<Long, String, String> table = getChangeSets(algorithmus);
 
-		if (header) {
-			tableBuilder.append("changesetId");
-			for (String column : table.columnKeySet()) {
-				tableBuilder.append(";" + column);
-			}
-
-			tableBuilder.append("\n");
+		String tempHeader;
+		tempHeader = "changesetId";
+		for (String column : table.columnKeySet()) {
+			tempHeader += ";" + column;
 		}
+
+		if (withHeader) {
+			tableBuilder.append(tempHeader + "\n");
+		}
+
+		header = tempHeader;
 
 		for (Long changeId : table.rowKeySet()) {
 
@@ -584,4 +594,5 @@ public class OsmChangeContent {
 		// FIXME missing test for 50 000 changesets, wenn implementiert, dann
 		// muss der Test aus Infinitest ausgeschlossen werden
 	}
+
 }

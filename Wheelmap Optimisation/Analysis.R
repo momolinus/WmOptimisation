@@ -12,7 +12,8 @@ compare.positiv.area <- compare[compare$area > 0, ]
 str(compare.positiv.area)
 names(compare.positiv.area)
 summary(compare.positiv.area)
-boxplot(area ~ user, compare.positiv.area)
+boxplot(area ~ algorithm, compare.positiv.area, ylab='Fläche in °x°', log='y')
+help(boxplot)
 
 summary(compare.positiv.area[compare.positiv.area$user == 'roald-linus', ])
 summary(compare.positiv.area[compare.positiv.area$user == 'no_user', ])

@@ -125,9 +125,7 @@ public abstract class ChangeSetGenerator {
 		return optimizedDataSet;
 	}
 
-	public String getName() {
-		return name;
-	}
+	public abstract String getName();
 
 	public final int getNodes() {
 		return nodes;

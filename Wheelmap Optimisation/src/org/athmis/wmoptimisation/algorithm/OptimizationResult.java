@@ -2,6 +2,7 @@ package org.athmis.wmoptimisation.algorithm;
 
 public class OptimizationResult {
 
+	private String changesHeader;
 	private String fileName;
 	private String generatorName;
 	private double meanAreaOptimized;
@@ -10,6 +11,8 @@ public class OptimizationResult {
 	private int numberChangeSetsSource;
 	private int numberNodesOptimized;
 	private int numberNodesSource;
+	private String optimizedChangesTable;
+	private String originalChangesTable;
 
 	/**
 	 * @param fileName
@@ -20,6 +23,22 @@ public class OptimizationResult {
 	public OptimizationResult(String fileName, String generatorName) {
 		this.fileName = fileName;
 		this.generatorName = generatorName;
+	}
+
+	public void appendOptimizedChanges(String changeSetsAsStrTable) {
+		this.optimizedChangesTable = changeSetsAsStrTable;
+	}
+
+	public String getChangesHeader() {
+		return changesHeader;
+	}
+
+	public String getOptimizedChangesTable() {
+		return optimizedChangesTable;
+	}
+
+	public String getOriginalChangesTable() {
+		return originalChangesTable;
 	}
 
 	public String meanAreaChange() {
@@ -50,6 +69,10 @@ public class OptimizationResult {
 		return result;
 	}
 
+	public void setChangesHeader(String changeSetsAsStrTableHeader) {
+		this.changesHeader = changeSetsAsStrTableHeader;
+	}
+
 	public void setMeanAreaOptimized(double meanArea) {
 		this.meanAreaOptimized = meanArea;
 	}
@@ -72,6 +95,18 @@ public class OptimizationResult {
 
 	public void setNumberNodesSource(int nodes) {
 		this.numberNodesSource = nodes;
+	}
+
+	public void setOptimizedChangesTable(String optimizedChangesTable) {
+		this.optimizedChangesTable = optimizedChangesTable;
+	}
+
+	public void setOriginalChanges(String changeSetsAsStrTable) {
+		this.originalChangesTable = changeSetsAsStrTable;
+	}
+
+	public void setOriginalChangesTable(String originalChangesTable) {
+		this.originalChangesTable = originalChangesTable;
 	}
 
 	public String toOneRow() {

@@ -58,54 +58,55 @@ public class Optimize {
 
 	public static void run(String[] args) throws IOException, ParseException {
 
-		ChangeSetGenerator generator;
-		OptimizationResult result;
+		ChangeSetGenerator simpleGenerator, minimizeAreaGenerator;
+		OptimizationResult simpleResult, minimizeAreaResult;
 
-		generator = new SimpleChangeSetGenerator();
+		simpleGenerator = new SimpleChangeSetGenerator();
+		simpleResult = runChangeSetGenerator(simpleGenerator, "wheelchair_visitor-2010.zip");
+		System.out.println(simpleResult.oneRowHeader());
+		System.out.println(simpleResult.toOneRow());
 
-		result = runChangeSetGenerator(generator, "wheelchair_visitor-2010.zip", false);
-		System.out.println(result.oneRowHeader());
-		System.out.println(result.toOneRow());
+		minimizeAreaGenerator = new MinimizeAreaChangeSetGenartor();
+		minimizeAreaResult =
+			runChangeSetGenerator(minimizeAreaGenerator, "wheelchair_visitor-2010.zip");
+		System.out.println(minimizeAreaResult.toOneRow());
 
-		generator = new MinimizeAreaChangeSetGenartor();
+		BufferedWriter writer = Files.newBufferedWriter(Paths.get("wheel-2010.csv"));
 
-		result = runChangeSetGenerator(generator, "wheelchair_visitor-2010.zip", true);
-		System.out.println(result.toOneRow());
+		writer.append(simpleResult.getOriginalChangesTable());
+		writer.newLine();
+		writer.append(simpleResult.getOptimizedChangesTable());
+		writer.newLine();
+		writer.append(minimizeAreaResult.getOptimizedChangesTable());
+		writer.close();
 
 		LOGGER.info("finished");
 	}
 
 	private static OptimizationResult runChangeSetGenerator(ChangeSetGenerator generator,
-															String fileName, boolean verbose)
-																								throws IOException {
-		OsmChangeContent changeContent, optimizedChangeSet;
-		BufferedWriter resultFile = Files.newBufferedWriter(Paths.get(fileName + "_result.csv"));
+															String fileName) throws IOException {
+		OsmChangeContent changeContent, optimizedContent;
 
 		OptimizationResult optimizationResult =
 			new OptimizationResult(fileName, generator.getName());
 
 		changeContent = OsmChangeContent.createOsmChangeContentFromZip(fileName);
-		if (verbose) {
-			resultFile.append(changeContent.getChangeSetsAsStrTable("original", true));
-		}
+		optimizationResult.setOriginalChanges(changeContent.getChangeSetsAsStrTable("original",
+																					false));
 
 		optimizationResult.setMeanAreaSource(changeContent.getMeanArea());
 		optimizationResult.setNoChangeSetsSource(changeContent.getNoChangeSets());
 		optimizationResult.setNumberNodesSource(changeContent.getNodes());
 
-		optimizedChangeSet = generator.createOptimizedChangeSets(changeContent);
-		if (verbose) {
-			resultFile.newLine();
-			resultFile
-					.append(optimizedChangeSet.getChangeSetsAsStrTable(generator.getName(), false));
+		optimizedContent = generator.createOptimizedChangeSets(changeContent);
+		optimizationResult.appendOptimizedChanges(optimizedContent
+				.getChangeSetsAsStrTable(generator.getName(), false));
 
-			resultFile.close();
-		}
+		optimizationResult.setMeanAreaOptimized(optimizedContent.getMeanArea());
+		optimizationResult.setNoChangeSetsOptimized(optimizedContent.getNoChangeSets());
+		optimizationResult.setNumberNodesOptimized(optimizedContent.getNodes());
 
-
-		optimizationResult.setMeanAreaOptimized(optimizedChangeSet.getMeanArea());
-		optimizationResult.setNoChangeSetsOptimized(optimizedChangeSet.getNoChangeSets());
-		optimizationResult.setNumberNodesOptimized(optimizedChangeSet.getNodes());
+		optimizationResult.setChangesHeader(changeContent.getChangeSetsAsStrTableHeader());
 
 		return optimizationResult;
 	}
