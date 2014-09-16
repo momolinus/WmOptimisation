@@ -38,9 +38,17 @@ import org.simpleframework.xml.Root;
 @Root(name = "node", strict = false)
 public class Node implements Change {
 
+	public static double getBbox(Node node1, Node node2) {
+		double deltaLat, deltaLon;
+
+		deltaLat = Math.abs(node1.lat - node2.lat);
+		deltaLon = Math.abs(node1.lon - node2.lon);
+		return deltaLat * deltaLon;
+	}
+
 	/**
 	 * Returns the center of Berlin, just for test purpose.
-	 * 
+	 *
 	 * @return center of Berlin as a node
 	 */
 	public static Node getBerlin() {
@@ -50,12 +58,70 @@ public class Node implements Change {
 
 	/**
 	 * Returns the center of Berlin, just for test purpose.
-	 * 
+	 *
 	 * @return center of Berlin as a node
 	 */
 	public static Node getBerlinAsNode() {
 		Node result = new Node(121212, 52.515905, 13.378588, "2010-1-1T12:00:00Z", 1, true);
 		return result;
+	}
+
+	public static Node getDifferentNode(Node node, double lat, double lon) {
+		Calendar nodeTime = node.getCreatedAt();
+		nodeTime.add(Calendar.MINUTE, 5);
+		Node result = new Node(node.id + 1, lat, lon, ChangeSetToolkit.calToOsm(nodeTime), 1, true);
+
+		return result;
+	}
+
+	// TODO kommentieren
+	/**
+	 * @param node
+	 * @param minutes
+	 * @param lat
+	 * @param lon
+	 * @return
+	 */
+	public static Node getDifferentNode(Node node, int minutes, double lat, double lon) {
+		Node result = new Node(node);
+		Calendar createTime;
+
+		result.lat += lat;
+		result.lon += lon;
+
+		createTime = ChangeSetToolkit.osmToCal(result.timestamp);
+		createTime.add(Calendar.MINUTE, minutes);
+		result.timestamp = ChangeSetToolkit.calToOsm(createTime);
+		result.id = System.nanoTime();
+		return result;
+	}
+
+	/**
+	 * Returns a node with given lat and lon, id = 1, version = 1 and visible = true.
+	 *
+	 * @param lat
+	 * @param lon
+	 * @return node with given lat and lon
+	 */
+	public static Node getNode(double lat, double lon) {
+		Node result =
+			new Node(1, lat, lon, ChangeSetToolkit.calToOsm(Calendar.getInstance()), 1, true);
+		return result;
+	}
+
+	/**
+	 * Returns two nodes, with a little difference in time and index.
+	 *
+	 * @param distance
+	 *            will be distance from second node
+	 * @return two nodes
+	 */
+	public static List<Node> getNodes(double distance) {
+		Node result = new Node(121212, 52.515905, 13.378588, "2010-1-1T12:00:00Z", 1, true);
+		Node result2 =
+			new Node(121213, 52.515905 - distance, 13.378588 - distance, "2010-1-1T12:05:00Z", 1,
+					true);
+		return new ArrayList<>(Arrays.asList(result, result2));
 	}
 
 	@Attribute
@@ -112,7 +178,7 @@ public class Node implements Change {
 
 	/**
 	 * makes a deep copy
-	 * 
+	 *
 	 * @param this will be a deep copy of given node
 	 */
 	public Node(Node node) {
@@ -125,14 +191,23 @@ public class Node implements Change {
 		this.user = node.user;
 		this.changeset = node.changeset;
 
-		for (Tag t : node.tags) {
-			tags.add(new Tag(t));
+		for (Tag tag : node.tags) {
+			tags.add(new Tag(tag));
 		}
 	}
 
 	@Override
 	public int compareTo(Change other) {
 		return getCreatedAt().compareTo(other.getCreatedAt());
+	}
+
+	/**
+	 * Returns a {@linkplain Point2D} with x = lon and y = lat.
+	 *
+	 * @return a {@linkplain Point2D} with x = lon and y = lat
+	 */
+	public Point2D getArea() {
+		return new Point2D.Double(lon, lat);
 	}
 
 	@Override
@@ -150,6 +225,20 @@ public class Node implements Change {
 		return id;
 	}
 
+	@Override
+	public double getLat() {
+		return lat;
+	}
+
+	public Point2D getLatLon() {
+		return new Point2D.Double(lat, lon);
+	}
+
+	@Override
+	public double getLon() {
+		return lon;
+	}
+
 	/**
 	 * Returns a list with it's points, list has no back references to this.
 	 */
@@ -163,7 +252,7 @@ public class Node implements Change {
 
 	/**
 	 * Returns an unmodifiable list with the tags.
-	 * 
+	 *
 	 * @return unmodifiable list with the tags
 	 */
 	public List<Tag> getTags() {
@@ -202,6 +291,12 @@ public class Node implements Change {
 	}
 
 	@Override
+	public String toString() {
+		return "Node [changeset=" + changeset + ", id=" + id + ", timestamp=" + timestamp
+			+ ", user=" + user + "]";
+	}
+
+	@Override
 	public String verbose() {
 		StringBuilder msg = new StringBuilder();
 
@@ -209,95 +304,5 @@ public class Node implements Change {
 		msg.append("created = " + ChangeSetToolkit.FORMATTER.format(getCreatedAt().getTime()) + "]");
 
 		return msg.toString();
-	}
-
-	@Override
-	public double getLat() {
-		return lat;
-	}
-
-	@Override
-	public double getLon() {
-		return lon;
-	}
-
-	/**
-	 * Returns two nodes, with a little difference in time and index.
-	 * 
-	 * @param distance
-	 *            will be distance from second node
-	 * @return two nodes
-	 */
-	public static List<Node> getNodes(double distance) {
-		Node result = new Node(121212, 52.515905, 13.378588, "2010-1-1T12:00:00Z", 1, true);
-		Node result2 =
-			new Node(121213, 52.515905 - distance, 13.378588 - distance, "2010-1-1T12:05:00Z", 1,
-					true);
-		return new ArrayList<>(Arrays.asList(result, result2));
-	}
-
-	// TODO kommentieren
-	/**
-	 * @param node
-	 * @param minutes
-	 * @param lat
-	 * @param lon
-	 * @return
-	 */
-	public static Node getDifferentNode(Node node, int minutes, double lat, double lon) {
-		Node result = new Node(node);
-		Calendar createTime;
-
-		result.lat += lat;
-		result.lon += lon;
-
-		createTime = ChangeSetToolkit.osmToCal(result.timestamp);
-		createTime.add(Calendar.MINUTE, minutes);
-		result.timestamp = ChangeSetToolkit.calToOsm(createTime);
-		result.id = System.nanoTime();
-		return result;
-	}
-
-	public static double getBbox(Node node1, Node node2) {
-		double deltaLat, deltaLon;
-
-		deltaLat = Math.abs(node1.lat - node2.lat);
-		deltaLon = Math.abs(node1.lon - node2.lon);
-		return deltaLat * deltaLon;
-	}
-
-	/**
-	 * Returns a {@linkplain Point2D} with x = lon and y = lat.
-	 * 
-	 * @return a {@linkplain Point2D} with x = lon and y = lat
-	 */
-	public Point2D getArea() {
-		return new Point2D.Double(lon, lat);
-	}
-
-	public Point2D getLatLon() {
-		return new Point2D.Double(lat, lon);
-	}
-
-	/**
-	 * Returns a node with given lat and lon, id = 1, version = 1 and visible =
-	 * true.
-	 * 
-	 * @param lat
-	 * @param lon
-	 * @return node with given lat and lon
-	 */
-	public static Node getNode(double lat, double lon) {
-		Node result =
-			new Node(1, lat, lon, ChangeSetToolkit.calToOsm(Calendar.getInstance()), 1, true);
-		return result;
-	}
-
-	public static Node getDifferentNode(Node node, double lat, double lon) {
-		Calendar nodeTime = node.getCreatedAt();
-		nodeTime.add(Calendar.MINUTE, 5);
-		Node result = new Node(node.id + 1, lat, lon, ChangeSetToolkit.calToOsm(nodeTime), 1, true);
-
-		return result;
 	}
 }

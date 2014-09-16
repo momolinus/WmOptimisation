@@ -39,7 +39,7 @@ public class InspectChangeSets {
 
 			if (ways.size() > 0) {
 				StringBuilder strBuilder = new StringBuilder();
-				strBuilder.append(zipFile + " ways:(chnageset id:\ttimestamp)\n");
+				strBuilder.append(zipFile + " ways:(changeset id:\ttimestamp)\n");
 
 				for (Way way : ways) {
 					strBuilder.append(way.getChangeset() + ":\t" + way.getTimestamp() + "\n");
@@ -65,7 +65,7 @@ public class InspectChangeSets {
 	 *            not used
 	 */
 	public static void main(String[] args) {
-		String wheelchair2012 = "C:/Users/Marcus/Desktop/Testdaten Wheelmap/wheelchair-2012.zip";
+		String wheelchair2012 = "wheelchair_visitor-2010.zip";
 
 		String description = describeWays(wheelchair2012);
 

@@ -134,6 +134,32 @@ public class OsmChange {
 		return nodes;
 	}
 
+	public long getChangeSetId() {
+		long changeSetId = -1;
+
+		if (modified.size() > 0) {
+			if (modified.get(0).getNode() != null) {
+				changeSetId = modified.get(0).getNode().getChangeset();
+			}
+
+			if (modified.get(0).getWay() != null) {
+				changeSetId = modified.get(0).getWay().getChangeset();
+			}
+		}
+
+		if (created.size() > 0) {
+			if (created.get(0).getNode() != null) {
+				changeSetId = created.get(0).getNode().getChangeset();
+			}
+
+			if (created.get(0).getWay() != null) {
+				changeSetId = created.get(0).getWay().getChangeset();
+			}
+		}
+
+		return changeSetId;
+	}
+
 	public List<NodeContainer> getNodesCreate() {
 		return Collections.unmodifiableList(created);
 	}

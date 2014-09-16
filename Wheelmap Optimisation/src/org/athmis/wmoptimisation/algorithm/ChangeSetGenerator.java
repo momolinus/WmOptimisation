@@ -35,15 +35,15 @@ public abstract class ChangeSetGenerator {
 
 	private static final Logger LOGGER = Logger.getLogger(ChangeSetGenerator.class);
 
-	protected static void checkChangeSetNotNull(ChangeSet changeSet) {
-		if (changeSet == null) {
-			throw new IllegalArgumentException("changeSet could not be found");
-		}
-
-	}
-
-	protected static void checkChangeAndServerNotNull(Change change, OsmServer osmServer)
-																							throws IllegalArgumentException {
+	/**
+	 * @param change
+	 *            checked for <code>== null</code>
+	 * @param osmServer
+	 *            checked for <code>== null</code>
+	 * @throws IllegalArgumentException
+	 *             if change or server is <code>null</code>
+	 */
+	protected static void assertThatChangeAndServerNotNull(Change change, OsmServer osmServer) {
 		if (change == null) {
 			throw new IllegalArgumentException("null as Change is not permitted");
 		}
@@ -52,18 +52,22 @@ public abstract class ChangeSetGenerator {
 		}
 	}
 
-	private OsmServer osmServer;
+	/**
+	 * @param changeSet
+	 *            checked for <code>== null</code>
+	 * @throws IllegalArgumentException
+	 *             if changeSet is <code>null</code>
+	 */
+	protected static void assertThatChangeSetNotNull(ChangeSet changeSet) {
+		if (changeSet == null) {
+			throw new IllegalArgumentException("changeSet could not be found");
+		}
+	}
+
 	private String name;
-	private int ways;
 	private int nodes;
-
-	public final int getNodes() {
-		return nodes;
-	}
-
-	public final int getWays() {
-		return ways;
-	}
+	private OsmServer osmServer;
+	private int ways;
 
 	public ChangeSetGenerator() {
 		osmServer = new OsmServer();
@@ -104,24 +108,45 @@ public abstract class ChangeSetGenerator {
 			}
 			else {
 				nodes++;
+
+				assertThatChangeIsYoungerThanItsPredecessor(createdTimeMillis, change);
+
+				createdTimeMillis = change.getCreatedAt().getTimeInMillis();
+
+				add(change, osmServer, optimizedDataSet);
 			}
-
-			if (change.getCreatedAt().getTimeInMillis() < createdTimeMillis) {
-				throw new IllegalArgumentException("change " + change.verbose()
-					+ " is older than it's predecessor but must be younger");
-			}
-
-			createdTimeMillis = change.getCreatedAt().getTimeInMillis();
-
-			add(change, osmServer, optimizedDataSet);
 		}
 
-		LOGGER.info(ways + " ways processed");
+		LOGGER.info(ways + " ways omitted");
 		LOGGER.info(nodes + " nodes processed");
 
 		optimizedDataSet.closeAllChangeSets();
 
 		return optimizedDataSet;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public final int getNodes() {
+		return nodes;
+	}
+
+	public final int getWays() {
+		return ways;
+	}
+
+	/**
+	 * @throws IllegalArgumentException
+	 *             if creation time of change is before createdTimeMillis, means new change is older
+	 *             than predecessor, possible reasons: comparable or sorting was wrong implemented
+	 */
+	private void assertThatChangeIsYoungerThanItsPredecessor(long createdTimeMillis, Change change) {
+		if (change.getCreatedAt().getTimeInMillis() < createdTimeMillis) {
+			throw new IllegalArgumentException("change " + change.verbose()
+				+ " is older than it's predecessor but must be younger");
+		}
 	}
 
 	/**
@@ -137,8 +162,4 @@ public abstract class ChangeSetGenerator {
 	 */
 	protected abstract void add(Change change, OsmServer osmServer,
 								OsmChangeContent optimizedDataSet);
-
-	public String getName() {
-		return name;
-	}
 }

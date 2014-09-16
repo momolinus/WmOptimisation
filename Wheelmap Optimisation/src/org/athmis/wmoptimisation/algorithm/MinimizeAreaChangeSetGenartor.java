@@ -37,14 +37,14 @@ public class MinimizeAreaChangeSetGenartor extends ChangeSetGenerator {
 		Calendar changeTime;
 		CangeSetUpdateAble changeSet;
 
-		checkChangeAndServerNotNull(change, osmServer);
+		assertThatChangeAndServerNotNull(change, osmServer);
 
 		changeTime = change.getCreatedAt();
 
 		initChangeSetInUseId(osmServer, changeTime);
 
 		changeSet = osmServer.getChangeSet(changeSetInUseId);
-		checkChangeSetNotNull(changeSet);
+		assertThatChangeSetNotNull(changeSet);
 		
 		if (changeSet.getBoundingBoxSquareDegree() > 0.00116){
 			changeSet.close(changeTime);

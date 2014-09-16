@@ -1,2 +1,11 @@
 # works:
 http://api.openstreetmap.org/api/0.6/changesets?display_name=roald-linus&time=2013-12-31T23:00:00Z,2014-06-01T00:00:00Z&closed=true
+
+# contains some ways
+http://api.openstreetmap.org/api/0.6/changeset/10671963/download
+
+# a way from changeset above
+http://api.openstreetmap.org/api/0.6/way/24285105
+
+# nodes for way above
+http://api.openstreetmap.org/api/0.6/nodes?nodes=262961740,2176370733,2176370762,262961741,1503693906,262961742,1503693908,262961743

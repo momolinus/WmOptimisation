@@ -36,6 +36,9 @@ import org.athmis.wmoptimisation.filefilter.ChangeSetContentFileFilter;
 import org.simpleframework.xml.Serializer;
 import org.simpleframework.xml.core.Persister;
 
+import com.google.common.collect.HashBasedTable;
+import com.google.common.collect.Table;
+
 /**
  * A OsmChangeContent contains changesets (as {@linkplain ChangeSet} objects in a map) and their
  * changes ({@linkplain OsmChange}).
@@ -248,14 +251,19 @@ public class OsmChangeContent {
 		table.append("\n");
 
 		Iterator<CangeSetUpdateAble> chs = changeSets.values().iterator();
+
 		while (chs.hasNext()) {
 			ChangeSet chSet = chs.next();
 
+			// changeset id
 			table.append(chSet.getId());
 			table.append(";");
+
+			// changeset user
 			table.append(chSet.getUser());
 			table.append(";");
 
+			// changeset open state
 			if (chSet.isOpen()) {
 				Calendar future = Calendar.getInstance();
 				future.set(Calendar.YEAR, 2099);
@@ -264,17 +272,18 @@ public class OsmChangeContent {
 			else {
 				table.append(String.format("%tF", chSet.getClosed()));
 			}
-
 			table.append(";");
 
+			// changeset open time in hours
 			if (chSet.isOpen()) {
 				table.append(String.format("%.12f", 100.0));
 			}
 			else {
 				table.append(String.format("%.12f", chSet.getOpenTimeInHours()));
 			}
-
 			table.append(";");
+
+			// changeset area
 			table.append(String.format("%.12f", chSet.getBoundingBoxSquareDegree()));
 
 			if (chs.hasNext()) {
@@ -348,6 +357,31 @@ public class OsmChangeContent {
 		}
 
 		return result.toString();
+	}
+
+	public Table<Long, String, String> getChangeSets(String algorithmus) {
+		Table<Long, String, String> changeSetsTable;
+
+		changeSetsTable = HashBasedTable.create();
+
+		for (CangeSetUpdateAble changeSet : changeSets.values()) {
+			double noChanges = 0;
+
+			changeSetsTable.put(changeSet.getId(), "user", changeSet.getUser());
+			changeSetsTable.put(changeSet.getId(), "algorithm", algorithmus);
+			changeSetsTable.put(changeSet.getId(), "area",
+								Double.toString(changeSet.getBoundingBoxSquareDegree()));
+
+			for (OsmChange change : changes) {
+				if (change.getChangeSetId() == changeSet.getId()) {
+					noChanges += 1.0;
+				}
+			}
+
+			changeSetsTable.put(changeSet.getId(), "no_changes", Double.toString(noChanges));
+		}
+
+		return changeSetsTable;
 	}
 
 	/**

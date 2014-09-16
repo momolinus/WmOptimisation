@@ -60,13 +60,13 @@ public class Optimize {
 
 		generator = new SimpleChangeSetGenerator();
 
-		result = runChangeSetGenerator(generator, "wheelchair-2012.zip");
+		result = runChangeSetGenerator(generator, "wheelchair_visitor-2010.zip");
 		System.out.println(result.oneRowHeader());
 		System.out.println(result.toOneRow());
 
 		generator = new MinimizeAreaChangeSetGenartor();
 
-		result = runChangeSetGenerator(generator, "wheelchair-2012.zip");
+		result = runChangeSetGenerator(generator, "wheelchair_visitor-2010.zip");
 		System.out.println(result.toOneRow());
 
 		LOGGER.info("finished");
@@ -87,8 +87,7 @@ public class Optimize {
 
 		optimizedChangeSet = generator.createOptimizedChangeSets(changeContent);
 
-		optimizationResult.setMeanAreaOptimized(optimizedChangeSet
-				.getMeanArea());
+		optimizationResult.setMeanAreaOptimized(optimizedChangeSet.getMeanArea());
 		optimizationResult.setNoChangeSetsOptimized(optimizedChangeSet.getNoChangeSets());
 		optimizationResult.setNumberNodesOptimized(optimizedChangeSet.getNodes());
 
