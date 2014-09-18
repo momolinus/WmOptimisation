@@ -13,6 +13,7 @@ str(compare.positiv.area)
 names(compare.positiv.area)
 summary(compare.positiv.area)
 boxplot(area ~ algorithm, compare.positiv.area, ylab='Fläche in °x°', log='y')
+boxplot(no_changes ~ algorithm, compare.positiv.area, ylab='Changes/Changeset')
 help(boxplot)
 
 summary(compare.positiv.area[compare.positiv.area$user == 'roald-linus', ])
@@ -27,7 +28,6 @@ summary(compare.positiv.area[compare.positiv.area$user == 'wheelmap_visitor', ])
 #hist(roald.area)
 #summary(roald.area)
 #str(roald.area)
-
 #help(str)
 # show the structur of wheel
 #str(wheel)
