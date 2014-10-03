@@ -14,5 +14,19 @@ public class Area extends Rectangle2D {
 		super(node.getLon(), node.getLat(), 0, 0);
 	}
 
-	// public void
+	public double getLatMin() {
+		return 0;
+	}
+
+	public double getLatMax() {
+		return this.getMinY();
+	}
+
+	public double getLonMin() {
+		return 0;
+	}
+
+	public double getLonMax() {
+		return 0;
+	}
 }

@@ -24,8 +24,27 @@ public class AreaGuardToolBox {
 		return combinedRectangle;
 	}
 
-	public static Rectangle2D getBoxForAreas(Collection<Area> collection) {
-		// TODO implement in next sprint
+	public static Rectangle2D getBoxForAreas(Collection<Area> areas) {
+		Rectangle2D boundingBox;
+		double latMin, latMax;
+		double lonMin, lonMax;
+
+		// latMin is the largest latitude in south, max value could be -90°
+		latMin = 1000.0;
+		// latMax is the largest latitude in north, max value could be 90°
+		latMax = -1000.0;
+
+		lonMin = 1000.0;
+		lonMax = -1000.0;
+
+		for (Area area : areas) {
+			latMin = Math.min(latMin, area.getLatMin());
+			latMax = Math.max(latMax, area.getLatMax());
+
+			lonMin = Math.min(lonMin, area.getLonMin());
+			lonMax = Math.max(lonMax, area.getLonMax());
+		}
+
 		return null;
 	}
 
