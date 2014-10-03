@@ -19,7 +19,7 @@ public class ChangeSetTest {
 	private final static DateFormat FORMATTER = new SimpleDateFormat("yyyy.MM.dd - HH:mm:ss");
 	private Calendar currentTime;
 
-	private CangeSetUpdateAble curTimeOpenChangeSet;
+	private ChangeSetUpdateAble curTimeOpenChangeSet;
 
 	private Node alaska;
 
@@ -38,7 +38,7 @@ public class ChangeSetTest {
 		currentTime = Calendar.getInstance();
 
 		createdAt = ChangeSetToolkit.calToOsm(currentTime);
-		curTimeOpenChangeSet = new CangeSetUpdateAble(createdAt, 2, true);
+		curTimeOpenChangeSet = new ChangeSetUpdateAble(createdAt, 2, true);
 
 		alaska = Node.getNode(65, -147);
 		argentinia_most_S = Node.getDifferentNode(alaska, -35, -65);

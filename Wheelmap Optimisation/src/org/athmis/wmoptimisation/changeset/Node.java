@@ -1,40 +1,31 @@
-/* Copyright Marcus Bleil, Oliver Rudzik, Christoph Bünte 2012 This file is part
- * of Wheelmap Optimization. Wheelmap Optimization is free software: you can
- * redistribute it and/or modify it under the terms of the GNU General Public
- * License as published by the Free Software Foundation, either version 3 of the
- * License, or (at your option) any later version. Wheelmap Optimization is
- * distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
- * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
- * PARTICULAR PURPOSE. See the GNU General Public License for more details. You
- * should have received a copy of the GNU General Public License along with
- * Athmis. If not, see <http://www.gnu.org/licenses/>. Diese Datei ist Teil von
- * Wheelmap Optimization. Wheelmap Optimization ist Freie Software: Sie können
- * es unter den Bedingungen der GNU General Public License, wie von der Free
- * Software Foundation, Version 3 der Lizenz oder (nach Ihrer Option) jeder
- * späteren veröffentlichten Version, weiterverbreiten und/oder modifizieren.
- * Wheelmap Optimization wird in der Hoffnung, dass es nützlich sein wird, aber
- * OHNE JEDE GEWÄHELEISTUNG, bereitgestellt; sogar ohne die implizite
- * Gewährleistung der MARKTFÄHIGKEIT oder EIGNUNG FÜR EINEN BESTIMMTEN ZWECK.
- * Siehe die GNU General Public License für weitere Details. Sie sollten eine
- * Kopie der GNU General Public License zusammen mit diesem Programm erhalten
- * haben. Wenn nicht, siehe <http://www.gnu.org/licenses/>. */
+/* Copyright Marcus Bleil, Oliver Rudzik, Christoph Bünte 2012 This file is part of Wheelmap
+ * Optimization. Wheelmap Optimization is free software: you can redistribute it and/or modify it
+ * under the terms of the GNU General Public License as published by the Free Software Foundation,
+ * either version 3 of the License, or (at your option) any later version. Wheelmap Optimization is
+ * distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the
+ * implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General
+ * Public License for more details. You should have received a copy of the GNU General Public
+ * License along with Athmis. If not, see <http://www.gnu.org/licenses/>. Diese Datei ist Teil von
+ * Wheelmap Optimization. Wheelmap Optimization ist Freie Software: Sie können es unter den
+ * Bedingungen der GNU General Public License, wie von der Free Software Foundation, Version 3 der
+ * Lizenz oder (nach Ihrer Option) jeder späteren veröffentlichten Version, weiterverbreiten
+ * und/oder modifizieren. Wheelmap Optimization wird in der Hoffnung, dass es nützlich sein wird,
+ * aber OHNE JEDE GEWÄHELEISTUNG, bereitgestellt; sogar ohne die implizite Gewährleistung der
+ * MARKTFÄHIGKEIT oder EIGNUNG FÜR EINEN BESTIMMTEN ZWECK. Siehe die GNU General Public License für
+ * weitere Details. Sie sollten eine Kopie der GNU General Public License zusammen mit diesem
+ * Programm erhalten haben. Wenn nicht, siehe <http://www.gnu.org/licenses/>. */
 package org.athmis.wmoptimisation.changeset;
 
 import java.awt.geom.Point2D;
-import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Calendar;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 import org.simpleframework.xml.Attribute;
 import org.simpleframework.xml.ElementList;
 import org.simpleframework.xml.Root;
 
 /**
- * A Node object stores a position and tags. It is the basic object in OSM
- * database. Also it has reference to a {@linkplain ChangeSet} id.
+ * A Node object stores a position and tags. It is the basic object in OSM database. Also it has
+ * reference to a {@linkplain ChangeSet} id.
  */
 @Root(name = "node", strict = false)
 public class Node implements Change {
@@ -101,7 +92,9 @@ public class Node implements Change {
 	 * Returns a node with given lat and lon, id = 1, version = 1 and visible = true.
 	 *
 	 * @param lat
+	 *            latitude in degree
 	 * @param lon
+	 *            longitude in degree
 	 * @return node with given lat and lon
 	 */
 	public static Node getNode(double lat, double lon) {

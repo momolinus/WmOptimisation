@@ -64,14 +64,13 @@ public abstract class ChangeSetGenerator {
 		}
 	}
 
-	private String name;
 	private int nodes;
 	private OsmServer osmServer;
 	private int ways;
 
 	public ChangeSetGenerator() {
 		osmServer = new OsmServer();
-		name = this.getClass().getSimpleName();
+		this.getClass().getSimpleName();
 	}
 
 	// XXX Versions attribute und/oder @JavaDoc Kommentar

@@ -30,7 +30,7 @@ import java.util.concurrent.TimeUnit;
 
 import org.apache.log4j.Logger;
 import org.athmis.wmoptimisation.algorithm.ChangeSetGenerator;
-import org.athmis.wmoptimisation.changeset.CangeSetUpdateAble;
+import org.athmis.wmoptimisation.changeset.ChangeSetUpdateAble;
 import org.athmis.wmoptimisation.changeset.Change;
 import org.athmis.wmoptimisation.changeset.Node;
 import org.athmis.wmoptimisation.changeset.Way;
@@ -73,7 +73,7 @@ public class OsmServer {
 	/**
 	 * map with changesets, the key is the ID of the changeset (which itself is stored as value)
 	 */
-	private Map<Long, CangeSetUpdateAble> changeSets;
+	private Map<Long, ChangeSetUpdateAble> changeSets;
 
 	/**
 	 * used for building an ID for changesets
@@ -92,7 +92,7 @@ public class OsmServer {
 
 	private void checkForClosingChangesets(final Calendar now) {
 
-		for (CangeSetUpdateAble changeSet : changeSets.values()) {
+		for (ChangeSetUpdateAble changeSet : changeSets.values()) {
 
 			// only open change sets needs to be closed
 			if (changeSet.isOpen()) {
@@ -139,7 +139,7 @@ public class OsmServer {
 		}
 	}
 
-	protected boolean isOlderThan24Hours(CangeSetUpdateAble changeSet, Calendar now) {
+	protected boolean isOlderThan24Hours(ChangeSetUpdateAble changeSet, Calendar now) {
 		long age;
 		// older than 24 hours
 		age = now.getTimeInMillis() - changeSet.getCreated().getTimeInMillis();
@@ -149,7 +149,7 @@ public class OsmServer {
 		return closingNeeded;
 	}
 
-	protected boolean is60minutesNotUsed(CangeSetUpdateAble changeSet, Calendar now) {
+	protected boolean is60minutesNotUsed(ChangeSetUpdateAble changeSet, Calendar now) {
 		List<Change> changesForChangeSet;
 		long diff;
 		changesForChangeSet = new ArrayList<>(changes.get(changeSet.getId()));
@@ -215,11 +215,11 @@ public class OsmServer {
 	 *             by any illegal call
 	 */
 	public Long createChangeSet(Calendar creationTime) {
-		CangeSetUpdateAble changeSet;
+		ChangeSetUpdateAble changeSet;
 		Object result;
 
 		index++;
-		changeSet = new CangeSetUpdateAble(calToOsm(creationTime), index, true);
+		changeSet = new ChangeSetUpdateAble(calToOsm(creationTime), index, true);
 		result = changeSets.put(index, changeSet);
 
 		// POSTCONDITION
@@ -258,7 +258,7 @@ public class OsmServer {
 	 * @return the changeset with given id, <code>null</code> if no changeset for given id was
 	 *         stored
 	 */
-	public CangeSetUpdateAble getChangeSet(Long id) {
+	public ChangeSetUpdateAble getChangeSet(Long id) {
 		return changeSets.get(id);
 	}
 

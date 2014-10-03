@@ -99,7 +99,7 @@ public class OsmChangeContent {
 			assertThatPathExists(changesPath);
 
 			ChangeSet changeSet = SERIALIZER.read(ChangeSet.class, changeSetPath.toFile());
-			changeContent.add(new CangeSetUpdateAble(changeSet));
+			changeContent.add(new ChangeSetUpdateAble(changeSet));
 
 			OsmChange changes = SERIALIZER.read(OsmChange.class, changesPath.toFile());
 			changeContent.add(changes);
@@ -116,7 +116,7 @@ public class OsmChangeContent {
 
 		changeSet = SERIALIZER.read(ChangeSet.class, chnageSetStream);
 
-		if (result.add(new CangeSetUpdateAble(changeSet)) != null) {
+		if (result.add(new ChangeSetUpdateAble(changeSet)) != null) {
 			// TODO prüfen ob das sein kann und wenn ja, kommentieren warum
 			LOGGER.warn("changeSet 'id=" + changeSet.getId() + "' was stored before");
 		}
@@ -172,7 +172,7 @@ public class OsmChangeContent {
 	/**
 	 * a map with all changesets as value and changesets id as key
 	 */
-	private Map<Long, CangeSetUpdateAble> changeSets;
+	private Map<Long, ChangeSetUpdateAble> changeSets;
 
 	private String header = "missing";
 
@@ -193,7 +193,7 @@ public class OsmChangeContent {
 	 * @return <code>null</code> if no value for changeset id was stored, or previous stored
 	 *         changeset, which usually seem to be an error
 	 */
-	public ChangeSet add(CangeSetUpdateAble changeSet) {
+	public ChangeSet add(ChangeSetUpdateAble changeSet) {
 		return changeSets.put(Long.valueOf(changeSet.getId()), changeSet);
 	}
 
@@ -224,8 +224,8 @@ public class OsmChangeContent {
 	 *             more than 24 hours, this has 50,000 changes, changeset was not used for more than
 	 *             one hour ore changeset is not open
 	 */
-	public void addChangeForChangeSet(Change change, CangeSetUpdateAble changeSet) {
-		CangeSetUpdateAble changeSetForStoring;
+	public void addChangeForChangeSet(Change change, ChangeSetUpdateAble changeSet) {
+		ChangeSetUpdateAble changeSetForStoring;
 
 		changeSetForStoring = fetchOrStoreAndFetchChangeset(changeSet);
 
@@ -255,7 +255,7 @@ public class OsmChangeContent {
 		table.append("id;user;closed;opentime;area");
 		table.append("\n");
 
-		Iterator<CangeSetUpdateAble> chs = changeSets.values().iterator();
+		Iterator<ChangeSetUpdateAble> chs = changeSets.values().iterator();
 
 		while (chs.hasNext()) {
 			ChangeSet chSet = chs.next();
@@ -301,7 +301,7 @@ public class OsmChangeContent {
 
 	public void closeAllChangeSets() {
 
-		for (CangeSetUpdateAble changeSet : changeSets.values()) {
+		for (ChangeSetUpdateAble changeSet : changeSets.values()) {
 			if (changeSet.isOpen()) {
 				changeSet.closeNow();
 			}
@@ -353,7 +353,7 @@ public class OsmChangeContent {
 		result.append(header);
 		result.append("\n");
 
-		Iterator<CangeSetUpdateAble> chs = changeSets.values().iterator();
+		Iterator<ChangeSetUpdateAble> chs = changeSets.values().iterator();
 		while (chs.hasNext()) {
 			result.append(String.format("%.12f", chs.next().getBoundingBoxSquareDegree()));
 			if (chs.hasNext()) {
@@ -374,7 +374,7 @@ public class OsmChangeContent {
 
 		changeSetsTable = HashBasedTable.create();
 
-		for (CangeSetUpdateAble changeSet : changeSets.values()) {
+		for (ChangeSetUpdateAble changeSet : changeSets.values()) {
 			double noChanges = 0;
 
 			changeSetsTable.put(changeSet.getId(), "user", changeSet.getUser());
@@ -509,7 +509,7 @@ public class OsmChangeContent {
 			}
 		}
 
-		for (Entry<Long, CangeSetUpdateAble> changeset : changeSets.entrySet()) {
+		for (Entry<Long, ChangeSetUpdateAble> changeset : changeSets.entrySet()) {
 			result.append(changeset.getKey().toString() + "\t"
 				+ FORMATTER.format(changeset.getValue().getCreated().getTime()));
 			result.append("\n");
@@ -527,8 +527,8 @@ public class OsmChangeContent {
 	 * @return the stored changeset (compared on id) or the given changeset, which will be stored as
 	 *         a new one
 	 */
-	private CangeSetUpdateAble fetchOrStoreAndFetchChangeset(CangeSetUpdateAble changeSet) {
-		CangeSetUpdateAble changeSetForStoring;
+	private ChangeSetUpdateAble fetchOrStoreAndFetchChangeset(ChangeSetUpdateAble changeSet) {
+		ChangeSetUpdateAble changeSetForStoring;
 		long changesetId;
 
 		changesetId = changeSet.getId();
@@ -550,7 +550,7 @@ public class OsmChangeContent {
 	 * @param changeSetForStoring
 	 *            "stores" given change
 	 */
-	private void setChangeAsStored(Change change, CangeSetUpdateAble changeSetForStoring) {
+	private void setChangeAsStored(Change change, ChangeSetUpdateAble changeSetForStoring) {
 		change.setChangeset(changeSetForStoring.getId());
 		changeSetForStoring.updateBoundingBox(change);
 	}

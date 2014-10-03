@@ -90,7 +90,7 @@ public final class ChangeSetToolkit {
 	 * @throws IllegalArgumentException
 	 *             if changeSets is <code>null</code>
 	 */
-	public static double meanArea(Collection<CangeSetUpdateAble> changeSets) {
+	public static double meanArea(Collection<ChangeSetUpdateAble> changeSets) {
 		double result = 0;
 		int areas = 0;
 

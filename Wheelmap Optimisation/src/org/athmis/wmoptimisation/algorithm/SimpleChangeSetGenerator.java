@@ -19,7 +19,7 @@ package org.athmis.wmoptimisation.algorithm;
 import java.util.Calendar;
 
 import org.apache.log4j.Logger;
-import org.athmis.wmoptimisation.changeset.CangeSetUpdateAble;
+import org.athmis.wmoptimisation.changeset.ChangeSetUpdateAble;
 import org.athmis.wmoptimisation.changeset.Change;
 import org.athmis.wmoptimisation.fetch_changesets.OsmChangeContent;
 import org.athmis.wmoptimisation.osmserver.OsmServer;
@@ -59,7 +59,7 @@ public class SimpleChangeSetGenerator extends ChangeSetGenerator {
 	@Override
 	protected void add(Change change, OsmServer osmServer, OsmChangeContent optimizedDataSet) {
 		Calendar changeTime;
-		CangeSetUpdateAble changeSet;
+		ChangeSetUpdateAble changeSet;
 
 		assertThatChangeAndServerNotNull(change, osmServer);
 

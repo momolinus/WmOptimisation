@@ -11,13 +11,13 @@ import java.util.Calendar;
  *
  * @author Marcus Bleil
  */
-public class CangeSetUpdateAble extends ChangeSet {
+public class ChangeSetUpdateAble extends ChangeSet {
 
-	public CangeSetUpdateAble(ChangeSet changeSet) {
+	public ChangeSetUpdateAble(ChangeSet changeSet) {
 		super(changeSet);
 	}
 
-	public CangeSetUpdateAble(String calToOsm, long index, boolean open) {
+	public ChangeSetUpdateAble(String calToOsm, long index, boolean open) {
 		super(calToOsm, index, open);
 	}
 
