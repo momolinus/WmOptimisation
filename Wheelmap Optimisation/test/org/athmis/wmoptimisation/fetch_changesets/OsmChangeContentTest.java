@@ -63,7 +63,7 @@ public class OsmChangeContentTest {
 		assertThat(changes, hasSize(223 + 180));
 	}
 
-	// TODO Ergebnisse sind ermittelt -> nochmal prüfen
+	// XXX Ergebnisse sind ermittelt -> nochmal prüfen
 	@Test
 	public void testGetBoundingBoxesSquareDegree() {
 		List<Double> bb = changeContent.getBoundingBoxesSquareDegree();
@@ -73,7 +73,7 @@ public class OsmChangeContentTest {
 		assertThat(bb.get(1), is(closeTo(4004.1, 0.1)));
 	}
 
-	// TODO Ergebnisse sind ermittelt -> nochmal prüfen
+	// XXX Ergebnisse sind ermittelt -> nochmal prüfen
 	@Test
 	public void testGetMeanAreaOfChangeSetsForNodes() {
 		double meanArea = changeContent.getMeanArea();

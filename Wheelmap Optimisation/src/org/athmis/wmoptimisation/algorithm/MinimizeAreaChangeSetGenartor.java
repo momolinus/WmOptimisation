@@ -58,7 +58,6 @@ public class MinimizeAreaChangeSetGenartor extends ChangeSetGenerator {
 
 	@Override
 	public String getName() {
-		// TODO Auto-generated method stub
 		return "minimize area (1)";
 	}
 }

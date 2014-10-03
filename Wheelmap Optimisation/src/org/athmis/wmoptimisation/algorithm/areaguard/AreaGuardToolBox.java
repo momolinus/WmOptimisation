@@ -25,12 +25,12 @@ public class AreaGuardToolBox {
 	}
 
 	public static Rectangle2D getBoxForAreas(Collection<Area> collection) {
-		// TODO Auto-generated method stub
+		// TODO implement in next sprint
 		return null;
 	}
 
 	public static double getMaxEdge(Rectangle2D nextBox) {
-		// TODO Auto-generated method stub
+		// TODO implement in next sprint
 		return 0;
 	}
 }

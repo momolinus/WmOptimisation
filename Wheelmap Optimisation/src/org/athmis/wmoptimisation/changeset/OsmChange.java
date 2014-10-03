@@ -53,7 +53,7 @@ public class OsmChange {
 	@Attribute
 	private double version;
 
-	// TODO kommentieren und prüfen, added nur zur modified liste
+	// TODO inspect next sprint: kommentieren und prüfen, added nur zur modified liste
 	public void addChange(Change change) {
 		NodeContainer container;
 
@@ -108,7 +108,7 @@ public class OsmChange {
 		return id;
 	}
 
-	// TODO Prüfen ob die Referenzen o.k. sind
+	// TODO wichtig aber später: Prüfen ob die Referenzen o.k. sind
 	/**
 	 * Returns the nodes of this OsmChange object. Map could be empty. Key value is the id of the
 	 * changeset.

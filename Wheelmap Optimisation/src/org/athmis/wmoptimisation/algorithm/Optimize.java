@@ -27,8 +27,7 @@ import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 import org.athmis.wmoptimisation.fetch_changesets.OsmChangeContent;
 
-// TODO hier kommt die Doku für die Optimierung-Strategie rein (und dabei wird
-// sie auch entwickelt)
+// XXX better documentation needed for "algorithm finding strategy"
 
 /**
  * @author Marcus

@@ -66,7 +66,7 @@ public class Node implements Change {
 		return result;
 	}
 
-	// TODO kommentieren
+	// TODO document next sprint
 	/**
 	 * @param node
 	 * @param minutes
@@ -148,7 +148,7 @@ public class Node implements Change {
 
 	public Node() {}
 
-	// TODO timestamp parsen und prüfen
+	// TODO next+1 sprint: timestamp parsen und prüfen, geht einfach und dann exception werfen
 	public Node(long id, double lat, double lon, String timestamp) {
 		this.id = id;
 		this.lat = lat;
@@ -159,7 +159,7 @@ public class Node implements Change {
 		this.user = "default constructor";
 	}
 
-	// TODO timestamp parsen und prüfen
+	// TODO next+1 sprint timestamp parsen und prüfen, geht einfach und dann exception werfen
 	public Node(long id, double lat, double lon, String timestamp, int version, boolean visible) {
 		this.id = id;
 		this.lat = lat;

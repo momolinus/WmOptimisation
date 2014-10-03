@@ -117,7 +117,7 @@ public class OsmChangeContent {
 		changeSet = SERIALIZER.read(ChangeSet.class, chnageSetStream);
 
 		if (result.add(new ChangeSetUpdateAble(changeSet)) != null) {
-			// TODO prüfen ob das sein kann und wenn ja, kommentieren warum
+			// TODO wichtig aber später: prüfen ob das sein kann und wenn ja, kommentieren warum
 			LOGGER.warn("changeSet 'id=" + changeSet.getId() + "' was stored before");
 		}
 	}
@@ -209,7 +209,7 @@ public class OsmChangeContent {
 		changes.add(changeContent);
 	}
 
-	// TODO ist das dir richtige Stelle, um zu prüfen, ob das Change gespeichert
+	// TODO check next sprint: ist das die richtige Stelle, um zu prüfen, ob das Change gespeichert
 	// werden darf?
 	/**
 	 * Adds the given change to given changeset. Stores both objects. It Could be, that given
@@ -591,8 +591,7 @@ public class OsmChangeContent {
 
 		// if (changeSetForStoring.)
 
-		// FIXME missing test for 50 000 changesets, wenn implementiert, dann
-		// muss der Test aus Infinitest ausgeschlossen werden
+		// XXX missing test for 50 000 changesets, use a mock object
 	}
 
 }
