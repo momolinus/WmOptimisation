@@ -1,5 +1,7 @@
 package org.athmis.wmoptimisation.algorithm.areaguard;
 
+import java.util.Collection;
+
 import org.athmis.wmoptimisation.changeset.ChangeSetUpdateAble;
 
 import javafx.geometry.Rectangle2D;
@@ -20,5 +22,15 @@ public class AreaGuardToolBox {
 		combinedRectangle = Rectangle2D.EMPTY;
 
 		return combinedRectangle;
+	}
+
+	public static Rectangle2D getBoxForAreas(Collection<Area> collection) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public static double getMaxEdge(Rectangle2D nextBox) {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 }

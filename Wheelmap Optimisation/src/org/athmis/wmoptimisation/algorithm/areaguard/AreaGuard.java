@@ -1,5 +1,7 @@
 package org.athmis.wmoptimisation.algorithm.areaguard;
 
+import javafx.geometry.Rectangle2D;
+
 import org.athmis.wmoptimisation.changeset.Change;
 
 import com.google.common.collect.ArrayListMultimap;
@@ -30,7 +32,14 @@ public class AreaGuard {
 	}
 
 	public boolean isNextBoxToLarge(Long changeSetId, Change updatedItem) {
-		return false;
+		Rectangle2D actualBox, nextBox;
+		double maxEdge;
+
+		actualBox = AreaGuardToolBox.getBoxForAreas(edges.get(changeSetId));
+		nextBox = AreaGuardToolBox.combine(actualBox, new Area(updatedItem));
+		maxEdge = AreaGuardToolBox.getMaxEdge(nextBox);
+
+		return maxEdge > maxBboxEdge;
 	}
 
 	public void addUpdatedItem(Long changeSetId, Change updatedItem) {
