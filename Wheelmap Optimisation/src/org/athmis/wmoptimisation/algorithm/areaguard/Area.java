@@ -4,29 +4,43 @@ import javafx.geometry.Rectangle2D;
 
 import org.athmis.wmoptimisation.changeset.Change;
 
+// TODO kann man das nun mittels AffineTransformation nutzen???
 public class Area extends Rectangle2D {
-
-	public Area(double minX, double minY, double width, double height) {
-		super(minX, minY, width, height);
-	}
 
 	public Area(Change node) {
 		super(node.getLon(), node.getLat(), 0, 0);
 	}
 
-	public double getLatMin() {
-		return 0;
+	public Area(double latN, double lonE, double latS, double lonW) {
+		// x,y | width, height
+		super(lonE, latN, lonE - lonW, latN - latS);
 	}
 
-	public double getLatMax() {
+	/**
+	 * @return the most north latitude
+	 */
+	public double getLatMaxN() {
 		return this.getMinY();
 	}
 
-	public double getLonMin() {
-		return 0;
+	/**
+	 * @return the most south latitude
+	 */
+	public double getLatMinS() {
+		return this.getMaxY();
 	}
 
-	public double getLonMax() {
-		return 0;
+	/**
+	 * @return the most east longitude
+	 */
+	public double getLonMaxE() {
+		return this.getMaxY();
+	}
+
+	/**
+	 * @return the most west longitude
+	 */
+	public double getLonMinW() {
+		return this.getMinY();
 	}
 }

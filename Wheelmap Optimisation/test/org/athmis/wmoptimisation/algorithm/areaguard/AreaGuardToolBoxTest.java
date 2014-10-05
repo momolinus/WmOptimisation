@@ -16,8 +16,5 @@ public class AreaGuardToolBoxTest {
 		Rectangle2D r2 = new Rectangle2D(21, 21, 0, 0);
 
 		combined = AreaGuardToolBox.combine(r1, r2);
-
-		// assertThat(combined.getMinY(), is(equalTo(operand)));
-
 	}
 }

@@ -16,15 +16,14 @@ public class AreaGuardToolBox {
 	 * @return
 	 * @see ChangeSetUpdateAble#updateBoundingBox(org.athmis.wmoptimisation.changeset.Change)
 	 */
-	public static Rectangle2D combine(Rectangle2D r1, Rectangle2D r2) {
-		Rectangle2D combinedRectangle;
+	public static Area combine(Rectangle2D r1, Rectangle2D r2) {
+		Area combinedRectangle;
 
-		combinedRectangle = Rectangle2D.EMPTY;
 
-		return combinedRectangle;
+		return null;
 	}
 
-	public static Rectangle2D getBoxForAreas(Collection<Area> areas) {
+	public static Area getBoxForAreas(Collection<Area> areas) {
 		Rectangle2D boundingBox;
 		double latMin, latMax;
 		double lonMin, lonMax;
@@ -38,13 +37,14 @@ public class AreaGuardToolBox {
 		lonMax = -1000.0;
 
 		for (Area area : areas) {
-			latMin = Math.min(latMin, area.getLatMin());
-			latMax = Math.max(latMax, area.getLatMax());
+			latMin = Math.min(latMin, area.getLatMinS());
+			latMax = Math.max(latMax, area.getLatMaxN());
 
-			lonMin = Math.min(lonMin, area.getLonMin());
-			lonMax = Math.max(lonMax, area.getLonMax());
+			lonMin = Math.min(lonMin, area.getLonMinW());
+			lonMax = Math.max(lonMax, area.getLonMaxE());
 		}
 
+		// boundingBox = new Area(minX, minY, width, height)
 		return null;
 	}
 
