@@ -17,7 +17,6 @@ names(changes.positiv.area)
 summary(changes.positiv.area)
 summary(changes.positiv.area$area)
 boxplot(changes.positiv.area$area)
-changes.positiv.area$area == 0
 help(summary)
 boxplot(area ~ algo, changes.positiv.area, ylab='Fläche in °x°', log='y')
 boxplot(no_changes ~ algo, changes.positiv.area, ylab='Changes/Changeset')
