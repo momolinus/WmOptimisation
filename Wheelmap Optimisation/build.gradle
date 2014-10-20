@@ -13,7 +13,7 @@ sourceSets {
             srcDir 'src'
         }
         resources {
-        	srcDir 'res'
+        	srcDir 'ressources'
         }
    }
 
@@ -22,7 +22,7 @@ sourceSets {
    			srcDir 'test'
    		}
    		resources {
-        	srcDir 'res'
+        	srcDir 'ressources'
         }
    }
 }
@@ -48,4 +48,6 @@ dependencies {
  	// junit-4.11.jar enthält nicht mehr die hamcrast jars (wenn sie über das maven-Repositorium
  	// geladen wird, sondern nur noch den Hinweis auf die Abhängigkeit
     testCompile group: 'junit', name: 'junit', version: '4.11'
+
+    testCompile 'commons-configuration:commons-configuration:1.10'
 }

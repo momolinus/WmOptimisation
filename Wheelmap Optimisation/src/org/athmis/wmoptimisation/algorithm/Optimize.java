@@ -18,13 +18,12 @@ package org.athmis.wmoptimisation.algorithm;
 
 import java.io.BufferedWriter;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
+import java.nio.file.*;
 import java.text.ParseException;
 
-import org.apache.log4j.BasicConfigurator;
-import org.apache.log4j.Level;
-import org.apache.log4j.Logger;
+import org.apache.commons.configuration.ConfigurationException;
+import org.apache.commons.configuration.PropertiesConfiguration;
+import org.apache.log4j.*;
 import org.athmis.wmoptimisation.algorithm.areaguard.AreaGuardChangeSetGenerator;
 import org.athmis.wmoptimisation.fetch_changesets.OsmChangeContent;
 
@@ -48,7 +47,7 @@ public class Optimize {
 
 			System.exit(1);
 		}
-		catch (IOException | ParseException e) {
+		catch (IOException | ParseException | ConfigurationException e) {
 
 			e.printStackTrace();
 
@@ -56,31 +55,52 @@ public class Optimize {
 		}
 	}
 
-	public static void run(String[] args) throws IOException, ParseException {
+	public static void run(String[] args) throws IOException, ParseException,
+											ConfigurationException {
 
-		ChangeSetGenerator simpleGenerator, minimizeAreaGenerator;
-		OptimizationResult simpleResult, minimizeAreaResult;
+		ChangeSetGenerator simpleGenerator, minimizeAreaGenerator, areaGuardGenerator, humanExample;
+		OptimizationResult simpleResult, minimizeAreaResult, areaGuardGeneratorResult, humanExampleResult;
 
 		simpleGenerator = new SimpleChangeSetGenerator();
-		simpleResult = runChangeSetGenerator(simpleGenerator, "wheelchair_visitor-2010.zip");
-		System.out.println(simpleResult.oneRowHeader());
-		System.out.println(simpleResult.toOneRow());
+		humanExample = new SimpleChangeSetGenerator();
+		minimizeAreaGenerator = new MinimizeAreaChangeSetGenartor();
+		areaGuardGenerator = new AreaGuardChangeSetGenerator(0.0001);
 
-		minimizeAreaGenerator = new AreaGuardChangeSetGenerator(0.001);
+		LOGGER.info("starting simulation");
+
+		simpleResult = runChangeSetGenerator(simpleGenerator, "wheelchair_visitor-2010.zip");
+		humanExampleResult = runChangeSetGenerator(humanExample, "roald-linus-2011.zip");
 		minimizeAreaResult =
 			runChangeSetGenerator(minimizeAreaGenerator, "wheelchair_visitor-2010.zip");
-		System.out.println(minimizeAreaResult.toOneRow());
+		areaGuardGeneratorResult =
+			runChangeSetGenerator(areaGuardGenerator, "wheelchair_visitor-2010.zip");
 
-		BufferedWriter writer = Files.newBufferedWriter(Paths.get("wheel-2-2010.csv"));
+		BufferedWriter writer = Files.newBufferedWriter(buildFileName());
 
+		writer.append(simpleResult.getChangesHeader());
+		writer.newLine();
 		writer.append(simpleResult.getOriginalChangesTable());
+		writer.newLine();
+		writer.append(humanExampleResult.getOriginalChangesTable());
 		writer.newLine();
 		writer.append(simpleResult.getOptimizedChangesTable());
 		writer.newLine();
 		writer.append(minimizeAreaResult.getOptimizedChangesTable());
+		writer.newLine();
+		writer.append(areaGuardGeneratorResult.getOptimizedChangesTable());
 		writer.close();
 
 		LOGGER.info("finished");
+	}
+
+	private static Path buildFileName() throws ConfigurationException {
+		PropertiesConfiguration config = new PropertiesConfiguration("ressources/file-counter.txt");
+		int counter = config.getInt("counter");
+		counter++;
+		config.setProperty("counter", counter);
+		config.save();
+
+		return Paths.get("optimization_" + counter + ".csv");
 	}
 
 	private static OptimizationResult runChangeSetGenerator(ChangeSetGenerator generator,
