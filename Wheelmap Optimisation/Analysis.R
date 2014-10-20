@@ -2,7 +2,7 @@ setwd("C:/Users/Marcus/git/WmOptimisation/Wheelmap Optimisation")
 
 #
 #roald <- read.table(file = "rl-2010-2012.csv", header=T, dec=",", sep=";")
-compare <- read.table(file = "optimization_3.csv", header=T, dec=".", sep=";")
+compare <- read.table(file = "optimization_4.csv", header=T, dec=".", sep=";")
 
 str(compare)
 names(compare)
