@@ -12,14 +12,16 @@ public class AreaGuardChangeSetGenerator extends ChangeSetGenerator {
 
 	private AreaGuard areaGuard;
 	protected Long changeSetInUseId;
+	private String name;
 
 	public AreaGuardChangeSetGenerator(double maxBboxSize) {
 		areaGuard = new AreaGuard(maxBboxSize);
+		name = "area guard (" + maxBboxSize + ")";
 	}
 
 	@Override
 	public String getName() {
-		return "area guard";
+		return name;
 	}
 
 	// XXX besseren Methoden Namen finden
@@ -77,9 +79,8 @@ public class AreaGuardChangeSetGenerator extends ChangeSetGenerator {
 			changeSetInUseId = osmServer.createChangeSet(changeTime);
 			changeSet = osmServer.getChangeSet(changeSetInUseId);
 		}
-		else {
-			areaGuard.addUpdatedItem(changeSetInUseId, updatedItem);
-		}
+
+		areaGuard.addUpdatedItem(changeSetInUseId, updatedItem);
 
 		optimizedDataSet.addChangeForChangeSet(updatedItem, changeSet);
 	}
