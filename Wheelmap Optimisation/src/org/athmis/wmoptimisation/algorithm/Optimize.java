@@ -64,7 +64,8 @@ public class Optimize {
 		simpleGenerator = new SimpleChangeSetGenerator();
 		humanExample = new SimpleChangeSetGenerator();
 		minimizeAreaGenerator = new MinimizeAreaChangeSetGenartor();
-		areaGuardGenerator = new AreaGuardChangeSetGenerator(0.0001);
+		// 10km: 52,4798529 - 52,4725339 = 0,0073
+		areaGuardGenerator = new AreaGuardChangeSetGenerator(0.0073);
 
 		LOGGER.info("starting simulation");
 
