@@ -12,7 +12,9 @@ import org.mockito.MockitoAnnotations;
 
 public class AreaTest {
 
-	private static final double LAT_LON_STD_MAX_ERROR = 0.00000001;
+	// TODO kann man das noch allg. bekannt machen
+	public static final double LAT_LON_STD_MAX_ERROR = 0.00000001;
+
 	@Mock
 	private Change node;
 
@@ -32,15 +34,5 @@ public class AreaTest {
 		nwArea = new Area(node);
 
 		assertThat(nwArea.getLatMaxN(), is(closeTo(52.0, LAT_LON_STD_MAX_ERROR)));
-
-	}
-
-	@Test
-	public void test_that_NW_Area_created_correct() {
-		Area nwArea;
-
-		nwArea = new Area(10, 10, 9, 11);
-
-		// assertThat(nwArea.getHeight(), matcher);
 	}
 }

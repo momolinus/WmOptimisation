@@ -25,6 +25,7 @@ import java.text.ParseException;
 import org.apache.log4j.BasicConfigurator;
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
+import org.athmis.wmoptimisation.algorithm.areaguard.AreaGuardChangeSetGenerator;
 import org.athmis.wmoptimisation.fetch_changesets.OsmChangeContent;
 
 // XXX better documentation needed for "algorithm finding strategy"
@@ -65,12 +66,12 @@ public class Optimize {
 		System.out.println(simpleResult.oneRowHeader());
 		System.out.println(simpleResult.toOneRow());
 
-		minimizeAreaGenerator = new MinimizeAreaChangeSetGenartor();
+		minimizeAreaGenerator = new AreaGuardChangeSetGenerator(0.001);
 		minimizeAreaResult =
 			runChangeSetGenerator(minimizeAreaGenerator, "wheelchair_visitor-2010.zip");
 		System.out.println(minimizeAreaResult.toOneRow());
 
-		BufferedWriter writer = Files.newBufferedWriter(Paths.get("wheel-2010.csv"));
+		BufferedWriter writer = Files.newBufferedWriter(Paths.get("wheel-2-2010.csv"));
 
 		writer.append(simpleResult.getOriginalChangesTable());
 		writer.newLine();

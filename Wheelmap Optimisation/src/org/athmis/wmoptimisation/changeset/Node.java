@@ -284,6 +284,10 @@ public class Node implements Change {
 		this.changeset = changeSetId;
 	}
 
+	public void setId(long id) {
+		this.id = id;
+	}
+
 	@Override
 	public String toString() {
 		return "Node [changeset=" + changeset + ", id=" + id + ", timestamp=" + timestamp
