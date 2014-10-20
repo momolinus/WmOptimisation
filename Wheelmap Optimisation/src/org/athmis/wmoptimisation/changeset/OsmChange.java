@@ -23,9 +23,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.simpleframework.xml.Attribute;
-import org.simpleframework.xml.ElementList;
-import org.simpleframework.xml.Root;
+import org.simpleframework.xml.*;
 
 /**
  * An OsmChange object acts for the root element of OsmAPI response on changed nodes and ways. It
@@ -52,6 +50,8 @@ public class OsmChange {
 	private List<NodeContainer> modified = new ArrayList<NodeContainer>();
 	@Attribute
 	private double version;
+
+	public OsmChange() {}
 
 	// TODO inspect next sprint: kommentieren und prüfen, added nur zur modified liste
 	public void addChange(Change change) {

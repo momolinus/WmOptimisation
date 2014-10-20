@@ -1,29 +1,43 @@
 setwd("C:/Users/Marcus/git/WmOptimisation/Wheelmap Optimisation")
 
-#
-#roald <- read.table(file = "rl-2010-2012.csv", header=T, dec=",", sep=";")
-compare <- read.table(file = "optimization_4.csv", header=T, dec=".", sep=";")
+# read a file with list of changes
+changes <- read.table(file = "optimization_4.csv", header=T, dec=".", sep=";")
 
-str(compare)
-names(compare)
-summary(compare)
+# expected: a data.frame with columns "changesetId", "area", "no_changes", "user" and "algorithm"
+str(changes)
+# names -> see columns aboven
+names(changes)
+# 
+summary(changes)
 
-compare.positiv.area <- compare[compare$area > 0, ]
-compare.positiv.area$algo <- paste(compare.positiv.area$algorithm, compare.positiv.area$user, sep=": ")  
-str(compare.positiv.area)
-names(compare.positiv.area)
-summary(compare.positiv.area)
-boxplot(area ~ algo, compare.positiv.area, ylab='Fläche in °x°', log='y')
-boxplot(no_changes ~ algo, compare.positiv.area, ylab='Changes/Changeset')
+changes.positiv.area <- changes[changes$area > 0, ]
+changes.positiv.area$algo <- paste(changes.positiv.area$algorithm, changes.positiv.area$user, sep=": ")  
+str(changes.positiv.area)
+names(changes.positiv.area)
+summary(changes.positiv.area)
+summary(changes.positiv.area$area)
+boxplot(changes.positiv.area$area)
+changes.positiv.area$area == 0
+help(summary)
+boxplot(area ~ algo, changes.positiv.area, ylab='Fläche in °x°', log='y')
+boxplot(no_changes ~ algo, changes.positiv.area, ylab='Changes/Changeset')
+plot (changes.positiv.area$algo)
 help(boxplot)
+
+changesets.algo <- tapply(changes.positiv.area$changesetId, changes.positiv.area$algo,length)
+changes.algo <- tapply(changes.positiv.area$no_changes, changes.positiv.area$algo,length)
+changes.algo
+changesets.algo
+names(changesets.algo)
+help(tapply)
 
 # Anzahl von Changes
 
-summary(compare.positiv.area[compare.positiv.area$user == 'roald-linus', ])
-summary(compare.positiv.area[compare.positiv.area$user == 'no_user', ])
-summary(compare.positiv.area[compare.positiv.area$user == 'wheelmap_visitor', ])
+summary(changes.positiv.area[changes.positiv.area$user == 'roald-linus', ])
+summary(changes.positiv.area[changes.positiv.area$user == 'no_user', ])
+summary(changes.positiv.area[changes.positiv.area$user == 'wheelmap_visitor', ])
 
-#hist(area ~ user, compare.positiv.area)
+#hist(area ~ user, changes.positiv.area)
 
 #str(roald)
 #names(roald)
