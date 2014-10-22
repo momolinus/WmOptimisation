@@ -11,19 +11,19 @@ public class MinimizeAreaChangeSetGenartor extends ChangeSetGenerator {
 
 	private Long changeSetInUseId;
 
-	private void initChangeSetInUseId(OsmServer osmServer, Calendar changeTime)
-																				throws IllegalStateException {
+	private void initChangeSetInUseId(OsmServer osmServer, Calendar changeTime, String user)
+																							throws IllegalStateException {
 
 		// first run
 		if (changeSetInUseId == null) {
-			changeSetInUseId = osmServer.createChangeSet(changeTime);
+			changeSetInUseId = osmServer.createChangeSet(changeTime, user);
 		}
 		else {
 			boolean isOpen;
 
 			isOpen = osmServer.isChangeSetOpen(changeSetInUseId, changeTime);
 			if (!isOpen) {
-				changeSetInUseId = osmServer.createChangeSet(changeTime);
+				changeSetInUseId = osmServer.createChangeSet(changeTime, user);
 			}
 		}
 
@@ -42,7 +42,7 @@ public class MinimizeAreaChangeSetGenartor extends ChangeSetGenerator {
 
 		changeTime = change.getCreatedAt();
 
-		initChangeSetInUseId(osmServer, changeTime);
+		initChangeSetInUseId(osmServer, changeTime, change.getUser());
 
 		changeSet = osmServer.getChangeSet(changeSetInUseId);
 
@@ -50,9 +50,10 @@ public class MinimizeAreaChangeSetGenartor extends ChangeSetGenerator {
 
 		if (changeSet.getBoundingBoxSquareDegree() > 0.00116) {
 			changeSet.close(changeTime);
-			changeSetInUseId = osmServer.createChangeSet(changeTime);
+			changeSetInUseId = osmServer.createChangeSet(changeTime, change.getUser());
 			changeSet = osmServer.getChangeSet(changeSetInUseId);
 		}
+
 		optimizedDataSet.addChangeForChangeSet(change, changeSet);
 	}
 

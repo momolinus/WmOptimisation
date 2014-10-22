@@ -63,4 +63,8 @@ public class ChangeSetUpdateAble extends ChangeSet {
 		maxLongitude = Math.max(maxLongitude, lon);
 		minLongitude = Math.min(minLongitude, lon);
 	}
+
+	public void setUser(String user) {
+		this.user = user;
+	}
 }

@@ -28,7 +28,7 @@ import org.simpleframework.xml.*;
 /**
  * An OsmChange object acts for the root element of OsmAPI response on changed nodes and ways. It
  * contains two {@linkplain NodeContainer} lists: one for changed OSM-objects and one for new
- * created OSM-objects.
+ * created OSM-objects. The OSM-objects (modes or ways) contains an id for their changeset.
  */
 @Root(name = "osmChange", strict = false)
 public class OsmChange {
@@ -53,7 +53,9 @@ public class OsmChange {
 
 	public OsmChange() {}
 
-	// TODO inspect next sprint: kommentieren und prüfen, added nur zur modified liste
+	// TODO inspect next sprint: kommentieren und prüfen, added nur zur modified liste, da die
+	// Wheelmap die ersten Jahre nur modifizieren konnte, die Methode wird nur so gebraucht (vgl.
+	// Suche) -> also kommentieren
 	public void addChange(Change change) {
 		NodeContainer container;
 

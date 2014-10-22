@@ -67,7 +67,7 @@ public class SimpleChangeSetGenerator extends ChangeSetGenerator {
 
 		// first run
 		if (changeSetInUseId == null) {
-			changeSetInUseId = osmServer.createChangeSet(changeTime);
+			changeSetInUseId = osmServer.createChangeSet(changeTime, change.getUser());
 
 			LOGGER.debug("initial changeset id = " + String.valueOf(changeSetInUseId));
 		}
@@ -81,7 +81,7 @@ public class SimpleChangeSetGenerator extends ChangeSetGenerator {
 				LOGGER.debug("new changeset request for change: " + change.toString());
 				// LOGGER.debug("old changeset id = " + String.valueOf(changeSetInUseId));
 
-				changeSetInUseId = osmServer.createChangeSet(changeTime);
+				changeSetInUseId = osmServer.createChangeSet(changeTime, change.getUser());
 			}
 		}
 

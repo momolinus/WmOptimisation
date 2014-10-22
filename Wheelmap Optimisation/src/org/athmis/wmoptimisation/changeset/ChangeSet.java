@@ -1,23 +1,19 @@
-/* Copyright Marcus Bleil, Oliver Rudzik, Christoph Bünte 2012 This file is part
- * of Wheelmap Optimization. Wheelmap Optimization is free software: you can
- * redistribute it and/or modify it under the terms of the GNU General Public
- * License as published by the Free Software Foundation, either version 3 of the
- * License, or (at your option) any later version. Wheelmap Optimization is
- * distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
- * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
- * PARTICULAR PURPOSE. See the GNU General Public License for more details. You
- * should have received a copy of the GNU General Public License along with
- * Athmis. If not, see <http://www.gnu.org/licenses/>. Diese Datei ist Teil von
- * Wheelmap Optimization. Wheelmap Optimization ist Freie Software: Sie können
- * es unter den Bedingungen der GNU General Public License, wie von der Free
- * Software Foundation, Version 3 der Lizenz oder (nach Ihrer Option) jeder
- * späteren veröffentlichten Version, weiterverbreiten und/oder modifizieren.
- * Wheelmap Optimization wird in der Hoffnung, dass es nützlich sein wird, aber
- * OHNE JEDE GEWÄHELEISTUNG, bereitgestellt; sogar ohne die implizite
- * Gewährleistung der MARKTFÄHIGKEIT oder EIGNUNG FÜR EINEN BESTIMMTEN ZWECK.
- * Siehe die GNU General Public License für weitere Details. Sie sollten eine
- * Kopie der GNU General Public License zusammen mit diesem Programm erhalten
- * haben. Wenn nicht, siehe <http://www.gnu.org/licenses/>. */
+/* Copyright Marcus Bleil, Oliver Rudzik, Christoph Bünte 2012 This file is part of Wheelmap
+ * Optimization. Wheelmap Optimization is free software: you can redistribute it and/or modify it
+ * under the terms of the GNU General Public License as published by the Free Software Foundation,
+ * either version 3 of the License, or (at your option) any later version. Wheelmap Optimization is
+ * distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the
+ * implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General
+ * Public License for more details. You should have received a copy of the GNU General Public
+ * License along with Athmis. If not, see <http://www.gnu.org/licenses/>. Diese Datei ist Teil von
+ * Wheelmap Optimization. Wheelmap Optimization ist Freie Software: Sie können es unter den
+ * Bedingungen der GNU General Public License, wie von der Free Software Foundation, Version 3 der
+ * Lizenz oder (nach Ihrer Option) jeder späteren veröffentlichten Version, weiterverbreiten
+ * und/oder modifizieren. Wheelmap Optimization wird in der Hoffnung, dass es nützlich sein wird,
+ * aber OHNE JEDE GEWÄHELEISTUNG, bereitgestellt; sogar ohne die implizite Gewährleistung der
+ * MARKTFÄHIGKEIT oder EIGNUNG FÜR EINEN BESTIMMTEN ZWECK. Siehe die GNU General Public License für
+ * weitere Details. Sie sollten eine Kopie der GNU General Public License zusammen mit diesem
+ * Programm erhalten haben. Wenn nicht, siehe <http://www.gnu.org/licenses/>. */
 package org.athmis.wmoptimisation.changeset;
 
 import java.text.ParseException;
@@ -36,26 +32,22 @@ import org.simpleframework.xml.Root;
 import org.simpleframework.xml.core.Commit;
 
 /**
- * A ChangeSet object is an OSM-Changeset, which is a container for changes on
- * {@linkplain Node}s or {@linkplain Way}s. The nodes or ways has a reference to
- * their changeset id as an attribute.
+ * A ChangeSet object is an OSM-Changeset, which is a container for changes on {@linkplain Node}s or
+ * {@linkplain Way}s. The nodes or ways has a reference to their changeset id as an attribute.
  * <p>
- * This class is used to fetch the changesets from the osm server. Although it
- * seems that ChangeSet is a data container, itself doe's not store the
- * changes/edits (like nodes ore ways). But the changes/edits stores the ids of
- * their changeset. If a data container is needed in programming context use
- * {@linkplain OsmChangeContent} instead.
+ * This class is used to fetch the changesets from the osm server. Although it seems that ChangeSet
+ * is a data container, itself doe's not store the changes/edits (like nodes ore ways). But the
+ * changes/edits stores the ids of their changeset. If a data container is needed in programming
+ * context use {@linkplain OsmChangeContent} instead.
  * <p>
- * From <a
- * href="http://wiki.openstreetmap.org/wiki/API_v0.6#Changesets_2">OSM-Wiki</a>:
- * <blockquote cite="http://wiki.openstreetmap.org/wiki/API_v0.6#Changesets_2">
- * To avoid stale open changesets a mechanism is implemented to automatically
- * close changesets upon one of the following three conditions:
+ * From <a href="http://wiki.openstreetmap.org/wiki/API_v0.6#Changesets_2">OSM-Wiki</a>: <blockquote
+ * cite="http://wiki.openstreetmap.org/wiki/API_v0.6#Changesets_2"> To avoid stale open changesets a
+ * mechanism is implemented to automatically close changesets upon one of the following three
+ * conditions:
  * <ul>
  * <li>More than 50.000 edits on a single changeset</li>
  * <li>The changeset has been open for more than 24 hours</li>
- * <li>There have been no changes/API calls related to a changeset in 1 hour
- * (i.e. idle timeout)</li>
+ * <li>There have been no changes/API calls related to a changeset in 1 hour (i.e. idle timeout)</li>
  * </ul>
  * </blockquote>
  */
@@ -87,7 +79,7 @@ public class ChangeSet implements Comparable<ChangeSet> {
 	private List<Tag> tags = new ArrayList<Tag>();
 
 	@Attribute(name = "user")
-	private String user = "no_user";
+	protected String user = "no_user";
 
 	// leave visibility "protected" for test purpose
 	@Attribute(name = "created_at", required = false)
@@ -278,10 +270,9 @@ public class ChangeSet implements Comparable<ChangeSet> {
 	}
 
 	/**
-	 * Calculates the area/bounding box from {@linkplain #maxLatitude},
-	 * {@linkplain #minLatitude}, {@linkplain #maxLongitude} and
-	 * {@linkplain ChangeSet#minLongitude}; uses {@linkplain Math#abs(double)}
-	 * when calculates the difference in latitude and longitude.
+	 * Calculates the area/bounding box from {@linkplain #maxLatitude}, {@linkplain #minLatitude},
+	 * {@linkplain #maxLongitude} and {@linkplain ChangeSet#minLongitude}; uses
+	 * {@linkplain Math#abs(double)} when calculates the difference in latitude and longitude.
 	 */
 	@Commit
 	protected void calculateArea() {

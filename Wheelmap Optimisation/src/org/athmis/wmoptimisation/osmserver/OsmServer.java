@@ -209,17 +209,20 @@ public class OsmServer {
 	 * @param creationTime
 	 *            in the simulation clients set the creation time, so no clock must run in any
 	 *            thread, all values are allowed, client is responsible for sensible values
+	 * @param user
+	 *            the user of the new changeset
 	 * @return the unique (during one run) id of the changeset
 	 * @throws IllegalStateException
 	 *             if changeset could not be created, possible reason: changeset was previous added
 	 *             by any illegal call
 	 */
-	public Long createChangeSet(Calendar creationTime) {
+	public Long createChangeSet(Calendar creationTime, String user) {
 		ChangeSetUpdateAble changeSet;
 		Object result;
 
 		index++;
 		changeSet = new ChangeSetUpdateAble(calToOsm(creationTime), index, true);
+		changeSet.setUser(user);
 		result = changeSets.put(index, changeSet);
 
 		// POSTCONDITION

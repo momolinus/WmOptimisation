@@ -34,21 +34,22 @@ public class AreaGuardChangeSetGenerator extends ChangeSetGenerator {
 	 * so following code could use {@linkplain #changeSetInUseId} without worry about state of
 	 * {@linkplain #changeSetInUseId}
 	 *
+	 * @param user
 	 * @throws IllegalStateException
 	 *             if it was not possible to get a changeset if from server
 	 */
-	private void initChangeSetInUseId(OsmServer osmServer, Calendar changeTime)
-																				throws IllegalStateException {
+	private void initChangeSetInUseId(OsmServer osmServer, Calendar changeTime, String user)
+																							throws IllegalStateException {
 		// first run
 		if (changeSetInUseId == null) {
-			changeSetInUseId = osmServer.createChangeSet(changeTime);
+			changeSetInUseId = osmServer.createChangeSet(changeTime, user);
 		}
 		else {
 			boolean isOpen;
 
 			isOpen = osmServer.isChangeSetOpen(changeSetInUseId, changeTime);
 			if (!isOpen) {
-				changeSetInUseId = osmServer.createChangeSet(changeTime);
+				changeSetInUseId = osmServer.createChangeSet(changeTime, user);
 			}
 		}
 
@@ -66,7 +67,7 @@ public class AreaGuardChangeSetGenerator extends ChangeSetGenerator {
 		assertThatChangeAndServerNotNull(updatedItem, osmServer);
 
 		changeTime = updatedItem.getCreatedAt();
-		initChangeSetInUseId(osmServer, changeTime);
+		initChangeSetInUseId(osmServer, changeTime, updatedItem.getUser());
 		changeSet = osmServer.getChangeSet(changeSetInUseId);
 
 		assertThatChangeSetNotNull(changeSet);
@@ -76,7 +77,7 @@ public class AreaGuardChangeSetGenerator extends ChangeSetGenerator {
 
 		if (isToLarge) {
 			changeSet.close(changeTime);
-			changeSetInUseId = osmServer.createChangeSet(changeTime);
+			changeSetInUseId = osmServer.createChangeSet(changeTime, updatedItem.getUser());
 			changeSet = osmServer.getChangeSet(changeSetInUseId);
 		}
 
