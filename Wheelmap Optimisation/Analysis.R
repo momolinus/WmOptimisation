@@ -1,7 +1,7 @@
 setwd("C:/Users/Marcus/git/WmOptimisation/Wheelmap Optimisation")
 
 # read a file with list of changes
-changes <- read.table(file = "optimization_4.csv", header=T, dec=".", sep=";")
+changes <- read.table(file = "optimization_5.csv", header=T, dec=".", sep=";")
 
 # expected: a data.frame with columns "changesetId", "area", "no_changes", "user" and "algorithm"
 str(changes)
