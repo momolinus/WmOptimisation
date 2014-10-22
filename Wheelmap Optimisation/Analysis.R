@@ -7,8 +7,18 @@ changes <- read.table(file = "optimization_5.csv", header=T, dec=".", sep=";")
 str(changes)
 # names -> see columns aboven
 names(changes)
-# 
-summary(changes)
+# summary(changes)
+table(changes$user, changes$algorithm)
+help(tapply)
+help(min)
+tapply(changes$area, changes$algorithm, FUN=max)
+tapply(changes$area, list(changes$user, changes$algorithm), FUN=max)
+tapply(changes$area, list(changes$user, changes$algorithm), FUN=min)
+tapply(changes$area, list(changes$user, changes$algorithm), FUN=mean)
+tapply(changes$no_changes, list(changes$user, changes$algorithm), FUN=max)
+tapply(changes$no_changes, list(changes$user, changes$algorithm), FUN=min)
+tapply(changes$no_changes, list(changes$user, changes$algorithm), FUN=mean)
+tapply(changes$no_changes, list(changes$user, changes$algorithm), FUN=median)
 
 changes.positiv.area <- changes[changes$area > 0, ]
 changes.positiv.area$algo <- paste(changes.positiv.area$algorithm, changes.positiv.area$user, sep=": ")  
