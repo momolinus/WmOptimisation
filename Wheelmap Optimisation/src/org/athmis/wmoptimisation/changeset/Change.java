@@ -42,18 +42,4 @@ public interface Change extends Comparable<Change> {
 	public double getLat();
 
 	public double getLon();
-
-	/**
-	 * @return the directed width from east to west (EW)
-	 */
-	default double getWidthEW() {
-		return 0.0;
-	}
-
-	/**
-	 * @return the directed height from south to north (SN)
-	 */
-	default double getHeightSN() {
-		return 0.0;
-	}
 }

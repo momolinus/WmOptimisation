@@ -67,6 +67,7 @@ public class InspectChangeSets {
 
 		content = OsmChangeContent.createOsmChangeContentFromZip(zipFile);
 		tableWriter = Files.newBufferedWriter(Paths.get(table));
+		// FIXME der Parameter "roald" ist falsch, darf nicht fest codiert sein
 		tableWriter.append(content.getChangeSetsAsStrTable("roald", true));
 		tableWriter.close();
 	}
@@ -85,7 +86,8 @@ public class InspectChangeSets {
 		// System.out.println(description);
 
 		try {
-			contentToTable("roald-linus-2011.zip", "roald-linus-2011-table.csv");
+			// contentToTable("roald-linus-2011.zip", "roald-linus-2011-table.csv");
+			contentToTable("wheelchair_visitor-2010.zip", "wheelchair_visitor-2010-raw.csv");
 		}
 		catch (IOException e) {
 			e.printStackTrace();

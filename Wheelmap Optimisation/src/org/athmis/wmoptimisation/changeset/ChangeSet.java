@@ -32,8 +32,8 @@ import org.simpleframework.xml.Root;
 import org.simpleframework.xml.core.Commit;
 
 /**
- * A ChangeSet object is an OSM-Changeset, which is a container for changes on {@linkplain Node}s or
- * {@linkplain Way}s. The nodes or ways has a reference to their changeset id as an attribute.
+ * A ChangeSet object is an OSM-Changeset<strike>. The nodes or ways has a reference to their
+ * changeset id as an attribute.
  * <p>
  * This class is used to fetch the changesets from the osm server. Although it seems that ChangeSet
  * is a data container, itself doe's not store the changes/edits (like nodes ore ways). But the
