@@ -1,5 +1,6 @@
 package org.athmis.wmoptimisation.algorithm;
 
+// TODO kommentieren: die Klasse macht (fast) nichts, dient nur dem Speichern von Ergebnissen
 public class OptimizationResult {
 
 	private String changesHeader;

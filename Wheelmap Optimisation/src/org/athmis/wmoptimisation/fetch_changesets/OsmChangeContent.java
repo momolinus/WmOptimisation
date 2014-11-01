@@ -375,6 +375,8 @@ public class OsmChangeContent {
 		changeSetsTable = HashBasedTable.create();
 
 		for (ChangeSetUpdateAble changeSet : changeSets.values()) {
+
+			// FIXME diese Zahl wird bei den optimierten Changesets nicht richtig angelegt
 			double noChanges = 0;
 
 			changeSetsTable.put(changeSet.getId(), "user", changeSet.getUser());
