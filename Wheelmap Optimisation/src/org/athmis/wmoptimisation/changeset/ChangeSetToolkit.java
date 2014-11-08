@@ -17,12 +17,9 @@
 package org.athmis.wmoptimisation.changeset;
 
 import java.awt.geom.Rectangle2D;
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Collection;
-import java.util.GregorianCalendar;
+import java.text.*;
+import java.time.*;
+import java.util.*;
 
 /**
  * Helper class to work with change sets.
@@ -123,5 +120,14 @@ public final class ChangeSetToolkit {
 	 */
 	public static Rectangle2D updateArea(Node node, Rectangle2D area) {
 		throw new UnsupportedOperationException("method still missing");
+	}
+
+	public static String localDateToOsm(LocalDate localDate) {
+		ZonedDateTime zonedDateTime;
+
+		zonedDateTime = ZonedDateTime.of(localDate, LocalTime.of(0, 0), ZoneId.systemDefault());
+		Date date;
+		date = Date.from(Instant.from(zonedDateTime));
+		return OSM_DATE_TO_JAVA.format(date);
 	}
 }

@@ -185,6 +185,7 @@ public class OsmChangeContent {
 		changes = new ArrayList<>();
 	}
 
+	// XXX dokumentieren: wird beim Lesen von zips benutzt
 	/**
 	 * Stores given changeset in internal map with changesets id as key and the changeset object as
 	 * value.
@@ -199,6 +200,7 @@ public class OsmChangeContent {
 
 	// XXX wenn OsmChange mal equals() unterstützt kann geprüft werden, ob das
 	// object schon gespeichert war
+	// XXX dokumentieren: wird beim Lesen von zips benutzt
 	/**
 	 * Adds given OsmChange object.
 	 *
@@ -211,6 +213,7 @@ public class OsmChangeContent {
 
 	// TODO check next sprint: ist das die richtige Stelle, um zu prüfen, ob das Change gespeichert
 	// werden darf?
+	// XXX dokumetieren: wir in der Simulation benutzt
 	/**
 	 * Adds the given change to given changeset. Stores both objects. It Could be, that given
 	 * changeset is still stored, then it will not be stored again as copy or so.

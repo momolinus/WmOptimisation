@@ -4,13 +4,15 @@ import static org.hamcrest.Matchers.*;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.fail;
 
+import java.time.LocalDate;
 import java.util.List;
 
-import org.athmis.wmoptimisation.changeset.Change;
-import org.athmis.wmoptimisation.changeset.Way;
+import org.athmis.wmoptimisation.changeset.*;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
+
+import com.google.common.collect.Table;
 
 public class OsmChangeContentTest {
 
@@ -107,5 +109,32 @@ public class OsmChangeContentTest {
 		List<Way> ways = changeContent.getAllWays();
 
 		assertThat(ways, hasSize(66 + 39));
+	}
+
+	@Test
+	public void test_that_correct_number_of_changes_returned() {
+		Table<Long, String, String> table;
+		OsmChangeContent content = new OsmChangeContent();
+
+		table = content.getChangeSets("test");
+
+		assertThat(table.size(), is(0));
+	}
+
+	@Test
+	public void test_that_correct_number_of_changes_returned2() {
+		Table<Long, String, String> table;
+		OsmChangeContent content = new OsmChangeContent();
+		ChangeSetUpdateAble changeSet;
+
+		changeSet =
+			new ChangeSetUpdateAble(ChangeSetToolkit.localDateToOsm(LocalDate.of(2010, 1, 1)), 1,
+					true);
+
+		content.addChangeForChangeSet(Node.getBerlinAsNode(), changeSet);
+
+		table = content.getChangeSets("test");
+
+		assertThat(table.size(), is(0));
 	}
 }
