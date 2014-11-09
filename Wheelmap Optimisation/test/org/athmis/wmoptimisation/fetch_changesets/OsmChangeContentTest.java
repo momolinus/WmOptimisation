@@ -303,6 +303,29 @@ public class OsmChangeContentTest {
 	}
 
 	@Test
+	public void test_add_one_changesets() {
+		ChangeSetUpdateAble changeSet;
+		OsmChangeContent content;
+
+		content = new OsmChangeContent();
+		changeSet =
+			new ChangeSetUpdateAble(ChangeSetToolkit.localDateToOsm(LocalDate.of(2010, 1, 1)), 1l,
+					true);
+		content.addChangeForChangeSet(berlin, changeSet);
+		content.addChangeForChangeSet(berlin, changeSet);
+		content.addChangeForChangeSet(spandau, changeSet);
+		content.closeAllChangeSets();
+		List<Change> changes = content.getAllChanges();
+		List<Double> bboxes = content.getBoundingBoxesSquareDegree();
+
+		// assertThat(content.getNoChangeSets(), is(1));
+		assertThat(changes, hasSize(3));
+		assertThat(bboxes, hasSize(1));
+		assertThat(changeSet.getBoundingBoxSquareDegree(), is(closeTo(0.01, 0.00001)));
+		assertThat(bboxes.get(0).doubleValue(), is(closeTo(0.01, 0.00001)));
+	}
+
+	@Test
 	public void testGetAllChanges() {
 		List<Change> changes = changeContent.getAllChanges();
 
