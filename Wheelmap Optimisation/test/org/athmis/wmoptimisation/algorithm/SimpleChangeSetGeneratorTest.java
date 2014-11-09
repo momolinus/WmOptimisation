@@ -44,7 +44,7 @@ public class SimpleChangeSetGeneratorTest {
 		Node berlin, nextDayNode;
 
 		berlin = Node.getBerlin();
-		nextDayNode = Node.getDifferentNode(berlin, (int) TimeUnit.HOURS.toMinutes(25), 0.2, 0.1);
+		nextDayNode = Node.getMovedNode(berlin, (int) TimeUnit.HOURS.toMinutes(25), 0.2, 0.1);
 
 		simpleChangeSetGenerator.add(berlin, osmServer, changeContent);
 		simpleChangeSetGenerator.add(nextDayNode, osmServer, changeContent);
@@ -80,7 +80,7 @@ public class SimpleChangeSetGeneratorTest {
 		berlin = Node.getBerlin();
 
 		simpleChangeSetGenerator.add(berlin, osmServer, changeContent);
-		simpleChangeSetGenerator.add(	Node.getDifferentNode(berlin, 5, 0.2, 0.1), osmServer,
+		simpleChangeSetGenerator.add(	Node.getMovedNode(berlin, 5, 0.2, 0.1), osmServer,
 										changeContent);
 
 		List<Double> bboxes = changeContent.getBoundingBoxesSquareDegree();

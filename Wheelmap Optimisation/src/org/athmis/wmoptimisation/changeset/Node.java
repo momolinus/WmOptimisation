@@ -54,14 +54,23 @@ public class Node implements Change {
 	 * @return center of Berlin as a node
 	 */
 	public static Node getBerlinAsNode() {
-		Node result = new Node(121212, 52.515905, 13.378588, "2010-1-1T12:00:00Z", 1, true);
-		return result;
+		return getBerlin();
 	}
 
 	public static Node getDifferentNode(Node node, double lat, double lon) {
 		Calendar nodeTime = node.getCreatedAt();
 		nodeTime.add(Calendar.MINUTE, 5);
 		Node result = new Node(node.id + 1, lat, lon, ChangeSetToolkit.calToOsm(nodeTime), 1, true);
+
+		return result;
+	}
+
+	public static Node getMovedNode(Node node, double deltaLat, double deltaLon) {
+		Calendar nodeTime = node.getCreatedAt();
+		nodeTime.add(Calendar.MINUTE, 5);
+		Node result =
+			new Node(node.id + 1, node.lat + deltaLat, node.lon + deltaLon,
+					ChangeSetToolkit.calToOsm(nodeTime), 1, true);
 
 		return result;
 	}
@@ -74,7 +83,7 @@ public class Node implements Change {
 	 * @param lon
 	 * @return
 	 */
-	public static Node getDifferentNode(Node node, int minutes, double lat, double lon) {
+	public static Node getMovedNode(Node node, int minutes, double lat, double lon) {
 		Node result = new Node(node);
 		Calendar createTime;
 

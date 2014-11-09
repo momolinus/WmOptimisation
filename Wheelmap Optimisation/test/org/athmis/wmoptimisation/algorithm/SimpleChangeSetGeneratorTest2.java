@@ -36,7 +36,7 @@ public class SimpleChangeSetGeneratorTest2 {
 		Node berlin, berlin2;
 
 		berlin = Node.getBerlin();
-		berlin2 = Node.getDifferentNode(berlin, 5, 0.2, 0.1);
+		berlin2 = Node.getMovedNode(berlin, 5, 0.2, 0.1);
 
 		simpleChangeSetGenerator.add(berlin, osmServer, content);
 		simpleChangeSetGenerator.add(berlin2, osmServer, content);

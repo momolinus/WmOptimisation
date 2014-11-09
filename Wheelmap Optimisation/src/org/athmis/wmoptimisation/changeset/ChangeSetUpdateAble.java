@@ -13,6 +13,8 @@ import java.util.Calendar;
  */
 public class ChangeSetUpdateAble extends ChangeSet {
 
+	private int bBoxUpdates = 0;
+
 	/**
 	 * {@inheritDoc}
 	 */
@@ -60,6 +62,8 @@ public class ChangeSetUpdateAble extends ChangeSet {
 	public void updateBoundingBox(Change change) {
 		double lat, lon;
 
+		bBoxUpdates++;
+
 		lat = change.getLat();
 		lon = change.getLon();
 
@@ -74,6 +78,19 @@ public class ChangeSetUpdateAble extends ChangeSet {
 		if (!Double.isFinite(getBoundingBoxSquareDegree())) {
 			throw new IllegalArgumentException("error updating bounding box with change "
 				+ change.toString());
+		}
+	}
+
+	@Override
+	public double getBoundingBoxSquareDegree() {
+		if (bBoxUpdates == 0) {
+			return -1.0;
+		}
+		else if (bBoxUpdates == 1) {
+			return 0.0;
+		}
+		else {
+			return super.getBoundingBoxSquareDegree();
 		}
 	}
 
