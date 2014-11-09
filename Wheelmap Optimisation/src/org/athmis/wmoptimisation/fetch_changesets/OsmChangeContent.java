@@ -394,10 +394,12 @@ public class OsmChangeContent {
 			// FIXME diese Zahl wird bei den optimierten Changesets nicht richtig angelegt
 			// mus nach oben natürlich
 			double noChanges = 0;
+			long changesetId;
 
-			changeSetsTable.put(changeSet.getId(), "user", changeSet.getUser());
-			changeSetsTable.put(changeSet.getId(), "algorithm", algorithmus);
-			changeSetsTable.put(changeSet.getId(), "area",
+			changesetId = changeSet.getId();
+			changeSetsTable.put(changesetId, "user", changeSet.getUser());
+			changeSetsTable.put(changesetId, "algorithm", algorithmus);
+			changeSetsTable.put(changesetId, "area",
 								Double.toString(changeSet.getBoundingBoxSquareDegree()));
 
 			for (OsmChange change : changes) {
@@ -406,10 +408,48 @@ public class OsmChangeContent {
 				}
 			}
 
+			// FIXME hier wird der Bug issue#1 sichtbar und zwar schon beim ersten Algorithmus, es
+			// werden keine changes zur changesetId gefunden
+			assertThatChangesetWithAreaHasChanges(changeSet, noChanges, algorithmus);
+
 			changeSetsTable.put(changeSet.getId(), "no_changes", Double.toString(noChanges));
 		}
 
 		return changeSetsTable;
+	}
+
+	private void assertThatChangesetWithAreaHasChanges(ChangeSetUpdateAble changeSet,
+														double noChanges, String algorithmus) {
+
+		if (!Double.isInfinite(changeSet.getBoundingBoxSquareDegree())) {
+			if (changeSet.getBoundingBoxSquareDegree() > 0) {
+				if (!(noChanges > 0)) {
+
+					String changesetIdList;
+
+					changesetIdList = createChangeSetIdListForChanges();
+
+					throw new IllegalArgumentException("changeset " + changeSet.getId()
+						+ " has area > 0: " + changeSet.getBoundingBoxSquareDegree()
+						+ ", but no changes: " + noChanges + " for algorithm " + algorithmus
+						+ ", changeset ids:\n" + changesetIdList);
+				}
+			}
+		}
+	}
+
+	private String createChangeSetIdListForChanges() {
+		StringBuilder result = new StringBuilder();
+		Set<Long> idSet = new HashSet<>();
+
+		for (OsmChange change : changes) {
+			Long id = Long.valueOf(change.getChangeSetId());
+			if (!idSet.contains(id)) {
+				idSet.add(id);
+				result.append(id + "\n");
+			}
+		}
+		return result.toString();
 	}
 
 	public String getChangeSetsAsStrTable(String algorithmus, boolean withHeader) {
@@ -581,9 +621,10 @@ public class OsmChangeContent {
 	 * @param changeSetForStoring
 	 *            should store given change
 	 * @throws IllegalArgumentException
-	 *             if change could not be stored to given changeSet; reasons: both differ in age
-	 *             more than 24 hours, changeset has 50,000 changes or changeset was not used for
-	 *             more than one hour
+	 *             if change could not be stored to given changeSet;<br>
+	 *             reasons: both differ in age more than 24 hours,<br>
+	 *             changeset has 50,000 changes<br>
+	 *             or changeset was not used for more than one hour
 	 */
 	private void validateIsStoringPossible(Change change, ChangeSet changeSetForStoring) {
 

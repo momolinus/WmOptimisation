@@ -42,8 +42,8 @@ import org.apache.log4j.Logger;
 import org.athmis.wmoptimisation.fetch_changesets.OsmChangeContent;
 
 /**
- * 
- * 
+ *
+ *
  */
 public class AnalyzeAreaFromZip {
 
@@ -59,12 +59,12 @@ public class AnalyzeAreaFromZip {
 		String zipFileName;
 		BufferedWriter output;
 
-		zipFileName = "wheelmap_visitor-2010-2012.zip";
+		zipFileName = "wheelchair-3-von-2010.zip";
 
 		try {
 			changes = OsmChangeContent.createOsmChangeContentFromZip(zipFileName);
 
-			output = new BufferedWriter(new FileWriter("wheelmap_visitor-2010-2012.csv"));
+			output = new BufferedWriter(new FileWriter("wheelchair-3-von-2010-2.csv"));
 			output.write(changes.asTable());
 			output.close();
 

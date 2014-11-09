@@ -74,7 +74,7 @@ public class OsmChangeContentTest {
 		Map<String, String> header = table.row(1l);
 
 		assertThat(table.size(), is(4));
-		assertThat(header.get("area"), is(equalTo("Infinity")));
+		assertThat(header.get("area"), is(equalTo("-1.0")));
 		assertThat(header.get("no_changes"), is(equalTo("0.0")));
 		assertThat(header.get("user"), is(equalTo("test-case_1")));
 		assertThat(header.get("algorithm"), is(equalTo("test")));
@@ -85,15 +85,18 @@ public class OsmChangeContentTest {
 		Table<Long, String, String> table;
 		ChangeSetUpdateAble changeSet;
 		OsmChangeContent content;
+		Change c1, c2;
 
 		content = new OsmChangeContent();
 		changeSet =
 			new ChangeSetUpdateAble(ChangeSetToolkit.localDateToOsm(LocalDate.of(2010, 1, 1)), 1,
 					true);
 		changeSet.setUser("test-case_1");
-		content.addChangeForChangeSet(Node.getBerlinAsNode(), changeSet);
-		content.addChangeForChangeSet(	Node.getDifferentNode(Node.getBerlinAsNode(), 1, 0.1, 0.1),
-										changeSet);
+
+		c1 = Node.getBerlinAsNode();
+		c2 = Node.getDifferentNode(Node.getBerlinAsNode(), 1, 0.1, 0.1);
+		content.addChangeForChangeSet(c1, changeSet);
+		content.addChangeForChangeSet(c2, changeSet);
 		content.add(changeSet);
 
 		table = content.getChangeSets("test");
@@ -104,6 +107,9 @@ public class OsmChangeContentTest {
 		assertThat(header.get("no_changes"), is(equalTo("2.0")));
 		assertThat(header.get("user"), is(equalTo("test-case_1")));
 		assertThat(header.get("algorithm"), is(equalTo("test")));
+
+		assertThat(changeSet.getId(), is(c1.getChangeset()));
+		assertThat(changeSet.getId(), is(c2.getChangeset()));
 	}
 
 	@Test
@@ -111,13 +117,15 @@ public class OsmChangeContentTest {
 		Table<Long, String, String> table;
 		ChangeSetUpdateAble changeSet;
 		OsmChangeContent content;
+		Change berlin;
 
 		content = new OsmChangeContent();
 		changeSet =
 			new ChangeSetUpdateAble(ChangeSetToolkit.localDateToOsm(LocalDate.of(2010, 1, 1)), 1,
 					true);
 		changeSet.setUser("test-case_1");
-		content.addChangeForChangeSet(Node.getBerlinAsNode(), changeSet);
+		berlin = Node.getBerlinAsNode();
+		content.addChangeForChangeSet(berlin, changeSet);
 		content.add(changeSet);
 
 		table = content.getChangeSets("test");
@@ -128,6 +136,7 @@ public class OsmChangeContentTest {
 		assertThat(header.get("no_changes"), is(equalTo("1.0")));
 		assertThat(header.get("user"), is(equalTo("test-case_1")));
 		assertThat(header.get("algorithm"), is(equalTo("test")));
+		assertThat(changeSet.getId(), is(berlin.getChangeset()));
 	}
 
 	@Test
@@ -135,6 +144,7 @@ public class OsmChangeContentTest {
 		Table<Long, String, String> table;
 		ChangeSetUpdateAble changeSet, changeSet2;
 		OsmChangeContent content;
+		Change berlin;
 
 		content = new OsmChangeContent();
 
@@ -147,7 +157,8 @@ public class OsmChangeContentTest {
 		changeSet.setUser("test-case_1");
 		changeSet2.setUser("test-case_1");
 
-		content.addChangeForChangeSet(Node.getBerlinAsNode(), changeSet);
+		berlin = Node.getBerlinAsNode();
+		content.addChangeForChangeSet(berlin, changeSet);
 		content.add(changeSet);
 		content.add(changeSet2);
 
@@ -160,10 +171,13 @@ public class OsmChangeContentTest {
 		assertThat(row1.get("no_changes"), is(equalTo("1.0")));
 		assertThat(row1.get("user"), is(equalTo("test-case_1")));
 		assertThat(row1.get("algorithm"), is(equalTo("test")));
-		assertThat(row5.get("area"), is(equalTo("Infinity")));
+		assertThat(row5.get("area"), is(equalTo("-1.0")));
 		assertThat(row5.get("no_changes"), is(equalTo("0.0")));
 		assertThat(row1.get("user"), is(equalTo("test-case_1")));
 		assertThat(row1.get("algorithm"), is(equalTo("test")));
+		assertThat(changeSet.getId(), is(berlin.getChangeset()));
+		assertThat(changeSet2.getId(), is(not(berlin.getChangeset())));
+
 	}
 
 	@Test
@@ -171,11 +185,13 @@ public class OsmChangeContentTest {
 		Table<Long, String, String> table;
 		OsmChangeContent content = new OsmChangeContent();
 		ChangeSetUpdateAble changeSet;
+		Change berlin;
 
 		changeSet =
 			new ChangeSetUpdateAble(ChangeSetToolkit.localDateToOsm(LocalDate.of(2010, 1, 1)), 1,
 					true);
-		content.addChangeForChangeSet(Node.getBerlinAsNode(), changeSet);
+		berlin = Node.getBerlinAsNode();
+		content.addChangeForChangeSet(berlin, changeSet);
 
 		table = content.getChangeSets("test");
 		Map<String, String> header = table.row(1l);
@@ -194,6 +210,7 @@ public class OsmChangeContentTest {
 		assertThat(header.get("no_changes"), is(equalTo("1.0")));
 		assertThat(header.get("user"), is(equalTo("no_user")));
 		assertThat(header.get("algorithm"), is(equalTo("test")));
+		assertThat(changeSet.getId(), is(berlin.getChangeset()));
 	}
 
 	@Test

@@ -164,13 +164,17 @@ public class ChangeSet implements Comparable<ChangeSet> {
 	/**
 	 * Returns the bounding box of the changeset in °*° (in words: "square degree").
 	 *
-	 * @return the bounding box of the changeset, {@link Double#isInfinite()} if changeset has no
-	 *         {@linkplain Change}s
+	 * @return the bounding box of the changeset, <strike>{@link Double#isInfinite()}</strike> -1.0
+	 *         if changeset has no {@linkplain Change}s
 	 */
 	public double getBoundingBoxSquareDegree() {
 
 		// note: no matter calculate the area always, it's fast enough
 		calculateArea();
+
+		if (Double.isInfinite(area) || Double.isNaN(area)) {
+			area = -1.0;
+		}
 
 		return area;
 	}

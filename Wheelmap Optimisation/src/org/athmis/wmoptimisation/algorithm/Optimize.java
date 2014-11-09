@@ -40,7 +40,7 @@ public class Optimize {
 
 		// configure Log4j
 		BasicConfigurator.configure();
-		Logger.getRootLogger().setLevel(Level.WARN);
+		Logger.getRootLogger().setLevel(Level.INFO);
 
 		try {
 			Optimize.run(args);

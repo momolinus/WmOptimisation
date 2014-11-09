@@ -170,6 +170,11 @@ public class OsmChange {
 		return Collections.unmodifiableList(modified);
 	}
 
+	/**
+	 * Returns the number of created and modified changes.
+	 *
+	 * @return the number of created and modified changes
+	 */
 	public int getNumber() {
 		return created.size() + modified.size();
 	}

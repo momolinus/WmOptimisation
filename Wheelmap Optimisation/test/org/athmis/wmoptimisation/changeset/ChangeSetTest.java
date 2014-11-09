@@ -1,8 +1,8 @@
 package org.athmis.wmoptimisation.changeset;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.hamcrest.Matchers.is;
+import static org.hamcrest.Matchers.lessThan;
+import static org.junit.Assert.*;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -51,7 +51,7 @@ public class ChangeSetTest {
 		double area;
 
 		area = curTimeOpenChangeSet.getBoundingBoxSquareDegree();
-		assertTrue(Double.isInfinite(area));
+		assertThat(area, is(lessThan((0.0))));
 
 		Change change;
 		change = Node.getBerlinAsNode();
@@ -192,7 +192,7 @@ public class ChangeSetTest {
 						STRONG_DELTA);
 	}
 
-	
+
 	@SuppressWarnings("PMD.MethodNamingConventions")
 	@Test
 	public void testUpdateArea_SW_NW_NE_SE() {
