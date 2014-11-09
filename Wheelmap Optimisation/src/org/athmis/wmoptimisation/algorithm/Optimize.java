@@ -70,9 +70,12 @@ public class Optimize {
 		LOGGER.info("starting simulation");
 
 		simpleResult = runChangeSetGenerator(simpleGenerator, "wheelchair_visitor-2010.zip");
+
 		humanExampleResult = runChangeSetGenerator(humanExample, "roald-linus-2011.zip");
+
 		minimizeAreaResult =
 			runChangeSetGenerator(minimizeAreaGenerator, "wheelchair_visitor-2010.zip");
+
 		areaGuardGeneratorResult =
 			runChangeSetGenerator(areaGuardGenerator, "wheelchair_visitor-2010.zip");
 
@@ -80,10 +83,12 @@ public class Optimize {
 
 		writer.append(simpleResult.getChangesHeader());
 		writer.newLine();
+
 		writer.append(simpleResult.getOriginalChangesTable());
 		writer.newLine();
 		writer.append(humanExampleResult.getOriginalChangesTable());
 		writer.newLine();
+
 		writer.append(simpleResult.getOptimizedChangesTable());
 		writer.newLine();
 		writer.append(minimizeAreaResult.getOptimizedChangesTable());

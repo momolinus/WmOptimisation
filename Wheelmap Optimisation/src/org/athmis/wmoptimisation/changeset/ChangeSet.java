@@ -32,8 +32,8 @@ import org.simpleframework.xml.Root;
 import org.simpleframework.xml.core.Commit;
 
 /**
- * A ChangeSet object is an OSM-Changeset<strike>. The nodes or ways has a reference to their
- * changeset id as an attribute.
+ * A ChangeSet object is an OSM-Changeset. It contains <strong>no</strong> nodes or ways. Nodes and
+ * ways holds refreneces to their changesets.
  * <p>
  * This class is used to fetch the changesets from the osm server. Although it seems that ChangeSet
  * is a data container, itself doe's not store the changes/edits (like nodes ore ways). But the
@@ -99,6 +99,17 @@ public class ChangeSet implements Comparable<ChangeSet> {
 
 	}
 
+	/**
+	 * Creates a ChangeSet object.
+	 *
+	 * @param createdAt
+	 *            the creation time point
+	 * @param id
+	 *            the id of the changeset
+	 * @param open
+	 *            <code>true</code> if changeset is created as an open changeset
+	 * @see ChangeSetToolkit#localDateToOsm(java.time.LocalDate) for creating a date string
+	 */
 	public ChangeSet(String createdAt, long id, boolean open) {
 		this.createdAt = createdAt;
 		this.id = id;

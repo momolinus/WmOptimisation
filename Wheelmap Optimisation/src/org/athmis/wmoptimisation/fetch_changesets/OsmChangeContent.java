@@ -213,7 +213,7 @@ public class OsmChangeContent {
 
 	// TODO check next sprint: ist das die richtige Stelle, um zu prüfen, ob das Change gespeichert
 	// werden darf?
-	// XXX dokumetieren: wir in der Simulation benutzt
+	// XXX dokumentieren: wir in der Simulation benutzt
 	/**
 	 * Adds the given change to given changeset. Stores both objects. It Could be, that given
 	 * changeset is still stored, then it will not be stored again as copy or so.
@@ -372,6 +372,14 @@ public class OsmChangeContent {
 		return header;
 	}
 
+	/**
+	 * Returns a table with all changesets with column for "user", "algorithm", "area" and
+	 * "no_changes" (number of changes). The row key contains the changeset id.
+	 *
+	 * @param algorithmus
+	 *            used as value for column "algorithm"
+	 * @return the changeset table
+	 */
 	public Table<Long, String, String> getChangeSets(String algorithmus) {
 		Table<Long, String, String> changeSetsTable;
 
@@ -380,6 +388,7 @@ public class OsmChangeContent {
 		for (ChangeSetUpdateAble changeSet : changeSets.values()) {
 
 			// FIXME diese Zahl wird bei den optimierten Changesets nicht richtig angelegt
+			// mus nach oben natürlich
 			double noChanges = 0;
 
 			changeSetsTable.put(changeSet.getId(), "user", changeSet.getUser());

@@ -61,14 +61,13 @@ public class InspectChangeSets {
 		return result;
 	}
 
-	public static void contentToTable(String zipFile, String table) throws IOException {
+	public static void contentToTable(String zipFile, String table, String user) throws IOException {
 		BufferedWriter tableWriter;
 		OsmChangeContent content;
 
 		content = OsmChangeContent.createOsmChangeContentFromZip(zipFile);
 		tableWriter = Files.newBufferedWriter(Paths.get(table));
-		// FIXME der Parameter "roald" ist falsch, darf nicht fest codiert sein
-		tableWriter.append(content.getChangeSetsAsStrTable("roald", true));
+		tableWriter.append(content.getChangeSetsAsStrTable(user, true));
 		tableWriter.close();
 	}
 
@@ -87,7 +86,8 @@ public class InspectChangeSets {
 
 		try {
 			// contentToTable("roald-linus-2011.zip", "roald-linus-2011-table.csv");
-			contentToTable("wheelchair_visitor-2010.zip", "wheelchair_visitor-2010-raw.csv");
+			contentToTable(	"wheelchair_visitor-2010.zip", "wheelchair_visitor-2010-raw.csv",
+							"wheelchair_visitor");
 		}
 		catch (IOException e) {
 			e.printStackTrace();

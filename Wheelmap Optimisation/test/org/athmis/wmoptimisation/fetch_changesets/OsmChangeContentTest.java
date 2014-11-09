@@ -6,11 +6,10 @@ import static org.junit.Assert.fail;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Map;
 
 import org.athmis.wmoptimisation.changeset.*;
-import org.junit.Before;
-import org.junit.BeforeClass;
-import org.junit.Test;
+import org.junit.*;
 
 import com.google.common.collect.Table;
 
@@ -44,18 +43,191 @@ public class OsmChangeContentTest {
 	public void setUp() throws Exception {}
 
 	@Test
-	public void testReadOsmChangeContent() {
-		boolean failed = false;
+	public void test_that_correct_number_of_changes_returned_0() {
+		Table<Long, String, String> table;
+		OsmChangeContent content = new OsmChangeContent();
 
-		try {
-			OsmChangeContent.readOsmChangeContent(new String[] { "xyz", "xyz2" });
-			fail("exception expected");
-		}
-		catch (Exception e) {
-			failed = true;
-		}
+		table = content.getChangeSets("test");
+		Map<String, String> header = table.row(1l);
 
-		assertThat(failed, is(true));
+		assertThat(table.size(), is(0));
+		assertThat(header.get("area"), is(nullValue()));
+		assertThat(header.get("no_changes"), is(nullValue()));
+		assertThat(header.get("user"), is(nullValue()));
+		assertThat(header.get("algorithm"), is(nullValue()));
+	}
+
+	@Test
+	public void test_that_correct_number_of_changes_returned_1() {
+		Table<Long, String, String> table;
+		ChangeSetUpdateAble changeSet;
+		OsmChangeContent content;
+
+		content = new OsmChangeContent();
+		changeSet =
+			new ChangeSetUpdateAble(ChangeSetToolkit.localDateToOsm(LocalDate.of(2010, 1, 1)), 1,
+					true);
+		changeSet.setUser("test-case_1");
+		content.add(changeSet);
+
+		table = content.getChangeSets("test");
+		Map<String, String> header = table.row(1l);
+
+		assertThat(table.size(), is(4));
+		assertThat(header.get("area"), is(equalTo("Infinity")));
+		assertThat(header.get("no_changes"), is(equalTo("0.0")));
+		assertThat(header.get("user"), is(equalTo("test-case_1")));
+		assertThat(header.get("algorithm"), is(equalTo("test")));
+	}
+
+	@Test
+	public void test_that_correct_number_of_changes_returned_1_1() {
+		Table<Long, String, String> table;
+		ChangeSetUpdateAble changeSet;
+		OsmChangeContent content;
+
+		content = new OsmChangeContent();
+		changeSet =
+			new ChangeSetUpdateAble(ChangeSetToolkit.localDateToOsm(LocalDate.of(2010, 1, 1)), 1,
+					true);
+		changeSet.setUser("test-case_1");
+		content.addChangeForChangeSet(Node.getBerlinAsNode(), changeSet);
+		content.addChangeForChangeSet(	Node.getDifferentNode(Node.getBerlinAsNode(), 1, 0.1, 0.1),
+										changeSet);
+		content.add(changeSet);
+
+		table = content.getChangeSets("test");
+		Map<String, String> header = table.row(1l);
+
+		assertThat(table.size(), is(4));
+		assertThat(header.get("area"), startsWith("0.010000"));
+		assertThat(header.get("no_changes"), is(equalTo("2.0")));
+		assertThat(header.get("user"), is(equalTo("test-case_1")));
+		assertThat(header.get("algorithm"), is(equalTo("test")));
+	}
+
+	@Test
+	public void test_that_correct_number_of_changes_returned_1_2() {
+		Table<Long, String, String> table;
+		ChangeSetUpdateAble changeSet;
+		OsmChangeContent content;
+
+		content = new OsmChangeContent();
+		changeSet =
+			new ChangeSetUpdateAble(ChangeSetToolkit.localDateToOsm(LocalDate.of(2010, 1, 1)), 1,
+					true);
+		changeSet.setUser("test-case_1");
+		content.addChangeForChangeSet(Node.getBerlinAsNode(), changeSet);
+		content.add(changeSet);
+
+		table = content.getChangeSets("test");
+		Map<String, String> header = table.row(1l);
+
+		assertThat(table.size(), is(4));
+		assertThat(header.get("area"), is(equalTo("0.0")));
+		assertThat(header.get("no_changes"), is(equalTo("1.0")));
+		assertThat(header.get("user"), is(equalTo("test-case_1")));
+		assertThat(header.get("algorithm"), is(equalTo("test")));
+	}
+
+	@Test
+	public void test_that_correct_number_of_changes_returned_1_3() {
+		Table<Long, String, String> table;
+		ChangeSetUpdateAble changeSet, changeSet2;
+		OsmChangeContent content;
+
+		content = new OsmChangeContent();
+
+		changeSet =
+			new ChangeSetUpdateAble(ChangeSetToolkit.localDateToOsm(LocalDate.of(2010, 1, 1)), 1,
+					true);
+		changeSet2 =
+			new ChangeSetUpdateAble(ChangeSetToolkit.localDateToOsm(LocalDate.of(2010, 1, 3)), 5,
+					true);
+		changeSet.setUser("test-case_1");
+		changeSet2.setUser("test-case_1");
+
+		content.addChangeForChangeSet(Node.getBerlinAsNode(), changeSet);
+		content.add(changeSet);
+		content.add(changeSet2);
+
+		table = content.getChangeSets("test");
+		Map<String, String> row1 = table.row(1l);
+		Map<String, String> row5 = table.row(5l);
+
+		assertThat(table.size(), is(8));
+		assertThat(row1.get("area"), is(equalTo("0.0")));
+		assertThat(row1.get("no_changes"), is(equalTo("1.0")));
+		assertThat(row1.get("user"), is(equalTo("test-case_1")));
+		assertThat(row1.get("algorithm"), is(equalTo("test")));
+		assertThat(row5.get("area"), is(equalTo("Infinity")));
+		assertThat(row5.get("no_changes"), is(equalTo("0.0")));
+		assertThat(row1.get("user"), is(equalTo("test-case_1")));
+		assertThat(row1.get("algorithm"), is(equalTo("test")));
+	}
+
+	@Test
+	public void test_that_correct_number_of_changes_returned_2() {
+		Table<Long, String, String> table;
+		OsmChangeContent content = new OsmChangeContent();
+		ChangeSetUpdateAble changeSet;
+
+		changeSet =
+			new ChangeSetUpdateAble(ChangeSetToolkit.localDateToOsm(LocalDate.of(2010, 1, 1)), 1,
+					true);
+		content.addChangeForChangeSet(Node.getBerlinAsNode(), changeSet);
+
+		table = content.getChangeSets("test");
+		Map<String, String> header = table.row(1l);
+		String[] columnNames = header.keySet().toArray(new String[4]);
+
+		assertThat(table.size(), is(4));
+		assertThat(header.size(), is(4));
+		// TODO ist die Ordnung festgelegt?
+		// note: indices determined by inspection, actual the order is not knwon by me
+		assertThat(columnNames[0], is(equalTo("area")));
+		assertThat(columnNames[1], is(equalTo("no_changes")));
+		assertThat(columnNames[2], is(equalTo("user")));
+		assertThat(columnNames[3], is(equalTo("algorithm")));
+
+		assertThat(header.get("area"), is(equalTo("0.0")));
+		assertThat(header.get("no_changes"), is(equalTo("1.0")));
+		assertThat(header.get("user"), is(equalTo("no_user")));
+		assertThat(header.get("algorithm"), is(equalTo("test")));
+	}
+
+	@Test
+	public void test_that_correct_number_of_changes_returned_3() {
+		Table<Long, String, String> table;
+		OsmChangeContent content = new OsmChangeContent();
+		ChangeSetUpdateAble changeSet;
+
+		changeSet =
+			new ChangeSetUpdateAble(ChangeSetToolkit.localDateToOsm(LocalDate.of(2010, 1, 1)), 1,
+					true);
+		content.addChangeForChangeSet(Node.getBerlinAsNode(), changeSet);
+		content.addChangeForChangeSet(	Node.getDifferentNode(Node.getBerlinAsNode(), 1, 0.1, 0.1),
+										changeSet);
+
+		table = content.getChangeSets("test");
+		Map<String, String> header = table.row(1l);
+		String[] columnNames = header.keySet().toArray(new String[4]);
+
+		assertThat(table.size(), is(4));
+		assertThat(header.size(), is(4));
+		// TODO ist die Ordnung festgelegt?
+		// note: indices determined by inspection, actual the order is not knwon by me
+		assertThat(columnNames[0], is(equalTo("area")));
+		assertThat(columnNames[1], is(equalTo("no_changes")));
+		assertThat(columnNames[2], is(equalTo("user")));
+		assertThat(columnNames[3], is(equalTo("algorithm")));
+
+		// note: use startsWith(..) because of rounding errors, exact answer should be 0.01, wich is
+		// 0.1 * 0.1
+		assertThat(header.get("area"), startsWith("0.0100000"));
+		assertThat(header.get("no_changes"), is(equalTo("2.0")));
+		assertThat(header.get("user"), is(equalTo("no_user")));
+		assertThat(header.get("algorithm"), is(equalTo("test")));
 	}
 
 	@Test
@@ -63,6 +235,13 @@ public class OsmChangeContentTest {
 		List<Change> changes = changeContent.getAllChanges();
 
 		assertThat(changes, hasSize(223 + 180));
+	}
+
+	@Test
+	public void testGetAllWays() {
+		List<Way> ways = changeContent.getAllWays();
+
+		assertThat(ways, hasSize(66 + 39));
 	}
 
 	// XXX Ergebnisse sind ermittelt -> nochmal prüfen
@@ -98,43 +277,24 @@ public class OsmChangeContentTest {
 	}
 
 	@Test
+	public void testReadOsmChangeContent() {
+		boolean failed = false;
+
+		try {
+			OsmChangeContent.readOsmChangeContent(new String[] { "xyz", "xyz2" });
+			fail("exception expected");
+		}
+		catch (Exception e) {
+			failed = true;
+		}
+
+		assertThat(failed, is(true));
+	}
+
+	@Test
 	public void testSize() {
 		int size = changeContent.size();
 
 		assertThat(size, is(4));
-	}
-
-	@Test
-	public void testGetAllWays() {
-		List<Way> ways = changeContent.getAllWays();
-
-		assertThat(ways, hasSize(66 + 39));
-	}
-
-	@Test
-	public void test_that_correct_number_of_changes_returned() {
-		Table<Long, String, String> table;
-		OsmChangeContent content = new OsmChangeContent();
-
-		table = content.getChangeSets("test");
-
-		assertThat(table.size(), is(0));
-	}
-
-	@Test
-	public void test_that_correct_number_of_changes_returned2() {
-		Table<Long, String, String> table;
-		OsmChangeContent content = new OsmChangeContent();
-		ChangeSetUpdateAble changeSet;
-
-		changeSet =
-			new ChangeSetUpdateAble(ChangeSetToolkit.localDateToOsm(LocalDate.of(2010, 1, 1)), 1,
-					true);
-
-		content.addChangeForChangeSet(Node.getBerlinAsNode(), changeSet);
-
-		table = content.getChangeSets("test");
-
-		assertThat(table.size(), is(0));
 	}
 }

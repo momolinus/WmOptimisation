@@ -23,3 +23,18 @@ length(wheel$changesetId)
 wheel.area.not.null <- subset(wheel, area > 0) 
 # 258
 length(wheel.area.not.null$changesetId)
+
+# inspect changesets with no changes == 1
+wheel.no_changes.is_1 <- subset(wheel, no_changes == 1)
+# 901
+length(wheel.no_changes.is_1$changesetId)
+
+# inspect changesets with no changes == 0
+wheel.no_changes.is_0 <- subset(wheel, no_changes == 0)
+# 140
+length(wheel.no_changes.is_0$changesetId)
+
+# inspect changesets with no changes > 1
+wheel.no_changes.is_greater_than_1 <- subset(wheel, no_changes > 0)
+# 1158
+length(wheel.no_changes.is_greater_than_1$changesetId)

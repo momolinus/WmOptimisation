@@ -17,6 +17,9 @@ public class ChangeSetUpdateAble extends ChangeSet {
 		super(changeSet);
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	public ChangeSetUpdateAble(String calToOsm, long index, boolean open) {
 		super(calToOsm, index, open);
 	}
