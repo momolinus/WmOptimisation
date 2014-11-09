@@ -230,6 +230,10 @@ public class OsmChangeContent {
 	public void addChangeForChangeSet(Change change, ChangeSetUpdateAble changeSet) {
 		ChangeSetUpdateAble changeSetForStoring;
 
+		// FIXME wir hier richtig gearbeitet: wenn dem übergebenen changeSet eine Change zugefügt
+		// wird, dann muss es seine Fläche und/oder Zahl der Changes ändern -> mit Test prüfen,
+		// vielleicht 1 Change dann neues Changeset usw.
+
 		changeSetForStoring = fetchOrStoreAndFetchChangeset(changeSet);
 
 		validateIsStoringPossible(change, changeSetForStoring);
