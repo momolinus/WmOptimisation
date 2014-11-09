@@ -238,14 +238,44 @@ public class OsmChangeContent {
 
 		validateIsStoringPossible(change, changeSetForStoring);
 
-		setChangeAsStored(change, changeSetForStoring);
+		Change changeCopy = makeCopy(change);
+
+		changeCopy.setChangeset(changeSetForStoring.getId());
+		changeSetForStoring.updateBoundingBox(changeCopy);
+
+		assertThatChangeAndChangeSetHasSameIdNow(changeCopy, changeSet);
 
 		if (changes.size() == 0) {
 			changes.add(new OsmChange());
 		}
 
 		// add change to last OsmChange
-		changes.get(changes.size() - 1).addChange(change);
+		changes.get(changes.size() - 1).addChange(changeCopy);
+	}
+
+	private Change makeCopy(Change change) {
+		if (change.isWay()) {
+			throw new IllegalArgumentException("cant' work on ways in simulation");
+		}
+		else {
+			if (change instanceof Node) {
+				Node node = new Node((Node) change);
+				return node;
+			}
+			else {
+				throw new IllegalArgumentException("can't work on type "
+					+ change.getClass().getName() + " in simulation");
+			}
+		}
+	}
+
+	private void assertThatChangeAndChangeSetHasSameIdNow(Change change,
+															ChangeSetUpdateAble changeSet) {
+		if (change.getChangeset() != changeSet.getId()) {
+			throw new IllegalStateException(
+					"setting of changeset id didn't succeded, changes chnagesetid =  "
+						+ change.getChangeset() + ", chnageSetId = " + changeSet.getId());
+		}
 	}
 
 	/**
@@ -432,7 +462,8 @@ public class OsmChangeContent {
 					throw new IllegalArgumentException("changeset " + changeSet.getId()
 						+ " has area > 0: " + changeSet.getBoundingBoxSquareDegree()
 						+ ", but no changes: " + noChanges + " for algorithm " + algorithmus
-						+ ", changeset ids:\n" + changesetIdList);
+						+ "\nchangeset ids in changes (" + changes.size() + "):\n"
+						+ changesetIdList);
 				}
 			}
 		}
@@ -586,31 +617,15 @@ public class OsmChangeContent {
 	 *         a new one
 	 */
 	private ChangeSetUpdateAble fetchOrStoreAndFetchChangeset(ChangeSetUpdateAble changeSet) {
-		ChangeSetUpdateAble changeSetForStoring;
 		long changesetId;
 
 		changesetId = changeSet.getId();
-		if (changeSets.containsKey(Long.valueOf(changesetId))) {
-			changeSetForStoring = changeSets.get(Long.valueOf(changesetId));
-		}
-		else {
-			changeSetForStoring = changeSet;
-			changeSets.put(Long.valueOf(changeSetForStoring.getId()), changeSetForStoring);
-		}
-		return changeSetForStoring;
-	}
 
-	/**
-	 * Sets the changeset id of given change, meaning change is stored to changeset.
-	 *
-	 * @param change
-	 *            will be "stored" to given changeset
-	 * @param changeSetForStoring
-	 *            "stores" given change
-	 */
-	private void setChangeAsStored(Change change, ChangeSetUpdateAble changeSetForStoring) {
-		change.setChangeset(changeSetForStoring.getId());
-		changeSetForStoring.updateBoundingBox(change);
+		if (!changeSets.containsKey(changesetId)) {
+			changeSets.put(changeSet.getId(), changeSet);
+		}
+
+		return changeSets.get(changesetId);
 	}
 
 	/**

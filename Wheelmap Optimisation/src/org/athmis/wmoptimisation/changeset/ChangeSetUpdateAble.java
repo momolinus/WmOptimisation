@@ -13,6 +13,9 @@ import java.util.Calendar;
  */
 public class ChangeSetUpdateAble extends ChangeSet {
 
+	/**
+	 * {@inheritDoc}
+	 */
 	public ChangeSetUpdateAble(ChangeSet changeSet) {
 		super(changeSet);
 	}
@@ -65,6 +68,13 @@ public class ChangeSetUpdateAble extends ChangeSet {
 
 		maxLongitude = Math.max(maxLongitude, lon);
 		minLongitude = Math.min(minLongitude, lon);
+
+		// calculateArea();
+
+		if (!Double.isFinite(getBoundingBoxSquareDegree())) {
+			throw new IllegalArgumentException("error updating bounding box with change "
+				+ change.toString());
+		}
 	}
 
 	public void setUser(String user) {

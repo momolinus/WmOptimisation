@@ -7,6 +7,7 @@ import static org.junit.Assert.fail;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 import org.athmis.wmoptimisation.changeset.*;
 import org.junit.*;
@@ -39,8 +40,14 @@ public class OsmChangeContentTest {
 				"ressources/examples/12214085" });
 	}
 
+	private Node berlin, spandau, steglitz;
+
 	@Before
-	public void setUp() throws Exception {}
+	public void setUp() {
+		berlin = Node.getBerlinAsNode();
+		spandau = Node.getDifferentNode(berlin, 0.1, 0.1);
+		steglitz = Node.getDifferentNode(berlin, -0.1, -0.1);
+	}
 
 	@Test
 	public void test_that_correct_number_of_changes_returned_0() {
@@ -107,9 +114,6 @@ public class OsmChangeContentTest {
 		assertThat(header.get("no_changes"), is(equalTo("2.0")));
 		assertThat(header.get("user"), is(equalTo("test-case_1")));
 		assertThat(header.get("algorithm"), is(equalTo("test")));
-
-		assertThat(changeSet.getId(), is(c1.getChangeset()));
-		assertThat(changeSet.getId(), is(c2.getChangeset()));
 	}
 
 	@Test
@@ -136,7 +140,6 @@ public class OsmChangeContentTest {
 		assertThat(header.get("no_changes"), is(equalTo("1.0")));
 		assertThat(header.get("user"), is(equalTo("test-case_1")));
 		assertThat(header.get("algorithm"), is(equalTo("test")));
-		assertThat(changeSet.getId(), is(berlin.getChangeset()));
 	}
 
 	@Test
@@ -175,9 +178,6 @@ public class OsmChangeContentTest {
 		assertThat(row5.get("no_changes"), is(equalTo("0.0")));
 		assertThat(row1.get("user"), is(equalTo("test-case_1")));
 		assertThat(row1.get("algorithm"), is(equalTo("test")));
-		assertThat(changeSet.getId(), is(berlin.getChangeset()));
-		assertThat(changeSet2.getId(), is(not(berlin.getChangeset())));
-
 	}
 
 	@Test
@@ -210,7 +210,6 @@ public class OsmChangeContentTest {
 		assertThat(header.get("no_changes"), is(equalTo("1.0")));
 		assertThat(header.get("user"), is(equalTo("no_user")));
 		assertThat(header.get("algorithm"), is(equalTo("test")));
-		assertThat(changeSet.getId(), is(berlin.getChangeset()));
 	}
 
 	@Test
@@ -245,6 +244,62 @@ public class OsmChangeContentTest {
 		assertThat(header.get("no_changes"), is(equalTo("2.0")));
 		assertThat(header.get("user"), is(equalTo("no_user")));
 		assertThat(header.get("algorithm"), is(equalTo("test")));
+	}
+
+	@Test
+	public void test_add_one_change_2_times() throws Exception {
+		ChangeSetUpdateAble changeSet, changeSet2;
+		OsmChangeContent content;
+		long berlinChangeSetId;
+
+		content = new OsmChangeContent();
+		changeSet =
+			new ChangeSetUpdateAble(ChangeSetToolkit.localDateToOsm(LocalDate.of(2010, 1, 1)), 1l,
+					true);
+		changeSet2 =
+			new ChangeSetUpdateAble(ChangeSetToolkit.localDateToOsm(LocalDate.of(2010, 1, 1)), 2l,
+					true);
+		berlinChangeSetId = berlin.getChangeset();
+
+		content.addChangeForChangeSet(berlin, changeSet);
+		assertThat(berlin.getChangeset(), is(berlinChangeSetId));
+
+		content.addChangeForChangeSet(berlin, changeSet2);
+		assertThat(berlin.getChangeset(), is(berlinChangeSetId));
+	}
+
+	@Test
+	public void test_add_two_changesets() {
+		ChangeSetUpdateAble changeSet, changeSet2;
+		OsmChangeContent content;
+
+		content = new OsmChangeContent();
+		changeSet =
+			new ChangeSetUpdateAble(ChangeSetToolkit.localDateToOsm(LocalDate.of(2010, 1, 1)), 1l,
+					true);
+		changeSet2 =
+			new ChangeSetUpdateAble(ChangeSetToolkit.localDateToOsm(LocalDate.of(2010, 1, 3)), 2l,
+					true);
+
+		content.addChangeForChangeSet(berlin, changeSet);
+		content.addChangeForChangeSet(berlin, changeSet);
+		content.addChangeForChangeSet(spandau, changeSet);
+		content.addChangeForChangeSet(	Node.getDifferentNode(	berlin,
+																(int) TimeUnit.DAYS.toMinutes(2),
+																0, 0), changeSet2);
+		content.addChangeForChangeSet(	Node.getDifferentNode(	spandau,
+																(int) TimeUnit.DAYS.toMinutes(2),
+																0, 0), changeSet2);
+		content.addChangeForChangeSet(	Node.getDifferentNode(	steglitz,
+																(int) TimeUnit.DAYS.toMinutes(2),
+																0, 0), changeSet2);
+		List<Change> changes = content.getAllChanges();
+		List<Double> bboxes = content.getBoundingBoxesSquareDegree();
+
+		assertThat(changes, hasSize(6));
+		assertThat(bboxes, hasSize(2));
+		assertThat(bboxes.get(0).doubleValue(), is(closeTo(0.01, 0.00001)));
+		assertThat(bboxes.get(1).doubleValue(), is(closeTo(0.02, 0.00001)));
 	}
 
 	@Test
