@@ -432,7 +432,18 @@ public class OsmChangeContent {
 			changeSetsTable.put(changesetId, "area",
 								Double.toString(changeSet.getBoundingBoxSquareDegree()));
 
+			if (changeSet.getBoundingBoxSquareDegree() > 0) {
+				if (changes.size() == 0) {
+					LOGGER.debug("area > 0, but no changes" + "; changeSet.getId() = "
+						+ changeSet.getId());
+				}
+			}
+
 			for (OsmChange change : changes) {
+
+				LOGGER.debug("change.getChangeSetId() = " + change.getChangeSetId()
+					+ "; changeSet.getId() = " + changeSet.getId());
+
 				if (change.getChangeSetId() == changeSet.getId()) {
 					noChanges += change.getNumber();
 				}
@@ -440,6 +451,10 @@ public class OsmChangeContent {
 
 			// FIXME hier wird der Bug issue#1 sichtbar und zwar schon beim ersten Algorithmus, es
 			// werden keine changes zur changesetId gefunden
+			// FIXME 16.11.2014 wenn man die Optimierung immer wieder ausführt kommt es immer wieder
+			// zu dem Fehler, dass das changeset eine id hat, die nicht gleich der changesetId der
+			// einzigen Änderung ist, die das changeset enthält, wobei das auch schon ein Fehler
+			// sein muss: ein change kann nicht zu einer Fläche führen -> weiter schauen
 			assertThatChangesetWithAreaHasChanges(changeSet, noChanges, algorithmus);
 
 			changeSetsTable.put(changeSet.getId(), "no_changes", Double.toString(noChanges));
