@@ -85,7 +85,8 @@ public class OsmServer {
 	 * {@linkplain System#currentTimeMillis()} is used.
 	 */
 	public OsmServer() {
-		index = System.currentTimeMillis();
+		// index = System.currentTimeMillis();
+		index = 0;
 		changeSets = new HashMap<>();
 		changes = ArrayListMultimap.create();
 	}
