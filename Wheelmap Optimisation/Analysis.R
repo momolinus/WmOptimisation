@@ -1,7 +1,12 @@
 setwd("C:/Users/Marcus/git/WmOptimisation/Wheelmap Optimisation")
 
+# Löschen von allen Objekten
+# rm(list=ls(all=TRUE))
+# hat das Löschen geklappt
+# ls()
+
 # read a file with list of changes
-changesets <- read.table(file = "optimization_5.csv", header=T, dec=".", sep=";")
+changesets <- read.table(file = "optimization_11.csv", header=T, dec=".", sep=";")
 # inspect the data set
 str(changesets)
 names(changesets)
@@ -27,5 +32,5 @@ table(changesets.area_more_than_null$user, changesets.area_more_than_null$algori
 
 # create a column combining user and algorithm
 changesets.area_more_than_null$algo <- paste(changesets.area_more_than_null$algorithm, changesets.area_more_than_null$user, sep=": ")  
-boxplot(area ~ algo, changesets.area_more_than_null, ylab='Fläche in °x°', log='y')
+boxplot(area ~ algo, changesets.area_more_than_null, ylab='Fläche in °x° (log)', log='y')
 

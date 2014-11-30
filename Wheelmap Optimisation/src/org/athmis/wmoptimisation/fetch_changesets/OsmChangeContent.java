@@ -168,7 +168,7 @@ public class OsmChangeContent {
 		}
 	}
 
-	private List<OsmChange> changes;
+	private Map<Long, OsmChange> changes;
 	/**
 	 * a map with all changesets as value and changesets id as key
 	 */
@@ -182,7 +182,7 @@ public class OsmChangeContent {
 	 */
 	public OsmChangeContent() {
 		changeSets = new HashMap<>();
-		changes = new ArrayList<>();
+		changes = new HashMap<>();
 	}
 
 	// XXX dokumentieren: wird beim Lesen von zips benutzt
@@ -216,7 +216,7 @@ public class OsmChangeContent {
 	 *            will be stored to internal list
 	 */
 	public void add(OsmChange changeContent) {
-		changes.add(changeContent);
+		changes.put(changeContent.getChangeSetId(), changeContent);
 	}
 
 	// TODO check next sprint: ist das die richtige Stelle, um zu prüfen, ob das Change gespeichert
@@ -253,12 +253,12 @@ public class OsmChangeContent {
 
 		assertThatChangeAndChangeSetHasSameIdNow(changeCopy, changeSet);
 
-		if (changes.size() == 0) {
-			changes.add(new OsmChange());
+		OsmChangeUpdateAble osmChangeContent;
+		if (!changes.containsKey(changeSetForStoring.getId())) {
+			changes.put(changeSetForStoring.getId(), new OsmChangeUpdateAble());
 		}
 
-		// add change to last OsmChange
-		OsmChange osmChangeContent = changes.get(changes.size() - 1);
+		osmChangeContent = (OsmChangeUpdateAble) changes.get(changeSetForStoring.getId());
 
 		// FIXME hier ist der Fehler, es können Changes mit verschieden Changeset id zugefügt
 		// werden, später gibt aber ein OsmChange object genau eine ChnageSet id zurück -> das ist
@@ -366,7 +366,7 @@ public class OsmChangeContent {
 
 		allChanges = new ArrayList<>();
 
-		for (OsmChange osmChange : changes) {
+		for (OsmChange osmChange : changes.values()) {
 			allChanges.addAll(osmChange.getChanges());
 		}
 
@@ -383,7 +383,7 @@ public class OsmChangeContent {
 
 		ways = new ArrayList<>();
 
-		for (OsmChange change : changes) {
+		for (OsmChange change : changes.values()) {
 			for (Way way : change.getWays()) {
 				ways.add(way);
 			}
@@ -458,7 +458,7 @@ public class OsmChangeContent {
 			String lastMessage = "xxx";
 
 			// FIXME es gibt nur zwei Elemente in changes
-			for (OsmChange change : changes) {
+			for (OsmChange change : changes.values()) {
 				long changeChangeSetId = change.getChangeSetId();
 
 				LOGGER.debug("change.getChangeSetId() = " + changeChangeSetId
@@ -520,7 +520,7 @@ public class OsmChangeContent {
 		StringBuilder result = new StringBuilder();
 		Set<Long> idSet = new HashSet<>();
 
-		for (OsmChange change : changes) {
+		for (OsmChange change : changes.values()) {
 
 			Long id = Long.valueOf(change.getChangeSetId());
 
@@ -606,7 +606,7 @@ public class OsmChangeContent {
 
 	public int getNodes() {
 		int nodes = 0;
-		for (OsmChange change : changes) {
+		for (OsmChange change : changes.values()) {
 			nodes += change.getNumberNodes();
 		}
 		return nodes;
@@ -628,7 +628,7 @@ public class OsmChangeContent {
 		meanArea = ChangeSetToolkit.meanArea(changeSets.values());
 
 		changesNum = 0;
-		for (OsmChange changesContent : changes) {
+		for (OsmChange changesContent : changes.values()) {
 			changesNum += changesContent.getNumberCreated();
 			changesNum += changesContent.getNumberModified();
 		}
@@ -640,7 +640,7 @@ public class OsmChangeContent {
 	public String verbose() throws ParseException {
 		StringBuilder result = new StringBuilder();
 
-		for (OsmChange c : changes) {
+		for (OsmChange c : changes.values()) {
 			for (Change ch : c.getChanges()) {
 				result.append(ch.getChangeset() + "\t"
 					+ FORMATTER.format(ch.getCreatedAt().getTime()));

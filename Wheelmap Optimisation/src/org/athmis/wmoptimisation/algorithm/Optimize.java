@@ -58,32 +58,27 @@ public class Optimize {
 	public static void run(String[] args) throws IOException, ParseException,
 											ConfigurationException {
 
-		// ChangeSetGenerator simpleGenerator, minimizeAreaGenerator, areaGuardGenerator,
-		// humanExample;
-		// OptimizationResult simpleResult, minimizeAreaResult, areaGuardGeneratorResult,
-		// humanExampleResult;
+		ChangeSetGenerator simpleGenerator, minimizeAreaGenerator, areaGuardGenerator, humanExample;
+		OptimizationResult simpleResult, minimizeAreaResult, areaGuardGeneratorResult, humanExampleResult;
 
-		ChangeSetGenerator simpleGenerator;
-		OptimizationResult simpleResult;// , minimizeAreaResult, areaGuardGeneratorResult,
+		// ChangeSetGenerator simpleGenerator;
+		// OptimizationResult simpleResult;// , minimizeAreaResult, areaGuardGeneratorResult,
 										// humanExampleResult;
 
 		simpleGenerator = new SimpleChangeSetGenerator();
-		// humanExample = new SimpleChangeSetGenerator();
-		// minimizeAreaGenerator = new MinimizeAreaChangeSetGenartor();
+		humanExample = new SimpleChangeSetGenerator();
+		minimizeAreaGenerator = new MinimizeAreaChangeSetGenartor();
 		// 10km: 52,4798529 - 52,4725339 = 0,0073
-		// areaGuardGenerator = new AreaGuardChangeSetGenerator(0.0073);
+		areaGuardGenerator = new AreaGuardChangeSetGenerator(0.0073);
 
 		LOGGER.info("starting simulation");
 
 		simpleResult = runChangeSetGenerator(simpleGenerator, "wheelchair_visitor-2010.zip");
-
-		// humanExampleResult = runChangeSetGenerator(humanExample, "roald-linus-2011.zip");
-
-		// minimizeAreaResult =
-		// runChangeSetGenerator(minimizeAreaGenerator, "wheelchair_visitor-2010.zip");
-
-		// areaGuardGeneratorResult =
-		// runChangeSetGenerator(areaGuardGenerator, "wheelchair_visitor-2010.zip");
+		humanExampleResult = runChangeSetGenerator(humanExample, "roald-linus-2011.zip");
+		minimizeAreaResult =
+			runChangeSetGenerator(minimizeAreaGenerator, "wheelchair_visitor-2010.zip");
+		areaGuardGeneratorResult =
+			runChangeSetGenerator(areaGuardGenerator, "wheelchair_visitor-2010.zip");
 
 		BufferedWriter writer = Files.newBufferedWriter(buildFileName());
 
@@ -93,14 +88,14 @@ public class Optimize {
 		writer.append(simpleResult.getOriginalChangesTable());
 		writer.newLine();
 
-		// writer.append(humanExampleResult.getOriginalChangesTable());
-		// writer.newLine();
+		writer.append(humanExampleResult.getOriginalChangesTable());
+		writer.newLine();
 
 		writer.append(simpleResult.getOptimizedChangesTable());
 		writer.newLine();
-		// writer.append(minimizeAreaResult.getOptimizedChangesTable());
-		// writer.newLine();
-		// writer.append(areaGuardGeneratorResult.getOptimizedChangesTable());
+		writer.append(minimizeAreaResult.getOptimizedChangesTable());
+		writer.newLine();
+		writer.append(areaGuardGeneratorResult.getOptimizedChangesTable());
 		writer.close();
 
 		LOGGER.info("finished");
