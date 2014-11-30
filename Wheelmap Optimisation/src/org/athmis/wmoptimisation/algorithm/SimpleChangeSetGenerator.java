@@ -92,7 +92,6 @@ public class SimpleChangeSetGenerator extends ChangeSetGenerator {
 		assertThatChangeSetNotNull(changeSet);
 
 		optimizedDataSet.addChangeForChangeSet(change, changeSet);
-		LOGGER.trace("change " + change.getId() + " added to changeset " + changeSet.getId());
 	}
 
 	@Override

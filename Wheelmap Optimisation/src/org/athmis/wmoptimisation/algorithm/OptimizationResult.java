@@ -26,6 +26,11 @@ public class OptimizationResult {
 		this.generatorName = generatorName;
 	}
 
+	/**
+	 * Method sets the value of the table of the optimized changes.
+	 *
+	 * @param changeSetsAsStrTable
+	 */
 	public void appendOptimizedChanges(String changeSetsAsStrTable) {
 		this.optimizedChangesTable = changeSetsAsStrTable;
 	}

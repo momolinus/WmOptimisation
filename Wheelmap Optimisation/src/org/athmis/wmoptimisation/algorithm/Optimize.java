@@ -58,26 +58,32 @@ public class Optimize {
 	public static void run(String[] args) throws IOException, ParseException,
 											ConfigurationException {
 
-		ChangeSetGenerator simpleGenerator, minimizeAreaGenerator, areaGuardGenerator, humanExample;
-		OptimizationResult simpleResult, minimizeAreaResult, areaGuardGeneratorResult, humanExampleResult;
+		// ChangeSetGenerator simpleGenerator, minimizeAreaGenerator, areaGuardGenerator,
+		// humanExample;
+		// OptimizationResult simpleResult, minimizeAreaResult, areaGuardGeneratorResult,
+		// humanExampleResult;
+
+		ChangeSetGenerator simpleGenerator;
+		OptimizationResult simpleResult;// , minimizeAreaResult, areaGuardGeneratorResult,
+										// humanExampleResult;
 
 		simpleGenerator = new SimpleChangeSetGenerator();
-		humanExample = new SimpleChangeSetGenerator();
-		minimizeAreaGenerator = new MinimizeAreaChangeSetGenartor();
+		// humanExample = new SimpleChangeSetGenerator();
+		// minimizeAreaGenerator = new MinimizeAreaChangeSetGenartor();
 		// 10km: 52,4798529 - 52,4725339 = 0,0073
-		areaGuardGenerator = new AreaGuardChangeSetGenerator(0.0073);
+		// areaGuardGenerator = new AreaGuardChangeSetGenerator(0.0073);
 
 		LOGGER.info("starting simulation");
 
 		simpleResult = runChangeSetGenerator(simpleGenerator, "wheelchair_visitor-2010.zip");
 
-		humanExampleResult = runChangeSetGenerator(humanExample, "roald-linus-2011.zip");
+		// humanExampleResult = runChangeSetGenerator(humanExample, "roald-linus-2011.zip");
 
-		minimizeAreaResult =
-			runChangeSetGenerator(minimizeAreaGenerator, "wheelchair_visitor-2010.zip");
+		// minimizeAreaResult =
+		// runChangeSetGenerator(minimizeAreaGenerator, "wheelchair_visitor-2010.zip");
 
-		areaGuardGeneratorResult =
-			runChangeSetGenerator(areaGuardGenerator, "wheelchair_visitor-2010.zip");
+		// areaGuardGeneratorResult =
+		// runChangeSetGenerator(areaGuardGenerator, "wheelchair_visitor-2010.zip");
 
 		BufferedWriter writer = Files.newBufferedWriter(buildFileName());
 
@@ -86,14 +92,15 @@ public class Optimize {
 
 		writer.append(simpleResult.getOriginalChangesTable());
 		writer.newLine();
-		writer.append(humanExampleResult.getOriginalChangesTable());
-		writer.newLine();
+
+		// writer.append(humanExampleResult.getOriginalChangesTable());
+		// writer.newLine();
 
 		writer.append(simpleResult.getOptimizedChangesTable());
 		writer.newLine();
-		writer.append(minimizeAreaResult.getOptimizedChangesTable());
-		writer.newLine();
-		writer.append(areaGuardGeneratorResult.getOptimizedChangesTable());
+		// writer.append(minimizeAreaResult.getOptimizedChangesTable());
+		// writer.newLine();
+		// writer.append(areaGuardGeneratorResult.getOptimizedChangesTable());
 		writer.close();
 
 		LOGGER.info("finished");
@@ -117,14 +124,17 @@ public class Optimize {
 			new OptimizationResult(fileName, generator.getName());
 
 		changeContent = OsmChangeContent.createOsmChangeContentFromZip(fileName);
+		LOGGER.info("read zip file " + fileName);
 		optimizationResult.setOriginalChanges(changeContent.getChangeSetsAsStrTable("original",
 																					false));
+		LOGGER.info("stored original data to content object");
 
 		optimizationResult.setMeanAreaSource(changeContent.getMeanArea());
 		optimizationResult.setNoChangeSetsSource(changeContent.getNoChangeSets());
 		optimizationResult.setNumberNodesSource(changeContent.getNodes());
 
 		optimizedContent = generator.createOptimizedChangeSets(changeContent);
+		LOGGER.info("optimized changesets with generator " + generator.getName());
 		optimizationResult.appendOptimizedChanges(optimizedContent
 				.getChangeSetsAsStrTable(generator.getName(), false));
 

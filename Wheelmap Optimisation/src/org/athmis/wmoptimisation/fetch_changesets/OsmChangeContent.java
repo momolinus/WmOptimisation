@@ -191,11 +191,19 @@ public class OsmChangeContent {
 	 * value.
 	 *
 	 * @param changeSet
-	 * @return <code>null</code> if no value for changeset id was stored, or previous stored
-	 *         changeset, which usually seem to be an error
+	 * @return <code>null</code> if no value for changeset id was stored; if <code>!= null</code> it
+	 *         is previous stored changeset, which usually seem to be an error
 	 */
 	public ChangeSet add(ChangeSetUpdateAble changeSet) {
-		return changeSets.put(Long.valueOf(changeSet.getId()), changeSet);
+		ChangeSetUpdateAble prevoius;
+		Long id;
+
+		id = changeSet.getId();
+		prevoius = changeSets.put(id, changeSet);
+
+		LOGGER.debug("put changeset with id = " + String.valueOf(id) + " to changeset map");
+
+		return prevoius;
 	}
 
 	// XXX wenn OsmChange mal equals() unterstützt kann geprüft werden, ob das
@@ -215,7 +223,7 @@ public class OsmChangeContent {
 	// werden darf?
 	// XXX dokumentieren: wir in der Simulation benutzt
 	/**
-	 * Adds the given change to given changeset. Stores both objects. It Could be, that given
+	 * Copies the given change to given changeset. Stores both objects. It Could be, that given
 	 * changeset is still stored, then it will not be stored again as copy or so.
 	 *
 	 * @param change
@@ -250,7 +258,15 @@ public class OsmChangeContent {
 		}
 
 		// add change to last OsmChange
-		changes.get(changes.size() - 1).addChange(changeCopy);
+		OsmChange osmChangeContent = changes.get(changes.size() - 1);
+
+		// FIXME hier ist der Fehler, es können Changes mit verschieden Changeset id zugefügt
+		// werden, später gibt aber ein OsmChange object genau eine ChnageSet id zurück -> das ist
+		// falsch
+		osmChangeContent.addChange(changeCopy);
+
+		LOGGER.debug("added a change with changeset id = " + changeCopy.getChangeset()
+			+ " to changeset with id = " + changeSet.getId());
 	}
 
 	private Change makeCopy(Change change) {
@@ -424,12 +440,12 @@ public class OsmChangeContent {
 			// FIXME diese Zahl wird bei den optimierten Changesets nicht richtig angelegt
 			// mus nach oben natürlich
 			double noChanges = 0;
-			long changesetId;
+			long changeSetId;
 
-			changesetId = changeSet.getId();
-			changeSetsTable.put(changesetId, "user", changeSet.getUser());
-			changeSetsTable.put(changesetId, "algorithm", algorithmus);
-			changeSetsTable.put(changesetId, "area",
+			changeSetId = changeSet.getId();
+			changeSetsTable.put(changeSetId, "user", changeSet.getUser());
+			changeSetsTable.put(changeSetId, "algorithm", algorithmus);
+			changeSetsTable.put(changeSetId, "area",
 								Double.toString(changeSet.getBoundingBoxSquareDegree()));
 
 			if (changeSet.getBoundingBoxSquareDegree() > 0) {
@@ -439,14 +455,24 @@ public class OsmChangeContent {
 				}
 			}
 
-			for (OsmChange change : changes) {
+			String lastMessage = "xxx";
 
-				LOGGER.debug("change.getChangeSetId() = " + change.getChangeSetId()
-					+ "; changeSet.getId() = " + changeSet.getId());
+			// FIXME es gibt nur zwei Elemente in changes
+			for (OsmChange change : changes) {
+				long changeChangeSetId = change.getChangeSetId();
+
+				LOGGER.debug("change.getChangeSetId() = " + changeChangeSetId
+					+ "; changeSet.getId() = " + changeSetId);
 
 				if (change.getChangeSetId() == changeSet.getId()) {
 					noChanges += change.getNumber();
 				}
+
+				lastMessage =
+					"working with changeset id = " + changeSetId
+						+ " and change with changeset id = " + change.getChangeSetId() + "\n"
+						+ "number change sets = " + changeSets.size()
+						+ " number of OsmChange objects " + changes.size();
 			}
 
 			// FIXME hier wird der Bug issue#1 sichtbar und zwar schon beim ersten Algorithmus, es
@@ -455,7 +481,8 @@ public class OsmChangeContent {
 			// zu dem Fehler, dass das changeset eine id hat, die nicht gleich der changesetId der
 			// einzigen Änderung ist, die das changeset enthält, wobei das auch schon ein Fehler
 			// sein muss: ein change kann nicht zu einer Fläche führen -> weiter schauen
-			assertThatChangesetWithAreaHasChanges(changeSet, noChanges, algorithmus);
+			assertThatChangesetWithAreaHasChanges(changeSet, noChanges, algorithmus
+				+ "\nlastMessage: " + lastMessage);
 
 			changeSetsTable.put(changeSet.getId(), "no_changes", Double.toString(noChanges));
 		}
@@ -484,14 +511,22 @@ public class OsmChangeContent {
 		}
 	}
 
+	/**
+	 * helper method for debugging
+	 *
+	 * @return a string containing all changeset ids
+	 */
 	private String createChangeSetIdListForChanges() {
 		StringBuilder result = new StringBuilder();
 		Set<Long> idSet = new HashSet<>();
 
 		for (OsmChange change : changes) {
+
 			Long id = Long.valueOf(change.getChangeSetId());
+
 			if (!idSet.contains(id)) {
 				idSet.add(id);
+
 				result.append(id + "\n");
 			}
 		}
@@ -637,7 +672,20 @@ public class OsmChangeContent {
 		changesetId = changeSet.getId();
 
 		if (!changeSets.containsKey(changesetId)) {
-			changeSets.put(changeSet.getId(), changeSet);
+			Long id;
+			ChangeSetUpdateAble prevoius;
+
+			id = changeSet.getId();
+
+			prevoius = changeSets.put(id, changeSet);
+
+			if (prevoius != null) {
+				throw new IllegalStateException("changeSet map had an value for key: " + id
+					+ ", must be an error");
+			}
+			else {
+				LOGGER.debug("put changeset with id = " + String.valueOf(id) + " to changeset map");
+			}
 		}
 
 		return changeSets.get(changesetId);
