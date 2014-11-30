@@ -17,7 +17,8 @@ table(changesets$user, changesets$algorithm)
 tapply(changesets$no_changes, list(changesets$user, changesets$algorithm), FUN=mean)
 # table: mean area in a changeset
 tapply(changesets$area, list(changesets$user, changesets$algorithm), FUN=mean)
-
+//TODO prüfen warum es bei dem orignal nur Area = -1 gibt
+ 
 # changes with more than 1 change
 changesets.more_than_one_change <- subset(changesets, no_changes > 1)
 table(changesets.more_than_one_change$user, changesets.more_than_one_change$algorithm)
