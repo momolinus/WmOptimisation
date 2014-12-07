@@ -107,7 +107,7 @@ public class OptimizationResult {
 		this.optimizedChangesTable = optimizedChangesTable;
 	}
 
-	public void setOriginalChanges(String changeSetsAsStrTable) {
+	public void setOriginalChangesAsTable(String changeSetsAsStrTable) {
 		this.originalChangesTable = changeSetsAsStrTable;
 	}
 

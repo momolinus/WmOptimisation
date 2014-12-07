@@ -14,14 +14,20 @@ import java.util.Calendar;
 public class ChangeSetUpdateAble extends ChangeSet {
 
 	private int bBoxUpdates = 0;
+	private boolean original = false;
 
 	/**
 	 * {@inheritDoc}
 	 */
 	public ChangeSetUpdateAble(ChangeSet changeSet) {
 		super(changeSet);
+
+		// FIXME kommentieren, das gilt nur für Roh-Daten
+		/* if (changeSet.getBoundingBoxSquareDegree() > 0) { bBoxUpdates = 2; } if (changeSet.g) */
+		original = true;
 	}
 
+	// TODO wird in der Simulation verwendet und sollte nur da verwendet werden
 	/**
 	 * {@inheritDoc}
 	 */
@@ -83,14 +89,20 @@ public class ChangeSetUpdateAble extends ChangeSet {
 
 	@Override
 	public double getBoundingBoxSquareDegree() {
-		if (bBoxUpdates == 0) {
-			return -1.0;
-		}
-		else if (bBoxUpdates == 1) {
-			return 0.0;
+		if (original) {
+			return super.getBoundingBoxSquareDegree();
 		}
 		else {
-			return super.getBoundingBoxSquareDegree();
+
+			if (bBoxUpdates == 0) {
+				return -1.0;
+			}
+			else if (bBoxUpdates == 1) {
+				return 0.0;
+			}
+			else {
+				return super.getBoundingBoxSquareDegree();
+			}
 		}
 	}
 

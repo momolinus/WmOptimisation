@@ -284,15 +284,13 @@ public class OsmChangeContentTest {
 		content.addChangeForChangeSet(berlin, changeSet);
 		content.addChangeForChangeSet(berlin, changeSet);
 		content.addChangeForChangeSet(spandau, changeSet);
-		content.addChangeForChangeSet(Node.getMovedNode(berlin,
-																(int) TimeUnit.DAYS.toMinutes(2),
-																0, 0), changeSet2);
-		content.addChangeForChangeSet(Node.getMovedNode(spandau,
-																(int) TimeUnit.DAYS.toMinutes(2),
-																0, 0), changeSet2);
+		content.addChangeForChangeSet(Node.getMovedNode(berlin, (int) TimeUnit.DAYS.toMinutes(2),
+														0, 0), changeSet2);
+		content.addChangeForChangeSet(Node.getMovedNode(spandau, (int) TimeUnit.DAYS.toMinutes(2),
+														0, 0), changeSet2);
 		content.addChangeForChangeSet(	Node.getMovedNode(	steglitz,
-																(int) TimeUnit.DAYS.toMinutes(2),
-																0, 0), changeSet2);
+															(int) TimeUnit.DAYS.toMinutes(2), 0, 0),
+										changeSet2);
 		List<Change> changes = content.getAllChanges();
 		List<Double> bboxes = content.getBoundingBoxesSquareDegree();
 

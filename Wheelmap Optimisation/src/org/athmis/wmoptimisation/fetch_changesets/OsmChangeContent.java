@@ -534,12 +534,24 @@ public class OsmChangeContent {
 	}
 
 	public String getChangeSetsAsStrTable(String algorithmus, boolean withHeader) {
-		StringBuilder tableBuilder = new StringBuilder();
 
 		Table<Long, String, String> table = getChangeSets(algorithmus);
 
+		StringBuilder tableBuilder = buildStringFromTable(withHeader, table);
+
+		return tableBuilder.toString();
+	}
+
+	/**
+	 * converts given table to a StringBuilder object
+	 */
+	private StringBuilder buildStringFromTable(boolean withHeader, Table<Long, String, String> table) {
+
+		StringBuilder tableBuilder = new StringBuilder();
 		String tempHeader;
+
 		tempHeader = "changesetId";
+
 		for (String column : table.columnKeySet()) {
 			tempHeader += ";" + column;
 		}
@@ -560,8 +572,7 @@ public class OsmChangeContent {
 
 			tableBuilder.append("\n");
 		}
-
-		return tableBuilder.toString();
+		return tableBuilder;
 	}
 
 	/**

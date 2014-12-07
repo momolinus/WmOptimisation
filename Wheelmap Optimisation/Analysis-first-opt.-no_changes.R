@@ -6,7 +6,7 @@ setwd("C:/Users/Marcus/git/WmOptimisation/Wheelmap Optimisation")
 # ls()
 
 # read a file with list of changes
-changesets <- read.table(file = "optimization_9.csv", header=T, dec=".", sep=";")
+changesets <- read.table(file = "optimization_13.csv", header=T, dec=".", sep=";")
 # inspect the data set
 str(changesets)
 names(changesets)
@@ -41,19 +41,19 @@ length(changesets.no_changes.is_greater_than_1$changesetId)
 ### tables: number of changes ###
 #################################
 
-# number of changes for user/algorithm
+# number of changests for user/algorithm
 table(changesets$user, changesets$algorithm)
 
 # table: for each user the number of changesets for each algorithm
-# and changesets == 0
+# and no changes == 0
 table(changesets.no_changes.is_0$user, changesets.no_changes.is_0$algorithm)
 
 # table: for each user the number of changesets for each algorithm
-# and changesets == 1
+# and no changes == 1
 table(changesets.no_changes.is_1$user, changesets.no_changes.is_1$algorithm)
 
 # table: for each user the number of changesets for each algorithm
-# and changesets > 1
+# and no changes > 1
 table(changesets.no_changes.is_greater_than_1$user, changesets.no_changes.is_greater_than_1$algorithm)
 
 ####################################

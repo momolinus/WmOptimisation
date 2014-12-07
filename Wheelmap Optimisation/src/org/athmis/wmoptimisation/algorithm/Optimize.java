@@ -120,7 +120,7 @@ public class Optimize {
 
 		changeContent = OsmChangeContent.createOsmChangeContentFromZip(fileName);
 		LOGGER.info("read zip file " + fileName);
-		optimizationResult.setOriginalChanges(changeContent.getChangeSetsAsStrTable("original",
+		optimizationResult.setOriginalChangesAsTable(changeContent.getChangeSetsAsStrTable("original",
 																					false));
 		LOGGER.info("stored original data to content object");
 

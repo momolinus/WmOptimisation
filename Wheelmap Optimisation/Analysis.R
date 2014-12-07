@@ -6,7 +6,7 @@ setwd("C:/Users/Marcus/git/WmOptimisation/Wheelmap Optimisation")
 # ls()
 
 # read a file with list of changes
-changesets <- read.table(file = "optimization_11.csv", header=T, dec=".", sep=";")
+changesets <- read.table(file = "optimization_13.csv", header=T, dec=".", sep=";")
 # inspect the data set
 str(changesets)
 names(changesets)
@@ -17,7 +17,11 @@ table(changesets$user, changesets$algorithm)
 tapply(changesets$no_changes, list(changesets$user, changesets$algorithm), FUN=mean)
 # table: mean area in a changeset
 tapply(changesets$area, list(changesets$user, changesets$algorithm), FUN=mean)
-//TODO prüfen warum es bei dem orignal nur Area = -1 gibt
+
+# //TODO prüfen warum es bei dem orignal nur Area = -1 gibt
+# obiges ist erledigt, trotzdem ist eine Unterschediung nach area < 0, area == 0 und 
+# area > 0 besser, da die Changesets sich "semantisch" unterscheiden, == -1 bedeutet
+# dass keine Changes gemacht wurden
  
 # changes with more than 1 change
 changesets.more_than_one_change <- subset(changesets, no_changes > 1)
