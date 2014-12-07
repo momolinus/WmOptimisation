@@ -4,6 +4,12 @@ Projekt, um Generierung von Changesets zu optimieren
 
 Changelog:
 
+2014-7-12
+
+publish v1.1
+
+dependencies management now with gradle, please read build.gradle
+
 2014-1-29:
 
 added dependency: http://code.google.com/p/mockito/ Version 1.9.5
