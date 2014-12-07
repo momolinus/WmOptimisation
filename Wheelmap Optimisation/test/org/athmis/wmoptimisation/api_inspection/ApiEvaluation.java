@@ -41,7 +41,7 @@ import org.athmis.wmoptimisation.changeset.OsmApiChangeSetsResult;
 import org.simpleframework.xml.Serializer;
 import org.simpleframework.xml.core.Persister;
 
-//TODO das kommt in UNIT Test nach dem Buch CC oder Effective Java "die Api" kennenlernen
+// XXX change to an unit test, see "Clean Code inspect the api"
 public class ApiEvaluation {
 
 	/**

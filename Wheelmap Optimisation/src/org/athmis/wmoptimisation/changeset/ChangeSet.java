@@ -1,23 +1,19 @@
-/* Copyright Marcus Bleil, Oliver Rudzik, Christoph Bünte 2012 This file is part
- * of Wheelmap Optimization. Wheelmap Optimization is free software: you can
- * redistribute it and/or modify it under the terms of the GNU General Public
- * License as published by the Free Software Foundation, either version 3 of the
- * License, or (at your option) any later version. Wheelmap Optimization is
- * distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
- * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
- * PARTICULAR PURPOSE. See the GNU General Public License for more details. You
- * should have received a copy of the GNU General Public License along with
- * Athmis. If not, see <http://www.gnu.org/licenses/>. Diese Datei ist Teil von
- * Wheelmap Optimization. Wheelmap Optimization ist Freie Software: Sie können
- * es unter den Bedingungen der GNU General Public License, wie von der Free
- * Software Foundation, Version 3 der Lizenz oder (nach Ihrer Option) jeder
- * späteren veröffentlichten Version, weiterverbreiten und/oder modifizieren.
- * Wheelmap Optimization wird in der Hoffnung, dass es nützlich sein wird, aber
- * OHNE JEDE GEWÄHELEISTUNG, bereitgestellt; sogar ohne die implizite
- * Gewährleistung der MARKTFÄHIGKEIT oder EIGNUNG FÜR EINEN BESTIMMTEN ZWECK.
- * Siehe die GNU General Public License für weitere Details. Sie sollten eine
- * Kopie der GNU General Public License zusammen mit diesem Programm erhalten
- * haben. Wenn nicht, siehe <http://www.gnu.org/licenses/>. */
+/* Copyright Marcus Bleil, Oliver Rudzik, Christoph Bünte 2012 This file is part of Wheelmap
+ * Optimization. Wheelmap Optimization is free software: you can redistribute it and/or modify it
+ * under the terms of the GNU General Public License as published by the Free Software Foundation,
+ * either version 3 of the License, or (at your option) any later version. Wheelmap Optimization is
+ * distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the
+ * implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General
+ * Public License for more details. You should have received a copy of the GNU General Public
+ * License along with Athmis. If not, see <http://www.gnu.org/licenses/>. Diese Datei ist Teil von
+ * Wheelmap Optimization. Wheelmap Optimization ist Freie Software: Sie können es unter den
+ * Bedingungen der GNU General Public License, wie von der Free Software Foundation, Version 3 der
+ * Lizenz oder (nach Ihrer Option) jeder späteren veröffentlichten Version, weiterverbreiten
+ * und/oder modifizieren. Wheelmap Optimization wird in der Hoffnung, dass es nützlich sein wird,
+ * aber OHNE JEDE GEWÄHELEISTUNG, bereitgestellt; sogar ohne die implizite Gewährleistung der
+ * MARKTFÄHIGKEIT oder EIGNUNG FÜR EINEN BESTIMMTEN ZWECK. Siehe die GNU General Public License für
+ * weitere Details. Sie sollten eine Kopie der GNU General Public License zusammen mit diesem
+ * Programm erhalten haben. Wenn nicht, siehe <http://www.gnu.org/licenses/>. */
 package org.athmis.wmoptimisation.changeset;
 
 import java.text.ParseException;
@@ -29,32 +25,29 @@ import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
+import org.athmis.wmoptimisation.fetch_changesets.OsmChangeContent;
 import org.simpleframework.xml.Attribute;
 import org.simpleframework.xml.ElementList;
 import org.simpleframework.xml.Root;
 import org.simpleframework.xml.core.Commit;
 
 /**
- * A ChangeSet object is an OSM-Changeset, which is a container for changes on
- * {@linkplain Node}s or {@linkplain Way}s. The nodes or ways has a reference to
- * their changeset id as an attribute.
+ * A ChangeSet object is an OSM-Changeset. It contains <strong>no</strong> nodes or ways. Nodes and
+ * ways holds refreneces to their changesets.
  * <p>
- * This class is used to fetch the changesets from the osm server. Although it
- * seems that ChangeSet is a data container, itself doe's not store the
- * changes/edits (like nodes ore ways). But the changes/edits stores the ids of
- * their changeset. If a data container is needed in programming context use
- * {@linkplain OsmChangeContent} instead.
+ * This class is used to fetch the changesets from the osm server. Although it seems that ChangeSet
+ * is a data container, itself doe's not store the changes/edits (like nodes ore ways). But the
+ * changes/edits stores the ids of their changeset. If a data container is needed in programming
+ * context use {@linkplain OsmChangeContent} instead.
  * <p>
- * From <a
- * href="http://wiki.openstreetmap.org/wiki/API_v0.6#Changesets_2">OSM-Wiki</a>:
- * <blockquote cite="http://wiki.openstreetmap.org/wiki/API_v0.6#Changesets_2">
- * To avoid stale open changesets a mechanism is implemented to automatically
- * close changesets upon one of the following three conditions:
+ * From <a href="http://wiki.openstreetmap.org/wiki/API_v0.6#Changesets_2">OSM-Wiki</a>: <blockquote
+ * cite="http://wiki.openstreetmap.org/wiki/API_v0.6#Changesets_2"> To avoid stale open changesets a
+ * mechanism is implemented to automatically close changesets upon one of the following three
+ * conditions:
  * <ul>
  * <li>More than 50.000 edits on a single changeset</li>
  * <li>The changeset has been open for more than 24 hours</li>
- * <li>There have been no changes/API calls related to a changeset in 1 hour
- * (i.e. idle timeout)</li>
+ * <li>There have been no changes/API calls related to a changeset in 1 hour (i.e. idle timeout)</li>
  * </ul>
  * </blockquote>
  */
@@ -86,7 +79,7 @@ public class ChangeSet implements Comparable<ChangeSet> {
 	private List<Tag> tags = new ArrayList<Tag>();
 
 	@Attribute(name = "user")
-	private String user;
+	protected String user = "no_user";
 
 	// leave visibility "protected" for test purpose
 	@Attribute(name = "created_at", required = false)
@@ -106,6 +99,17 @@ public class ChangeSet implements Comparable<ChangeSet> {
 
 	}
 
+	/**
+	 * Creates a ChangeSet object.
+	 *
+	 * @param createdAt
+	 *            the creation time point
+	 * @param id
+	 *            the id of the changeset
+	 * @param open
+	 *            <code>true</code> if changeset is created as an open changeset
+	 * @see ChangeSetToolkit#localDateToOsm(java.time.LocalDate) for creating a date string
+	 */
 	public ChangeSet(String createdAt, long id, boolean open) {
 		this.createdAt = createdAt;
 		this.id = id;
@@ -114,10 +118,9 @@ public class ChangeSet implements Comparable<ChangeSet> {
 
 	/**
 	 * Constructor for a deep copy of given changeset.
-	 * 
+	 *
 	 * @param changeSet
-	 *            its state will be used to construct a new ChangeSet object (a
-	 *            deep copy)
+	 *            its state will be used to construct a new ChangeSet object (a deep copy)
 	 */
 	public ChangeSet(ChangeSet changeSet) {
 		this.area = changeSet.area;
@@ -159,16 +162,19 @@ public class ChangeSet implements Comparable<ChangeSet> {
 	}
 
 	/**
-	 * Returns the bounding box of the changeset in °*° (in words:
-	 * "square degree").
-	 * 
-	 * @return the bounding box of the changeset, {@link Double#isInfinite()} if
-	 *         changeset has no {@linkplain Change}s
+	 * Returns the bounding box of the changeset in °*° (in words: "square degree").
+	 *
+	 * @return the bounding box of the changeset, <strike>{@link Double#isInfinite()}</strike> -1.0
+	 *         if changeset has no {@linkplain Change}s
 	 */
 	public double getBoundingBoxSquareDegree() {
 
 		// note: no matter calculate the area always, it's fast enough
 		calculateArea();
+
+		if (Double.isInfinite(area) || Double.isNaN(area)) {
+			area = -1.0;
+		}
 
 		return area;
 	}
@@ -196,9 +202,8 @@ public class ChangeSet implements Comparable<ChangeSet> {
 	}
 
 	/**
-	 * Returns the open hours, decimal place is hours fraction, e.g. 0.5 means
-	 * 30 min.
-	 * 
+	 * Returns the open hours, decimal place is hours fraction, e.g. 0.5 means 30 min.
+	 *
 	 * @return the open hours of the changeset, maximum should be 24 h
 	 */
 	public double getOpenTimeInHours() {
@@ -243,9 +248,10 @@ public class ChangeSet implements Comparable<ChangeSet> {
 
 		Date closed;
 		try {
-			if (closedAt == null)
+			if (closedAt == null) {
 				throw new IllegalStateException("closedAt is null, id = " + String.valueOf(id)
 					+ ", user = " + String.valueOf(user));
+			}
 
 			closed = ChangeSetToolkit.OSM_DATE_TO_JAVA.parse(closedAt);
 			result.setTime(closed);
@@ -262,9 +268,10 @@ public class ChangeSet implements Comparable<ChangeSet> {
 		Calendar result = GregorianCalendar.getInstance();
 		Date created;
 		try {
-			if (createdAt == null)
+			if (createdAt == null) {
 				throw new IllegalStateException("createdAt is null, id = " + String.valueOf(id)
 					+ ", user = " + String.valueOf(user));
+			}
 
 			created = ChangeSetToolkit.OSM_DATE_TO_JAVA.parse(createdAt);
 			result.setTime(created);
@@ -278,10 +285,9 @@ public class ChangeSet implements Comparable<ChangeSet> {
 	}
 
 	/**
-	 * Calculates the area/bounding box from {@linkplain #maxLatitude},
-	 * {@linkplain #minLatitude}, {@linkplain #maxLongitude} and
-	 * {@linkplain ChangeSet#minLongitude}; uses {@linkplain Math#abs(double)}
-	 * when calculates the difference in latitude and longitude.
+	 * Calculates the area/bounding box from {@linkplain #maxLatitude}, {@linkplain #minLatitude},
+	 * {@linkplain #maxLongitude} and {@linkplain ChangeSet#minLongitude}; uses
+	 * {@linkplain Math#abs(double)} when calculates the difference in latitude and longitude.
 	 */
 	@Commit
 	protected void calculateArea() {

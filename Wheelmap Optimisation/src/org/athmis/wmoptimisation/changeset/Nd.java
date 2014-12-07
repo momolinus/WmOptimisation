@@ -37,11 +37,17 @@ public class Nd {
 	 * Constructor for deep copy.
 	 *
 	 * @param nd
+	 *            will be used to set the state of the new created object
 	 */
 	public Nd(Nd nd) {
 		this.ref = nd.ref;
 	}
 
+	/**
+	 * Returns the id of the {@linkplain Node} this object holds the reference.
+	 *
+	 * @return the id of the {@linkplain Node} this object holds the reference
+	 */
 	public long getRef() {
 		return ref;
 	}

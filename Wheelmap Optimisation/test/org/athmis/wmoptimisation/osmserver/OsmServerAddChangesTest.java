@@ -39,7 +39,7 @@ public class OsmServerAddChangesTest {
 	@Test(expected = IllegalArgumentException.class)
 	public void testAddNullAsNode() {
 		Long changesetId;
-		changesetId = osmServer.createChangeSet(startTime);
+		changesetId = osmServer.createChangeSet(startTime, "any user");
 		osmServer.storeNode(changesetId, null);
 	}
 
@@ -52,7 +52,7 @@ public class OsmServerAddChangesTest {
 	public void testAddNullToClosedChangeset() throws ParseException {
 		Long changesetId;
 
-		changesetId = osmServer.createChangeSet(startTime);
+		changesetId = osmServer.createChangeSet(startTime, "any user");
 		startTime.add(Calendar.HOUR, 24);
 		osmServer.closeChangeSet(changesetId, startTime);
 

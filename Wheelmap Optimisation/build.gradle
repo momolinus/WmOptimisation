@@ -13,7 +13,7 @@ sourceSets {
             srcDir 'src'
         }
         resources {
-        	srcDir 'res'
+        	srcDir 'ressources'
         }
    }
 
@@ -22,7 +22,7 @@ sourceSets {
    			srcDir 'test'
    		}
    		resources {
-        	srcDir 'res'
+        	srcDir 'ressources'
         }
    }
 }
@@ -34,6 +34,7 @@ repositories {
 // gradle --refresh-dependencies erneuert den dependencies cache
 
 dependencies {
+   	testCompile group: 'com.floreysoft', name: 'jmte', version: '3.0'
     testCompile group: 'org.simpleframework', name: 'simple-xml', version: '2.7.+'
     testCompile group: 'log4j', name: 'log4j', version: '1.2.+'
     /* compile group: 'org.mockito', name: 'mockito-all', version: '1.9.5'
@@ -47,4 +48,6 @@ dependencies {
  	// junit-4.11.jar enthält nicht mehr die hamcrast jars (wenn sie über das maven-Repositorium
  	// geladen wird, sondern nur noch den Hinweis auf die Abhängigkeit
     testCompile group: 'junit', name: 'junit', version: '4.11'
+
+    testCompile 'commons-configuration:commons-configuration:1.10'
 }

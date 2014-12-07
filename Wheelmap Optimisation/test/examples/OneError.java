@@ -11,7 +11,7 @@ import java.io.InputStreamReader;
 import java.net.URL;
 
 import org.athmis.wmoptimisation.changeset.OsmChange;
-import org.athmis.wmoptimisation.fetch_changesets.StoreChangeSets;
+import org.athmis.wmoptimisation.fetch_changesets.FetchingChangeSetsToolbox;
 import org.junit.BeforeClass;
 import org.junit.Ignore;
 import org.junit.Test;
@@ -43,7 +43,7 @@ public class OneError {
 			String apiCall;
 			URL url;
 
-			apiCall = StoreChangeSets.createApiCall(9062501l, false);
+			apiCall = FetchingChangeSetsToolbox.createApiCall(9062501l, false);
 			url = new URL(apiCall);
 
 			OsmChange osmChange = SERIALIZER.read(OsmChange.class, url.openStream());
@@ -61,7 +61,7 @@ public class OneError {
 			String apiCall;
 			URL url;
 
-			apiCall = StoreChangeSets.createApiCall(9062501l, false);
+			apiCall = FetchingChangeSetsToolbox.createApiCall(9062501l, false);
 			url = new URL(apiCall);
 
 			BufferedReader reader = new BufferedReader(new InputStreamReader(url.openStream()));

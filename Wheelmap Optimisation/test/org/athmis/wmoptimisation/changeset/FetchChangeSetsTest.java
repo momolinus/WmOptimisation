@@ -42,7 +42,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.athmis.wmoptimisation.changeset.ChangeSet;
-import org.athmis.wmoptimisation.fetch_changesets.FetchChangeSets;
+import org.athmis.wmoptimisation.changeset.ChangeSetToolkit;
+import org.athmis.wmoptimisation.fetch_changesets.FetchingChangeSetsToolbox;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -89,7 +90,7 @@ public class FetchChangeSetsTest {
 		GregorianCalendar oldest;
 
 		assertEquals(4, changeSets.size());
-		oldest = FetchChangeSets.findOldestChangeset(changeSets);
+		oldest = FetchingChangeSetsToolbox.findOldestChangeset(changeSets);
 		assertEquals(2009, oldest.get(Calendar.YEAR));
 	}
 }
