@@ -1,9 +1,9 @@
 setwd("C:/Users/Marcus/git/WmOptimisation/Wheelmap Optimisation")
 
 # Löschen von allen Objekten
-# rm(list=ls(all=TRUE))
+rm(list=ls(all=TRUE))
 # hat das Löschen geklappt
-# ls()
+ls()
 
 # read a file with list of changes
 changesets <- read.table(file = "optimization_13.csv", header=T, dec=".", sep=";")
