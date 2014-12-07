@@ -34,6 +34,9 @@ table(changesets.one_change$user, changesets.one_change$algorithm)
 # changes with area > 0
 changesets.area_more_than_null <- subset(changesets, area > 0)
 table(changesets.area_more_than_null$user, changesets.area_more_than_null$algorithm)
+# table: mean area in a changeset
+tapply(changesets.area_more_than_null$area, list(changesets.area_more_than_null$user, changesets.area_more_than_null$algorithm), FUN=mean)
+tapply(changesets.area_more_than_null$no_changes, list(changesets.area_more_than_null$user, changesets.area_more_than_null$algorithm), FUN=mean)
 
 # create a column combining user and algorithm
 changesets.area_more_than_null$algo <- paste(changesets.area_more_than_null$algorithm, changesets.area_more_than_null$user, sep=": ")  
