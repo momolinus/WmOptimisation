@@ -111,10 +111,6 @@ public class OptimizationResult {
 		this.originalChangesTable = changeSetsAsStrTable;
 	}
 
-	public void setOriginalChangesTable(String originalChangesTable) {
-		this.originalChangesTable = originalChangesTable;
-	}
-
 	public String toOneRow() {
 		String result;
 
