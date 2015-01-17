@@ -25,6 +25,7 @@ import org.apache.commons.configuration.ConfigurationException;
 import org.apache.commons.configuration.PropertiesConfiguration;
 import org.apache.log4j.*;
 import org.athmis.wmoptimisation.algorithm.areaguard.AreaGuardChangeSetGenerator;
+import org.athmis.wmoptimisation.algorithm.areaguard.AreaGuardSizeAndNeighborChangesetGenerator;
 import org.athmis.wmoptimisation.fetch_changesets.OsmChangeContent;
 
 // XXX better documentation needed for "algorithm finding strategy"
@@ -58,44 +59,45 @@ public class Optimize {
 	public static void run(String[] args) throws IOException, ParseException,
 											ConfigurationException {
 
-		ChangeSetGenerator simpleGenerator, minimizeAreaGenerator, areaGuardGenerator, humanExample;
-		OptimizationResult simpleResult, minimizeAreaResult, areaGuardGeneratorResult, humanExampleResult;
+		ChangeSetGenerator minimizeAreaGenerator, areaGuardGenerator, areaAndNGuardGenerator, humanExample;
+		OptimizationResult minimizeAreaResult, areaGuardGeneratorResult, areaGuardAndNGeneratorResult, humanExampleResult;
 
 		// ChangeSetGenerator simpleGenerator;
 		// OptimizationResult simpleResult;// , minimizeAreaResult, areaGuardGeneratorResult,
-										// humanExampleResult;
+		// humanExampleResult;
 
-		simpleGenerator = new SimpleChangeSetGenerator();
 		humanExample = new SimpleChangeSetGenerator();
 		minimizeAreaGenerator = new MinimizeAreaChangeSetGenartor();
 		// 10km: 52,4798529 - 52,4725339 = 0,0073
-		areaGuardGenerator = new AreaGuardChangeSetGenerator(0.0073);
+		areaGuardGenerator = new AreaGuardChangeSetGenerator(0.73);
+		areaAndNGuardGenerator = new AreaGuardSizeAndNeighborChangesetGenerator(0.73);
 
 		LOGGER.info("starting simulation");
 
-		simpleResult = runChangeSetGenerator(simpleGenerator, "wheelchair_visitor-2010.zip");
 		humanExampleResult = runChangeSetGenerator(humanExample, "roald-linus-2011.zip");
 		minimizeAreaResult =
 			runChangeSetGenerator(minimizeAreaGenerator, "wheelchair_visitor-2010.zip");
 		areaGuardGeneratorResult =
 			runChangeSetGenerator(areaGuardGenerator, "wheelchair_visitor-2010.zip");
+		areaGuardAndNGeneratorResult =
+			runChangeSetGenerator(areaAndNGuardGenerator, "wheelchair_visitor-2010.zip");
 
 		BufferedWriter writer = Files.newBufferedWriter(buildFileName());
 
-		writer.append(simpleResult.getChangesHeader());
+		writer.append(humanExampleResult.getChangesHeader());
 		writer.newLine();
 
-		writer.append(simpleResult.getOriginalChangesTable());
+		writer.append(minimizeAreaResult.getOriginalChangesTable());
 		writer.newLine();
-
 		writer.append(humanExampleResult.getOriginalChangesTable());
 		writer.newLine();
 
-		writer.append(simpleResult.getOptimizedChangesTable());
-		writer.newLine();
 		writer.append(minimizeAreaResult.getOptimizedChangesTable());
 		writer.newLine();
 		writer.append(areaGuardGeneratorResult.getOptimizedChangesTable());
+		writer.newLine();
+		writer.append(areaGuardAndNGeneratorResult.getOptimizedChangesTable());
+
 		writer.close();
 
 		LOGGER.info("finished");
@@ -120,8 +122,8 @@ public class Optimize {
 
 		changeContent = OsmChangeContent.createOsmChangeContentFromZip(fileName);
 		LOGGER.info("read zip file " + fileName);
-		optimizationResult.setOriginalChangesAsTable(changeContent.getChangeSetsAsStrTable("original",
-																					false));
+		optimizationResult.setOriginalChangesAsTable(changeContent
+				.getChangeSetsAsStrTable("original", false));
 		LOGGER.info("stored original data to content object");
 
 		optimizationResult.setMeanAreaSource(changeContent.getMeanArea());

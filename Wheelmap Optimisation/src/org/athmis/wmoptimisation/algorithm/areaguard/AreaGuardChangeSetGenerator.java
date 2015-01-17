@@ -10,14 +10,16 @@ import org.athmis.wmoptimisation.osmserver.OsmServer;
 
 public class AreaGuardChangeSetGenerator extends ChangeSetGenerator {
 
-	private AreaGuard areaGuard;
+	private AreaGuardForSize areaGuard;
 	protected Long changeSetInUseId;
-	private String name;
+	protected String name;
 
 	public AreaGuardChangeSetGenerator(double maxBboxSize) {
 		areaGuard = new AreaGuardForSize(maxBboxSize);
 		name = "area guard (" + maxBboxSize + ")";
 	}
+
+	protected AreaGuardChangeSetGenerator() {}
 
 	@Override
 	public String getName() {
@@ -41,7 +43,7 @@ public class AreaGuardChangeSetGenerator extends ChangeSetGenerator {
 	 * @throws IllegalStateException
 	 *             if it was not possible to get a changeset if from server
 	 */
-	private void initChangeSetInUseId(OsmServer osmServer, Calendar changeTime, String user)
+	protected void initChangeSetInUseId(OsmServer osmServer, Calendar changeTime, String user)
 																							throws IllegalStateException {
 		// first run
 		if (changeSetInUseId == null) {

@@ -592,6 +592,16 @@ public class OsmChangeContent {
 		return boundingBoxes;
 	}
 
+	public Map<Long, Double> getMinChangeDistance() {
+		Map<Long, Double> minDistances = new HashMap<>();
+
+		for (OsmChange osmChanges : changes.values()) {
+			minDistances.put(osmChanges.getChangeSetId(), osmChanges.getMinDistance());
+		}
+
+		return minDistances;
+	}
+
 	public double getMeanArea() {
 		double areasSum = 0;
 		int noAreas = 0;
@@ -740,6 +750,16 @@ public class OsmChangeContent {
 		// if (changeSetForStoring.)
 
 		// XXX missing test for 50 000 changesets, use a mock object
+	}
+
+	public Map<Long, Double> getNoChangesPerChangeset() {
+		Map<Long, Double> minDistances = new HashMap<>();
+
+		for (OsmChange osmChanges : changes.values()) {
+			minDistances.put(osmChanges.getChangeSetId(), (double) osmChanges.getNumber());
+		}
+
+		return minDistances;
 	}
 
 }

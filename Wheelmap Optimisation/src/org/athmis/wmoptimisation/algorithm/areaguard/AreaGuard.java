@@ -21,6 +21,10 @@ public abstract class AreaGuard {
 	}
 
 	public final void addUpdatedItem(Long changeSetId, Change updatedItem) {
+		if (changeSetId == null) {
+			throw new IllegalArgumentException("null as is is not permitted");
+		}
+
 		boolean success;
 
 		success = edges.put(changeSetId, new Area(updatedItem));
@@ -30,7 +34,4 @@ public abstract class AreaGuard {
 				+ " to changeset id " + String.valueOf(changeSetId));
 		}
 	}
-
-	public abstract boolean isNextBoxToLarge(Long changeSetId, Change updatedItem);
-
 }

@@ -16,7 +16,6 @@ public class AreaGuardForSize extends AreaGuard {
 		super(maxBboxEdge);
 	}
 
-	@Override
 	public boolean isNextBoxToLarge(Long changeSetId, Change updatedItem) {
 		Area actualBox;
 		Area nextBox;
