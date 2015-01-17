@@ -15,7 +15,7 @@ public class AreaGuardChangeSetGenerator extends ChangeSetGenerator {
 	private String name;
 
 	public AreaGuardChangeSetGenerator(double maxBboxSize) {
-		areaGuard = new AreaGuard(maxBboxSize);
+		areaGuard = new AreaGuardForSize(maxBboxSize);
 		name = "area guard (" + maxBboxSize + ")";
 	}
 
@@ -34,7 +34,10 @@ public class AreaGuardChangeSetGenerator extends ChangeSetGenerator {
 	 * so following code could use {@linkplain #changeSetInUseId} without worry about state of
 	 * {@linkplain #changeSetInUseId}
 	 *
-	 * @param user
+	 * @param osmServer
+	 *            used to control if changeset is open or get a new changeset
+	 * @param changeTime
+	 *            the 'actual' time of day
 	 * @throws IllegalStateException
 	 *             if it was not possible to get a changeset if from server
 	 */
