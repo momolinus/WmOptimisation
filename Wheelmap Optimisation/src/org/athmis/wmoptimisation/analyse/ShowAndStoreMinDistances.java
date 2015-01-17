@@ -19,12 +19,14 @@ public class ShowAndStoreMinDistances {
 		try {
 			changeContent =
 				OsmChangeContent.createOsmChangeContentFromZip("wheelchair_visitor-2010.zip");
-			// Map<Long, Double> distances = changeContent.getNoChangesPerChangeset();
+			Map<Long, Double> distances = changeContent.getNoChangesPerChangeset();
+			// double maxNum = 0;
 
-			Map<Long, Double> distances = changeContent.getMinChangeDistance();
+			// Map<Long, Double> distances = changeContent.getMinChangeDistance();
 			distances.forEach((id, d) -> {
 				if (d < Double.MAX_VALUE) {
 					System.out.println(id + ":\t" + d);
+					// maxNum = Math.max(maxNum, d);
 				}
 			});
 		}

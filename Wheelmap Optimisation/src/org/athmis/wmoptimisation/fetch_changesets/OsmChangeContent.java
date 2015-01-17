@@ -753,7 +753,7 @@ public class OsmChangeContent {
 	}
 
 	public Map<Long, Double> getNoChangesPerChangeset() {
-		Map<Long, Double> minDistances = new HashMap<>();
+		Map<Long, Double> minDistances = new TreeMap<>();
 
 		for (OsmChange osmChanges : changes.values()) {
 			minDistances.put(osmChanges.getChangeSetId(), (double) osmChanges.getNumber());
