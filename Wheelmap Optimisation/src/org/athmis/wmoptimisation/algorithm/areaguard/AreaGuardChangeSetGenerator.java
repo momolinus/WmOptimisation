@@ -16,7 +16,7 @@ public class AreaGuardChangeSetGenerator extends ChangeSetGenerator {
 
 	public AreaGuardChangeSetGenerator(double maxBboxSize) {
 		areaGuard = new AreaGuardForSize(maxBboxSize);
-		name = "area guard (" + maxBboxSize + ")";
+		name = "ag (" + maxBboxSize + ")";
 	}
 
 	protected AreaGuardChangeSetGenerator() {}
@@ -43,8 +43,8 @@ public class AreaGuardChangeSetGenerator extends ChangeSetGenerator {
 	 * @throws IllegalStateException
 	 *             if it was not possible to get a changeset if from server
 	 */
-	protected void initChangeSetInUseId(OsmServer osmServer, Calendar changeTime, String user)
-																							throws IllegalStateException {
+	protected final void initChangeSetInUseId(OsmServer osmServer, Calendar changeTime, String user)
+																									throws IllegalStateException {
 		// first run
 		if (changeSetInUseId == null) {
 			changeSetInUseId = osmServer.createChangeSet(changeTime, user);

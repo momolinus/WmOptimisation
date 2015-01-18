@@ -3,7 +3,10 @@
  */
 package org.athmis.wmoptimisation.algorithm.areaguard;
 
+import java.util.*;
+
 import org.athmis.wmoptimisation.changeset.Change;
+import org.athmis.wmoptimisation.osmserver.OsmServer;
 
 /**
  * @author Marcus
@@ -17,18 +20,27 @@ public class AreaGuardForSizeAndNeighbor extends AreaGuard {
 		super(maxBboxEdge);
 	}
 
-	public void closeChangeSetId(Long changeSetInUseId) {
-		edges.removeAll(changeSetInUseId);
-	}
-
 	public Long getValidChangesetId(Long changeSetInUseId, Change updatedItem) {
+		Long result = null;
 
-		if (edges.size() == 0) {
-			// addUpdatedItem(changeSetInUseId, updatedItem);
-			return changeSetInUseId;
+		for (Long id : edges.asMap().keySet()) {
+
+			if (!id.equals(changeSetInUseId)) {
+
+				if (isChangeSetInArea(id, updatedItem)) {
+					result = id;
+					break;
+				}
+			}
 		}
 
-		return validId(changeSetInUseId, updatedItem);
+		if (result == null) {
+			if (isChangeSetInArea(changeSetInUseId, updatedItem)) {
+				return changeSetInUseId;
+			}
+		}
+
+		return result;
 	}
 
 	private boolean isChangeSetInArea(Long changeSetInUseId, Change updatedItem) {
@@ -45,25 +57,24 @@ public class AreaGuardForSizeAndNeighbor extends AreaGuard {
 		return !(maxEdge > maxBboxEdge);
 	}
 
-	private Long seekValidId(Change updatedItem) {
-		Long result = null;
+	public void closeAllInvalidChangesets(OsmServer osmServer) {
+		List<Long> remove = new ArrayList<>();
 
 		for (Long id : edges.asMap().keySet()) {
-			if (isChangeSetInArea(id, updatedItem)) {
-				result = id;
-				break;
+			boolean isOpen;
+			isOpen = osmServer.isChangeSetOpen(id);
+
+			if (!isOpen) {
+				remove.add(id);
 			}
 		}
 
-		return result;
+		for (Long id : remove) {
+			edges.removeAll(id);
+		}
 	}
 
-	private Long validId(Long changeSetInUseId, Change updatedItem) {
-		if (isChangeSetInArea(changeSetInUseId, updatedItem)) {
-			return changeSetInUseId;
-		}
-		else {
-			return seekValidId(updatedItem);
-		}
+	public double getMaxBboxEdge() {
+		return maxBboxEdge;
 	}
 }

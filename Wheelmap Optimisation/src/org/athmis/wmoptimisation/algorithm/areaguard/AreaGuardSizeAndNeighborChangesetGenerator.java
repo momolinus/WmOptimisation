@@ -13,37 +13,56 @@ public class AreaGuardSizeAndNeighborChangesetGenerator extends AreaGuardChangeS
 
 	public AreaGuardSizeAndNeighborChangesetGenerator(double maxBboxSize) {
 		guard = new AreaGuardForSizeAndNeighbor(maxBboxSize);
-		name = "area guard sn (" + maxBboxSize + ")";
+		name = "ag sn (" + maxBboxSize + ")";
 	}
 
 	@Override
 	protected void add(Change updatedItem, OsmServer osmServer, OsmChangeContent optimizedDataSet) {
 		Calendar changeTime;
 		ChangeSetUpdateAble changeSet;
+		Long cIdDebug;
 
 		assertThatChangeAndServerNotNull(updatedItem, osmServer);
 
 		changeTime = updatedItem.getCreatedAt();
-		initChangeSetInUseId(osmServer, changeTime, updatedItem.getUser());
+		String user = updatedItem.getUser();
+
+		// first run
+		if (changeSetInUseId == null) {
+			changeSetInUseId = osmServer.createChangeSet(changeTime, user);
+		}
+		else {
+			boolean isOpen;
+
+			isOpen = osmServer.isChangeSetOpen(changeSetInUseId, changeTime);
+			if (!isOpen) {
+				changeSetInUseId = osmServer.createChangeSet(changeTime, user);
+			}
+		}
+
+		if (changeSetInUseId == null) {
+			throw new IllegalStateException("no change set created by osm server of type "
+				+ osmServer.getClass().getSimpleName());
+		}
+
+		guard.closeAllInvalidChangesets(osmServer);
+		cIdDebug = changeSetInUseId;
+		changeSetInUseId = guard.getValidChangesetId(changeSetInUseId, updatedItem);
+
+		if (changeSetInUseId == null) {
+			changeSetInUseId = osmServer.createChangeSet(changeTime, updatedItem.getUser());
+		}
+
 		changeSet = osmServer.getChangeSet(changeSetInUseId);
 
 		assertThatChangeSetNotNull(changeSet);
 
-		changeSetInUseId = guard.getValidChangesetId(changeSetInUseId, updatedItem);
-
-		if (changeSetInUseId != null && !osmServer.isChangeSetOpen(changeSetInUseId, changeTime)) {
-			guard.closeChangeSetId(changeSetInUseId);
-			changeSetInUseId = null;
-		}
-
-		if (changeSetInUseId == null) {
-			changeSet.close(changeTime);
-			changeSetInUseId = osmServer.createChangeSet(changeTime, updatedItem.getUser());
-			changeSet = osmServer.getChangeSet(changeSetInUseId);
-		}
-
 		guard.addUpdatedItem(changeSetInUseId, updatedItem);
-
 		optimizedDataSet.addChangeForChangeSet(updatedItem, changeSet);
+
+		if (changeSet.getBoundingBoxSquareDegree() > (Math.pow(guard.getMaxBboxEdge(), 2))) {
+			System.out.println(cIdDebug + " -> " + changeSetInUseId + ", with change "
+				+ updatedItem.getId());
+		}
 	}
 }
