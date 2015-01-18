@@ -37,6 +37,9 @@ public class AreaGuardSizeAndNeighborChangesetGenerator extends AreaGuardChangeS
 			isOpen = osmServer.isChangeSetOpen(changeSetInUseId, changeTime);
 			if (!isOpen) {
 				changeSetInUseId = osmServer.createChangeSet(changeTime, user);
+
+				// FIXME siehe unten
+				// changeSet = osmServer.getChangeSet(changeSetInUseId);
 			}
 		}
 
@@ -51,8 +54,12 @@ public class AreaGuardSizeAndNeighborChangesetGenerator extends AreaGuardChangeS
 
 		if (changeSetInUseId == null) {
 			changeSetInUseId = osmServer.createChangeSet(changeTime, updatedItem.getUser());
+
+			// FIXME siehe unten
+			// changeSet = osmServer.getChangeSet(changeSetInUseId);
 		}
 
+		// FIXME mit eine Test, diese Position fixieren: hier war es nich sonder oben
 		changeSet = osmServer.getChangeSet(changeSetInUseId);
 
 		assertThatChangeSetNotNull(changeSet);
