@@ -30,6 +30,9 @@ public class AreaGuardSizeAndNeighborChangesetGenerator extends AreaGuardChangeS
 		name = "ag sn (" + maxBboxSize + ")";
 	}
 
+	/**
+	 *
+	 */
 	@Override
 	protected void add(Change updatedItem, OsmServer osmServer, OsmChangeContent optimizedDataSet) {
 		Calendar changeTime;
