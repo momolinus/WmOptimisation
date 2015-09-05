@@ -30,54 +30,61 @@ public class AreaGuardForSizeAndNeighborTest {
 
 	@Test
 	public void test_that_first_change_could_always_be_stored() {
-		Long id;
+		Long olderId;
 
-		id = guard.getValidChangesetId(2l, nodeNW);
+		olderId = guard.searchOtherChangeSetForChange(2l, nodeNW);
+		boolean match = guard.isChangeSetInArea(2l, nodeNW);
 
-		assertThat("box is to large for first change", id, is(equalTo(2l)));
+		assertThat("error: found older changeset", olderId, is(nullValue()));
+		assertThat("error: first change did'nt matched with box", match, is(true));
 	}
 
 	@Test
 	public void test_that_near_change_could_be_stored() {
-		Long id, idInuse;
+		Long olderId, idInuse;
 
 		idInuse = 2l;
 		guard.addUpdatedItem(idInuse, nodeNW2);
-		id = guard.getValidChangesetId(idInuse, nodeNW);
+		olderId = guard.searchOtherChangeSetForChange(idInuse, nodeNW);
+		boolean match = guard.isChangeSetInArea(idInuse, nodeNW);
 
-		assertThat("box is to large for first change", id, is(sameInstance(idInuse)));
+		assertThat("error: found older changeset", olderId, is(nullValue()));
+		assertThat("error: box is to large with near change", match, is(true));
 	}
 
 	@Test
 	public void test_that_faraway_change_could_be_not_stored() {
-		Long id, idInuse;
+		Long olderId, idInuse;
 
 		idInuse = 2l;
 		guard.addUpdatedItem(idInuse, nodeNW);
-		id = guard.getValidChangesetId(idInuse, nodeNW3);
+		olderId = guard.searchOtherChangeSetForChange(idInuse, nodeNW3);
+		boolean match = guard.isChangeSetInArea(idInuse, nodeNW3);
 
-		assertThat("box is to large for first change", id, is(not(sameInstance(idInuse))));
+		assertThat("error: found older changeset", olderId, is(nullValue()));
+		assertThat("error: fare away change could be stored", match, is(false));
 	}
 
 	@Test
 	public void test_that_faraway_change_toggles_change_id() {
-		Long id2nd, id1st, id3ed;
+		Long id2nd, id1st, olderId;
 
 		id1st = 2l;
 		guard.addUpdatedItem(id1st, nodeNW);
-		id2nd = guard.getValidChangesetId(id1st, nodeNW4);
+		olderId = guard.searchOtherChangeSetForChange(id1st, nodeNW4);
+		boolean match = guard.isChangeSetInArea(id1st, nodeNW4);
 
-		assertThat(id2nd, is(nullValue()));
-		assertThat(id2nd, is(not(sameInstance(id1st))));
+		assertThat("error: found older changeset", olderId, is(nullValue()));
+		assertThat("error: fare away change could be stored", match, is(false));
 
 		// 'simulate' OSM-Server
 		id2nd = 3l;
 		guard.addUpdatedItem(id2nd, nodeNW4);
+		olderId = guard.searchOtherChangeSetForChange(id2nd, nodeNW2);
+		match = guard.isChangeSetInArea(id2nd, nodeNW2);
 
-		id3ed = guard.getValidChangesetId(id2nd, nodeNW2);
-
-		assertThat(id3ed, is(notNullValue()));
-		assertThat(id1st, is(sameInstance(id3ed)));
+		assertThat("error: found older changeset", olderId, is(sameInstance(id1st)));
+		assertThat("error: near change could not be stored", match, is(false));
 	}
 
 	@Test

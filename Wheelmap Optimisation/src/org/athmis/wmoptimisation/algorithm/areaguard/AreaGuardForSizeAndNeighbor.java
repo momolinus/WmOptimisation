@@ -20,43 +20,16 @@ public class AreaGuardForSizeAndNeighbor extends AreaGuard {
 		super(maxBboxEdge);
 	}
 
-	// TODO Methode macht auch zwei Sachen, in kommendem Release in zwei Methoden aufteilen
 	/**
-	 * Method checks returns a previous stored changeset, which could store the new change, if there
-	 * is no matching changeset stored <strong>and</strong> the new change fits to given changeset
-	 * given changeset will be returned, els <code>null</code> will be returned.
+	 * Method returns <code>true</code> if given change is in (maximum) area of given changeset.
+	 *
+	 * @param changeSetInUseId
+	 *            used for check areas size
+	 * @param updatedItem
+	 *            method checks if this change will fit to area of given changeset
+	 * @return <code>true</code> if given change is in (maximum) area of given changeset,
+	 *         <code>false</code> otherwise
 	 */
-	public Long getValidChangesetId(Long changeSetInUseId, Change updatedItem) {
-		Long result = null;
-
-		result = getOtherChangeSetForChange(changeSetInUseId, updatedItem);
-
-		if (result == null) {
-			if (isChangeSetInArea(changeSetInUseId, updatedItem)) {
-				return changeSetInUseId;
-			}
-		}
-
-		return result;
-	}
-
-	public Long getOtherChangeSetForChange(Long changeSetInUseId, Change updatedItem) {
-		Long result = null;
-
-		for (Long id : edges.asMap().keySet()) {
-
-			if (!id.equals(changeSetInUseId)) {
-
-				if (isChangeSetInArea(id, updatedItem)) {
-					result = id;
-					break;
-				}
-			}
-		}
-
-		return result;
-	}
-
 	public boolean isChangeSetInArea(Long changeSetInUseId, Change updatedItem) {
 		Area actualBox;
 		Area nextBox;
@@ -94,7 +67,30 @@ public class AreaGuardForSizeAndNeighbor extends AreaGuard {
 		}
 	}
 
-	public double getMaxBboxEdge() {
-		return maxBboxEdge;
+	/**
+	 * Method searches in stored changesets for one where given change will fit. While searching it
+	 * omits given changeset. If no changeset found method returns <code>null</code>.
+	 *
+	 * @param changeSetInUseId
+	 *            will be omitted in search
+	 * @param updatedItem
+	 *            method searches a changeset (the first), where this change fits
+	 * @return a changeset where given change fits, or <code>null</code>
+	 */
+	public Long searchOtherChangeSetForChange(Long changeSetInUseId, Change updatedItem) {
+		Long result = null;
+
+		for (Long id : edges.asMap().keySet()) {
+
+			if (!id.equals(changeSetInUseId)) {
+
+				if (isChangeSetInArea(id, updatedItem)) {
+					result = id;
+					break;
+				}
+			}
+		}
+
+		return result;
 	}
 }

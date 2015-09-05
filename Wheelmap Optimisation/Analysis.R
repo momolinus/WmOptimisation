@@ -6,7 +6,7 @@ ls()
 setwd("C:/Users/Marcus/git/WmOptimisation/Wheelmap Optimisation")
 
 # read a file with list of changes
-changesets <- read.table(file = "optimization_31.csv", header=T, dec=".", sep=";")
+changesets <- read.table(file = "optimization_32.csv", header=T, dec=".", sep=";")
 # inspect the data set
 str(changesets)
 names(changesets)

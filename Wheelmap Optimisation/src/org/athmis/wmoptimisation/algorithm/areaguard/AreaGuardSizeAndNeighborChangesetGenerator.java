@@ -16,6 +16,13 @@ import org.athmis.wmoptimisation.osmserver.OsmServer;
  */
 public class AreaGuardSizeAndNeighborChangesetGenerator extends AreaGuardChangeSetGenerator {
 
+	private static void assertThatChangeSetIdIsNotNull(OsmServer osmServer, Long changeSetInUseId) {
+		if (changeSetInUseId == null) {
+			throw new IllegalStateException("no change set created by osm server of type "
+				+ osmServer.getClass().getSimpleName());
+		}
+	}
+
 	private AreaGuardForSizeAndNeighbor guard;
 
 	public AreaGuardSizeAndNeighborChangesetGenerator(double maxBboxSize) {
@@ -55,28 +62,29 @@ public class AreaGuardSizeAndNeighborChangesetGenerator extends AreaGuardChangeS
 		assertThatChangeSetIdIsNotNull(osmServer, changeSetInUseId);
 
 		guard.removeAllChangesetsClosedByServer(osmServer);
-		// note: method could return an a new changeset or null, in future release method will be
-		// divided in two methods
-		changeSetInUseId = guard.getValidChangesetId(changeSetInUseId, updatedItem);
 
-		// if there was no valid changeset left, an new must be ceated
+		Long olderChangeSetId = guard.searchOtherChangeSetForChange(changeSetInUseId, updatedItem);
+		if (olderChangeSetId != null) {
+			changeSetInUseId = olderChangeSetId;
+		}
+		else {
+			if (!guard.isChangeSetInArea(changeSetInUseId, updatedItem)) {
+				changeSetInUseId = null;
+			}
+		}
+
+		// if there was no valid changeset left, an new must be created
 		if (changeSetInUseId == null) {
 			changeSetInUseId = osmServer.createChangeSet(changeTime, updatedItem.getUser());
 		}
 
-		// FIXME mit eine Test, diese Position fixieren: hier war es nich sonder oben
+		// note: first now is the correct time to call for changeset, because now changeset id is
+		// valid
 		changeSet = osmServer.getChangeSet(changeSetInUseId);
 
 		assertThatChangeSetNotNull(changeSet);
 
 		guard.addUpdatedItem(changeSetInUseId, updatedItem);
 		optimizedDataSet.addChangeForChangeSet(updatedItem, changeSet);
-	}
-
-	private static void assertThatChangeSetIdIsNotNull(OsmServer osmServer, Long changeSetInUseId) {
-		if (changeSetInUseId == null) {
-			throw new IllegalStateException("no change set created by osm server of type "
-				+ osmServer.getClass().getSimpleName());
-		}
 	}
 }
