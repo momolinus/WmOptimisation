@@ -110,6 +110,14 @@ public final class ChangeSetToolkit {
 		}
 	}
 
+	public static double getDistance(Change c1, Change c2) {
+		double deltaLat, deltaLon;
+
+		deltaLat = Math.abs(c1.getLat() - c2.getLat());
+		deltaLon = Math.abs(c1.getLon() - c2.getLon());
+		return Math.sqrt(deltaLat * deltaLon);
+	}
+
 	/**
 	 * @param node
 	 * @param area

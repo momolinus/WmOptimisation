@@ -119,24 +119,27 @@ public class OsmServer {
 					changeSet.close(now);
 				}
 
-				// debugging/logging
-				if (is60minNotInUse) {
-					LOGGER.debug("changeset " + changeSet.getId()
-						+ " closed because was 60 min not in use");
-				}
-				if (olderThan24Hours) {
-					LOGGER.debug("changeset " + changeSet.getId()
-						+ " closed because was older than 24 hours");
-				}
-				if (hasEnoughChanges) {
-					LOGGER.debug("changeset " + changeSet.getId()
-						+ " closed because has >= 50.000 changes");
-				}
+				log(changeSet, is60minNotInUse, olderThan24Hours, hasEnoughChanges);
 
 			}
 			else {
 				LOGGER.debug("no changeset is open");
 			}
+		}
+	}
+
+	private void log(ChangeSetUpdateAble changeSet, boolean is60minNotInUse,
+						boolean olderThan24Hours, boolean hasEnoughChanges) {
+		// debugging/logging
+		if (is60minNotInUse) {
+			LOGGER.debug("changeset " + changeSet.getId() + " closed because was 60 min not in use");
+		}
+		if (olderThan24Hours) {
+			LOGGER.debug("changeset " + changeSet.getId()
+				+ " closed because was older than 24 hours");
+		}
+		if (hasEnoughChanges) {
+			LOGGER.debug("changeset " + changeSet.getId() + " closed because has >= 50.000 changes");
 		}
 	}
 
@@ -377,5 +380,14 @@ public class OsmServer {
 		if (changesetId == null) {
 			throw new IllegalArgumentException("null as changeset id is not permitted");
 		}
+	}
+
+	public boolean isChangeSetOpen(Long id) {
+		if (!changeSets.containsKey(id)) {
+			throw new IllegalArgumentException("unknown changeset with 'id = " + String.valueOf(id)
+				+ "'");
+		}
+
+		return changeSets.get(id).isOpen();
 	}
 }

@@ -57,6 +57,7 @@ public class Node implements Change {
 		return getBerlin();
 	}
 
+	// FIXME kommentieren
 	public static Node getDifferentNode(Node node, double lat, double lon) {
 		Calendar nodeTime = node.getCreatedAt();
 		nodeTime.add(Calendar.MINUTE, 5);
@@ -70,6 +71,17 @@ public class Node implements Change {
 		nodeTime.add(Calendar.MINUTE, 5);
 		Node result =
 			new Node(node.id + 1, node.lat + deltaLat, node.lon + deltaLon,
+					ChangeSetToolkit.calToOsm(nodeTime), 1, true);
+
+		return result;
+	}
+
+	public static Node later(Change change, int minutes) {
+		Calendar nodeTime = change.getCreatedAt();
+		nodeTime.add(Calendar.MINUTE, minutes);
+
+		Node result =
+			new Node(change.getId() + System.currentTimeMillis(), change.getLat(), change.getLon(),
 					ChangeSetToolkit.calToOsm(nodeTime), 1, true);
 
 		return result;

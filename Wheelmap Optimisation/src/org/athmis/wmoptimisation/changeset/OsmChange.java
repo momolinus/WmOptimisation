@@ -228,4 +228,22 @@ public class OsmChange {
 
 		return ways;
 	}
+
+	/**
+	 * @return {@linkplain Double#NaN} if no distance could be computed
+	 */
+	public double getMinDistance() {
+		double minDistance = Double.MAX_VALUE;
+
+		for (Change change : getChanges()) {
+			for (Change peer : getChanges()) {
+				if (change != peer) {
+					minDistance = Math.min(minDistance, ChangeSetToolkit.getDistance(change, peer));
+				}
+			}
+		}
+
+		return minDistance;
+	}
+
 }

@@ -10,14 +10,16 @@ import org.athmis.wmoptimisation.osmserver.OsmServer;
 
 public class AreaGuardChangeSetGenerator extends ChangeSetGenerator {
 
-	private AreaGuard areaGuard;
+	private AreaGuardForSize areaGuard;
 	protected Long changeSetInUseId;
-	private String name;
+	protected String name;
 
 	public AreaGuardChangeSetGenerator(double maxBboxSize) {
-		areaGuard = new AreaGuard(maxBboxSize);
-		name = "area guard (" + maxBboxSize + ")";
+		areaGuard = new AreaGuardForSize(maxBboxSize);
+		name = "ag (" + maxBboxSize + ")";
 	}
+
+	protected AreaGuardChangeSetGenerator() {}
 
 	@Override
 	public String getName() {
@@ -34,12 +36,15 @@ public class AreaGuardChangeSetGenerator extends ChangeSetGenerator {
 	 * so following code could use {@linkplain #changeSetInUseId} without worry about state of
 	 * {@linkplain #changeSetInUseId}
 	 *
-	 * @param user
+	 * @param osmServer
+	 *            used to control if changeset is open or get a new changeset
+	 * @param changeTime
+	 *            the 'actual' time of day
 	 * @throws IllegalStateException
 	 *             if it was not possible to get a changeset if from server
 	 */
-	private void initChangeSetInUseId(OsmServer osmServer, Calendar changeTime, String user)
-																							throws IllegalStateException {
+	protected final void initChangeSetInUseId(OsmServer osmServer, Calendar changeTime, String user)
+																									throws IllegalStateException {
 		// first run
 		if (changeSetInUseId == null) {
 			changeSetInUseId = osmServer.createChangeSet(changeTime, user);

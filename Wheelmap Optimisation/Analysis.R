@@ -1,12 +1,12 @@
+# Löschen von allen Objekten
+rm(list=ls(all=TRUE))
+# hat das Löschen geklappt
+ls()
+
 setwd("C:/Users/Marcus/git/WmOptimisation/Wheelmap Optimisation")
 
-# Löschen von allen Objekten
-# rm(list=ls(all=TRUE))
-# hat das Löschen geklappt
-# ls()
-
 # read a file with list of changes
-changesets <- read.table(file = "optimization_13.csv", header=T, dec=".", sep=";")
+changesets <- read.table(file = "optimization_31.csv", header=T, dec=".", sep=";")
 # inspect the data set
 str(changesets)
 names(changesets)
@@ -36,6 +36,7 @@ changesets.area_more_than_null <- subset(changesets, area > 0)
 table(changesets.area_more_than_null$user, changesets.area_more_than_null$algorithm)
 # table: mean area in a changeset
 tapply(changesets.area_more_than_null$area, list(changesets.area_more_than_null$user, changesets.area_more_than_null$algorithm), FUN=mean)
+# table: mean num of area > 0 in a changeset
 tapply(changesets.area_more_than_null$no_changes, list(changesets.area_more_than_null$user, changesets.area_more_than_null$algorithm), FUN=mean)
 
 # create a column combining user and algorithm
