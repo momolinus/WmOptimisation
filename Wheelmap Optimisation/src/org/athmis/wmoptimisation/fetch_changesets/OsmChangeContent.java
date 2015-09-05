@@ -62,22 +62,20 @@ public class OsmChangeContent {
 	 * @throws IOException
 	 *             on error reading file, like parse errors
 	 */
-	public static OsmChangeContent createOsmChangeContentFromZip(String zipFileName)
-																					throws IOException {
+	public static OsmChangeContent createOsmChangeContentFromZip(String zipFileName) throws IOException {
 
 		OsmChangeContent changeContent;
 		changeContent = new OsmChangeContent();
 
 		// note: ZipFile implements AutoCloseable
-		try (ZipFile changeSetsZip =
-			new ZipFile(Paths.get(zipFileName).toFile(), ZipFile.OPEN_READ)) {
+		try (ZipFile changeSetsZip = new ZipFile(Paths.get(zipFileName).toFile(), ZipFile.OPEN_READ)) {
 
 			readZipFile(zipFileName, changeContent, changeSetsZip);
 
 		}
 		catch (IOException e) {
-			throw new IOException("can't read OsmChange file '" + zipFileName + "' from zip-file '"
-				+ zipFileName + "', reason: ", e);
+			throw new IOException("can't read OsmChange file '" + zipFileName + "' from zip-file '" + zipFileName
+				+ "', reason: ", e);
 		}
 
 		return changeContent;
@@ -94,8 +92,7 @@ public class OsmChangeContent {
 			changeSetPath = Paths.get(id + ".xml");
 			assertThatPathExists(changeSetPath);
 
-			changesPath =
-				Paths.get(id + ChangeSetContentFileFilter.CHANGE_SET_CONTENT_LABEL + ".xml");
+			changesPath = Paths.get(id + ChangeSetContentFileFilter.CHANGE_SET_CONTENT_LABEL + ".xml");
 			assertThatPathExists(changesPath);
 
 			ChangeSet changeSet = SERIALIZER.read(ChangeSet.class, changeSetPath.toFile());
@@ -108,9 +105,8 @@ public class OsmChangeContent {
 		return changeContent;
 	}
 
-	// XXX anders formatieren
-	private static void addChangeSetFromZipFile(OsmChangeContent result, InputStream chnageSetStream)
-																										throws Exception {
+
+	private static void addChangeSetFromZipFile(OsmChangeContent result, InputStream chnageSetStream) throws Exception {
 
 		ChangeSet changeSet;
 
@@ -122,8 +118,8 @@ public class OsmChangeContent {
 		}
 	}
 
-	private static void addChangesFromZipFile(OsmChangeContent changeContent,
-												InputStream changesStream) throws Exception {
+	private static void addChangesFromZipFile(OsmChangeContent changeContent, InputStream changesStream)
+																										throws Exception {
 
 		OsmChange changeSetContent;
 
@@ -143,8 +139,8 @@ public class OsmChangeContent {
 
 	}
 
-	private static void readZipFile(String zipFileName, OsmChangeContent changeContent,
-									ZipFile zipFile) throws IOException {
+	private static void readZipFile(String zipFileName, OsmChangeContent changeContent, ZipFile zipFile)
+																										throws IOException {
 
 		for (ZipEntry zipEntry : Collections.list(zipFile.entries())) {
 
@@ -152,8 +148,7 @@ public class OsmChangeContent {
 
 				InputStream zipEntryStream = zipFile.getInputStream(zipEntry);
 
-				if (zipEntry.getName()
-						.contains(ChangeSetContentFileFilter.CHANGE_SET_CONTENT_LABEL)) {
+				if (zipEntry.getName().contains(ChangeSetContentFileFilter.CHANGE_SET_CONTENT_LABEL)) {
 					addChangesFromZipFile(changeContent, zipEntryStream);
 				}
 				else {
@@ -162,8 +157,8 @@ public class OsmChangeContent {
 
 			}
 			catch (Exception e) {
-				throw new IOException("can't read entry " + zipEntry.getName() + " from zip-file "
-					+ zipFile.getName() + ", reason: " + e.getLocalizedMessage(), e);
+				throw new IOException("can't read entry " + zipEntry.getName() + " from zip-file " + zipFile.getName()
+					+ ", reason: " + e.getLocalizedMessage(), e);
 			}
 		}
 	}
@@ -265,8 +260,8 @@ public class OsmChangeContent {
 		// falsch
 		osmChangeContent.addChange(changeCopy);
 
-		LOGGER.debug("added a change with changeset id = " + changeCopy.getChangeset()
-			+ " to changeset with id = " + changeSet.getId());
+		LOGGER.debug("added a change with changeset id = " + changeCopy.getChangeset() + " to changeset with id = "
+			+ changeSet.getId());
 	}
 
 	private Change makeCopy(Change change) {
@@ -279,18 +274,16 @@ public class OsmChangeContent {
 				return node;
 			}
 			else {
-				throw new IllegalArgumentException("can't work on type "
-					+ change.getClass().getName() + " in simulation");
+				throw new IllegalArgumentException("can't work on type " + change.getClass().getName()
+					+ " in simulation");
 			}
 		}
 	}
 
-	private void assertThatChangeAndChangeSetHasSameIdNow(Change change,
-															ChangeSetUpdateAble changeSet) {
+	private void assertThatChangeAndChangeSetHasSameIdNow(Change change, ChangeSetUpdateAble changeSet) {
 		if (change.getChangeset() != changeSet.getId()) {
-			throw new IllegalStateException(
-					"setting of changeset id didn't succeded, changes chnagesetid =  "
-						+ change.getChangeset() + ", chnageSetId = " + changeSet.getId());
+			throw new IllegalStateException("setting of changeset id didn't succeded, changes chnagesetid =  "
+				+ change.getChangeset() + ", chnageSetId = " + changeSet.getId());
 		}
 	}
 
@@ -445,13 +438,11 @@ public class OsmChangeContent {
 			changeSetId = changeSet.getId();
 			changeSetsTable.put(changeSetId, "user", changeSet.getUser());
 			changeSetsTable.put(changeSetId, "algorithm", algorithmus);
-			changeSetsTable.put(changeSetId, "area",
-								Double.toString(changeSet.getBoundingBoxSquareDegree()));
+			changeSetsTable.put(changeSetId, "area", Double.toString(changeSet.getBoundingBoxSquareDegree()));
 
 			if (changeSet.getBoundingBoxSquareDegree() > 0) {
 				if (changes.size() == 0) {
-					LOGGER.debug("area > 0, but no changes" + "; changeSet.getId() = "
-						+ changeSet.getId());
+					LOGGER.debug("area > 0, but no changes" + "; changeSet.getId() = " + changeSet.getId());
 				}
 			}
 
@@ -461,17 +452,15 @@ public class OsmChangeContent {
 			for (OsmChange change : changes.values()) {
 				long changeChangeSetId = change.getChangeSetId();
 
-				LOGGER.debug("change.getChangeSetId() = " + changeChangeSetId
-					+ "; changeSet.getId() = " + changeSetId);
+				LOGGER.debug("change.getChangeSetId() = " + changeChangeSetId + "; changeSet.getId() = " + changeSetId);
 
 				if (change.getChangeSetId() == changeSet.getId()) {
 					noChanges += change.getNumber();
 				}
 
 				lastMessage =
-					"working with changeset id = " + changeSetId
-						+ " and change with changeset id = " + change.getChangeSetId() + "\n"
-						+ "number change sets = " + changeSets.size()
+					"working with changeset id = " + changeSetId + " and change with changeset id = "
+						+ change.getChangeSetId() + "\n" + "number change sets = " + changeSets.size()
 						+ " number of OsmChange objects " + changes.size();
 			}
 
@@ -481,8 +470,7 @@ public class OsmChangeContent {
 			// zu dem Fehler, dass das changeset eine id hat, die nicht gleich der changesetId der
 			// einzigen Änderung ist, die das changeset enthält, wobei das auch schon ein Fehler
 			// sein muss: ein change kann nicht zu einer Fläche führen -> weiter schauen
-			assertThatChangesetWithAreaHasChanges(changeSet, noChanges, algorithmus
-				+ "\nlastMessage: " + lastMessage);
+			assertThatChangesetWithAreaHasChanges(changeSet, noChanges, algorithmus + "\nlastMessage: " + lastMessage);
 
 			changeSetsTable.put(changeSet.getId(), "no_changes", Double.toString(noChanges));
 		}
@@ -490,8 +478,8 @@ public class OsmChangeContent {
 		return changeSetsTable;
 	}
 
-	private void assertThatChangesetWithAreaHasChanges(ChangeSetUpdateAble changeSet,
-														double noChanges, String algorithmus) {
+	private void assertThatChangesetWithAreaHasChanges(ChangeSetUpdateAble changeSet, double noChanges,
+														String algorithmus) {
 
 		if (!Double.isInfinite(changeSet.getBoundingBoxSquareDegree())) {
 			if (changeSet.getBoundingBoxSquareDegree() > 0) {
@@ -501,11 +489,9 @@ public class OsmChangeContent {
 
 					changesetIdList = createChangeSetIdListForChanges();
 
-					throw new IllegalArgumentException("changeset " + changeSet.getId()
-						+ " has area > 0: " + changeSet.getBoundingBoxSquareDegree()
-						+ ", but no changes: " + noChanges + " for algorithm " + algorithmus
-						+ "\nchangeset ids in changes (" + changes.size() + "):\n"
-						+ changesetIdList);
+					throw new IllegalArgumentException("changeset " + changeSet.getId() + " has area > 0: "
+						+ changeSet.getBoundingBoxSquareDegree() + ", but no changes: " + noChanges + " for algorithm "
+						+ algorithmus + "\nchangeset ids in changes (" + changes.size() + "):\n" + changesetIdList);
 				}
 			}
 		}
@@ -654,8 +640,8 @@ public class OsmChangeContent {
 			changesNum += changesContent.getNumberModified();
 		}
 
-		return "contains " + changeSets.entrySet().size() + " changesets with mean area = "
-			+ Double.toString(meanArea) + " and " + changesNum + " changes";
+		return "contains " + changeSets.entrySet().size() + " changesets with mean area = " + Double.toString(meanArea)
+			+ " and " + changesNum + " changes";
 	}
 
 	public String verbose() throws ParseException {
@@ -663,8 +649,7 @@ public class OsmChangeContent {
 
 		for (OsmChange c : changes.values()) {
 			for (Change ch : c.getChanges()) {
-				result.append(ch.getChangeset() + "\t"
-					+ FORMATTER.format(ch.getCreatedAt().getTime()));
+				result.append(ch.getChangeset() + "\t" + FORMATTER.format(ch.getCreatedAt().getTime()));
 				result.append("\n");
 			}
 		}
@@ -701,8 +686,7 @@ public class OsmChangeContent {
 			prevoius = changeSets.put(id, changeSet);
 
 			if (prevoius != null) {
-				throw new IllegalStateException("changeSet map had an value for key: " + id
-					+ ", must be an error");
+				throw new IllegalStateException("changeSet map had an value for key: " + id + ", must be an error");
 			}
 			else {
 				LOGGER.debug("put changeset with id = " + String.valueOf(id) + " to changeset map");
@@ -736,15 +720,13 @@ public class OsmChangeContent {
 		ageDiff = changeCreated.compareTo(changeSetCreated);
 
 		if (ageDiff < 0) {
-			throw new IllegalArgumentException("change " + change.verbose()
-				+ " is older than change set " + changeSetForStoring.verbose()
-				+ ", can't store change");
+			throw new IllegalArgumentException("change " + change.verbose() + " is older than change set "
+				+ changeSetForStoring.verbose() + ", can't store change");
 		}
 
 		if (TimeUnit.MILLISECONDS.toHours(ageDiff) >= 24) {
-			throw new IllegalArgumentException("change " + change.verbose()
-				+ "is >= 24 younger than change set " + changeSetForStoring.verbose()
-				+ ", can't store change");
+			throw new IllegalArgumentException("change " + change.verbose() + "is >= 24 younger than change set "
+				+ changeSetForStoring.verbose() + ", can't store change");
 		}
 
 		// if (changeSetForStoring.)

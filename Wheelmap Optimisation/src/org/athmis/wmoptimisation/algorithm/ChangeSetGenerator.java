@@ -27,9 +27,11 @@ import org.athmis.wmoptimisation.fetch_changesets.OsmChangeContent;
 import org.athmis.wmoptimisation.osmserver.OsmServer;
 
 /**
- * , Oliver ChangeSetGenerator implementations are used for test of a changeset generation
- * algorithm. Architecture is <a
- * href="http://en.wikipedia.org/wiki/Template_method_pattern">Template method pattern</a>.
+ * ChangeSetGenerator implementations are used for test of a changeset generation algorithm.
+ * Architecture is <a href="http://en.wikipedia.org/wiki/Template_method_pattern">Template method
+ * pattern</a>.
+ *
+ * @author @author Marcus Bleil, http://www.marcusbleil.de
  */
 public abstract class ChangeSetGenerator {
 
@@ -73,7 +75,6 @@ public abstract class ChangeSetGenerator {
 		this.getClass().getSimpleName();
 	}
 
-	// XXX Versions attribute und/oder @JavaDoc Kommentar
 	/**
 	 * Stores all changes of given ChangeSetZipContentData object into a new ChangeSetZipContentData
 	 * object. Uses specialized changeset generation algorithm to minimize the size of changesets.
@@ -94,8 +95,8 @@ public abstract class ChangeSetGenerator {
 		changes = changesToOptimize.getAllChanges();
 		Collections.sort(changes);
 
-		LOGGER.info("use " + changesToOptimize.getNodes() + " nodes and "
-			+ changesToOptimize.getNoChangeSets() + " changeSets for optimization");
+		LOGGER.info("use " + changesToOptimize.getNodes() + " nodes and " + changesToOptimize.getNoChangeSets()
+			+ " changeSets for optimization");
 
 		ways = 0;
 		nodes = 0;
@@ -157,6 +158,5 @@ public abstract class ChangeSetGenerator {
 	 *            the object wich stores the change and (generated) changesets, the task of this
 	 *            object is to analyze the changesets after all changes added
 	 */
-	protected abstract void add(Change change, OsmServer osmServer,
-								OsmChangeContent optimizedDataSet);
+	protected abstract void add(Change change, OsmServer osmServer, OsmChangeContent optimizedDataSet);
 }

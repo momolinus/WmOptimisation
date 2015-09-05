@@ -7,6 +7,14 @@ import org.athmis.wmoptimisation.changeset.Change;
 import org.athmis.wmoptimisation.fetch_changesets.OsmChangeContent;
 import org.athmis.wmoptimisation.osmserver.OsmServer;
 
+/**
+ * The MinimizeAreaChangeSetGenartor was the first optimization algorithm, but it was not
+ * successful, so don't use any more.
+ *
+ * @author Marcus Bleil, http://www.marcusbleil.de
+ * @deprecated algorithm was not useful, class will be deleted in future release
+ */
+@Deprecated
 public class MinimizeAreaChangeSetGenartor extends ChangeSetGenerator {
 
 	private Long changeSetInUseId;

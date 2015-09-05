@@ -28,10 +28,10 @@ import org.athmis.wmoptimisation.algorithm.areaguard.AreaGuardChangeSetGenerator
 import org.athmis.wmoptimisation.algorithm.areaguard.AreaGuardSizeAndNeighborChangesetGenerator;
 import org.athmis.wmoptimisation.fetch_changesets.OsmChangeContent;
 
-// XXX better documentation needed for "algorithm finding strategy"
-
 /**
- * @author Marcus
+ * The Optimize class runs the algorithm for optimization and stores the result to a file.
+ * 
+ * @author @author Marcus Bleil, http://www.marcusbleil.de
  */
 public class Optimize {
 
@@ -56,8 +56,7 @@ public class Optimize {
 		}
 	}
 
-	public static void run(String[] args) throws IOException, ParseException,
-											ConfigurationException {
+	public static void run(String[] args) throws IOException, ParseException, ConfigurationException {
 
 		ChangeSetGenerator areaGuardGenerator, areaAndNGuardGenerator, humanExample;
 		OptimizationResult areaGuardGeneratorResult, areaGuardAndNGeneratorResult, humanExampleResult;
@@ -74,10 +73,8 @@ public class Optimize {
 		LOGGER.info("starting simulation");
 
 		humanExampleResult = runChangeSetGenerator(humanExample, "roald-linus-2011.zip");
-		areaGuardGeneratorResult =
-			runChangeSetGenerator(areaGuardGenerator, "wheelchair_visitor-2010.zip");
-		areaGuardAndNGeneratorResult =
-			runChangeSetGenerator(areaAndNGuardGenerator, "wheelchair_visitor-2010.zip");
+		areaGuardGeneratorResult = runChangeSetGenerator(areaGuardGenerator, "wheelchair_visitor-2010.zip");
+		areaGuardAndNGeneratorResult = runChangeSetGenerator(areaAndNGuardGenerator, "wheelchair_visitor-2010.zip");
 
 		BufferedWriter writer = Files.newBufferedWriter(buildFileName());
 
@@ -108,17 +105,15 @@ public class Optimize {
 		return Paths.get("optimization_" + counter + ".csv");
 	}
 
-	private static OptimizationResult runChangeSetGenerator(ChangeSetGenerator generator,
-															String fileName) throws IOException {
+	private static OptimizationResult runChangeSetGenerator(ChangeSetGenerator generator, String fileName)
+																											throws IOException {
 		OsmChangeContent changeContent, optimizedContent;
 
-		OptimizationResult optimizationResult =
-			new OptimizationResult(fileName, generator.getName());
+		OptimizationResult optimizationResult = new OptimizationResult(fileName, generator.getName());
 
 		changeContent = OsmChangeContent.createOsmChangeContentFromZip(fileName);
 		LOGGER.info("read zip file " + fileName);
-		optimizationResult.setOriginalChangesAsTable(changeContent
-				.getChangeSetsAsStrTable("original", false));
+		optimizationResult.setOriginalChangesAsTable(changeContent.getChangeSetsAsStrTable("original", false));
 		LOGGER.info("stored original data to content object");
 
 		optimizationResult.setMeanAreaSource(changeContent.getMeanArea());
@@ -127,8 +122,7 @@ public class Optimize {
 
 		optimizedContent = generator.createOptimizedChangeSets(changeContent);
 		LOGGER.info("optimized changesets with generator " + generator.getName());
-		optimizationResult.appendOptimizedChanges(optimizedContent
-				.getChangeSetsAsStrTable(generator.getName(), false));
+		optimizationResult.appendOptimizedChanges(optimizedContent.getChangeSetsAsStrTable(generator.getName(), false));
 
 		optimizationResult.setMeanAreaOptimized(optimizedContent.getMeanArea());
 		optimizationResult.setNoChangeSetsOptimized(optimizedContent.getNoChangeSets());
