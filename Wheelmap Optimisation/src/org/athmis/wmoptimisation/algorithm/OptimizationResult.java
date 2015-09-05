@@ -1,6 +1,11 @@
 package org.athmis.wmoptimisation.algorithm;
 
-// TODO kommentieren: die Klasse macht (fast) nichts, dient nur dem Speichern von Ergebnissen
+/**
+ * An OptimizationResult object is an "utility object", which stores the attributes of an optimized
+ * changeset like original mean area, optimized mean area similar attributes.
+ *
+ * @author @author Marcus Bleil, http://www.marcusbleil.de
+ */
 public class OptimizationResult {
 
 	private String changesHeader;

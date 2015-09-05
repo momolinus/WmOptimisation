@@ -51,3 +51,21 @@ dependencies {
 
     testCompile 'commons-configuration:commons-configuration:1.10'
 }
+
+eclipse {
+	classpath {
+		// default value
+    	downloadSources = true
+    	// not default value
+    	downloadJavadoc = true
+	}
+}
+
+// ensure cleaning classpath before building new classpath
+eclipseClasspath {
+	dependsOn 'cleanEclipseClasspath'
+}
+
+javadoc {
+	options.overview = "src/main/java/overview.html" // relative to source root
+}

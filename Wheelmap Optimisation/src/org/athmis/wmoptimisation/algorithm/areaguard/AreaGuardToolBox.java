@@ -51,6 +51,6 @@ public class AreaGuardToolBox {
 	}
 
 	private static void assertThatValuesValid(double southNorth, double westEast, Area nextBox) {
-		// TODO Auto-generated method stub
+		// FIXME implementierung fehlt
 	}
 }

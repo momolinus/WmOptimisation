@@ -26,7 +26,7 @@ public class AreaGuardChangeSetGenerator extends ChangeSetGenerator {
 		return name;
 	}
 
-	// XXX besseren Methoden Namen finden
+	// TODO besseren Methoden Namen finden
 	/**
 	 * Inits changesets ID. Method ensures that
 	 * <p>

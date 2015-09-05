@@ -5,7 +5,10 @@
 <title>Wheelmap Changeset Generation Optimization</title>
 </head>
 <body>
-	<h1>Structure of an OSM Node</h1>
+	<p>This project used to find an algorithm for wheelmap backend, how
+		anonymous user wheelchair_visitor should build its changesets.</p>
+	<h3>Technical notes</h3>
+	<h4>Structure of an OSM Node</h4>
 	<p>
 		<a href="http://wiki.openstreetmap.org/wiki/Node#Structure">Structure
 			of a Node</a>
@@ -23,5 +26,27 @@
 		</dd>
 	</dl>
 	<p>OSM uses 7 decimal places</p>
+	<h3>How finding an algorithm</h3>
+	<p>Start with class {@linkplain
+		org.athmis.wmoptimisation.algorithm.Optimize}. This class runs the
+		algorithm implementations and stores the result in file, which could
+		be read with R-scripts to compare the results of algorithms. The
+		R-scripts you will find in root folder of this project.</p>
+	<p>In {@linkplain org.athmis.wmoptimisation.algorithm.Optimize#run}
+		you found the objects which represent the algorithms. All algorithms
+		are implementations of {@linkplain
+		org.athmis.wmoptimisation.algorithm.ChangeSetGenerator}.</p>
+	<p>A {@linkplain
+		org.athmis.wmoptimisation.algorithm.ChangeSetGenerator} uses an
+		{@linkplain org.athmis.wmoptimisation.osmserver.OsmServer}, which
+		simulates the changeset storage of the OSM Server.</p>
+	<p>The {@linkplain org.athmis.wmoptimisation.algorithm.Optimize}
+		object runs the algorithms by calling {@linkplain
+		org.athmis.wmoptimisation.algorithm.Optimize#runChangeSetGenerator}
+		with algorithm objects and sample data files. This sample data files
+		contains real changes from a human OSM user and from the
+		wheelchair_visitor. The algorithm objects generates {@linkplain
+		org.athmis.wmoptimisation.algorithm.OptimizationResult}, which could
+		be compared.</p>
 </body>
 </html>

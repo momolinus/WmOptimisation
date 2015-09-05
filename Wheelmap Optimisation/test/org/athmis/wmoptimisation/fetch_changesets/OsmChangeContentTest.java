@@ -200,7 +200,7 @@ public class OsmChangeContentTest {
 		assertThat(table.size(), is(4));
 		assertThat(header.size(), is(4));
 		// TODO ist die Ordnung festgelegt?
-		// note: indices determined by inspection, actual the order is not knwon by me
+		// note: indices determined by inspection, actual the order is not known by me
 		assertThat(columnNames[0], is(equalTo("area")));
 		assertThat(columnNames[1], is(equalTo("no_changes")));
 		assertThat(columnNames[2], is(equalTo("user")));

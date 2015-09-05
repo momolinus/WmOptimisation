@@ -128,15 +128,14 @@ public class OsmServer {
 		}
 	}
 
-	private void log(ChangeSetUpdateAble changeSet, boolean is60minNotInUse,
-						boolean olderThan24Hours, boolean hasEnoughChanges) {
+	private void log(ChangeSetUpdateAble changeSet, boolean is60minNotInUse, boolean olderThan24Hours,
+						boolean hasEnoughChanges) {
 		// debugging/logging
 		if (is60minNotInUse) {
 			LOGGER.debug("changeset " + changeSet.getId() + " closed because was 60 min not in use");
 		}
 		if (olderThan24Hours) {
-			LOGGER.debug("changeset " + changeSet.getId()
-				+ " closed because was older than 24 hours");
+			LOGGER.debug("changeset " + changeSet.getId() + " closed because was older than 24 hours");
 		}
 		if (hasEnoughChanges) {
 			LOGGER.debug("changeset " + changeSet.getId() + " closed because has >= 50.000 changes");
@@ -269,7 +268,7 @@ public class OsmServer {
 		return changeSets.get(id);
 	}
 
-	// XXX Benennung der Methode überdenken, sie ändert auch den Status des
+	// TODO Benennung der Methode überdenken, sie ändert auch den Status des
 	// aktuellen Changesets
 	/**
 	 * Checks for closing task at given time and returns the changeset open state.
@@ -285,8 +284,7 @@ public class OsmServer {
 	 */
 	public boolean isChangeSetOpen(Long id, Calendar now) {
 		if (!changeSets.containsKey(id)) {
-			throw new IllegalArgumentException("unknown changeset with 'id = " + String.valueOf(id)
-				+ "'");
+			throw new IllegalArgumentException("unknown changeset with 'id = " + String.valueOf(id) + "'");
 		}
 
 		checkForClosingChangesets(now);
@@ -366,13 +364,12 @@ public class OsmServer {
 	 */
 	private void checkChangesetIsStillOpen(Long changesetId, Change change) {
 		if (!changeSets.get(changesetId).isOpen()) {
-			throw new IllegalArgumentException("can't store change " + change.getId()
-				+ " to closed changeset " + changesetId);
+			throw new IllegalArgumentException("can't store change " + change.getId() + " to closed changeset "
+				+ changesetId);
 		}
 	}
 
-	private void checkParametersNotNull(Long changesetId, Change node)
-																		throws IllegalArgumentException {
+	private void checkParametersNotNull(Long changesetId, Change node) throws IllegalArgumentException {
 
 		if (node == null) {
 			throw new IllegalArgumentException("null as node/way is not permitted");
@@ -384,8 +381,7 @@ public class OsmServer {
 
 	public boolean isChangeSetOpen(Long id) {
 		if (!changeSets.containsKey(id)) {
-			throw new IllegalArgumentException("unknown changeset with 'id = " + String.valueOf(id)
-				+ "'");
+			throw new IllegalArgumentException("unknown changeset with 'id = " + String.valueOf(id) + "'");
 		}
 
 		return changeSets.get(id).isOpen();

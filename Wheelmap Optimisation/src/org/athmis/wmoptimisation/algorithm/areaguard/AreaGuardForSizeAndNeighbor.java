@@ -9,7 +9,7 @@ import org.athmis.wmoptimisation.changeset.Change;
 import org.athmis.wmoptimisation.osmserver.OsmServer;
 
 /**
- * @author Marcus
+ * @author Marcus Bleil, http://www.marcusbleil.de
  */
 public class AreaGuardForSizeAndNeighbor extends AreaGuard {
 
