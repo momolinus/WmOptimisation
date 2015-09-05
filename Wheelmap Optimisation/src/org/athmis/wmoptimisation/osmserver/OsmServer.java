@@ -268,15 +268,14 @@ public class OsmServer {
 		return changeSets.get(id);
 	}
 
-	// TODO Benennung der Methode überdenken, sie ändert auch den Status des
-	// aktuellen Changesets
+	// TODO Methode in zwei Methoden aufteilen, siehe Clean Code Kap. 3.8
 	/**
 	 * Checks for closing task at given time and returns the changeset open state.
 	 *
 	 * @param id
 	 *            the id of changeset, if id is illegal {@linkplain IllegalArgumentException} will
 	 *            be thrown
-	 * @param the
+	 * @param now
 	 *            actual time used for checking and for closing time
 	 * @return <code>true</code> if the changeset ist open
 	 * @throws IllegalArgumentException
@@ -379,6 +378,15 @@ public class OsmServer {
 		}
 	}
 
+	/**
+	 * Returns open state of given changeset id.
+	 *
+	 * @param id
+	 *            of a changeset
+	 * @return <code>true</code> if changeset with given id is open, <code>false</code> otherwise
+	 * @throws IllegalArgumentException
+	 *             if this OsmServer stores no changeset with givn id
+	 */
 	public boolean isChangeSetOpen(Long id) {
 		if (!changeSets.containsKey(id)) {
 			throw new IllegalArgumentException("unknown changeset with 'id = " + String.valueOf(id) + "'");

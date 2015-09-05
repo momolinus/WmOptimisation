@@ -20,9 +20,16 @@ import java.util.Calendar;
 
 /**
  * Interface for changes, could actually be a {@linkplain Node} or a {@linkplain Way}.
+ *
+ * @author Marcus Bleil, http://www.marcusbleil.de
  */
 public interface Change extends Comparable<Change> {
 
+	/**
+	 * Returns the user who did this change.
+	 *
+	 * @return the user who did this change
+	 */
 	public String getUser();
 
 	public String getTimestamp();
@@ -33,8 +40,19 @@ public interface Change extends Comparable<Change> {
 
 	public void setChangeset(long changeSetId);
 
+	/**
+	 * Returns the date of creation of this change.
+	 *
+	 * @return this change creation date
+	 */
 	public Calendar getCreatedAt();
 
+	/**
+	 * Changes which are ways, should return <code>true</code>, nodes should return
+	 * <code>false</code>.
+	 *
+	 * @return <code>true</code> if change is an way
+	 */
 	public boolean isWay();
 
 	public String verbose();

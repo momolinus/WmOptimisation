@@ -12,7 +12,6 @@ import org.mockito.MockitoAnnotations;
 
 public class AreaTest {
 
-	// TODO kann man das noch allg. bekannt machen
 	public static final double LAT_LON_STD_MAX_ERROR = 0.00000001;
 
 	@Mock

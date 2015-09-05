@@ -3,14 +3,12 @@ package org.athmis.wmoptimisation.algorithm.areaguard;
 import org.athmis.wmoptimisation.changeset.Change;
 
 /**
- * https://de.wikipedia.org/wiki/Geographische_Koordinaten
- *
- * @author Marcus
+ * @author Marcus Bleil, http://www.marcusbleil.de
  */
 public class AreaGuardForSize extends AreaGuard {
 
 	/**
-	 * @param maxBboxEdge
+	 * {@inheritDoc}
 	 */
 	public AreaGuardForSize(final double maxBboxEdge) {
 		super(maxBboxEdge);

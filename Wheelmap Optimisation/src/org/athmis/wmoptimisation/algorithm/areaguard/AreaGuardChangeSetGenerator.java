@@ -10,8 +10,15 @@ import org.athmis.wmoptimisation.osmserver.OsmServer;
 
 public class AreaGuardChangeSetGenerator extends ChangeSetGenerator {
 
+	private static void assertThatChangeSetIsNotNull(OsmServer osmServer, Long changeSetInUseId) {
+		if (changeSetInUseId == null) {
+			throw new IllegalStateException("no change set created by osm server of type "
+				+ osmServer.getClass().getSimpleName());
+		}
+	}
 	private AreaGuardForSize areaGuard;
 	protected Long changeSetInUseId;
+
 	protected String name;
 
 	public AreaGuardChangeSetGenerator(double maxBboxSize) {
@@ -26,25 +33,16 @@ public class AreaGuardChangeSetGenerator extends ChangeSetGenerator {
 		return name;
 	}
 
-	// TODO besseren Methoden Namen finden
-	/**
-	 * Inits changesets ID. Method ensures that
-	 * <p>
-	 * 1. {@linkplain #changeSetInUseId} != null and<br>
-	 * 2. changeset with {@linkplain #changeSetInUseId} is an open changeset and could be used
-	 * <p>
-	 * so following code could use {@linkplain #changeSetInUseId} without worry about state of
-	 * {@linkplain #changeSetInUseId}
-	 *
-	 * @param osmServer
-	 *            used to control if changeset is open or get a new changeset
-	 * @param changeTime
-	 *            the 'actual' time of day
-	 * @throws IllegalStateException
-	 *             if it was not possible to get a changeset if from server
-	 */
-	protected final void initChangeSetInUseId(OsmServer osmServer, Calendar changeTime, String user)
-																									throws IllegalStateException {
+	@Override
+	protected void add(Change updatedItem, OsmServer osmServer, OsmChangeContent optimizedDataSet) {
+		Calendar changeTime;
+		ChangeSetUpdateAble changeSet;
+
+		assertThatChangeAndServerNotNull(updatedItem, osmServer);
+
+		changeTime = updatedItem.getCreatedAt();
+		String user = updatedItem.getUser();
+
 		// first run
 		if (changeSetInUseId == null) {
 			changeSetInUseId = osmServer.createChangeSet(changeTime, user);
@@ -58,21 +56,8 @@ public class AreaGuardChangeSetGenerator extends ChangeSetGenerator {
 			}
 		}
 
-		if (changeSetInUseId == null) {
-			throw new IllegalStateException("no change set created by osm server of type "
-				+ osmServer.getClass().getSimpleName());
-		}
-	}
+		assertThatChangeSetIsNotNull(osmServer, changeSetInUseId);
 
-	@Override
-	protected void add(Change updatedItem, OsmServer osmServer, OsmChangeContent optimizedDataSet) {
-		Calendar changeTime;
-		ChangeSetUpdateAble changeSet;
-
-		assertThatChangeAndServerNotNull(updatedItem, osmServer);
-
-		changeTime = updatedItem.getCreatedAt();
-		initChangeSetInUseId(osmServer, changeTime, updatedItem.getUser());
 		changeSet = osmServer.getChangeSet(changeSetInUseId);
 
 		assertThatChangeSetNotNull(changeSet);

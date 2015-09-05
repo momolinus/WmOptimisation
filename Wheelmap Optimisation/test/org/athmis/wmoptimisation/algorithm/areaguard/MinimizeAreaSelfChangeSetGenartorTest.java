@@ -26,8 +26,6 @@ public class MinimizeAreaSelfChangeSetGenartorTest {
 	private Node nodeNW2;
 	private Node nodeNW3;
 
-	// XXX Regel für die Konfiguration des Loggers implementieren
-
 	@Before
 	public void setUp() {
 		generator = new AreaGuardChangeSetGenerator(MAX_EDGE_SIZE);

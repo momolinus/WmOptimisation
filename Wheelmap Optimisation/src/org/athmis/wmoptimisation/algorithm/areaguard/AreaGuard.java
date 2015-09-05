@@ -5,11 +5,21 @@ import org.athmis.wmoptimisation.changeset.Change;
 import com.google.common.collect.ArrayListMultimap;
 import com.google.common.collect.Multimap;
 
+/**
+ * A AreaGuard object stores changes and their changesets.
+ *
+ * @author Marcus Bleil, http://www.marcusbleil.de
+ */
 public abstract class AreaGuard {
 
 	protected Multimap<Long, Area> edges;
 	protected final double maxBboxEdge;
 
+	/**
+	 * Constructs an AreaGuard object which guards given bounding box size.
+	 * 
+	 * @param maxBboxEdge
+	 */
 	public AreaGuard(final double maxBboxEdge) {
 		if (maxBboxEdge > 0.0) {
 			this.maxBboxEdge = maxBboxEdge;
@@ -30,8 +40,8 @@ public abstract class AreaGuard {
 		success = edges.put(changeSetId, new Area(updatedItem));
 
 		if (!success) {
-			throw new IllegalStateException("can't add item " + String.valueOf(updatedItem)
-				+ " to changeset id " + String.valueOf(changeSetId));
+			throw new IllegalStateException("can't add item " + String.valueOf(updatedItem) + " to changeset id "
+				+ String.valueOf(changeSetId));
 		}
 	}
 }
