@@ -127,14 +127,6 @@ public abstract class ChangeSetGenerator {
 
 	public abstract String getName();
 
-	public final int getNodes() {
-		return nodes;
-	}
-
-	public final int getWays() {
-		return ways;
-	}
-
 	/**
 	 * @throws IllegalArgumentException
 	 *             if creation time of change is before createdTimeMillis, means new change is older

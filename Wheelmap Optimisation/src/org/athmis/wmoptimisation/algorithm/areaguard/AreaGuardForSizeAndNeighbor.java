@@ -20,7 +20,27 @@ public class AreaGuardForSizeAndNeighbor extends AreaGuard {
 		super(maxBboxEdge);
 	}
 
+	// TODO Methode macht auch zwei Sachen, in kommendem Release in zwei Methoden aufteilen
+	/**
+	 * Method checks returns a previous stored changeset, which could store the new change, if there
+	 * is no matching changeset stored <strong>and</strong> the new change fits to given changeset
+	 * given changeset will be returned, els <code>null</code> will be returned.
+	 */
 	public Long getValidChangesetId(Long changeSetInUseId, Change updatedItem) {
+		Long result = null;
+
+		result = getOtherChangeSetForChange(changeSetInUseId, updatedItem);
+
+		if (result == null) {
+			if (isChangeSetInArea(changeSetInUseId, updatedItem)) {
+				return changeSetInUseId;
+			}
+		}
+
+		return result;
+	}
+
+	public Long getOtherChangeSetForChange(Long changeSetInUseId, Change updatedItem) {
 		Long result = null;
 
 		for (Long id : edges.asMap().keySet()) {
@@ -34,16 +54,10 @@ public class AreaGuardForSizeAndNeighbor extends AreaGuard {
 			}
 		}
 
-		if (result == null) {
-			if (isChangeSetInArea(changeSetInUseId, updatedItem)) {
-				return changeSetInUseId;
-			}
-		}
-
 		return result;
 	}
 
-	private boolean isChangeSetInArea(Long changeSetInUseId, Change updatedItem) {
+	public boolean isChangeSetInArea(Long changeSetInUseId, Change updatedItem) {
 		Area actualBox;
 		Area nextBox;
 		double maxEdge;
@@ -57,7 +71,13 @@ public class AreaGuardForSizeAndNeighbor extends AreaGuard {
 		return !(maxEdge > maxBboxEdge);
 	}
 
-	public void closeAllInvalidChangesets(OsmServer osmServer) {
+	/**
+	 * Method removes all changesets from internal storage, which already are closed on server.
+	 *
+	 * @param osmServer
+	 *            will be called for its closed changesets
+	 */
+	public void removeAllChangesetsClosedByServer(OsmServer osmServer) {
 		List<Long> remove = new ArrayList<>();
 
 		for (Long id : edges.asMap().keySet()) {

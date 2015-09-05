@@ -19,9 +19,10 @@ tapply(changesets$no_changes, list(changesets$user, changesets$algorithm), FUN=m
 tapply(changesets$area, list(changesets$user, changesets$algorithm), FUN=mean)
 
 # //TODO prüfen warum es bei dem orignal nur Area = -1 gibt
-# obiges ist erledigt, trotzdem ist eine Unterschediung nach area < 0, area == 0 und 
-# area > 0 besser, da die Changesets sich "semantisch" unterscheiden, == -1 bedeutet
-# dass keine Changes gemacht wurden
+# obiges ist erledigt, trotzdem ist eine Unterscheidung 
+# nach area < 0, area == 0 und area > 0 besser,
+# da die Changesets sich "semantisch" unterscheiden,
+# == -1 bedeutet dass keine Changes gemacht wurden
  
 # changes with more than 1 change
 changesets.more_than_one_change <- subset(changesets, no_changes > 1)

@@ -42,11 +42,33 @@
 		simulates the changeset storage of the OSM Server.</p>
 	<p>The {@linkplain org.athmis.wmoptimisation.algorithm.Optimize}
 		object runs the algorithms by calling {@linkplain
-		org.athmis.wmoptimisation.algorithm.Optimize#runChangeSetGenerator}
-		with algorithm objects and sample data files. This sample data files
-		contains real changes from a human OSM user and from the
-		wheelchair_visitor. The algorithm objects generates {@linkplain
+		org.athmis.wmoptimisation.algorithm.Optimize#run} with algorithm
+		objects and sample data files. This sample data files contains real
+		changes from a human OSM user and from the wheelchair_visitor. The
+		algorithm objects generates {@linkplain
 		org.athmis.wmoptimisation.algorithm.OptimizationResult}, which could
 		be compared.</p>
+	<h3>How ChangeSetGenerator works</h3>
+	<p>Each {@linkplain
+		org.athmis.wmoptimisation.algorithm.ChangeSetGenerator} implementation
+		uses its own {@linkplain
+		org.athmis.wmoptimisation.osmserver.OsmServer}. To inspect the quality
+		- meaning reducing of changeset area - of an ChangeSetGenerator call
+		{@linkplain
+		org.athmis.wmoptimisation.algorithm.ChangeSetGenerator#createOptimizedChangeSets}.
+		This method calls {@linkplain
+		org.athmis.wmoptimisation.algorithm.ChangeSetGenerator#add} for each
+		{@linkplain org.athmis.wmoptimisation.changeset.Change}, which could
+		be found in given test data set.</p>
+	<p>Each implementation of {@linkplain
+		org.athmis.wmoptimisation.algorithm.ChangeSetGenerator} has to
+		implement {@linkplain
+		org.athmis.wmoptimisation.algorithm.ChangeSetGenerator#add}, where it
+		must decide when a new changeset will be request from given
+		{@linkplain org.athmis.wmoptimisation.osmserver.OsmServer}.</p>
+	<h3>Best algorithm: area guard2</h3>
+	<p>Class {@linkplain
+		org.athmis.wmoptimisation.algorithm.areaguard.AreaGuardSizeAndNeighborChangesetGenerator}
+		implements the successful algorithm.</p>
 </body>
 </html>

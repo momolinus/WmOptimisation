@@ -7,6 +7,13 @@ import org.athmis.wmoptimisation.changeset.ChangeSetUpdateAble;
 import org.athmis.wmoptimisation.fetch_changesets.OsmChangeContent;
 import org.athmis.wmoptimisation.osmserver.OsmServer;
 
+/**
+ * A ChangeSetGenerator which uses {@linkplain AreaGuardForSizeAndNeighbor} as guard for size of
+ * changesets. This class has a new implementation of
+ * {@linkplain AreaGuardChangeSetGenerator#add(Change, OsmServer, OsmChangeContent)}.
+ *
+ * @author Marcus Bleil, http://www.marcusbleil.de
+ */
 public class AreaGuardSizeAndNeighborChangesetGenerator extends AreaGuardChangeSetGenerator {
 
 	private AreaGuardForSizeAndNeighbor guard;
@@ -20,43 +27,41 @@ public class AreaGuardSizeAndNeighborChangesetGenerator extends AreaGuardChangeS
 	protected void add(Change updatedItem, OsmServer osmServer, OsmChangeContent optimizedDataSet) {
 		Calendar changeTime;
 		ChangeSetUpdateAble changeSet;
-		Long cIdDebug;
 
 		assertThatChangeAndServerNotNull(updatedItem, osmServer);
 
+		// the change time means the actual time for working with server
 		changeTime = updatedItem.getCreatedAt();
 		String user = updatedItem.getUser();
 
-		// first run
+		// first run change set id is null and must be build
 		if (changeSetInUseId == null) {
 			changeSetInUseId = osmServer.createChangeSet(changeTime, user);
 		}
+		// now this osm client has to check if its actual changeset id is still open
 		else {
 			boolean isOpen;
 
+			// note: following method also changes state of changeset, in future release method
+			// would be divided in two methods
 			isOpen = osmServer.isChangeSetOpen(changeSetInUseId, changeTime);
+
 			if (!isOpen) {
 				changeSetInUseId = osmServer.createChangeSet(changeTime, user);
-
-				// FIXME siehe unten
-				// changeSet = osmServer.getChangeSet(changeSetInUseId);
 			}
 		}
 
-		if (changeSetInUseId == null) {
-			throw new IllegalStateException("no change set created by osm server of type "
-				+ osmServer.getClass().getSimpleName());
-		}
+		// no this client must have an open changeset id
+		assertThatChangeSetIdIsNotNull(osmServer, changeSetInUseId);
 
-		guard.closeAllInvalidChangesets(osmServer);
-		cIdDebug = changeSetInUseId;
+		guard.removeAllChangesetsClosedByServer(osmServer);
+		// note: method could return an a new changeset or null, in future release method will be
+		// divided in two methods
 		changeSetInUseId = guard.getValidChangesetId(changeSetInUseId, updatedItem);
 
+		// if there was no valid changeset left, an new must be ceated
 		if (changeSetInUseId == null) {
 			changeSetInUseId = osmServer.createChangeSet(changeTime, updatedItem.getUser());
-
-			// FIXME siehe unten
-			// changeSet = osmServer.getChangeSet(changeSetInUseId);
 		}
 
 		// FIXME mit eine Test, diese Position fixieren: hier war es nich sonder oben
@@ -66,10 +71,12 @@ public class AreaGuardSizeAndNeighborChangesetGenerator extends AreaGuardChangeS
 
 		guard.addUpdatedItem(changeSetInUseId, updatedItem);
 		optimizedDataSet.addChangeForChangeSet(updatedItem, changeSet);
+	}
 
-		if (changeSet.getBoundingBoxSquareDegree() > (Math.pow(guard.getMaxBboxEdge(), 2))) {
-			System.out.println(cIdDebug + " -> " + changeSetInUseId + ", with change "
-				+ updatedItem.getId());
+	private static void assertThatChangeSetIdIsNotNull(OsmServer osmServer, Long changeSetInUseId) {
+		if (changeSetInUseId == null) {
+			throw new IllegalStateException("no change set created by osm server of type "
+				+ osmServer.getClass().getSimpleName());
 		}
 	}
 }
