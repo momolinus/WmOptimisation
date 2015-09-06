@@ -47,37 +47,40 @@ public class AreaGuardSizeAndNeighborChangesetGenerator extends ChangeSetGenerat
 		if (changeSetInUseId == null) {
 			changeSetInUseId = osmServer.createChangeSet(changeTime, user);
 		}
-		// now this osm client has to check if its actual changeset id is still open
+		// // now this osm client has to check if its actual changeset id is still open
+		// else {
+		// boolean isOpen;
+		//
+		// // note: following method also changes state of changeset, in future release method
+		// // would be divided in two methods
+		// isOpen = osmServer.isChangeSetOpen(changeSetInUseId, changeTime);
+		//
+		// if (!isOpen) {
+		// changeSetInUseId = osmServer.createChangeSet(changeTime, user);
+		// }
+		// }
+		//
+		// // no this client must have an open changeset id
+		// assertThatChangeSetIsNotNull(osmServer, changeSetInUseId);
 		else {
-			boolean isOpen;
+			assertThatChangeSetIsNotNull(osmServer, changeSetInUseId);
 
-			// note: following method also changes state of changeset, in future release method
-			// would be divided in two methods
-			isOpen = osmServer.isChangeSetOpen(changeSetInUseId, changeTime);
+			guard.removeAllChangesetsMustBeClosedByServer(osmServer, updatedItem);
 
-			if (!isOpen) {
+			Long olderChangeSetId = guard.searchOtherChangeSetForChange(changeSetInUseId, updatedItem);
+			if (olderChangeSetId != null) {
+				changeSetInUseId = olderChangeSetId;
+			}
+			else {
+				if (!guard.isChangeSetInArea(changeSetInUseId, updatedItem)) {
+					changeSetInUseId = null;
+				}
+			}
+
+			// if there was no valid changeset left, an new must be created
+			if (changeSetInUseId == null) {
 				changeSetInUseId = osmServer.createChangeSet(changeTime, user);
 			}
-		}
-
-		// no this client must have an open changeset id
-		assertThatChangeSetIsNotNull(osmServer, changeSetInUseId);
-
-		guard.removeAllChangesetsClosedByServer(osmServer);
-
-		Long olderChangeSetId = guard.searchOtherChangeSetForChange(changeSetInUseId, updatedItem);
-		if (olderChangeSetId != null) {
-			changeSetInUseId = olderChangeSetId;
-		}
-		else {
-			if (!guard.isChangeSetInArea(changeSetInUseId, updatedItem)) {
-				changeSetInUseId = null;
-			}
-		}
-
-		// if there was no valid changeset left, an new must be created
-		if (changeSetInUseId == null) {
-			changeSetInUseId = osmServer.createChangeSet(changeTime, updatedItem.getUser());
 		}
 
 		// note: first now is the correct time to call for changeset, because now changeset id is

@@ -33,11 +33,10 @@ public class AreaGuardSizeAndNeighborChangesetGeneratorTest {
 		for (int i = 0; i < changes.length; i++) {
 			for (int successor = i + 1; successor < changes.length; successor++) {
 				long deltaTime =
-					Math.abs(TimeUnit.MILLISECONDS.toMinutes(changes[i].getCreatedAt()
-							.getTimeInMillis()
+					Math.abs(TimeUnit.MILLISECONDS.toMinutes(changes[i].getCreatedAt().getTimeInMillis()
 						- changes[successor].getCreatedAt().getTimeInMillis()));
-				assertThat("delta time is too large for index = " + i + " and it's successor = "
-					+ successor, deltaTime, is(lessThan(60l)));
+				assertThat(	"delta time is too large for index = " + i + " and it's successor = " + successor,
+							deltaTime, is(lessThan(60l)));
 			}
 
 		}
@@ -47,8 +46,8 @@ public class AreaGuardSizeAndNeighborChangesetGeneratorTest {
 
 		for (int i = 0; i < changes.length; i++) {
 			long deltaTime =
-				Math.abs(TimeUnit.MILLISECONDS.toMinutes(changes[i].getCreatedAt()
-						.getTimeInMillis() - change.getCreatedAt().getTimeInMillis()));
+				Math.abs(TimeUnit.MILLISECONDS.toMinutes(changes[i].getCreatedAt().getTimeInMillis()
+					- change.getCreatedAt().getTimeInMillis()));
 			assertThat("delta time is too less for index = " + i, deltaTime, is(lessThan(60l)));
 
 		}
@@ -216,8 +215,7 @@ public class AreaGuardSizeAndNeighborChangesetGeneratorTest {
 		generator.add(node_out_11_1, osmServer, optimizedDataSet);
 		thirdId = generator.getChangeSetInUseId();
 
-		generator.add(	Node.later(Node.getMovedNode((Node) node11, 0.0, 0.01), 59 - 5), osmServer,
-						optimizedDataSet);
+		generator.add(Node.later(Node.getMovedNode((Node) node11, 0.0, 0.01), 59 - 5), osmServer, optimizedDataSet);
 		fourthID = generator.getChangeSetInUseId();
 
 		assertThat(fourthID, is(notNullValue()));
