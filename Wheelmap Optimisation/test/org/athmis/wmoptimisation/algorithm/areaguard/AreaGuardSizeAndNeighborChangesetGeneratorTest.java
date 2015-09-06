@@ -84,13 +84,13 @@ public class AreaGuardSizeAndNeighborChangesetGeneratorTest {
 		Long firstId, secondId, thirdId;
 
 		generator.add(node11, osmServer, optimizedDataSet);
-		firstId = generator.changeSetInUseId;
+		firstId = generator.getChangeSetInUseId();
 
 		generator.add(node11_Border, osmServer, optimizedDataSet);
-		secondId = generator.changeSetInUseId;
+		secondId = generator.getChangeSetInUseId();
 
 		generator.add(node_out_11_1, osmServer, optimizedDataSet);
-		thirdId = generator.changeSetInUseId;
+		thirdId = generator.getChangeSetInUseId();
 
 		assertThatDeltaTimeIsLessThan60Minutes(node11, node11_Border, node_out_11_1);
 
@@ -106,16 +106,16 @@ public class AreaGuardSizeAndNeighborChangesetGeneratorTest {
 		Long firstId, secondId, thirdId, forthId;
 
 		generator.add(node11, osmServer, optimizedDataSet);
-		firstId = generator.changeSetInUseId;
+		firstId = generator.getChangeSetInUseId();
 
 		generator.add(node11_Border, osmServer, optimizedDataSet);
-		secondId = generator.changeSetInUseId;
+		secondId = generator.getChangeSetInUseId();
 
 		generator.add(node_out_11_1, osmServer, optimizedDataSet);
-		thirdId = generator.changeSetInUseId;
+		thirdId = generator.getChangeSetInUseId();
 
 		generator.add(Node.later(node_in_11_1, 60), osmServer, optimizedDataSet);
-		forthId = generator.changeSetInUseId;
+		forthId = generator.getChangeSetInUseId();
 
 		assertThatDeltaTimeIsLessThan60Minutes(node11, node11_Border, node_out_11_1);
 		assertThatDeltaTimeIsMoreTHan60Minutes(node_in_11_1, node11, node11_Border, node_out_11_1);
@@ -131,16 +131,16 @@ public class AreaGuardSizeAndNeighborChangesetGeneratorTest {
 		Long firstId, secondId, thirdId, forthId;
 
 		generator.add(node11, osmServer, optimizedDataSet);
-		firstId = generator.changeSetInUseId;
+		firstId = generator.getChangeSetInUseId();
 
 		generator.add(node11_Border, osmServer, optimizedDataSet);
-		secondId = generator.changeSetInUseId;
+		secondId = generator.getChangeSetInUseId();
 
 		generator.add(node_out_11_1, osmServer, optimizedDataSet);
-		thirdId = generator.changeSetInUseId;
+		thirdId = generator.getChangeSetInUseId();
 
 		generator.add(Node.later(node_in_11_1, 59), osmServer, optimizedDataSet);
-		forthId = generator.changeSetInUseId;
+		forthId = generator.getChangeSetInUseId();
 
 		assertThatDeltaTimeIsLessThan60Minutes(node_in_11_1, node11, node11_Border, node_out_11_1);
 
@@ -155,16 +155,16 @@ public class AreaGuardSizeAndNeighborChangesetGeneratorTest {
 		Long firstId, secondId, thirdId, forthId;
 
 		generator.add(node11, osmServer, optimizedDataSet);
-		firstId = generator.changeSetInUseId;
+		firstId = generator.getChangeSetInUseId();
 
 		generator.add(node11_Border, osmServer, optimizedDataSet);
-		secondId = generator.changeSetInUseId;
+		secondId = generator.getChangeSetInUseId();
 
 		generator.add(node_out_11_1, osmServer, optimizedDataSet);
-		thirdId = generator.changeSetInUseId;
+		thirdId = generator.getChangeSetInUseId();
 
 		generator.add(node_in_11_1, osmServer, optimizedDataSet);
-		forthId = generator.changeSetInUseId;
+		forthId = generator.getChangeSetInUseId();
 
 		assertThatDeltaTimeIsLessThan60Minutes(node11, node11_Border, node_out_11_1, node_in_11_1);
 
@@ -186,13 +186,13 @@ public class AreaGuardSizeAndNeighborChangesetGeneratorTest {
 		Long firstId, secondId, thirdId;
 
 		generator.add(node11, osmServer, optimizedDataSet);
-		firstId = generator.changeSetInUseId;
+		firstId = generator.getChangeSetInUseId();
 
 		generator.add(node11_Border, osmServer, optimizedDataSet);
-		secondId = generator.changeSetInUseId;
+		secondId = generator.getChangeSetInUseId();
 
 		generator.add(node_out_11_1, osmServer, optimizedDataSet);
-		thirdId = generator.changeSetInUseId;
+		thirdId = generator.getChangeSetInUseId();
 
 		assertThat(firstId, is(notNullValue()));
 
@@ -208,17 +208,17 @@ public class AreaGuardSizeAndNeighborChangesetGeneratorTest {
 		Long firstId, secondId, thirdId, fourthID;
 
 		generator.add(node11, osmServer, optimizedDataSet);
-		firstId = generator.changeSetInUseId;
+		firstId = generator.getChangeSetInUseId();
 
 		generator.add(node11_Border, osmServer, optimizedDataSet);
-		secondId = generator.changeSetInUseId;
+		secondId = generator.getChangeSetInUseId();
 
 		generator.add(node_out_11_1, osmServer, optimizedDataSet);
-		thirdId = generator.changeSetInUseId;
+		thirdId = generator.getChangeSetInUseId();
 
 		generator.add(	Node.later(Node.getMovedNode((Node) node11, 0.0, 0.01), 59 - 5), osmServer,
 						optimizedDataSet);
-		fourthID = generator.changeSetInUseId;
+		fourthID = generator.getChangeSetInUseId();
 
 		assertThat(fourthID, is(notNullValue()));
 

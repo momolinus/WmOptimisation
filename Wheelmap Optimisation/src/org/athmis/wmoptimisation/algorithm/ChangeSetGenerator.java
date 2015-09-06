@@ -54,6 +54,13 @@ public abstract class ChangeSetGenerator {
 		}
 	}
 
+	protected static void assertThatChangeSetIsNotNull(OsmServer osmServer, Long changeSetInUseId) {
+		if (changeSetInUseId == null) {
+			throw new IllegalStateException("no change set created by osm server of type "
+				+ osmServer.getClass().getSimpleName());
+		}
+	}
+
 	/**
 	 * @param changeSet
 	 *            checked for <code>== null</code>
@@ -67,8 +74,12 @@ public abstract class ChangeSetGenerator {
 	}
 
 	private int nodes;
+
 	private OsmServer osmServer;
+
 	private int ways;
+	protected Long changeSetInUseId;
+	protected String name;
 
 	public ChangeSetGenerator() {
 		osmServer = new OsmServer();
@@ -123,6 +134,11 @@ public abstract class ChangeSetGenerator {
 		optimizedDataSet.closeAllChangeSets();
 
 		return optimizedDataSet;
+	}
+
+	// TODO implemented for test purpose, find a better solution in future release
+	public Long getChangeSetInUseId() {
+		return changeSetInUseId;
 	}
 
 	public abstract String getName();

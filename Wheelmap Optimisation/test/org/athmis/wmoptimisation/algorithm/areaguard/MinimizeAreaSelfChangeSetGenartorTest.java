@@ -42,11 +42,11 @@ public class MinimizeAreaSelfChangeSetGenartorTest {
 		Long firstId, secondId, thirdId;
 
 		generator.add(nodeNW, osmServer, optimizedDataSet);
-		firstId = generator.changeSetInUseId;
+		firstId = generator.getChangeSetInUseId();
 		generator.add(nodeNW2, osmServer, optimizedDataSet);
-		secondId = generator.changeSetInUseId;
+		secondId = generator.getChangeSetInUseId();
 		generator.add(nodeNW3, osmServer, optimizedDataSet);
-		thirdId = generator.changeSetInUseId;
+		thirdId = generator.getChangeSetInUseId();
 
 		assertThat(firstId, is(notNullValue()));
 
