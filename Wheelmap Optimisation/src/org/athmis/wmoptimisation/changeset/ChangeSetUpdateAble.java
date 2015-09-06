@@ -22,7 +22,7 @@ public class ChangeSetUpdateAble extends ChangeSet {
 	public ChangeSetUpdateAble(ChangeSet changeSet) {
 		super(changeSet);
 
-		// FIXME kommentieren, das gilt nur für Roh-Daten
+		// XXX add a comment: this is valid only for raw data
 		/* if (changeSet.getBoundingBoxSquareDegree() > 0) { bBoxUpdates = 2; } if (changeSet.g) */
 		original = true;
 	}
@@ -82,8 +82,7 @@ public class ChangeSetUpdateAble extends ChangeSet {
 		// calculateArea();
 
 		if (!Double.isFinite(getBoundingBoxSquareDegree())) {
-			throw new IllegalArgumentException("error updating bounding box with change "
-				+ change.toString());
+			throw new IllegalArgumentException("error updating bounding box with change " + change.toString());
 		}
 	}
 

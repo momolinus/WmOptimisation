@@ -57,7 +57,7 @@ public class Node implements Change {
 		return getBerlin();
 	}
 
-	// FIXME kommentieren
+	// XXX add a comment
 	public static Node getDifferentNode(Node node, double lat, double lon) {
 		Calendar nodeTime = node.getCreatedAt();
 		nodeTime.add(Calendar.MINUTE, 5);

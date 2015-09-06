@@ -105,7 +105,6 @@ public class OsmChangeContent {
 		return changeContent;
 	}
 
-
 	private static void addChangeSetFromZipFile(OsmChangeContent result, InputStream chnageSetStream) throws Exception {
 
 		ChangeSet changeSet;
@@ -180,7 +179,7 @@ public class OsmChangeContent {
 		changes = new HashMap<>();
 	}
 
-	// XXX dokumentieren: wird beim Lesen von zips benutzt
+	// XXX add comment: used when reading zip-files
 	/**
 	 * Stores given changeset in internal map with changesets id as key and the changeset object as
 	 * value.
@@ -201,9 +200,8 @@ public class OsmChangeContent {
 		return prevoius;
 	}
 
-	// XXX wenn OsmChange mal equals() unterstützt kann geprüft werden, ob das
-	// object schon gespeichert war
-	// XXX dokumentieren: wird beim Lesen von zips benutzt
+	// XXX implement OsmChange#equals() to check if this content was stored previous
+	// XXX add comment: used when reading zip-files
 	/**
 	 * Adds given OsmChange object.
 	 *
@@ -214,9 +212,7 @@ public class OsmChangeContent {
 		changes.put(changeContent.getChangeSetId(), changeContent);
 	}
 
-	// TODO check next sprint: ist das die richtige Stelle, um zu prüfen, ob das Change gespeichert
-	// werden darf?
-	// XXX dokumentieren: wir in der Simulation benutzt
+	// XXX add comment: used in simulation
 	/**
 	 * Copies the given change to given changeset. Stores both objects. It Could be, that given
 	 * changeset is still stored, then it will not be stored again as copy or so.
@@ -232,10 +228,6 @@ public class OsmChangeContent {
 	 */
 	public void addChangeForChangeSet(Change change, ChangeSetUpdateAble changeSet) {
 		ChangeSetUpdateAble changeSetForStoring;
-
-		// FIXME wir hier richtig gearbeitet: wenn dem übergebenen changeSet eine Change zugefügt
-		// wird, dann muss es seine Fläche und/oder Zahl der Changes ändern -> mit Test prüfen,
-		// vielleicht 1 Change dann neues Changeset usw.
 
 		changeSetForStoring = fetchOrStoreAndFetchChangeset(changeSet);
 
@@ -255,9 +247,6 @@ public class OsmChangeContent {
 
 		osmChangeContent = (OsmChangeUpdateAble) changes.get(changeSetForStoring.getId());
 
-		// FIXME hier ist der Fehler, es können Changes mit verschieden Changeset id zugefügt
-		// werden, später gibt aber ein OsmChange object genau eine ChnageSet id zurück -> das ist
-		// falsch
 		osmChangeContent.addChange(changeCopy);
 
 		LOGGER.debug("added a change with changeset id = " + changeCopy.getChangeset() + " to changeset with id = "
@@ -430,8 +419,6 @@ public class OsmChangeContent {
 
 		for (ChangeSetUpdateAble changeSet : changeSets.values()) {
 
-			// FIXME diese Zahl wird bei den optimierten Changesets nicht richtig angelegt
-			// mus nach oben natürlich
 			double noChanges = 0;
 			long changeSetId;
 
@@ -448,7 +435,6 @@ public class OsmChangeContent {
 
 			String lastMessage = "xxx";
 
-			// FIXME es gibt nur zwei Elemente in changes
 			for (OsmChange change : changes.values()) {
 				long changeChangeSetId = change.getChangeSetId();
 
@@ -464,12 +450,6 @@ public class OsmChangeContent {
 						+ " number of OsmChange objects " + changes.size();
 			}
 
-			// FIXME hier wird der Bug issue#1 sichtbar und zwar schon beim ersten Algorithmus, es
-			// werden keine changes zur changesetId gefunden
-			// FIXME 16.11.2014 wenn man die Optimierung immer wieder ausführt kommt es immer wieder
-			// zu dem Fehler, dass das changeset eine id hat, die nicht gleich der changesetId der
-			// einzigen Änderung ist, die das changeset enthält, wobei das auch schon ein Fehler
-			// sein muss: ein change kann nicht zu einer Fläche führen -> weiter schauen
 			assertThatChangesetWithAreaHasChanges(changeSet, noChanges, algorithmus + "\nlastMessage: " + lastMessage);
 
 			changeSetsTable.put(changeSet.getId(), "no_changes", Double.toString(noChanges));

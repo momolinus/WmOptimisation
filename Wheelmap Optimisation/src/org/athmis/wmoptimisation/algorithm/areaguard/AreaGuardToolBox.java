@@ -39,18 +39,31 @@ public class AreaGuardToolBox {
 		return boundingBox;
 	}
 
-	public static double getMaxEdge(Area nextBox) {
+	/**
+	 * Returns the maximum of bounding boxes edges.
+	 *
+	 * @param area
+	 *            maximum of this area bounding boxes side will be calculated
+	 * @return maximum of bounding boxes edges
+	 */
+	public static double getMaxEdge(Area area) {
 		double southNorth, westEast;
 
-		southNorth = nextBox.getLatMaxN() - nextBox.getLatMinS();
-		westEast = nextBox.getLonMaxE() - nextBox.getLonMinW();
+		southNorth = area.getLatMaxN() - area.getLatMinS();
+		westEast = area.getLonMaxE() - area.getLonMinW();
 
-		assertThatValuesValid(southNorth, westEast, nextBox);
+		assertThatValuesValid(southNorth, westEast);
 
 		return Math.max(southNorth, westEast);
 	}
 
-	private static void assertThatValuesValid(double southNorth, double westEast, Area nextBox) {
-		// FIXME implementierung fehlt
+	private static void assertThatValuesValid(double southNorth, double westEast) {
+		if (southNorth > 180) {
+			throw new IllegalArgumentException("latitude " + southNorth + " is illegal");
+		}
+
+		if (westEast > 360) {
+			throw new IllegalArgumentException("longitude " + westEast + " is illegal");
+		}
 	}
 }

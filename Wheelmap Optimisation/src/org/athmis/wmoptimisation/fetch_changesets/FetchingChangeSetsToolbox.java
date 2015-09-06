@@ -120,6 +120,21 @@ public final class FetchingChangeSetsToolbox {
 	 */
 	private static final int TWO_DAYS_IN_HOURS = 48;
 
+	public static Change makeCopy(Change change) {
+		if (change.isWay()) {
+			throw new IllegalArgumentException("cant' work on ways in simulation");
+		}
+		else {
+			if (change instanceof Node) {
+				Node node = new Node((Node) change);
+				return node;
+			}
+			else {
+				throw new IllegalArgumentException("can't work on type " + change.getClass().getName()
+					+ " in simulation");
+			}
+		}
+	}
 	/**
 	 * @param apiCall
 	 * @return

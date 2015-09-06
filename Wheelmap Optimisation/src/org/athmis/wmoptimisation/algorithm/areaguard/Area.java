@@ -2,6 +2,11 @@ package org.athmis.wmoptimisation.algorithm.areaguard;
 
 import org.athmis.wmoptimisation.changeset.Change;
 
+// TODO add comments
+
+/**
+ * @author Marcus Bleil, http://www.marcusbleil.de
+ */
 public class Area {
 
 	/**
