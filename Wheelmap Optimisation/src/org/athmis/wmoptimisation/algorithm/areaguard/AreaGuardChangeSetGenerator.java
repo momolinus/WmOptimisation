@@ -10,16 +10,7 @@ import org.athmis.wmoptimisation.osmserver.OsmServer;
 
 public class AreaGuardChangeSetGenerator extends ChangeSetGenerator {
 
-	private static void assertThatChangeSetIsNotNull(OsmServer osmServer, Long changeSetInUseId) {
-		if (changeSetInUseId == null) {
-			throw new IllegalStateException("no change set created by osm server of type "
-				+ osmServer.getClass().getSimpleName());
-		}
-	}
 	private AreaGuardForSize areaGuard;
-	protected Long changeSetInUseId;
-
-	protected String name;
 
 	public AreaGuardChangeSetGenerator(double maxBboxSize) {
 		areaGuard = new AreaGuardForSize(maxBboxSize);
@@ -33,6 +24,9 @@ public class AreaGuardChangeSetGenerator extends ChangeSetGenerator {
 		return name;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	protected void add(Change updatedItem, OsmServer osmServer, OsmChangeContent optimizedDataSet) {
 		Calendar changeTime;

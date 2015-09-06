@@ -2,6 +2,7 @@ package org.athmis.wmoptimisation.algorithm.areaguard;
 
 import java.util.Calendar;
 
+import org.athmis.wmoptimisation.algorithm.ChangeSetGenerator;
 import org.athmis.wmoptimisation.changeset.Change;
 import org.athmis.wmoptimisation.changeset.ChangeSetUpdateAble;
 import org.athmis.wmoptimisation.fetch_changesets.OsmChangeContent;
@@ -14,14 +15,7 @@ import org.athmis.wmoptimisation.osmserver.OsmServer;
  *
  * @author Marcus Bleil, http://www.marcusbleil.de
  */
-public class AreaGuardSizeAndNeighborChangesetGenerator extends AreaGuardChangeSetGenerator {
-
-	private static void assertThatChangeSetIdIsNotNull(OsmServer osmServer, Long changeSetInUseId) {
-		if (changeSetInUseId == null) {
-			throw new IllegalStateException("no change set created by osm server of type "
-				+ osmServer.getClass().getSimpleName());
-		}
-	}
+public class AreaGuardSizeAndNeighborChangesetGenerator extends ChangeSetGenerator {
 
 	private AreaGuardForSizeAndNeighbor guard;
 
@@ -30,8 +24,13 @@ public class AreaGuardSizeAndNeighborChangesetGenerator extends AreaGuardChangeS
 		name = "ag sn (" + maxBboxSize + ")";
 	}
 
+	@Override
+	public String getName() {
+		return name;
+	}
+
 	/**
-	 *
+	 * {@inheritDoc}
 	 */
 	@Override
 	protected void add(Change updatedItem, OsmServer osmServer, OsmChangeContent optimizedDataSet) {
@@ -62,7 +61,7 @@ public class AreaGuardSizeAndNeighborChangesetGenerator extends AreaGuardChangeS
 		}
 
 		// no this client must have an open changeset id
-		assertThatChangeSetIdIsNotNull(osmServer, changeSetInUseId);
+		assertThatChangeSetIsNotNull(osmServer, changeSetInUseId);
 
 		guard.removeAllChangesetsClosedByServer(osmServer);
 
