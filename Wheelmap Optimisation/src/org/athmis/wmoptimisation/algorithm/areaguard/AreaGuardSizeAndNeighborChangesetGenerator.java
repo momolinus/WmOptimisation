@@ -67,13 +67,24 @@ public class AreaGuardSizeAndNeighborChangesetGenerator extends ChangeSetGenerat
 
 			guard.removeAllChangesetsMustBeClosedByServer(osmServer, updatedItem);
 
-			Long olderChangeSetId = guard.searchOtherChangeSetForChange(changeSetInUseId, updatedItem);
+			Long olderChangeSetId =
+				guard.searchOtherChangeSetForChange(changeSetInUseId, updatedItem);
+
 			if (olderChangeSetId != null) {
 				changeSetInUseId = olderChangeSetId;
 			}
 			else {
 				if (!guard.isChangeSetInArea(changeSetInUseId, updatedItem)) {
 					changeSetInUseId = null;
+				}
+
+				//XXX is this really the best place
+				if (changeSetInUseId != null) {
+					boolean isOpen;
+					isOpen = osmServer.isChangeSetOpen(changeSetInUseId);
+					if (!isOpen) {
+						changeSetInUseId = null;
+					}
 				}
 			}
 

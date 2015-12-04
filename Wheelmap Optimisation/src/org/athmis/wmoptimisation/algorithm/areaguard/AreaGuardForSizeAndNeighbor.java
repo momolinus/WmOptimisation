@@ -99,7 +99,8 @@ public class AreaGuardForSizeAndNeighbor extends AreaGuard {
 	 * omits given changeset. If no changeset found method returns <code>null</code>.
 	 *
 	 * @param changeSetInUseId
-	 *            will be omitted in search
+	 *            will be omitted in search, <code>null</code> is permitted, because
+	 *            {@link Long#equals(Object)} could handle <code>null</code> as parameter
 	 * @param updatedItem
 	 *            method searches a changeset (the first), where this change fits
 	 * @return a changeset where given change fits, or <code>null</code>
