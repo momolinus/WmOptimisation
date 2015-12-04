@@ -68,11 +68,38 @@ public class AreaGuardForSizeAndNeighbor extends AreaGuard {
 	}
 
 	/**
+	 * @param osmServer
+	 * @param updatedItem
+	 */
+	public void removeAllChangesetsMustBeClosedByServer(OsmServer osmServer, Change updatedItem) {
+		List<Long> remove = new ArrayList<>();
+
+		for (Long id : edges.asMap().keySet()) {
+			boolean isOpen;
+
+			isOpen = osmServer.isChangeSetOpen(id);
+
+			if (isOpen) {
+				isOpen = osmServer.isChangeSetOpen(id, updatedItem.getCreatedAt());
+			}
+
+			if (!isOpen) {
+				remove.add(id);
+			}
+		}
+
+		for (Long id : remove) {
+			edges.removeAll(id);
+		}
+	}
+
+	/**
 	 * Method searches in stored changesets for one where given change will fit. While searching it
 	 * omits given changeset. If no changeset found method returns <code>null</code>.
 	 *
 	 * @param changeSetInUseId
-	 *            will be omitted in search
+	 *            will be omitted in search, <code>null</code> is permitted, because
+	 *            {@link Long#equals(Object)} could handle <code>null</code> as parameter
 	 * @param updatedItem
 	 *            method searches a changeset (the first), where this change fits
 	 * @return a changeset where given change fits, or <code>null</code>

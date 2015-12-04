@@ -1,4 +1,5 @@
-/* Copyright Marcus Bleil, Oliver Rudzik, Christoph Bünte 2012 This file is part of Wheelmap
+/*
+ * Copyright Marcus Bleil, Oliver Rudzik, Christoph Bünte 2012 This file is part of Wheelmap
  * Optimization. Wheelmap Optimization is free software: you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by the Free Software Foundation,
  * either version 3 of the License, or (at your option) any later version. Wheelmap Optimization is
@@ -13,7 +14,8 @@
  * aber OHNE JEDE GEWÄHELEISTUNG, bereitgestellt; sogar ohne die implizite Gewährleistung der
  * MARKTFÄHIGKEIT oder EIGNUNG FÜR EINEN BESTIMMTEN ZWECK. Siehe die GNU General Public License für
  * weitere Details. Sie sollten eine Kopie der GNU General Public License zusammen mit diesem
- * Programm erhalten haben. Wenn nicht, siehe <http://www.gnu.org/licenses/>. */
+ * Programm erhalten haben. Wenn nicht, siehe <http://www.gnu.org/licenses/>.
+ */
 package org.athmis.wmoptimisation.algorithm;
 
 import java.util.Collections;
@@ -31,7 +33,7 @@ import org.athmis.wmoptimisation.osmserver.OsmServer;
  * Architecture is <a href="http://en.wikipedia.org/wiki/Template_method_pattern">Template method
  * pattern</a>.
  *
- * @author @author Marcus Bleil, http://www.marcusbleil.de
+ * @author Marcus Bleil, http://www.marcusbleil.de
  */
 public abstract class ChangeSetGenerator {
 
@@ -106,8 +108,8 @@ public abstract class ChangeSetGenerator {
 		changes = changesToOptimize.getAllChanges();
 		Collections.sort(changes);
 
-		LOGGER.info("use " + changesToOptimize.getNodes() + " nodes and " + changesToOptimize.getNoChangeSets()
-			+ " changeSets for optimization");
+		LOGGER.info("use " + changesToOptimize.getNodes() + " nodes and "
+			+ changesToOptimize.getNoChangeSets() + " changeSets for optimization");
 
 		ways = 0;
 		nodes = 0;
@@ -148,7 +150,8 @@ public abstract class ChangeSetGenerator {
 	 *             if creation time of change is before createdTimeMillis, means new change is older
 	 *             than predecessor, possible reasons: comparable or sorting was wrong implemented
 	 */
-	private void assertThatChangeIsYoungerThanItsPredecessor(long createdTimeMillis, Change change) {
+	private void assertThatChangeIsYoungerThanItsPredecessor(long createdTimeMillis,
+		Change change) {
 		if (change.getCreatedAt().getTimeInMillis() < createdTimeMillis) {
 			throw new IllegalArgumentException("change " + change.verbose()
 				+ " is older than it's predecessor but must be younger");
@@ -166,5 +169,6 @@ public abstract class ChangeSetGenerator {
 	 *            the object wich stores the change and (generated) changesets, the task of this
 	 *            object is to analyze the changesets after all changes added
 	 */
-	protected abstract void add(Change change, OsmServer osmServer, OsmChangeContent optimizedDataSet);
+	protected abstract void add(Change change, OsmServer osmServer,
+		OsmChangeContent optimizedDataSet);
 }

@@ -23,7 +23,6 @@ public class ChangeSetTest {
 
 	private Node alaska;
 
-	@SuppressWarnings("PMD.VariableNamingConventions")
 	private Node argentinia_most_S;
 
 	private Node europa;
@@ -129,7 +128,6 @@ public class ChangeSetTest {
 
 	}
 
-	@SuppressWarnings("PMD.MethodNamingConventions")
 	@Test
 	public void testUpdateArea_NW_SW() {
 
@@ -149,7 +147,6 @@ public class ChangeSetTest {
 						STRONG_DELTA);
 	}
 
-	@SuppressWarnings("PMD.MethodNamingConventions")
 	@Test
 	public void testUpdateArea_SW_NW() {
 
@@ -167,7 +164,6 @@ public class ChangeSetTest {
 						STRONG_DELTA);
 	}
 
-	@SuppressWarnings("PMD.MethodNamingConventions")
 	@Test
 	public void testUpdateArea_SW_NW_NE() {
 
@@ -193,7 +189,6 @@ public class ChangeSetTest {
 	}
 
 
-	@SuppressWarnings("PMD.MethodNamingConventions")
 	@Test
 	public void testUpdateArea_SW_NW_NE_SE() {
 

@@ -3,17 +3,26 @@
  */
 package org.athmis.wmoptimisation.algorithm.areaguard;
 
-import static org.hamcrest.Matchers.*;
+import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.greaterThanOrEqualTo;
+import static org.hamcrest.Matchers.is;
+import static org.hamcrest.Matchers.lessThan;
+import static org.hamcrest.Matchers.not;
+import static org.hamcrest.Matchers.notNullValue;
+import static org.hamcrest.Matchers.sameInstance;
 import static org.junit.Assert.assertThat;
 
-import java.util.concurrent.TimeUnit;
-
-import org.apache.log4j.*;
+import org.apache.log4j.BasicConfigurator;
+import org.apache.log4j.Level;
+import org.apache.log4j.Logger;
 import org.athmis.wmoptimisation.changeset.Change;
 import org.athmis.wmoptimisation.changeset.Node;
 import org.athmis.wmoptimisation.fetch_changesets.OsmChangeContent;
 import org.athmis.wmoptimisation.osmserver.OsmServer;
-import org.junit.*;
+import org.junit.Assert;
+import org.junit.Before;
+import org.junit.BeforeClass;
+import org.junit.Test;
 
 /**
  * @author Marcus
@@ -24,41 +33,62 @@ public class AreaGuardSizeAndNeighborChangesetGeneratorTest {
 
 	@BeforeClass
 	public static void initTest() {
+
 		BasicConfigurator.configure();
 		Logger.getRootLogger().setLevel(Level.OFF);
 	}
 
+	/**
+	 * Methods tests that 'delta creation time' between all given Changes is less than 60 minute. If
+	 * not method throws an exception using
+	 * {@linkplain Assert#assertThat(String, Object, org.hamcrest.Matcher)}.
+	 */
 	private static void assertThatDeltaTimeIsLessThan60Minutes(Change... changes) {
 
 		for (int i = 0; i < changes.length; i++) {
+
 			for (int successor = i + 1; successor < changes.length; successor++) {
-				long deltaTime =
-					Math.abs(TimeUnit.MILLISECONDS.toMinutes(changes[i].getCreatedAt()
-							.getTimeInMillis()
-						- changes[successor].getCreatedAt().getTimeInMillis()));
+				long changeTime, changeTimeSuccesor;
+
+				changeTime = changes[i].getCreatedAt().getTimeInMillis();
+				// meaning later -> greater
+				changeTimeSuccesor = changes[successor].getCreatedAt().getTimeInMillis();
+
+				long deltaTime = Math.abs(changeTimeSuccesor - changeTime);
+
 				assertThat("delta time is too large for index = " + i + " and it's successor = "
 					+ successor, deltaTime, is(lessThan(60l)));
 			}
-
 		}
 	}
 
-	private static void assertThatDeltaTimeIsMoreTHan60Minutes(Change change, Change... changes) {
+	/**
+	 * Methods tests that 'delta creation time' between first change and all other given Changes is
+	 * more or equal than 60 minutes. If not method throws an exception using
+	 * {@linkplain Assert#assertThat(String, Object, org.hamcrest.Matcher)}.
+	 */
+	private static void assertThatDeltaTimeIsMoreOrEqualThan60Minutes(Change change60MinutesYounger,
+		Change... changes) {
 
 		for (int i = 0; i < changes.length; i++) {
-			long deltaTime =
-				Math.abs(TimeUnit.MILLISECONDS.toMinutes(changes[i].getCreatedAt()
-						.getTimeInMillis() - change.getCreatedAt().getTimeInMillis()));
-			assertThat("delta time is too less for index = " + i, deltaTime, is(lessThan(60l)));
+			long olderCreationTime, youngerCreationTime;
 
+			olderCreationTime = changes[i].getCreatedAt().getTimeInMillis();
+			// meaning later -> greater
+			youngerCreationTime = change60MinutesYounger.getCreatedAt().getTimeInMillis();
+
+			long deltaTime = youngerCreationTime - olderCreationTime;
+
+			assertThat(	"delta time is too less for index = " + i, deltaTime,
+						is(greaterThanOrEqualTo(60l)));
 		}
 	}
 
-	private AreaGuardSizeAndNeighborChangesetGenerator generator;
-	private Change node_in_11_1;
-	private Change node_out_11_1;
+	private AreaGuardSizeAndNeighborChangesetGenerator generatorGuradingSizeAndNeigbors;
 	private Change node11;
-	private Change node11_Border;
+	private Change nodeOutOfNode11Borders;
+	private Change nodeWithin_2_Node11Borders;
+	private Change nodeWithinNode11Borders;
 
 	// XXX Regel für die Konfiguration des Loggers implementieren
 
@@ -68,31 +98,35 @@ public class AreaGuardSizeAndNeighborChangesetGeneratorTest {
 
 	@Before
 	public void setUp() {
-		generator = new AreaGuardSizeAndNeighborChangesetGenerator(MAX_EDGE_0_04);
+
+		generatorGuradingSizeAndNeigbors =
+			new AreaGuardSizeAndNeighborChangesetGenerator(MAX_EDGE_0_04);
 		osmServer = new OsmServer();
 		optimizedDataSet = new OsmChangeContent();
 
 		node11 = Node.getNode(1, 1);
-		node11_Border = Node.getNode(1.04, 1.04);
-		node_out_11_1 = Node.getNode(1.04, 1.05);
+		nodeWithinNode11Borders = Node.getNode(1.04, 1.04);
+		nodeOutOfNode11Borders = Node.getNode(1.04, 1.05);
 		Node.getNode(1.09, 1.09);
-		node_in_11_1 = Node.getNode(1.02, 1.02);
+		nodeWithin_2_Node11Borders = Node.getNode(1.02, 1.02);
 	}
 
 	@Test
 	public void test_that_border_is_respected() {
+
 		Long firstId, secondId, thirdId;
 
-		generator.add(node11, osmServer, optimizedDataSet);
-		firstId = generator.getChangeSetInUseId();
+		generatorGuradingSizeAndNeigbors.add(node11, osmServer, optimizedDataSet);
+		firstId = generatorGuradingSizeAndNeigbors.getChangeSetInUseId();
 
-		generator.add(node11_Border, osmServer, optimizedDataSet);
-		secondId = generator.getChangeSetInUseId();
+		generatorGuradingSizeAndNeigbors.add(nodeWithinNode11Borders, osmServer, optimizedDataSet);
+		secondId = generatorGuradingSizeAndNeigbors.getChangeSetInUseId();
 
-		generator.add(node_out_11_1, osmServer, optimizedDataSet);
-		thirdId = generator.getChangeSetInUseId();
+		generatorGuradingSizeAndNeigbors.add(nodeOutOfNode11Borders, osmServer, optimizedDataSet);
+		thirdId = generatorGuradingSizeAndNeigbors.getChangeSetInUseId();
 
-		assertThatDeltaTimeIsLessThan60Minutes(node11, node11_Border, node_out_11_1);
+		assertThatDeltaTimeIsLessThan60Minutes(	node11, nodeWithinNode11Borders,
+												nodeOutOfNode11Borders);
 
 		assertThat(firstId, is(notNullValue()));
 
@@ -103,70 +137,72 @@ public class AreaGuardSizeAndNeighborChangesetGeneratorTest {
 
 	@Test
 	public void test_that_near_but_time_distant_nodes_later_stored_together() {
-		Long firstId, secondId, thirdId, forthId;
 
-		generator.add(node11, osmServer, optimizedDataSet);
-		firstId = generator.getChangeSetInUseId();
+		Long firstId, secondId, forthId;
 
-		generator.add(node11_Border, osmServer, optimizedDataSet);
-		secondId = generator.getChangeSetInUseId();
+		generatorGuradingSizeAndNeigbors.add(node11, osmServer, optimizedDataSet);
+		firstId = generatorGuradingSizeAndNeigbors.getChangeSetInUseId();
+		generatorGuradingSizeAndNeigbors.add(nodeWithinNode11Borders, osmServer, optimizedDataSet);
+		secondId = generatorGuradingSizeAndNeigbors.getChangeSetInUseId();
+		generatorGuradingSizeAndNeigbors.add(nodeOutOfNode11Borders, osmServer, optimizedDataSet);
+		Node laterChange = Node.later(nodeWithin_2_Node11Borders, 60);
+		generatorGuradingSizeAndNeigbors.add(laterChange, osmServer, optimizedDataSet);
+		forthId = generatorGuradingSizeAndNeigbors.getChangeSetInUseId();
 
-		generator.add(node_out_11_1, osmServer, optimizedDataSet);
-		thirdId = generator.getChangeSetInUseId();
-
-		generator.add(Node.later(node_in_11_1, 60), osmServer, optimizedDataSet);
-		forthId = generator.getChangeSetInUseId();
-
-		assertThatDeltaTimeIsLessThan60Minutes(node11, node11_Border, node_out_11_1);
-		assertThatDeltaTimeIsMoreTHan60Minutes(node_in_11_1, node11, node11_Border, node_out_11_1);
+		assertThatDeltaTimeIsLessThan60Minutes(	node11, nodeWithinNode11Borders,
+												nodeOutOfNode11Borders);
+		assertThatDeltaTimeIsMoreOrEqualThan60Minutes(	laterChange, node11, nodeWithinNode11Borders,
+														nodeOutOfNode11Borders);
 
 		assertThat(forthId, is(notNullValue()));
-		assertThat(forthId, is(not(sameInstance(thirdId))));
 		assertThat(forthId, is(not(sameInstance(firstId))));
 		assertThat(forthId, is(not(sameInstance(secondId))));
 	}
 
+	/**
+	 * Test was implemented after little change on algorithm let fail test for thirId
+	 */
 	@Test
-	public void test_that_near_nodes_later_stored_together_2() {
-		Long firstId, secondId, thirdId, forthId;
+	public void test_that_near_but_time_distant_nodes_later_stored_together2() {
 
-		generator.add(node11, osmServer, optimizedDataSet);
-		firstId = generator.getChangeSetInUseId();
+		Long thirdId, forthId;
 
-		generator.add(node11_Border, osmServer, optimizedDataSet);
-		secondId = generator.getChangeSetInUseId();
+		generatorGuradingSizeAndNeigbors.add(node11, osmServer, optimizedDataSet);
+		generatorGuradingSizeAndNeigbors.add(nodeWithinNode11Borders, osmServer, optimizedDataSet);
+		generatorGuradingSizeAndNeigbors.add(nodeOutOfNode11Borders, osmServer, optimizedDataSet);
+		thirdId = generatorGuradingSizeAndNeigbors.getChangeSetInUseId();
+		Node laterChange = Node.later(nodeWithin_2_Node11Borders, 60);
+		generatorGuradingSizeAndNeigbors.add(laterChange, osmServer, optimizedDataSet);
+		forthId = generatorGuradingSizeAndNeigbors.getChangeSetInUseId();
 
-		generator.add(node_out_11_1, osmServer, optimizedDataSet);
-		thirdId = generator.getChangeSetInUseId();
+		assertThatDeltaTimeIsLessThan60Minutes(	node11, nodeWithinNode11Borders,
+												nodeOutOfNode11Borders);
+		assertThatDeltaTimeIsMoreOrEqualThan60Minutes(	laterChange, node11, nodeWithinNode11Borders,
+														nodeOutOfNode11Borders);
 
-		generator.add(Node.later(node_in_11_1, 59), osmServer, optimizedDataSet);
-		forthId = generator.getChangeSetInUseId();
-
-		assertThatDeltaTimeIsLessThan60Minutes(node_in_11_1, node11, node11_Border, node_out_11_1);
-
-		assertThat(forthId, is(notNullValue()));
 		assertThat(forthId, is(not(sameInstance(thirdId))));
-		assertThat(forthId, is(sameInstance(firstId)));
-		assertThat(forthId, is(sameInstance(secondId)));
 	}
 
 	@Test
 	public void test_that_near_nodes_later_stored_together() {
+
 		Long firstId, secondId, thirdId, forthId;
 
-		generator.add(node11, osmServer, optimizedDataSet);
-		firstId = generator.getChangeSetInUseId();
+		generatorGuradingSizeAndNeigbors.add(node11, osmServer, optimizedDataSet);
+		firstId = generatorGuradingSizeAndNeigbors.getChangeSetInUseId();
 
-		generator.add(node11_Border, osmServer, optimizedDataSet);
-		secondId = generator.getChangeSetInUseId();
+		generatorGuradingSizeAndNeigbors.add(nodeWithinNode11Borders, osmServer, optimizedDataSet);
+		secondId = generatorGuradingSizeAndNeigbors.getChangeSetInUseId();
 
-		generator.add(node_out_11_1, osmServer, optimizedDataSet);
-		thirdId = generator.getChangeSetInUseId();
+		generatorGuradingSizeAndNeigbors.add(nodeOutOfNode11Borders, osmServer, optimizedDataSet);
+		thirdId = generatorGuradingSizeAndNeigbors.getChangeSetInUseId();
 
-		generator.add(node_in_11_1, osmServer, optimizedDataSet);
-		forthId = generator.getChangeSetInUseId();
+		generatorGuradingSizeAndNeigbors.add(	nodeWithin_2_Node11Borders, osmServer,
+												optimizedDataSet);
+		forthId = generatorGuradingSizeAndNeigbors.getChangeSetInUseId();
 
-		assertThatDeltaTimeIsLessThan60Minutes(node11, node11_Border, node_out_11_1, node_in_11_1);
+		assertThatDeltaTimeIsLessThan60Minutes(	node11, nodeWithinNode11Borders,
+												nodeOutOfNode11Borders, nodeWithin_2_Node11Borders);
 
 		assertThat(firstId, is(notNullValue()));
 		assertThat(secondId, is(sameInstance(firstId)));
@@ -182,17 +218,45 @@ public class AreaGuardSizeAndNeighborChangesetGeneratorTest {
 	}
 
 	@Test
+	public void test_that_near_nodes_later_stored_together_2() {
+
+		Long firstId, secondId, thirdId, forthId;
+
+		generatorGuradingSizeAndNeigbors.add(node11, osmServer, optimizedDataSet);
+		firstId = generatorGuradingSizeAndNeigbors.getChangeSetInUseId();
+
+		generatorGuradingSizeAndNeigbors.add(nodeWithinNode11Borders, osmServer, optimizedDataSet);
+		secondId = generatorGuradingSizeAndNeigbors.getChangeSetInUseId();
+
+		generatorGuradingSizeAndNeigbors.add(nodeOutOfNode11Borders, osmServer, optimizedDataSet);
+		thirdId = generatorGuradingSizeAndNeigbors.getChangeSetInUseId();
+
+		generatorGuradingSizeAndNeigbors.add(	Node.later(nodeWithin_2_Node11Borders, 59), osmServer,
+												optimizedDataSet);
+		forthId = generatorGuradingSizeAndNeigbors.getChangeSetInUseId();
+
+		assertThatDeltaTimeIsLessThan60Minutes(	nodeWithin_2_Node11Borders, node11,
+												nodeWithinNode11Borders, nodeOutOfNode11Borders);
+
+		assertThat(forthId, is(notNullValue()));
+		assertThat(forthId, is(not(sameInstance(thirdId))));
+		assertThat(forthId, is(sameInstance(firstId)));
+		assertThat(forthId, is(sameInstance(secondId)));
+	}
+
+	@Test
 	public void test_that_near_nodes_stored_together() {
+
 		Long firstId, secondId, thirdId;
 
-		generator.add(node11, osmServer, optimizedDataSet);
-		firstId = generator.getChangeSetInUseId();
+		generatorGuradingSizeAndNeigbors.add(node11, osmServer, optimizedDataSet);
+		firstId = generatorGuradingSizeAndNeigbors.getChangeSetInUseId();
 
-		generator.add(node11_Border, osmServer, optimizedDataSet);
-		secondId = generator.getChangeSetInUseId();
+		generatorGuradingSizeAndNeigbors.add(nodeWithinNode11Borders, osmServer, optimizedDataSet);
+		secondId = generatorGuradingSizeAndNeigbors.getChangeSetInUseId();
 
-		generator.add(node_out_11_1, osmServer, optimizedDataSet);
-		thirdId = generator.getChangeSetInUseId();
+		generatorGuradingSizeAndNeigbors.add(nodeOutOfNode11Borders, osmServer, optimizedDataSet);
+		thirdId = generatorGuradingSizeAndNeigbors.getChangeSetInUseId();
 
 		assertThat(firstId, is(notNullValue()));
 
@@ -205,20 +269,24 @@ public class AreaGuardSizeAndNeighborChangesetGeneratorTest {
 
 	@Test
 	public void test_that_near_nodes_stored_together_2() {
+
 		Long firstId, secondId, thirdId, fourthID;
 
-		generator.add(node11, osmServer, optimizedDataSet);
-		firstId = generator.getChangeSetInUseId();
+		generatorGuradingSizeAndNeigbors.add(node11, osmServer, optimizedDataSet);
+		firstId = generatorGuradingSizeAndNeigbors.getChangeSetInUseId();
 
-		generator.add(node11_Border, osmServer, optimizedDataSet);
-		secondId = generator.getChangeSetInUseId();
+		generatorGuradingSizeAndNeigbors.add(nodeWithinNode11Borders, osmServer, optimizedDataSet);
+		secondId = generatorGuradingSizeAndNeigbors.getChangeSetInUseId();
 
-		generator.add(node_out_11_1, osmServer, optimizedDataSet);
-		thirdId = generator.getChangeSetInUseId();
+		generatorGuradingSizeAndNeigbors.add(nodeOutOfNode11Borders, osmServer, optimizedDataSet);
+		thirdId = generatorGuradingSizeAndNeigbors.getChangeSetInUseId();
 
-		generator.add(	Node.later(Node.getMovedNode((Node) node11, 0.0, 0.01), 59 - 5), osmServer,
-						optimizedDataSet);
-		fourthID = generator.getChangeSetInUseId();
+		generatorGuradingSizeAndNeigbors.add(
+												Node.later(	Node.getMovedNode(	(Node) node11, 0.0,
+																				0.01),
+															59 - 5),
+												osmServer, optimizedDataSet);
+		fourthID = generatorGuradingSizeAndNeigbors.getChangeSetInUseId();
 
 		assertThat(fourthID, is(notNullValue()));
 
