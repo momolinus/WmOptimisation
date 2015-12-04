@@ -1,4 +1,5 @@
-/* Copyright Marcus Bleil, Oliver Rudzik, Christoph Bünte 2012 This file is part of Wheelmap
+/*
+ * Copyright Marcus Bleil, Oliver Rudzik, Christoph Bünte 2012 This file is part of Wheelmap
  * Optimization. Wheelmap Optimization is free software: you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by the Free Software Foundation,
  * either version 3 of the License, or (at your option) any later version. Wheelmap Optimization is
@@ -13,7 +14,8 @@
  * aber OHNE JEDE GEWÄHELEISTUNG, bereitgestellt; sogar ohne die implizite Gewährleistung der
  * MARKTFÄHIGKEIT oder EIGNUNG FÜR EINEN BESTIMMTEN ZWECK. Siehe die GNU General Public License für
  * weitere Details. Sie sollten eine Kopie der GNU General Public License zusammen mit diesem
- * Programm erhalten haben. Wenn nicht, siehe <http://www.gnu.org/licenses/>. */
+ * Programm erhalten haben. Wenn nicht, siehe <http://www.gnu.org/licenses/>.
+ */
 package org.athmis.wmoptimisation.changeset;
 
 import java.awt.geom.Point2D;
@@ -31,6 +33,7 @@ import org.simpleframework.xml.Root;
 public class Node implements Change {
 
 	public static double getBbox(Node node1, Node node2) {
+
 		double deltaLat, deltaLon;
 
 		deltaLat = Math.abs(node1.lat - node2.lat);
@@ -44,6 +47,7 @@ public class Node implements Change {
 	 * @return center of Berlin as a node
 	 */
 	public static Node getBerlin() {
+
 		Node result = new Node(121212, 52.515905, 13.378588, "2010-1-1T12:00:00Z", 1, true);
 		return result;
 	}
@@ -54,11 +58,13 @@ public class Node implements Change {
 	 * @return center of Berlin as a node
 	 */
 	public static Node getBerlinAsNode() {
+
 		return getBerlin();
 	}
 
 	// XXX add a comment
 	public static Node getDifferentNode(Node node, double lat, double lon) {
+
 		Calendar nodeTime = node.getCreatedAt();
 		nodeTime.add(Calendar.MINUTE, 5);
 		Node result = new Node(node.id + 1, lat, lon, ChangeSetToolkit.calToOsm(nodeTime), 1, true);
@@ -67,22 +73,33 @@ public class Node implements Change {
 	}
 
 	public static Node getMovedNode(Node node, double deltaLat, double deltaLon) {
+
 		Calendar nodeTime = node.getCreatedAt();
 		nodeTime.add(Calendar.MINUTE, 5);
-		Node result =
-			new Node(node.id + 1, node.lat + deltaLat, node.lon + deltaLon,
-					ChangeSetToolkit.calToOsm(nodeTime), 1, true);
+		Node result = new Node(node.id + 1, node.lat + deltaLat, node.lon + deltaLon,
+			ChangeSetToolkit.calToOsm(nodeTime), 1, true);
 
 		return result;
 	}
 
+	/**
+	 * Method constructs a new {@link Change} from given Change but with different creation time of
+	 * given minutes.
+	 *
+	 * @param change
+	 *            this change position used for new created change
+	 * @param minutes
+	 *            the amount of minutes will be added to the given change creation time using for
+	 *            the new change
+	 * @return a new Change instance at same position but with different creation time
+	 */
 	public static Node later(Change change, int minutes) {
+
 		Calendar nodeTime = change.getCreatedAt();
 		nodeTime.add(Calendar.MINUTE, minutes);
 
-		Node result =
-			new Node(change.getId() + System.currentTimeMillis(), change.getLat(), change.getLon(),
-					ChangeSetToolkit.calToOsm(nodeTime), 1, true);
+		Node result = new Node(change.getId() + System.currentTimeMillis(), change.getLat(),
+			change.getLon(), ChangeSetToolkit.calToOsm(nodeTime), 1, true);
 
 		return result;
 	}
@@ -96,6 +113,7 @@ public class Node implements Change {
 	 * @return
 	 */
 	public static Node getMovedNode(Node node, int minutes, double lat, double lon) {
+
 		Node result = new Node(node);
 		Calendar createTime;
 
@@ -119,6 +137,7 @@ public class Node implements Change {
 	 * @return node with given lat and lon
 	 */
 	public static Node getNode(double lat, double lon) {
+
 		Node result =
 			new Node(1, lat, lon, ChangeSetToolkit.calToOsm(Calendar.getInstance()), 1, true);
 		return result;
@@ -132,10 +151,10 @@ public class Node implements Change {
 	 * @return two nodes
 	 */
 	public static List<Node> getNodes(double distance) {
+
 		Node result = new Node(121212, 52.515905, 13.378588, "2010-1-1T12:00:00Z", 1, true);
-		Node result2 =
-			new Node(121213, 52.515905 - distance, 13.378588 - distance, "2010-1-1T12:05:00Z", 1,
-					true);
+		Node result2 = new Node(121213, 52.515905 - distance, 13.378588 - distance,
+			"2010-1-1T12:05:00Z", 1, true);
 		return new ArrayList<>(Arrays.asList(result, result2));
 	}
 
@@ -194,7 +213,8 @@ public class Node implements Change {
 	/**
 	 * makes a deep copy
 	 *
-	 * @param this will be a deep copy of given node
+	 * @param this
+	 *            will be a deep copy of given node
 	 */
 	public Node(Node node) {
 		this.id = node.id;
@@ -213,6 +233,7 @@ public class Node implements Change {
 
 	@Override
 	public int compareTo(Change other) {
+
 		return getCreatedAt().compareTo(other.getCreatedAt());
 	}
 
@@ -222,35 +243,42 @@ public class Node implements Change {
 	 * @return a {@linkplain Point2D} with x = lon and y = lat
 	 */
 	public Point2D getArea() {
+
 		return new Point2D.Double(lon, lat);
 	}
 
 	@Override
 	public long getChangeset() {
+
 		return changeset;
 	}
 
 	@Override
 	public Calendar getCreatedAt() {
+
 		return ChangeSetToolkit.osmToCal(timestamp);
 	}
 
 	@Override
 	public long getId() {
+
 		return id;
 	}
 
 	@Override
 	public double getLat() {
+
 		return lat;
 	}
 
 	public Point2D getLatLon() {
+
 		return new Point2D.Double(lat, lon);
 	}
 
 	@Override
 	public double getLon() {
+
 		return lon;
 	}
 
@@ -258,6 +286,7 @@ public class Node implements Change {
 	 * Returns a list with it's points, list has no back references to this.
 	 */
 	public List<Point2D> getPoints() {
+
 		List<Point2D> result;
 
 		result = new ArrayList<>();
@@ -271,24 +300,29 @@ public class Node implements Change {
 	 * @return unmodifiable list with the tags
 	 */
 	public List<Tag> getTags() {
+
 		return Collections.unmodifiableList(tags);
 	}
 
 	@Override
 	public String getTimestamp() {
+
 		return timestamp;
 	}
 
 	@Override
 	public String getUser() {
+
 		return user;
 	}
 
 	public int getVersion() {
+
 		return version;
 	}
 
 	public boolean isVisible() {
+
 		return visible;
 	}
 
@@ -297,30 +331,36 @@ public class Node implements Change {
 	 */
 	@Override
 	public boolean isWay() {
+
 		return false;
 	}
 
 	@Override
 	public void setChangeset(long changeSetId) {
+
 		this.changeset = changeSetId;
 	}
 
 	public void setId(long id) {
+
 		this.id = id;
 	}
 
 	@Override
 	public String toString() {
+
 		return "Node [changeset=" + changeset + ", id=" + id + ", timestamp=" + timestamp
 			+ ", user=" + user + "]";
 	}
 
 	@Override
 	public String verbose() {
+
 		StringBuilder msg = new StringBuilder();
 
 		msg.append("Node [id = " + id + ", ");
-		msg.append("created = " + ChangeSetToolkit.FORMATTER.format(getCreatedAt().getTime()) + "]");
+		msg.append("created = " + ChangeSetToolkit.FORMATTER.format(getCreatedAt().getTime())
+			+ "]");
 
 		return msg.toString();
 	}

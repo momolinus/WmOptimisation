@@ -62,9 +62,11 @@ eclipse {
 }
 
 // ensure cleaning classpath before building new classpath
-eclipseClasspath {
-	dependsOn 'cleanEclipseClasspath'
+/*
+eclipse {
+	dependsOn 'cleanEclipse'
 }
+*/
 
 javadoc {
 	options.overview = "src/main/java/overview.html" // relative to source root
