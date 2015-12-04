@@ -30,9 +30,10 @@ import org.athmis.wmoptimisation.fetch_changesets.OsmChangeContent;
 
 /**
  * The Optimize class runs the algorithm for optimization and stores the result to a file.
- * 
+ *
  * @author @author Marcus Bleil, http://www.marcusbleil.de
  */
+@SuppressWarnings("deprecation")
 public class Optimize {
 
 	private final static Logger LOGGER = Logger.getLogger(Optimize.class);

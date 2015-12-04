@@ -24,24 +24,31 @@ public class AreaGuardForSizeAndNeighbor extends AreaGuard {
 	 * Method returns <code>true</code> if given change is in (maximum) area of given changeset.
 	 *
 	 * @param changeSetInUseId
-	 *            used for check areas size
+	 *            used for check areas size; <code>null</code> is permitted, then method returns
+	 *            <code>false</code>
 	 * @param updatedItem
 	 *            method checks if this change will fit to area of given changeset
 	 * @return <code>true</code> if given change is in (maximum) area of given changeset,
 	 *         <code>false</code> otherwise
 	 */
 	public boolean isChangeSetInArea(Long changeSetInUseId, Change updatedItem) {
-		Area actualBox;
-		Area nextBox;
-		double maxEdge;
+		if (changeSetInUseId != null) {
 
-		actualBox = AreaGuardToolBox.getBoundingAreaForAreas(edges.get(changeSetInUseId));
-		nextBox = AreaGuardToolBox.combine(actualBox, new Area(updatedItem));
-		maxEdge = AreaGuardToolBox.getMaxEdge(nextBox);
+			Area actualBox;
+			Area nextBox;
+			double maxEdge;
 
-		maxEdge = Math.round(10_000_000.0 * maxEdge) / 10_000_000.0;
+			actualBox = AreaGuardToolBox.getBoundingAreaForAreas(edges.get(changeSetInUseId));
+			nextBox = AreaGuardToolBox.combine(actualBox, new Area(updatedItem));
+			maxEdge = AreaGuardToolBox.getMaxEdge(nextBox);
 
-		return !(maxEdge > maxBboxEdge);
+			maxEdge = Math.round(10_000_000.0 * maxEdge) / 10_000_000.0;
+
+			return !(maxEdge > maxBboxEdge);
+		}
+		else {
+			return false;
+		}
 	}
 
 	/**
@@ -56,32 +63,6 @@ public class AreaGuardForSizeAndNeighbor extends AreaGuard {
 		for (Long id : edges.asMap().keySet()) {
 			boolean isOpen;
 			isOpen = osmServer.isChangeSetOpen(id);
-
-			if (!isOpen) {
-				remove.add(id);
-			}
-		}
-
-		for (Long id : remove) {
-			edges.removeAll(id);
-		}
-	}
-
-	/**
-	 * @param osmServer
-	 * @param updatedItem
-	 */
-	public void removeAllChangesetsMustBeClosedByServer(OsmServer osmServer, Change updatedItem) {
-		List<Long> remove = new ArrayList<>();
-
-		for (Long id : edges.asMap().keySet()) {
-			boolean isOpen;
-
-			isOpen = osmServer.isChangeSetOpen(id);
-
-			if (isOpen) {
-				isOpen = osmServer.isChangeSetOpen(id, updatedItem.getCreatedAt());
-			}
 
 			if (!isOpen) {
 				remove.add(id);

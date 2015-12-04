@@ -34,49 +34,36 @@ public class AreaGuardSizeAndNeighborChangesetGenerator extends ChangeSetGenerat
 	 */
 	@Override
 	protected void add(Change updatedItem, OsmServer osmServer, OsmChangeContent optimizedDataSet) {
-		Calendar changeTime;
-		ChangeSetUpdateAble changeSet;
 
 		assertThatChangeAndServerNotNull(updatedItem, osmServer);
+
+		Calendar changeTime;
+		ChangeSetUpdateAble changeSet;
 
 		// the change time means the actual time for working with server
 		changeTime = updatedItem.getCreatedAt();
 		String user = updatedItem.getUser();
 
-		// first run change set id is null and must be build
+		osmServer.closeChangesetsNeededToBeClosed(changeTime);
+
+		guard.removeAllChangesetsClosedByServer(osmServer);
+
+		if (changeSetInUseId != null && !osmServer.isChangeSetOpen(changeSetInUseId)) {
+			changeSetInUseId = null;
+		}
+
+		if (!guard.isChangeSetInArea(changeSetInUseId, updatedItem)) {
+			changeSetInUseId = null;
+		}
+
+		Long olderChangeSetId = guard.searchOtherChangeSetForChange(changeSetInUseId, updatedItem);
+		if (olderChangeSetId != null) {
+			changeSetInUseId = olderChangeSetId;
+		}
+
+		// if there was no valid changeset left, an new must be created
 		if (changeSetInUseId == null) {
 			changeSetInUseId = osmServer.createChangeSet(changeTime, user);
-		}
-		else {
-			assertThatChangeSetIsNotNull(osmServer, changeSetInUseId);
-
-			guard.removeAllChangesetsMustBeClosedByServer(osmServer, updatedItem);
-
-			Long olderChangeSetId =
-				guard.searchOtherChangeSetForChange(changeSetInUseId, updatedItem);
-
-			if (olderChangeSetId != null) {
-				changeSetInUseId = olderChangeSetId;
-			}
-			else {
-				if (!guard.isChangeSetInArea(changeSetInUseId, updatedItem)) {
-					changeSetInUseId = null;
-				}
-
-				// XXX is this really the best place
-				if (changeSetInUseId != null) {
-					boolean isOpen;
-					isOpen = osmServer.isChangeSetOpen(changeSetInUseId);
-					if (!isOpen) {
-						changeSetInUseId = null;
-					}
-				}
-			}
-
-			// if there was no valid changeset left, an new must be created
-			if (changeSetInUseId == null) {
-				changeSetInUseId = osmServer.createChangeSet(changeTime, user);
-			}
 		}
 
 		// note: first now is the correct time to call for changeset, because now changeset id is
