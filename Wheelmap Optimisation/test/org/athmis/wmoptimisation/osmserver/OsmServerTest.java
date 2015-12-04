@@ -1,4 +1,5 @@
-/* Copyright Marcus Bleil, Oliver Rudzik, Christoph Bünte 2012 This file is part of Wheelmap
+/*
+ * Copyright Marcus Bleil, Oliver Rudzik, Christoph Bünte 2012 This file is part of Wheelmap
  * Optimization. Wheelmap Optimization is free software: you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by the Free Software Foundation,
  * either version 3 of the License, or (at your option) any later version. Wheelmap Optimization is
@@ -13,7 +14,8 @@
  * aber OHNE JEDE GEWÄHELEISTUNG, bereitgestellt; sogar ohne die implizite Gewährleistung der
  * MARKTFÄHIGKEIT oder EIGNUNG FÜR EINEN BESTIMMTEN ZWECK. Siehe die GNU General Public License für
  * weitere Details. Sie sollten eine Kopie der GNU General Public License zusammen mit diesem
- * Programm erhalten haben. Wenn nicht, siehe <http://www.gnu.org/licenses/>. */
+ * Programm erhalten haben. Wenn nicht, siehe <http://www.gnu.org/licenses/>.
+ */
 package org.athmis.wmoptimisation.osmserver;
 
 import static org.athmis.wmoptimisation.changeset.ChangeSetToolkit.FORMATTER;
@@ -39,10 +41,13 @@ import org.junit.Test;
 
 /**
  * Tests for OsmServer class, used for Test Driven Development (TDD). The behavior of the OsmServer
- * class should correspond to the real server (<a
- * href="http://wiki.openstreetmap.org/wiki/API_v0.6">OSM API v0.6</a>), but could be limited by the
- * need of the optimization project.
+ * class should correspond to the real server (
+ * <a href="http://wiki.openstreetmap.org/wiki/API_v0.6">OSM API v0.6</a>), but could be limited by
+ * the need of the optimization project.
+ *
+ * @deprecated class most tests deprecated methods
  */
+@Deprecated
 public class OsmServerTest {
 
 	@BeforeClass
@@ -113,11 +118,9 @@ public class OsmServerTest {
 
 			// just ensure kill an infinite loop
 			if (counterAgainstInfiniteLoop > 1000) {
-				String msg =
-					"after iterations " + counterAgainstInfiniteLoop
-						+ " changeset still not closed, start: "
-						+ FORMATTER.format(startTime.getTime()) + ", now: "
-						+ FORMATTER.format(calendar.getTime());
+				String msg = "after iterations " + counterAgainstInfiniteLoop
+					+ " changeset still not closed, start: " + FORMATTER.format(startTime.getTime())
+					+ ", now: " + FORMATTER.format(calendar.getTime());
 				fail(msg);
 			}
 		}
@@ -214,10 +217,8 @@ public class OsmServerTest {
 			calendar.add(Calendar.SECOND, 1);
 			node = createDummyNode(i, calToOsm(calendar));
 
-			String msg =
-				"changeset must be open  , start: " + FORMATTER.format(startTime.getTime())
-					+ ", now: " + FORMATTER.format(calendar.getTime()) + ", number of changes: "
-					+ i;
+			String msg = "changeset must be open  , start: " + FORMATTER.format(startTime.getTime())
+				+ ", now: " + FORMATTER.format(calendar.getTime()) + ", number of changes: " + i;
 
 			boolean changeSetIsOpen;
 			changeSetIsOpen = osmServer.isChangeSetOpen(changesetId, calendar);
