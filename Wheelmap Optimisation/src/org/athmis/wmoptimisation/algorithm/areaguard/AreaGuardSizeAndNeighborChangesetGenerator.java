@@ -47,21 +47,6 @@ public class AreaGuardSizeAndNeighborChangesetGenerator extends ChangeSetGenerat
 		if (changeSetInUseId == null) {
 			changeSetInUseId = osmServer.createChangeSet(changeTime, user);
 		}
-		// // now this osm client has to check if its actual changeset id is still open
-		// else {
-		// boolean isOpen;
-		//
-		// // note: following method also changes state of changeset, in future release method
-		// // would be divided in two methods
-		// isOpen = osmServer.isChangeSetOpen(changeSetInUseId, changeTime);
-		//
-		// if (!isOpen) {
-		// changeSetInUseId = osmServer.createChangeSet(changeTime, user);
-		// }
-		// }
-		//
-		// // no this client must have an open changeset id
-		// assertThatChangeSetIsNotNull(osmServer, changeSetInUseId);
 		else {
 			assertThatChangeSetIsNotNull(osmServer, changeSetInUseId);
 
@@ -78,7 +63,7 @@ public class AreaGuardSizeAndNeighborChangesetGenerator extends ChangeSetGenerat
 					changeSetInUseId = null;
 				}
 
-				//XXX is this really the best place
+				// XXX is this really the best place
 				if (changeSetInUseId != null) {
 					boolean isOpen;
 					isOpen = osmServer.isChangeSetOpen(changeSetInUseId);

@@ -3,10 +3,10 @@ rm(list=ls(all=TRUE))
 # hat das Löschen geklappt
 ls()
 
-setwd("C:/Users/Marcus/git/WmOptimisation/Wheelmap Optimisation")
+setwd("D:/git-mars/WmOptimisation/Wheelmap Optimisation")
 
 # read a file with list of changes
-changesets <- read.table(file = "optimization_32.csv", header=T, dec=".", sep=";")
+changesets <- read.table(file = "optimization_33.csv", header=T, dec=".", sep=";")
 # inspect the data set
 str(changesets)
 names(changesets)

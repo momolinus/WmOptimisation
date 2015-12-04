@@ -91,7 +91,6 @@ public class AreaGuardForSizeAndNeighbor extends AreaGuard {
 		for (Long id : remove) {
 			edges.removeAll(id);
 		}
-
 	}
 
 	/**
