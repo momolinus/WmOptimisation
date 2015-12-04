@@ -9,6 +9,8 @@ more details: https://github.com/momolinus/WmOptimisation/wiki (DE)
 
 ## 2015-12-4
 
+publish v2.1
+
 fixed 2x errors, small change at AreaGuard algorithm
 
 ## 2014-7-12
