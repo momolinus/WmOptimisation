@@ -25,3 +25,9 @@ bin/
 # gradle files
 .gradle/
 gradle-app.setting
+
+# classpath and other settings,
+# because they depend on local machine
+.classpath
+.project
+.settings/
