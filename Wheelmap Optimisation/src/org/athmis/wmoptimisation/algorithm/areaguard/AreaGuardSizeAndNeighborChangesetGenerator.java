@@ -1,6 +1,7 @@
 package org.athmis.wmoptimisation.algorithm.areaguard;
 
 import java.util.Calendar;
+import java.util.Optional;
 
 import org.athmis.wmoptimisation.algorithm.ChangeSetGenerator;
 import org.athmis.wmoptimisation.changeset.Change;
@@ -17,10 +18,10 @@ import org.athmis.wmoptimisation.osmserver.OsmServer;
  */
 public class AreaGuardSizeAndNeighborChangesetGenerator extends ChangeSetGenerator {
 
-	private AreaGuardForSizeAndNeighbor guard;
+	private AreaGuardForSizeAndNeighbor areaGuard;
 
 	public AreaGuardSizeAndNeighborChangesetGenerator(double maxBboxSize) {
-		guard = new AreaGuardForSizeAndNeighbor(maxBboxSize);
+		areaGuard = new AreaGuardForSizeAndNeighbor(maxBboxSize);
 		name = "ag sn (" + maxBboxSize + ")";
 	}
 
@@ -46,24 +47,16 @@ public class AreaGuardSizeAndNeighborChangesetGenerator extends ChangeSetGenerat
 
 		osmServer.closeChangesetsNeededToBeClosed(changeTime);
 
-		guard.removeAllChangesetsClosedByServer(osmServer);
+		removeAllClosedChangesetsFromAreaGuard(osmServer);
 
-		if (changeSetInUseId != null && !osmServer.isChangeSetOpen(changeSetInUseId)) {
-			changeSetInUseId = null;
-		}
-
-		if (!guard.isChangeSetInArea(changeSetInUseId, updatedItem)) {
-			changeSetInUseId = null;
-		}
-
-		Long olderChangeSetId = guard.searchOtherChangeSetForChange(changeSetInUseId, updatedItem);
-		if (olderChangeSetId != null) {
-			changeSetInUseId = olderChangeSetId;
-		}
+		Optional<Long> idOfFittingChangeset = lookForChangesetWhereChangeMatches(updatedItem);
 
 		// if there was no valid changeset left, an new must be created
-		if (changeSetInUseId == null) {
+		if (!idOfFittingChangeset.isPresent()) {
 			changeSetInUseId = osmServer.createChangeSet(changeTime, user);
+		}
+		else {
+			changeSetInUseId = idOfFittingChangeset.get();
 		}
 
 		// note: first now is the correct time to call for changeset, because now changeset id is
@@ -72,7 +65,34 @@ public class AreaGuardSizeAndNeighborChangesetGenerator extends ChangeSetGenerat
 
 		assertThatChangeSetNotNull(changeSet);
 
-		guard.addUpdatedItem(changeSetInUseId, updatedItem);
+		areaGuard.addUpdatedItem(changeSetInUseId, updatedItem);
+
 		optimizedDataSet.addChangeForChangeSet(updatedItem, changeSet);
+	}
+
+	private Optional<Long> lookForChangesetWhereChangeMatches(Change updatedItem) {
+		Long fittingChangeset = null;
+
+		if (!areaGuard.isChangeSetInArea(changeSetInUseId, updatedItem)) {
+			fittingChangeset = null;
+		}
+		else {
+			fittingChangeset = changeSetInUseId;
+		}
+
+		Long olderChangeSetId =
+			areaGuard.searchOtherChangeSetForChange(changeSetInUseId, updatedItem);
+		if (olderChangeSetId != null) {
+			changeSetInUseId = olderChangeSetId;
+		}
+
+		return Optional.ofNullable(fittingChangeset);
+	}
+
+	private void removeAllClosedChangesetsFromAreaGuard(OsmServer osmServer) {
+		areaGuard.removeAllChangesetsClosedByServer(osmServer);
+		if (changeSetInUseId != null && !osmServer.isChangeSetOpen(changeSetInUseId)) {
+			changeSetInUseId = null;
+		}
 	}
 }
