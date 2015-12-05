@@ -51,7 +51,7 @@ public class AreaGuardForSizeAndNeighbor extends AreaGuard {
 		}
 	}
 
-	public Long removeAllChangesetsClosedByServer(OsmServer osmServer, Long changeSetInUseId) {
+	public Optional<Long> validateAllStoredChangesets(OsmServer osmServer, Long changeSetInUseId) {
 
 		// remove all closed Changesets from internal list
 		List<Long> remove = new ArrayList<>();
@@ -69,10 +69,11 @@ public class AreaGuardForSizeAndNeighbor extends AreaGuard {
 
 		// check if actual used changeset must be "removed" too, meaning returning null
 		if (changeSetInUseId != null && !osmServer.isChangeSetOpen(changeSetInUseId)) {
-			return null;
+			return Optional.empty();
 		}
 		else {
-			return changeSetInUseId;
+			// ofNullable is important, because changeSetInUseId == null is permitted and valid
+			return Optional.ofNullable(changeSetInUseId);
 		}
 	}
 
@@ -104,7 +105,7 @@ public class AreaGuardForSizeAndNeighbor extends AreaGuard {
 		return result;
 	}
 
-	public Optional<Long> lookForChangesetWhereChangeMatches(Change updatedItem,
+	public Optional<Long> lookForChangesetWhereChangeFits(Change updatedItem,
 		Long changeSetInUseId) {
 
 		Optional<Long> fittingChangeset = null;
