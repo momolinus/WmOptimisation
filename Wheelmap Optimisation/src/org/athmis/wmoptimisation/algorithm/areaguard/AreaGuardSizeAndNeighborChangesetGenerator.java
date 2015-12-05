@@ -47,9 +47,10 @@ public class AreaGuardSizeAndNeighborChangesetGenerator extends ChangeSetGenerat
 
 		osmServer.closeChangesetsNeededToBeClosed(changeTime);
 
-		removeAllClosedChangesetsFromAreaGuard(osmServer);
+		areaGuard.removeAllChangesetsClosedByServer(osmServer, changeSetInUseId);
 
-		Optional<Long> idOfFittingChangeset = lookForChangesetWhereChangeMatches(updatedItem);
+		Optional<Long> idOfFittingChangeset =
+			areaGuard.lookForChangesetWhereChangeMatches(updatedItem, changeSetInUseId);
 
 		// if there was no valid changeset left, an new must be created
 		if (!idOfFittingChangeset.isPresent()) {
@@ -59,8 +60,6 @@ public class AreaGuardSizeAndNeighborChangesetGenerator extends ChangeSetGenerat
 			changeSetInUseId = idOfFittingChangeset.get();
 		}
 
-		// note: first now is the correct time to call for changeset, because now changeset id is
-		// valid
 		changeSet = osmServer.getChangeSet(changeSetInUseId);
 
 		assertThatChangeSetNotNull(changeSet);
@@ -68,31 +67,5 @@ public class AreaGuardSizeAndNeighborChangesetGenerator extends ChangeSetGenerat
 		areaGuard.addUpdatedItem(changeSetInUseId, updatedItem);
 
 		optimizedDataSet.addChangeForChangeSet(updatedItem, changeSet);
-	}
-
-	private Optional<Long> lookForChangesetWhereChangeMatches(Change updatedItem) {
-		Long fittingChangeset = null;
-
-		if (!areaGuard.isChangeSetInArea(changeSetInUseId, updatedItem)) {
-			fittingChangeset = null;
-		}
-		else {
-			fittingChangeset = changeSetInUseId;
-		}
-
-		Long olderChangeSetId =
-			areaGuard.searchOtherChangeSetForChange(changeSetInUseId, updatedItem);
-		if (olderChangeSetId != null) {
-			changeSetInUseId = olderChangeSetId;
-		}
-
-		return Optional.ofNullable(fittingChangeset);
-	}
-
-	private void removeAllClosedChangesetsFromAreaGuard(OsmServer osmServer) {
-		areaGuard.removeAllChangesetsClosedByServer(osmServer);
-		if (changeSetInUseId != null && !osmServer.isChangeSetOpen(changeSetInUseId)) {
-			changeSetInUseId = null;
-		}
 	}
 }

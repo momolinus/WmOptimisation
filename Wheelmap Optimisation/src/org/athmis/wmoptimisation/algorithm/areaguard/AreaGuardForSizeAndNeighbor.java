@@ -51,13 +51,7 @@ public class AreaGuardForSizeAndNeighbor extends AreaGuard {
 		}
 	}
 
-	/**
-	 * Method removes all changesets from internal storage, which already are closed on server.
-	 *
-	 * @param osmServer
-	 *            will be called for its closed changesets
-	 */
-	public void removeAllChangesetsClosedByServer(OsmServer osmServer) {
+	public void removeAllChangesetsClosedByServer(OsmServer osmServer, Long changeSetInUseId) {
 		List<Long> remove = new ArrayList<>();
 
 		for (Long id : edges.asMap().keySet()) {
@@ -71,6 +65,10 @@ public class AreaGuardForSizeAndNeighbor extends AreaGuard {
 
 		for (Long id : remove) {
 			edges.removeAll(id);
+		}
+
+		if (changeSetInUseId != null && !osmServer.isChangeSetOpen(changeSetInUseId)) {
+			changeSetInUseId = null;
 		}
 	}
 
@@ -100,5 +98,25 @@ public class AreaGuardForSizeAndNeighbor extends AreaGuard {
 		}
 
 		return result;
+	}
+
+	public Optional<Long> lookForChangesetWhereChangeMatches(Change updatedItem,
+		Long changeSetInUseId) {
+
+		Optional<Long> fittingChangeset = null;
+
+		if (!isChangeSetInArea(changeSetInUseId, updatedItem)) {
+			fittingChangeset = Optional.empty();
+		}
+		else {
+			fittingChangeset = Optional.ofNullable(changeSetInUseId);
+		}
+
+		Long olderChangeSetId = searchOtherChangeSetForChange(changeSetInUseId, updatedItem);
+		if (olderChangeSetId != null) {
+			fittingChangeset = Optional.ofNullable(olderChangeSetId);
+		}
+
+		return fittingChangeset;
 	}
 }
