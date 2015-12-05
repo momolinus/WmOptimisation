@@ -51,9 +51,10 @@ public class AreaGuardForSizeAndNeighbor extends AreaGuard {
 		}
 	}
 
-	public void removeAllChangesetsClosedByServer(OsmServer osmServer, Long changeSetInUseId) {
-		List<Long> remove = new ArrayList<>();
+	public Long removeAllChangesetsClosedByServer(OsmServer osmServer, Long changeSetInUseId) {
 
+		// remove all closed Changesets from internal list
+		List<Long> remove = new ArrayList<>();
 		for (Long id : edges.asMap().keySet()) {
 			boolean isOpen;
 			isOpen = osmServer.isChangeSetOpen(id);
@@ -62,13 +63,16 @@ public class AreaGuardForSizeAndNeighbor extends AreaGuard {
 				remove.add(id);
 			}
 		}
-
 		for (Long id : remove) {
 			edges.removeAll(id);
 		}
 
+		// check if actual used changeset must be "removed" too, meaning returning null
 		if (changeSetInUseId != null && !osmServer.isChangeSetOpen(changeSetInUseId)) {
-			changeSetInUseId = null;
+			return null;
+		}
+		else {
+			return changeSetInUseId;
 		}
 	}
 

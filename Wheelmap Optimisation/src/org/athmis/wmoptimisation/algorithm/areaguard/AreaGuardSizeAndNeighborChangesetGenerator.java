@@ -47,7 +47,7 @@ public class AreaGuardSizeAndNeighborChangesetGenerator extends ChangeSetGenerat
 
 		osmServer.closeChangesetsNeededToBeClosed(changeTime);
 
-		areaGuard.removeAllChangesetsClosedByServer(osmServer, changeSetInUseId);
+		changeSetInUseId = areaGuard.removeAllChangesetsClosedByServer(osmServer, changeSetInUseId);
 
 		Optional<Long> idOfFittingChangeset =
 			areaGuard.lookForChangesetWhereChangeMatches(updatedItem, changeSetInUseId);
