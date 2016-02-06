@@ -8,6 +8,11 @@ import org.athmis.wmoptimisation.changeset.Change;
 import org.athmis.wmoptimisation.fetch_changesets.OsmChangeContent;
 import org.athmis.wmoptimisation.osmserver.OsmServer;
 
+/**
+ * @author Marcus Bleil, http://www.marcusbleil.de
+ * @deprecated use {@link AreaGuardForSizeAndNeighbor} it is (a little) better
+ */
+@Deprecated
 public class AreaGuardChangeSetGenerator extends ChangeSetGenerator {
 
 	private AreaGuardForSize areaGuard;

@@ -1,4 +1,5 @@
-/* Copyright Marcus Bleil, Oliver Rudzik, Christoph Bünte 2012 This file is part of Wheelmap
+/*
+ * Copyright Marcus Bleil, Oliver Rudzik, Christoph Bünte 2012 This file is part of Wheelmap
  * Optimization. Wheelmap Optimization is free software: you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by the Free Software Foundation,
  * either version 3 of the License, or (at your option) any later version. Wheelmap Optimization is
@@ -13,7 +14,8 @@
  * aber OHNE JEDE GEWÄHELEISTUNG, bereitgestellt; sogar ohne die implizite Gewährleistung der
  * MARKTFÄHIGKEIT oder EIGNUNG FÜR EINEN BESTIMMTEN ZWECK. Siehe die GNU General Public License für
  * weitere Details. Sie sollten eine Kopie der GNU General Public License zusammen mit diesem
- * Programm erhalten haben. Wenn nicht, siehe <http://www.gnu.org/licenses/>. */
+ * Programm erhalten haben. Wenn nicht, siehe <http://www.gnu.org/licenses/>.
+ */
 package org.athmis.wmoptimisation.algorithm;
 
 import java.util.Calendar;
@@ -48,8 +50,8 @@ public class SimpleChangeSetGenerator extends ChangeSetGenerator {
 	 */
 	private void assertThatChangeSetIdIsNotNull(String osmServerName) {
 		if (changeSetInUseId == null) {
-			throw new IllegalStateException("no change set created by osm server of type "
-				+ String.valueOf(osmServerName));
+			throw new IllegalStateException(
+				"no change set created by osm server of type " + String.valueOf(osmServerName));
 		}
 	}
 
@@ -73,8 +75,8 @@ public class SimpleChangeSetGenerator extends ChangeSetGenerator {
 		}
 		else {
 			boolean isOpen;
-
-			isOpen = osmServer.isChangeSetOpen(changeSetInUseId, changeTime);
+			osmServer.closeChangesetsNeededToBeClosed(changeTime);
+			isOpen = osmServer.isChangeSetOpen(changeSetInUseId);
 
 			if (!isOpen) {
 

@@ -48,6 +48,7 @@ public class OsmServerAddChangesTest {
 		osmServer.storeNode(null, Node.getBerlinAsNode());
 	}
 
+	@SuppressWarnings("deprecation")
 	@Test(expected = IllegalArgumentException.class)
 	public void testAddNullToClosedChangeset() throws ParseException {
 		Long changesetId;

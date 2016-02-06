@@ -24,35 +24,37 @@ public class AreaGuardForSizeAndNeighbor extends AreaGuard {
 	 * Method returns <code>true</code> if given change is in (maximum) area of given changeset.
 	 *
 	 * @param changeSetInUseId
-	 *            used for check areas size
+	 *            used for check areas size; <code>null</code> is permitted, then method returns
+	 *            <code>false</code>
 	 * @param updatedItem
 	 *            method checks if this change will fit to area of given changeset
 	 * @return <code>true</code> if given change is in (maximum) area of given changeset,
 	 *         <code>false</code> otherwise
 	 */
 	public boolean isChangeSetInArea(Long changeSetInUseId, Change updatedItem) {
-		Area actualBox;
-		Area nextBox;
-		double maxEdge;
+		if (changeSetInUseId != null) {
 
-		actualBox = AreaGuardToolBox.getBoundingAreaForAreas(edges.get(changeSetInUseId));
-		nextBox = AreaGuardToolBox.combine(actualBox, new Area(updatedItem));
-		maxEdge = AreaGuardToolBox.getMaxEdge(nextBox);
+			Area actualBox;
+			Area nextBox;
+			double maxEdge;
 
-		maxEdge = Math.round(10_000_000.0 * maxEdge) / 10_000_000.0;
+			actualBox = AreaGuardToolBox.getBoundingAreaForAreas(edges.get(changeSetInUseId));
+			nextBox = AreaGuardToolBox.combine(actualBox, new Area(updatedItem));
+			maxEdge = AreaGuardToolBox.getMaxEdge(nextBox);
 
-		return !(maxEdge > maxBboxEdge);
+			maxEdge = Math.round(10_000_000.0 * maxEdge) / 10_000_000.0;
+
+			return !(maxEdge > maxBboxEdge);
+		}
+		else {
+			return false;
+		}
 	}
 
-	/**
-	 * Method removes all changesets from internal storage, which already are closed on server.
-	 *
-	 * @param osmServer
-	 *            will be called for its closed changesets
-	 */
-	public void removeAllChangesetsClosedByServer(OsmServer osmServer) {
-		List<Long> remove = new ArrayList<>();
+	public Optional<Long> validateAllStoredChangesets(OsmServer osmServer, Long changeSetInUseId) {
 
+		// remove all closed Changesets from internal list
+		List<Long> remove = new ArrayList<>();
 		for (Long id : edges.asMap().keySet()) {
 			boolean isOpen;
 			isOpen = osmServer.isChangeSetOpen(id);
@@ -61,35 +63,17 @@ public class AreaGuardForSizeAndNeighbor extends AreaGuard {
 				remove.add(id);
 			}
 		}
-
 		for (Long id : remove) {
 			edges.removeAll(id);
 		}
-	}
 
-	/**
-	 * @param osmServer
-	 * @param updatedItem
-	 */
-	public void removeAllChangesetsMustBeClosedByServer(OsmServer osmServer, Change updatedItem) {
-		List<Long> remove = new ArrayList<>();
-
-		for (Long id : edges.asMap().keySet()) {
-			boolean isOpen;
-
-			isOpen = osmServer.isChangeSetOpen(id);
-
-			if (isOpen) {
-				isOpen = osmServer.isChangeSetOpen(id, updatedItem.getCreatedAt());
-			}
-
-			if (!isOpen) {
-				remove.add(id);
-			}
+		// check if actual used changeset must be "removed" too, meaning returning null
+		if (changeSetInUseId != null && !osmServer.isChangeSetOpen(changeSetInUseId)) {
+			return Optional.empty();
 		}
-
-		for (Long id : remove) {
-			edges.removeAll(id);
+		else {
+			// ofNullable is important, because changeSetInUseId == null is permitted and valid
+			return Optional.ofNullable(changeSetInUseId);
 		}
 	}
 
@@ -119,5 +103,25 @@ public class AreaGuardForSizeAndNeighbor extends AreaGuard {
 		}
 
 		return result;
+	}
+
+	public Optional<Long> lookForChangesetWhereChangeFits(Change updatedItem,
+		Long changeSetInUseId) {
+
+		Optional<Long> fittingChangeset = null;
+
+		if (!isChangeSetInArea(changeSetInUseId, updatedItem)) {
+			fittingChangeset = Optional.empty();
+		}
+		else {
+			fittingChangeset = Optional.ofNullable(changeSetInUseId);
+		}
+
+		Long olderChangeSetId = searchOtherChangeSetForChange(changeSetInUseId, updatedItem);
+		if (olderChangeSetId != null) {
+			fittingChangeset = Optional.ofNullable(olderChangeSetId);
+		}
+
+		return fittingChangeset;
 	}
 }

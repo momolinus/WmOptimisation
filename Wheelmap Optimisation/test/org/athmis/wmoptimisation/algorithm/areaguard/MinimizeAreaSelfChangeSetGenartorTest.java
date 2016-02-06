@@ -15,7 +15,9 @@ import org.junit.Test;
 
 /**
  * @author Marcus Bleil
+ * @deprecated AreaGuardChangeSetGenerator is not recommanded anymore
  */
+@Deprecated
 public class MinimizeAreaSelfChangeSetGenartorTest {
 
 	private static final double MAX_EDGE_SIZE = 0.04;

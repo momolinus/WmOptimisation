@@ -1,6 +1,7 @@
 package org.athmis.wmoptimisation.algorithm.areaguard;
 
 import java.util.Calendar;
+import java.util.Optional;
 
 import org.athmis.wmoptimisation.algorithm.ChangeSetGenerator;
 import org.athmis.wmoptimisation.changeset.Change;
@@ -17,10 +18,10 @@ import org.athmis.wmoptimisation.osmserver.OsmServer;
  */
 public class AreaGuardSizeAndNeighborChangesetGenerator extends ChangeSetGenerator {
 
-	private AreaGuardForSizeAndNeighbor guard;
+	private AreaGuardForSizeAndNeighbor areaGuard;
 
 	public AreaGuardSizeAndNeighborChangesetGenerator(double maxBboxSize) {
-		guard = new AreaGuardForSizeAndNeighbor(maxBboxSize);
+		areaGuard = new AreaGuardForSizeAndNeighbor(maxBboxSize);
 		name = "ag sn (" + maxBboxSize + ")";
 	}
 
@@ -34,58 +35,38 @@ public class AreaGuardSizeAndNeighborChangesetGenerator extends ChangeSetGenerat
 	 */
 	@Override
 	protected void add(Change updatedItem, OsmServer osmServer, OsmChangeContent optimizedDataSet) {
-		Calendar changeTime;
-		ChangeSetUpdateAble changeSet;
 
 		assertThatChangeAndServerNotNull(updatedItem, osmServer);
+
+		Calendar changeTime;
+		ChangeSetUpdateAble changeSet;
 
 		// the change time means the actual time for working with server
 		changeTime = updatedItem.getCreatedAt();
 		String user = updatedItem.getUser();
 
-		// first run change set id is null and must be build
-		if (changeSetInUseId == null) {
+		osmServer.closeChangesetsNeededToBeClosed(changeTime);
+
+		Optional<Long> validatedChangeSetInUseId =
+			areaGuard.validateAllStoredChangesets(osmServer, changeSetInUseId);
+
+		Optional<Long> idOfFittingChangeset = areaGuard
+			.lookForChangesetWhereChangeFits(updatedItem, validatedChangeSetInUseId.orElse(null));
+
+		// if there was no valid changeset left, an new must be created
+		if (!idOfFittingChangeset.isPresent()) {
 			changeSetInUseId = osmServer.createChangeSet(changeTime, user);
 		}
 		else {
-			assertThatChangeSetIsNotNull(osmServer, changeSetInUseId);
-
-			guard.removeAllChangesetsMustBeClosedByServer(osmServer, updatedItem);
-
-			Long olderChangeSetId =
-				guard.searchOtherChangeSetForChange(changeSetInUseId, updatedItem);
-
-			if (olderChangeSetId != null) {
-				changeSetInUseId = olderChangeSetId;
-			}
-			else {
-				if (!guard.isChangeSetInArea(changeSetInUseId, updatedItem)) {
-					changeSetInUseId = null;
-				}
-
-				// XXX is this really the best place
-				if (changeSetInUseId != null) {
-					boolean isOpen;
-					isOpen = osmServer.isChangeSetOpen(changeSetInUseId);
-					if (!isOpen) {
-						changeSetInUseId = null;
-					}
-				}
-			}
-
-			// if there was no valid changeset left, an new must be created
-			if (changeSetInUseId == null) {
-				changeSetInUseId = osmServer.createChangeSet(changeTime, user);
-			}
+			changeSetInUseId = idOfFittingChangeset.get();
 		}
 
-		// note: first now is the correct time to call for changeset, because now changeset id is
-		// valid
 		changeSet = osmServer.getChangeSet(changeSetInUseId);
 
 		assertThatChangeSetNotNull(changeSet);
 
-		guard.addUpdatedItem(changeSetInUseId, updatedItem);
+		areaGuard.addUpdatedItem(changeSetInUseId, updatedItem);
+
 		optimizedDataSet.addChangeForChangeSet(updatedItem, changeSet);
 	}
 }

@@ -11,6 +11,7 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 import org.junit.runners.Suite.SuiteClasses;
 
+@SuppressWarnings("deprecation")
 @RunWith(Suite.class)
 @SuiteClasses({ ChangeSetTest.class, FetchChangeSetsTest.class, NodeAndApiTest.class, OsmServerAddChangesTest.class,
 	OsmServerTest.class, SimpleChangeSetGeneratorTest.class, SimpleChangeSetGeneratorTest2.class,

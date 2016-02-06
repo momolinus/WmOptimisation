@@ -1,4 +1,5 @@
-/* Copyright Marcus Bleil, Oliver Rudzik, Christoph Bünte 2012 This file is part of Wheelmap
+/*
+ * Copyright Marcus Bleil, Oliver Rudzik, Christoph Bünte 2012 This file is part of Wheelmap
  * Optimization. Wheelmap Optimization is free software: you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by the Free Software Foundation,
  * either version 3 of the License, or (at your option) any later version. Wheelmap Optimization is
@@ -13,7 +14,8 @@
  * aber OHNE JEDE GEWÄHELEISTUNG, bereitgestellt; sogar ohne die implizite Gewährleistung der
  * MARKTFÄHIGKEIT oder EIGNUNG FÜR EINEN BESTIMMTEN ZWECK. Siehe die GNU General Public License für
  * weitere Details. Sie sollten eine Kopie der GNU General Public License zusammen mit diesem
- * Programm erhalten haben. Wenn nicht, siehe <http://www.gnu.org/licenses/>. */
+ * Programm erhalten haben. Wenn nicht, siehe <http://www.gnu.org/licenses/>.
+ */
 package org.athmis.wmoptimisation.osmserver;
 
 import static org.athmis.wmoptimisation.changeset.ChangeSetToolkit.calToOsm;
@@ -91,7 +93,31 @@ public class OsmServer {
 		changes = ArrayListMultimap.create();
 	}
 
-	private void checkForClosingChangesets(final Calendar now) {
+	/**
+	 * Closes the changeset for given id.
+	 *
+	 * @param id
+	 *            changesets id
+	 * @param closeTime
+	 *            the closing time
+	 * @return <code>true</code> if changeset was open, <code>false</code> if changeset still was
+	 *         closed.
+	 */
+	public boolean closeChangeSet(Long id, Calendar closeTime) {
+		boolean wasOpenOnClosingTime;
+
+		closeChangesetsNeededToBeClosed(closeTime);
+
+		wasOpenOnClosingTime = changeSets.get(id).isOpen();
+
+		if (wasOpenOnClosingTime) {
+			changeSets.get(id).close(closeTime);
+		}
+
+		return wasOpenOnClosingTime;
+	}
+
+	public void closeChangesetsNeededToBeClosed(final Calendar now) {
 
 		for (ChangeSetUpdateAble changeSet : changeSets.values()) {
 
@@ -126,84 +152,6 @@ public class OsmServer {
 				LOGGER.debug("no changeset is open");
 			}
 		}
-	}
-
-	private void log(ChangeSetUpdateAble changeSet, boolean is60minNotInUse, boolean olderThan24Hours,
-						boolean hasEnoughChanges) {
-		// debugging/logging
-		if (is60minNotInUse) {
-			LOGGER.debug("changeset " + changeSet.getId() + " closed because was 60 min not in use");
-		}
-		if (olderThan24Hours) {
-			LOGGER.debug("changeset " + changeSet.getId() + " closed because was older than 24 hours");
-		}
-		if (hasEnoughChanges) {
-			LOGGER.debug("changeset " + changeSet.getId() + " closed because has >= 50.000 changes");
-		}
-	}
-
-	protected boolean isOlderThan24Hours(ChangeSetUpdateAble changeSet, Calendar now) {
-		long age;
-		// older than 24 hours
-		age = now.getTimeInMillis() - changeSet.getCreated().getTimeInMillis();
-		LOGGER.trace("diff = " + TimeUnit.MILLISECONDS.toMinutes(age));
-
-		boolean closingNeeded = (TimeUnit.MILLISECONDS.toHours(age) >= 24);
-		return closingNeeded;
-	}
-
-	protected boolean is60minutesNotUsed(ChangeSetUpdateAble changeSet, Calendar now) {
-		List<Change> changesForChangeSet;
-		long diff;
-		changesForChangeSet = new ArrayList<>(changes.get(changeSet.getId()));
-
-		// there are any changes in given change set
-		if (changesForChangeSet.size() > 0) {
-			Calendar youngestChangeTime;
-			Change youngestChange;
-
-			Collections.sort(changesForChangeSet);
-			youngestChange = changesForChangeSet.get(changesForChangeSet.size() - 1);
-
-			youngestChangeTime = osmToCal(youngestChange.getTimestamp());
-			diff = now.getTimeInMillis() - youngestChangeTime.getTimeInMillis();
-		}
-
-		// change set is empty
-		else {
-			diff = now.getTimeInMillis() - changeSet.getCreated().getTimeInMillis();
-		}
-
-		LOGGER.trace("diff = " + TimeUnit.MILLISECONDS.toMinutes(diff));
-
-		// 60 min not in used
-		boolean closingNeeded = TimeUnit.MILLISECONDS.toMinutes(diff) >= 60;
-
-		return closingNeeded;
-	}
-
-	/**
-	 * Closes the changeset for given id.
-	 *
-	 * @param id
-	 *            changesets id
-	 * @param closeTime
-	 *            the closing time
-	 * @return <code>true</code> if changeset was open, <code>false</code> if changeset still was
-	 *         closed.
-	 */
-	public boolean closeChangeSet(Long id, Calendar closeTime) {
-		boolean wasOpenOnClosingTime;
-
-		checkForClosingChangesets(closeTime);
-
-		wasOpenOnClosingTime = changeSets.get(id).isOpen();
-
-		if (wasOpenOnClosingTime) {
-			changeSets.get(id).close(closeTime);
-		}
-
-		return wasOpenOnClosingTime;
 	}
 
 	/**
@@ -268,7 +216,36 @@ public class OsmServer {
 		return changeSets.get(id);
 	}
 
-	// TODO Methode in zwei Methoden aufteilen, siehe Clean Code Kap. 3.8
+	/**
+	 * Checks if given changeset id is valid, meaning server contains a changeset with given id.
+	 *
+	 * @param id
+	 *            id for a changeset
+	 * @return <code>true</code> if server contains a changeset with that id, <code>false</code>
+	 *         otherwise
+	 */
+	public boolean isChangeSetIdValid(Long id) {
+		return changeSets.containsKey(id);
+	}
+
+	/**
+	 * Returns open state of given changeset id.
+	 *
+	 * @param id
+	 *            of a changeset
+	 * @return <code>true</code> if changeset with given id is open, <code>false</code> otherwise
+	 * @throws IllegalArgumentException
+	 *             if this OsmServer stores no changeset with givn id
+	 */
+	public boolean isChangeSetOpen(Long id) {
+		if (!changeSets.containsKey(id)) {
+			throw new IllegalArgumentException(
+				"unknown changeset with 'id = " + String.valueOf(id) + "'");
+		}
+
+		return changeSets.get(id).isOpen();
+	}
+
 	/**
 	 * Checks for closing task at given time and returns the changeset open state.
 	 *
@@ -280,27 +257,21 @@ public class OsmServer {
 	 * @return <code>true</code> if the changeset ist open
 	 * @throws IllegalArgumentException
 	 *             if id is illegal, meaning no changeset exits with given id
+	 * @deprecated this method calls {@linkplain #closeChangesetsNeededToBeClosed(Calendar)}
+	 *             following with <code>return changeSets.get(id).isOpen();</code>. This are to many
+	 *             tasks for one method, use {@linkplain #closeChangesetsNeededToBeClosed(Calendar)}
+	 *             and {@linkplain #isChangeSetOpen(Long)} together
 	 */
+	@Deprecated
 	public boolean isChangeSetOpen(Long id, Calendar now) {
 		if (!changeSets.containsKey(id)) {
-			throw new IllegalArgumentException("unknown changeset with 'id = " + String.valueOf(id) + "'");
+			throw new IllegalArgumentException(
+				"unknown changeset with 'id = " + String.valueOf(id) + "'");
 		}
 
-		checkForClosingChangesets(now);
+		closeChangesetsNeededToBeClosed(now);
 
 		return changeSets.get(id).isOpen();
-	}
-
-	/**
-	 * Checks if given changeset id is valid, meaning server contains a changeset with given id.
-	 *
-	 * @param id
-	 *            id for a changeset
-	 * @return <code>true</code> if server contains a changeset with that id, <code>false</code>
-	 *         otherwise
-	 */
-	public boolean isChangeSetIdValid(Long id) {
-		return changeSets.containsKey(id);
 	}
 
 	/**
@@ -320,7 +291,7 @@ public class OsmServer {
 
 		checkParametersNotNull(changesetId, node);
 
-		checkForClosingChangesets(node.getCreatedAt());
+		closeChangesetsNeededToBeClosed(node.getCreatedAt());
 
 		checkChangesetIsStillOpen(changesetId, node);
 
@@ -345,7 +316,7 @@ public class OsmServer {
 
 		checkParametersNotNull(changesetId, way);
 
-		checkForClosingChangesets(way.getCreatedAt());
+		closeChangesetsNeededToBeClosed(way.getCreatedAt());
 
 		checkChangesetIsStillOpen(changesetId, way);
 
@@ -363,12 +334,13 @@ public class OsmServer {
 	 */
 	private void checkChangesetIsStillOpen(Long changesetId, Change change) {
 		if (!changeSets.get(changesetId).isOpen()) {
-			throw new IllegalArgumentException("can't store change " + change.getId() + " to closed changeset "
-				+ changesetId);
+			throw new IllegalArgumentException(
+				"can't store change " + change.getId() + " to closed changeset " + changesetId);
 		}
 	}
 
-	private void checkParametersNotNull(Long changesetId, Change node) throws IllegalArgumentException {
+	private void checkParametersNotNull(Long changesetId, Change node)
+		throws IllegalArgumentException {
 
 		if (node == null) {
 			throw new IllegalArgumentException("null as node/way is not permitted");
@@ -378,20 +350,60 @@ public class OsmServer {
 		}
 	}
 
-	/**
-	 * Returns open state of given changeset id.
-	 *
-	 * @param id
-	 *            of a changeset
-	 * @return <code>true</code> if changeset with given id is open, <code>false</code> otherwise
-	 * @throws IllegalArgumentException
-	 *             if this OsmServer stores no changeset with givn id
-	 */
-	public boolean isChangeSetOpen(Long id) {
-		if (!changeSets.containsKey(id)) {
-			throw new IllegalArgumentException("unknown changeset with 'id = " + String.valueOf(id) + "'");
+	private void log(ChangeSetUpdateAble changeSet, boolean is60minNotInUse,
+		boolean olderThan24Hours, boolean hasEnoughChanges) {
+		// debugging/logging
+		if (is60minNotInUse) {
+			LOGGER
+				.debug("changeset " + changeSet.getId() + " closed because was 60 min not in use");
+		}
+		if (olderThan24Hours) {
+			LOGGER.debug("changeset " + changeSet.getId()
+				+ " closed because was older than 24 hours");
+		}
+		if (hasEnoughChanges) {
+			LOGGER
+				.debug("changeset " + changeSet.getId() + " closed because has >= 50.000 changes");
+		}
+	}
+
+	protected boolean is60minutesNotUsed(ChangeSetUpdateAble changeSet, Calendar now) {
+		List<Change> changesForChangeSet;
+		long diff;
+		changesForChangeSet = new ArrayList<>(changes.get(changeSet.getId()));
+
+		// there are any changes in given change set
+		if (changesForChangeSet.size() > 0) {
+			Calendar youngestChangeTime;
+			Change youngestChange;
+
+			Collections.sort(changesForChangeSet);
+			youngestChange = changesForChangeSet.get(changesForChangeSet.size() - 1);
+
+			youngestChangeTime = osmToCal(youngestChange.getTimestamp());
+			diff = now.getTimeInMillis() - youngestChangeTime.getTimeInMillis();
 		}
 
-		return changeSets.get(id).isOpen();
+		// change set is empty
+		else {
+			diff = now.getTimeInMillis() - changeSet.getCreated().getTimeInMillis();
+		}
+
+		LOGGER.trace("diff = " + TimeUnit.MILLISECONDS.toMinutes(diff));
+
+		// 60 min not in used
+		boolean closingNeeded = TimeUnit.MILLISECONDS.toMinutes(diff) >= 60;
+
+		return closingNeeded;
+	}
+
+	protected boolean isOlderThan24Hours(ChangeSetUpdateAble changeSet, Calendar now) {
+		long age;
+		// older than 24 hours
+		age = now.getTimeInMillis() - changeSet.getCreated().getTimeInMillis();
+		LOGGER.trace("diff = " + TimeUnit.MILLISECONDS.toMinutes(age));
+
+		boolean closingNeeded = (TimeUnit.MILLISECONDS.toHours(age) >= 24);
+		return closingNeeded;
 	}
 }
