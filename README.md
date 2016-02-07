@@ -7,6 +7,12 @@ more details: https://github.com/momolinus/WmOptimisation/wiki (DE)
 
 # Changelog:
 
+## 2016-02-07
+
+published v2.2
+
+project finished, not more function planed
+
 ## 2015-12-4
 
 publish v2.1
